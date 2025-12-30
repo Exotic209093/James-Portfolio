@@ -6,8 +6,8 @@ import { ButtonLink } from '@/components/ui/Button'
 import { siteConfig } from '@/lib/constants'
 
 export default function Hero() {
-  const scrollToAbout = () => {
-    const element = document.getElementById('about-preview')
+  const scrollToExperience = () => {
+    const element = document.getElementById('experience-preview')
     element?.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -73,7 +73,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
-          onClick={scrollToAbout}
+          onClick={scrollToExperience}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-400 hover:text-purple-400 transition-colors"
           aria-label="Scroll down"
         >
