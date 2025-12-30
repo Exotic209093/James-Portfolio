@@ -26,7 +26,7 @@ export default function AboutPage() {
           </p>
         </motion.div>
 
-        {/* Professional Experience Section */}
+        {/* Professional Experience Section - Now First */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -42,9 +42,9 @@ export default function AboutPage() {
               <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-2">
-                    Salesforce Software Developer
+                    Software Developer
                   </h3>
-                  <p className="text-purple-400 mb-2">Specializing in Custom Solutions</p>
+                  <p className="text-purple-400 mb-2">Apex Infinity Solutions</p>
                 </div>
                 <span className="text-gray-400 text-sm">United Kingdom</span>
               </div>
