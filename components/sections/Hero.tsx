@@ -38,6 +38,9 @@ export default function Hero() {
             <h2 className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-light">
               {siteConfig.title}
             </h2>
+            <p className="text-lg sm:text-xl text-purple-400 mt-2">
+              Based in {siteConfig.location}
+            </p>
           </motion.div>
 
           <motion.p

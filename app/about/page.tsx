@@ -37,20 +37,21 @@ export default function AboutPage() {
             <div className="prose prose-invert max-w-none">
               <h2 className="text-2xl font-semibold text-white mb-4">My Story</h2>
               <p className="text-gray-300 mb-4 leading-relaxed">
-                I&apos;m a passionate full-stack developer with a deep love for creating
-                beautiful, functional, and user-friendly web applications. My journey
-                in web development started several years ago, and I&apos;ve been continuously
-                learning and growing ever since.
+                I&apos;m a Salesforce Software Developer based in the United Kingdom, specializing
+                in custom Apex code solutions and external integrations. My passion lies in
+                solving complex business challenges by building robust, scalable solutions that
+                seamlessly connect Salesforce with external systems.
               </p>
               <p className="text-gray-300 mb-4 leading-relaxed">
-                I specialize in building modern web applications using cutting-edge
-                technologies. I enjoy turning complex problems into simple, elegant
-                solutions and am always eager to take on new challenges.
+                While I&apos;m primarily a backend developer with deep expertise in Apex and
+                Salesforce architecture, I also have frontend capabilities when needed. I
+                specialize in making the impossible possible - taking complex integration
+                requirements and turning them into elegant, maintainable solutions.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                When I&apos;m not coding, you can find me exploring new technologies,
-                contributing to open-source projects, or sharing my knowledge with
-                the developer community.
+                My work spans from enterprise-level Salesforce implementations to low-level
+                system programming. I enjoy pushing the boundaries of what&apos;s possible with
+                Salesforce and creating solutions that drive real business value.
               </p>
             </div>
           </Card>
@@ -104,37 +105,31 @@ export default function AboutPage() {
             <span className="text-white">Experience</span>
           </h2>
           <div className="space-y-6">
-            {/* Sample experience - replace with actual data */}
             <Card>
               <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-2">
-                    Senior Full-Stack Developer
+                    Salesforce Software Developer
                   </h3>
-                  <p className="text-purple-400 mb-2">Company Name</p>
+                  <p className="text-purple-400 mb-2">Specializing in Custom Solutions</p>
                 </div>
-                <span className="text-gray-400 text-sm">2022 - Present</span>
+                <span className="text-gray-400 text-sm">United Kingdom</span>
               </div>
-              <p className="text-gray-300 leading-relaxed">
-                Leading development of modern web applications using React, Next.js,
-                and Node.js. Collaborating with cross-functional teams to deliver
-                high-quality software solutions.
+              <p className="text-gray-300 leading-relaxed mb-3">
+                Specialized in developing custom Apex solutions and building complex integrations
+                between Salesforce and external systems. Focus on creating scalable, maintainable
+                code that solves real business problems.
               </p>
-            </Card>
-            <Card>
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    Full-Stack Developer
-                  </h3>
-                  <p className="text-purple-400 mb-2">Previous Company</p>
-                </div>
-                <span className="text-gray-400 text-sm">2020 - 2022</span>
+              <div className="mt-4 pt-4 border-t border-purple-800/30">
+                <h4 className="text-purple-400 font-semibold mb-2">Key Expertise:</h4>
+                <ul className="text-gray-300 space-y-1 text-sm">
+                  <li>• Custom Apex development and enterprise patterns</li>
+                  <li>• REST and SOAP API integrations</li>
+                  <li>• Lightning Web Components and Aura Components</li>
+                  <li>• Complex system architecture and design</li>
+                  <li>• Backend development with frontend capabilities</li>
+                </ul>
               </div>
-              <p className="text-gray-300 leading-relaxed">
-                Developed and maintained multiple web applications, implemented new
-                features, and optimized application performance.
-              </p>
             </Card>
           </div>
         </motion.div>

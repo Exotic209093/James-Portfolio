@@ -22,9 +22,9 @@ export default function AboutPreview() {
           </h2>
           
           <p className="text-lg text-gray-300 mb-8 text-center leading-relaxed">
-            I&apos;m a passionate full-stack developer with a love for creating beautiful,
-            functional, and user-friendly web applications. I enjoy turning complex
-            problems into simple, elegant solutions.
+            I&apos;m a Salesforce Software Developer specializing in custom Apex solutions
+            and external integrations. Based in the UK, I focus on making the impossible
+            possible through robust backend development.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">

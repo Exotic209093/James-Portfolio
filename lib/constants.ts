@@ -1,14 +1,15 @@
 export const siteConfig = {
-  name: 'Your Name',
-  title: 'Full-Stack Developer',
-  description: 'Building modern web applications with passion and precision',
-  url: 'https://yourportfolio.vercel.app',
+  name: 'James Collard',
+  title: 'Salesforce Software Developer',
+  description: 'Specializing in custom Apex code solutions and external integrations. Making the impossible possible.',
+  url: 'https://jamescollard.vercel.app',
   ogImage: '/og-image.jpg',
+  location: 'United Kingdom',
   links: {
-    twitter: 'https://twitter.com/yourusername',
-    github: 'https://github.com/yourusername',
-    linkedin: 'https://linkedin.com/in/yourusername',
-    email: 'mailto:your.email@example.com',
+    twitter: 'https://twitter.com/Exotic209093',
+    github: 'https://github.com/Exotic209093',
+    linkedin: 'https://linkedin.com/in/james-collard',
+    email: 'mailto:james@example.com',
   },
 }
 
@@ -22,16 +23,16 @@ export const navigation = [
 
 export const skills = [
   {
-    category: 'Frontend',
-    items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    category: 'Salesforce',
+    items: ['Apex', 'Lightning Web Components', 'Salesforce APIs', 'SOQL', 'Aura Components', 'Flow'],
   },
   {
     category: 'Backend',
-    items: ['Node.js', 'Express', 'PostgreSQL', 'MongoDB', 'REST APIs'],
+    items: ['Apex Development', 'REST APIs', 'SOAP APIs', 'External Integrations', 'Database Design', 'System Architecture'],
   },
   {
-    category: 'Tools',
-    items: ['Git', 'Docker', 'Vercel', 'AWS', 'Figma'],
+    category: 'Technologies',
+    items: ['Python', 'JavaScript', 'TypeScript', 'C/C++', 'Flask', 'Git', 'PostgreSQL', 'MySQL', 'MongoDB'],
   },
 ]
 
