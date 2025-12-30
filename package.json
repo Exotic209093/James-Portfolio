@@ -19,7 +19,9 @@
     "lucide-react": "^0.344.0",
     "gray-matter": "^4.0.3",
     "remark": "^15.0.1",
-    "remark-html": "^16.0.1"
+    "remark-html": "^16.0.1",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
