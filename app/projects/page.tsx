@@ -11,7 +11,7 @@ export default function ProjectsPage() {
             <span className="gradient-text">Projects</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            A collection of projects I've worked on, showcasing my skills and experience
+            A collection of projects I&apos;ve worked on, showcasing my skills and experience
           </p>
         </div>
 

@@ -22,7 +22,7 @@ export default function AboutPreview() {
           </h2>
           
           <p className="text-lg text-gray-300 mb-8 text-center leading-relaxed">
-            I'm a passionate full-stack developer with a love for creating beautiful,
+            I&apos;m a passionate full-stack developer with a love for creating beautiful,
             functional, and user-friendly web applications. I enjoy turning complex
             problems into simple, elegant solutions.
           </p>

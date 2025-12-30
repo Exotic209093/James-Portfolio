@@ -25,11 +25,11 @@ export default function ContactCTA() {
           >
             <MessageCircle className="h-16 w-16 text-purple-500 mx-auto mb-6" />
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              <span className="text-white">Let's Work </span>
+              <span className="text-white">Let&apos;s Work </span>
               <span className="gradient-text">Together</span>
             </h2>
             <p className="text-lg text-gray-300 mb-8">
-              Have a project in mind? I'd love to hear about it. Let's create
+              Have a project in mind? I&apos;d love to hear about it. Let&apos;s create
               something amazing together.
             </p>
           </motion.div>

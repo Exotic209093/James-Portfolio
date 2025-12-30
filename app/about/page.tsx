@@ -37,9 +37,9 @@ export default function AboutPage() {
             <div className="prose prose-invert max-w-none">
               <h2 className="text-2xl font-semibold text-white mb-4">My Story</h2>
               <p className="text-gray-300 mb-4 leading-relaxed">
-                I'm a passionate full-stack developer with a deep love for creating
+                I&apos;m a passionate full-stack developer with a deep love for creating
                 beautiful, functional, and user-friendly web applications. My journey
-                in web development started several years ago, and I've been continuously
+                in web development started several years ago, and I&apos;ve been continuously
                 learning and growing ever since.
               </p>
               <p className="text-gray-300 mb-4 leading-relaxed">
@@ -48,7 +48,7 @@ export default function AboutPage() {
                 solutions and am always eager to take on new challenges.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                When I'm not coding, you can find me exploring new technologies,
+                When I&apos;m not coding, you can find me exploring new technologies,
                 contributing to open-source projects, or sharing my knowledge with
                 the developer community.
               </p>

@@ -32,7 +32,7 @@ export default function Hero() {
             className="mb-6"
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
-              <span className="text-white">Hi, I'm </span>
+              <span className="text-white">Hi, I&apos;m </span>
               <span className="gradient-text">{siteConfig.name}</span>
             </h1>
             <h2 className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-light">
