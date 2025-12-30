@@ -26,6 +26,47 @@ export default function AboutPage() {
           </p>
         </motion.div>
 
+        {/* Professional Experience Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+          className="max-w-4xl mx-auto mb-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="text-white">Professional </span>
+            <span className="gradient-text">Experience</span>
+          </h2>
+          <div className="space-y-6">
+            <Card>
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    Salesforce Software Developer
+                  </h3>
+                  <p className="text-purple-400 mb-2">Specializing in Custom Solutions</p>
+                </div>
+                <span className="text-gray-400 text-sm">United Kingdom</span>
+              </div>
+              <p className="text-gray-300 leading-relaxed mb-3">
+                Specialized in developing custom Apex solutions and building complex integrations
+                between Salesforce and external systems. Focus on creating scalable, maintainable
+                code that solves real business problems.
+              </p>
+              <div className="mt-4 pt-4 border-t border-purple-800/30">
+                <h4 className="text-purple-400 font-semibold mb-2">Key Responsibilities:</h4>
+                <ul className="text-gray-300 space-y-1 text-sm">
+                  <li>• Develop custom Apex classes and triggers for enterprise-level Salesforce implementations</li>
+                  <li>• Design and implement REST and SOAP API integrations with external systems</li>
+                  <li>• Build Lightning Web Components and Aura Components for enhanced user experiences</li>
+                  <li>• Architect complex system integrations and data synchronization solutions</li>
+                  <li>• Create maintainable, scalable code following Salesforce best practices</li>
+                </ul>
+              </div>
+            </Card>
+          </div>
+        </motion.div>
+
         {/* Bio Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -94,45 +135,6 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
-        {/* Experience Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="max-w-4xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Experience</span>
-          </h2>
-          <div className="space-y-6">
-            <Card>
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    Salesforce Software Developer
-                  </h3>
-                  <p className="text-purple-400 mb-2">Specializing in Custom Solutions</p>
-                </div>
-                <span className="text-gray-400 text-sm">United Kingdom</span>
-              </div>
-              <p className="text-gray-300 leading-relaxed mb-3">
-                Specialized in developing custom Apex solutions and building complex integrations
-                between Salesforce and external systems. Focus on creating scalable, maintainable
-                code that solves real business problems.
-              </p>
-              <div className="mt-4 pt-4 border-t border-purple-800/30">
-                <h4 className="text-purple-400 font-semibold mb-2">Key Expertise:</h4>
-                <ul className="text-gray-300 space-y-1 text-sm">
-                  <li>• Custom Apex development and enterprise patterns</li>
-                  <li>• REST and SOAP API integrations</li>
-                  <li>• Lightning Web Components and Aura Components</li>
-                  <li>• Complex system architecture and design</li>
-                  <li>• Backend development with frontend capabilities</li>
-                </ul>
-              </div>
-            </Card>
-          </div>
-        </motion.div>
 
         {/* CTA Section */}
         <motion.div
