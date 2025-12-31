@@ -138,18 +138,16 @@ export default function ContactPage() {
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                       Name
                     </label>
-                    <motion.div whileFocus={{ scale: 1.02 }}>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                        placeholder="Your name"
-                      />
-                    </motion.div>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                      placeholder="Your name"
+                    />
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -159,18 +157,16 @@ export default function ContactPage() {
                     <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                       Email
                     </label>
-                    <motion.div whileFocus={{ scale: 1.02 }}>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                        placeholder="your.email@example.com"
-                      />
-                    </motion.div>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                      placeholder="your.email@example.com"
+                    />
                   </motion.div>
                 </div>
 
@@ -182,18 +178,16 @@ export default function ContactPage() {
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
                     Subject
                   </label>
-                  <motion.div whileFocus={{ scale: 1.02 }}>
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                      placeholder="What's this about?"
-                    />
-                  </motion.div>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    placeholder="What's this about?"
+                  />
                 </motion.div>
 
                 <motion.div
@@ -204,18 +198,16 @@ export default function ContactPage() {
                   <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
                     Message
                   </label>
-                  <motion.div whileFocus={{ scale: 1.02 }}>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows={6}
-                      className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
-                      placeholder="Tell me about your project..."
-                    />
-                  </motion.div>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={6}
+                    className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
+                    placeholder="Tell me about your project..."
+                  />
                 </motion.div>
 
                 <AnimatePresence>
