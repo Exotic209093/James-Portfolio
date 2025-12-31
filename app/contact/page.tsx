@@ -262,7 +262,7 @@ export default function ContactPage() {
                 </motion.div>
               </form>
             </Card>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
