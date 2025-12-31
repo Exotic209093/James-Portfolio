@@ -7,6 +7,7 @@ import { formatDate } from '@/lib/utils'
 import { ButtonLink } from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import ProjectDetailClient from '@/components/projects/ProjectDetailClient'
+import { motion } from 'framer-motion';
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
