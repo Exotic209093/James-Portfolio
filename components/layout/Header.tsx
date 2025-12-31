@@ -35,54 +35,72 @@ export default function Header() {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link
-            href="/"
-            className="text-xl md:text-2xl font-bold gradient-text hover:opacity-80 transition-opacity"
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            Portfolio
-          </Link>
+            <Link
+              href="/"
+              className="text-xl md:text-2xl font-bold gradient-text hover:opacity-80 transition-opacity"
+            >
+              Portfolio
+            </Link>
+          </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => {
+            {navigation.map((item, index) => {
               const isActive = pathname === item.href
               return (
-                <Link
+                <motion.div
                   key={item.name}
-                  href={item.href}
-                  className={cn(
-                    'text-sm font-medium transition-colors relative',
-                    isActive
-                      ? 'text-purple-400'
-                      : 'text-gray-300 hover:text-purple-400'
-                  )}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.3 }}
                 >
-                  {item.name}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-purple-500"
-                      initial={false}
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </Link>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      'text-sm font-medium transition-colors relative',
+                      isActive
+                        ? 'text-purple-400'
+                        : 'text-gray-300 hover:text-purple-400'
+                    )}
+                  >
+                    {item.name}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-purple-500"
+                        initial={false}
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+                </motion.div>
               )
             })}
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <motion.button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             className="md:hidden text-gray-300 hover:text-purple-400 transition-colors"
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+            <motion.div
+              animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </motion.div>
+          </motion.button>
         </div>
       </nav>
 
@@ -96,22 +114,29 @@ export default function Header() {
             className="md:hidden bg-black/95 backdrop-blur-md border-t border-purple-900/20"
           >
             <div className="container mx-auto px-4 py-4 space-y-4">
-              {navigation.map((item) => {
+              {navigation.map((item, index) => {
                 const isActive = pathname === item.href
                 return (
-                  <Link
+                  <motion.div
                     key={item.name}
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={cn(
-                      'block text-base font-medium transition-colors',
-                      isActive
-                        ? 'text-purple-400'
-                        : 'text-gray-300 hover:text-purple-400'
-                    )}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ delay: index * 0.1 }}
                   >
-                    {item.name}
-                  </Link>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        'block text-base font-medium transition-colors',
+                        isActive
+                          ? 'text-purple-400'
+                          : 'text-gray-300 hover:text-purple-400'
+                      )}
+                    >
+                      {item.name}
+                    </Link>
+                  </motion.div>
                 )
               })}
             </div>

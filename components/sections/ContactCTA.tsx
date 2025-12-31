@@ -23,7 +23,19 @@ export default function ContactCTA() {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <MessageCircle className="h-16 w-16 text-purple-500 mx-auto mb-6" />
+            <motion.div
+              animate={{
+                rotate: [0, 10, -10, 0],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatDelay: 2,
+              }}
+            >
+              <MessageCircle className="h-16 w-16 text-purple-500 mx-auto mb-6" />
+            </motion.div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               <span className="text-white">Let&apos;s Work </span>
               <span className="gradient-text">Together</span>
@@ -41,10 +53,15 @@ export default function ContactCTA() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <ButtonLink href="/contact" variant="primary" size="lg">
-              <Mail className="mr-2 h-5 w-5" />
-              Get In Touch
-            </ButtonLink>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ButtonLink href="/contact" variant="primary" size="lg">
+                <Mail className="mr-2 h-5 w-5" />
+                Get In Touch
+              </ButtonLink>
+            </motion.div>
             <a
               href={siteConfig.links.email}
               className="text-gray-400 hover:text-purple-400 transition-colors"

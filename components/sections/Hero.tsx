@@ -15,7 +15,18 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Animated Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950/20 to-black" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.1),transparent_50%)]" />
+      <motion.div
+        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.1),transparent_50%)]"
+        animate={{
+          background: [
+            'radial-gradient(circle at 50% 50%, rgba(147,51,234,0.1) 0%, transparent 50%)',
+            'radial-gradient(circle at 60% 40%, rgba(147,51,234,0.15) 0%, transparent 50%)',
+            'radial-gradient(circle at 40% 60%, rgba(147,51,234,0.1) 0%, transparent 50%)',
+            'radial-gradient(circle at 50% 50%, rgba(147,51,234,0.1) 0%, transparent 50%)',
+          ]
+        }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
       
       {/* Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -58,13 +69,23 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <ButtonLink href="/projects" variant="primary" size="lg">
-              View My Work
-            </ButtonLink>
-            <ButtonLink href="/resume.pdf" variant="outline" size="lg" download>
-              <Download className="mr-2 h-5 w-5" />
-              Download Resume
-            </ButtonLink>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ButtonLink href="/projects" variant="primary" size="lg">
+                View My Work
+              </ButtonLink>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ButtonLink href="/resume.pdf" variant="outline" size="lg" download>
+                <Download className="mr-2 h-5 w-5" />
+                Download Resume
+              </ButtonLink>
+            </motion.div>
           </motion.div>
         </motion.div>
 
