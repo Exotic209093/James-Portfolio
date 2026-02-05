@@ -1,15 +1,15 @@
 export const siteConfig = {
   name: 'James Collard',
-  title: 'Salesforce Software Developer',
-  description: 'Specializing in custom Apex code solutions and external integrations. Making the impossible possible.',
+  title: 'Junior Software Engineer',
+  description: 'Passionate and driven software engineer with expertise in full-stack web development, systems programming, and automation. Seeking opportunities to solve real-world problems through clean, efficient code.',
   url: 'https://jamescollard.vercel.app',
   ogImage: '/og-image.jpg',
-  location: 'United Kingdom',
+  location: 'Kent, United Kingdom',
   links: {
     twitter: 'https://twitter.com/Exotic209093',
     github: 'https://github.com/Exotic209093',
     linkedin: 'https://linkedin.com/in/james-collard',
-    email: 'mailto:james@example.com',
+    email: 'mailto:jamescollard2005@gmail.com',
   },
 }
 
@@ -23,16 +23,16 @@ export const navigation = [
 
 export const skills = [
   {
-    category: 'Salesforce',
-    items: ['Apex', 'Lightning Web Components', 'Salesforce APIs', 'SOQL', 'Aura Components', 'Flow'],
+    category: 'Languages',
+    items: ['Python', 'C++', 'C#', 'JavaScript', 'Arduino C++', 'SQL', 'Bash'],
   },
   {
-    category: 'Backend',
-    items: ['Apex Development', 'REST APIs', 'SOAP APIs', 'External Integrations', 'Database Design', 'System Architecture'],
+    category: 'Frameworks & Tools',
+    items: ['Flask', 'Django', 'React', 'Node.js', 'Vue.js', 'Qt5', 'Git', 'Docker', 'Linux'],
   },
   {
-    category: 'Technologies',
-    items: ['Python', 'JavaScript', 'TypeScript', 'C/C++', 'Flask', 'Git', 'PostgreSQL', 'MySQL', 'MongoDB'],
+    category: 'Database & Systems',
+    items: ['MySQL', 'SQLite', 'MongoDB', 'REST APIs', 'Multithreading', 'Real-time Systems'],
   },
 ]
 

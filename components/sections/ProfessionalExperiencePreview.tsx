@@ -17,60 +17,90 @@ export default function ProfessionalExperiencePreview() {
           className="max-w-4xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
-            <span className="text-white">Professional </span>
-            <span className="gradient-text">Experience</span>
+            <span className="text-white">What I&apos;ve </span>
+            <span className="gradient-text">Built</span>
           </h2>
           
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <Card hover className="mb-10">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    Software Developer
-                  </h3>
-                  <p className="text-purple-400 mb-2">Apex Infinity Solutions</p>
-                </div>
-                <span className="text-gray-400 text-sm">United Kingdom</span>
-              </div>
-              <p className="text-gray-300 leading-relaxed mb-3">
-                Specialized in developing custom Apex solutions and building complex integrations
-                between Salesforce and external systems. Focus on creating scalable, maintainable
-                code that solves real business problems.
-              </p>
-              <div className="mt-4 pt-4 border-t border-purple-800/30">
-                <h4 className="text-purple-400 font-semibold mb-2">Key Responsibilities:</h4>
-                <ul className="text-gray-300 space-y-1 text-sm">
-                  {[
-                    'Develop custom Apex classes and triggers for enterprise-level Salesforce implementations',
-                    'Design and implement REST and SOAP API integrations with external systems',
-                    'Build Lightning Web Components and Aura Components for enhanced user experiences',
-                    'Architect complex system integrations and data synchronization solutions',
-                  ].map((item, index) => (
-                    <motion.li
-                      key={index}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                    >
-                      • {item}
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </Card>
-          </motion.div>
+          <p className="text-lg text-gray-300 mb-10 text-center leading-relaxed max-w-2xl mx-auto">
+            A collection of personal and collaborative software projects showcasing my technical abilities
+            and passion for solving real-world problems through code.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <Card hover>
+                <h3 className="text-lg font-semibold text-purple-400 mb-3">
+                  Windows Kernel Driver (C)
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Low-level system programming with secure memory access, driver signing, 
+                  and hardware abstraction.
+                </p>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              <Card hover>
+                <h3 className="text-lg font-semibold text-purple-400 mb-3">
+                  Full-Stack Web Apps
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Built with Flask, Django, and React. RESTful APIs, authentication, 
+                  and responsive UI designs.
+                </p>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+            >
+              <Card hover>
+                <h3 className="text-lg font-semibold text-purple-400 mb-3">
+                  Automation Scripts (Python)
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Suite of automation tools reducing manual workflows. SQLite and 
+                  MongoDB for efficient data storage.
+                </p>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
+              <Card hover>
+                <h3 className="text-lg font-semibold text-purple-400 mb-3">
+                  Collaborative Projects
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Team-based development using Git/GitHub. Code reviews, planning, 
+                  testing, and version control.
+                </p>
+              </Card>
+            </motion.div>
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.5 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
             className="text-center"
           >
             <motion.div

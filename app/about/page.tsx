@@ -34,7 +34,7 @@ export default function AboutPage() {
           className="max-w-4xl mx-auto mb-16"
         >
           <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Professional </span>
+            <span className="text-white">Work </span>
             <span className="gradient-text">Experience</span>
           </h2>
           <div className="space-y-6">
@@ -42,27 +42,49 @@ export default function AboutPage() {
               <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-2">
-                    Software Developer
+                    Customer Team Member
                   </h3>
-                  <p className="text-purple-400 mb-2">Apex Infinity Solutions</p>
+                  <p className="text-purple-400 mb-2">Co-op</p>
                 </div>
-                <span className="text-gray-400 text-sm">United Kingdom</span>
+                <span className="text-gray-400 text-sm">June 2024 – Present</span>
               </div>
-              <p className="text-gray-300 leading-relaxed mb-3">
-                Specialized in developing custom Apex solutions and building complex integrations
-                between Salesforce and external systems. Focus on creating scalable, maintainable
-                code that solves real business problems.
-              </p>
-              <div className="mt-4 pt-4 border-t border-purple-800/30">
-                <h4 className="text-purple-400 font-semibold mb-2">Key Responsibilities:</h4>
-                <ul className="text-gray-300 space-y-1 text-sm">
-                  <li>• Develop custom Apex classes and triggers for enterprise-level Salesforce implementations</li>
-                  <li>• Design and implement REST and SOAP API integrations with external systems</li>
-                  <li>• Build Lightning Web Components and Aura Components for enhanced user experiences</li>
-                  <li>• Architect complex system integrations and data synchronization solutions</li>
-                  <li>• Create maintainable, scalable code following Salesforce best practices</li>
-                </ul>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Delivered customer service with professionalism and technical support for in-store devices</li>
+                <li>• Maintained operational efficiency through teamwork, product handling, and store upkeep</li>
+              </ul>
+            </Card>
+
+            <Card>
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    Warehouse Operative
+                  </h3>
+                  <p className="text-purple-400 mb-2">Tesco Distribution Centre</p>
+                </div>
+                <span className="text-gray-400 text-sm">June – August 2024</span>
               </div>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Worked in a fast-paced logistics environment, accurately processing high-volume orders</li>
+                <li>• Supported stock control processes and met strict operational deadlines</li>
+              </ul>
+            </Card>
+
+            <Card>
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    Electrical Engineer (Internship)
+                  </h3>
+                  <p className="text-purple-400 mb-2">Uniper</p>
+                </div>
+                <span className="text-gray-400 text-sm">April – August 2023</span>
+              </div>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Diagnosed technical issues in a power generation setting and supported maintenance efforts</li>
+                <li>• Coordinated with contractors and led daily operational briefings</li>
+                <li>• Ensured compliance with regulatory and safety standards</li>
+              </ul>
             </Card>
           </div>
         </motion.div>
@@ -76,26 +98,125 @@ export default function AboutPage() {
         >
           <Card>
             <div className="prose prose-invert max-w-none">
-              <h2 className="text-2xl font-semibold text-white mb-4">My Story</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">About Me</h2>
               <p className="text-gray-300 mb-4 leading-relaxed">
-                I&apos;m a Salesforce Software Developer based in the United Kingdom, specializing
-                in custom Apex code solutions and external integrations. My passion lies in
-                solving complex business challenges by building robust, scalable solutions that
-                seamlessly connect Salesforce with external systems.
+                I&apos;m a passionate and driven junior software engineer with a solid technical 
+                foundation and a strong interest in solving real-world problems through code. My 
+                experience includes full-stack web development, systems programming, and scripting 
+                automation. I am highly self-motivated, adaptable, and dedicated to writing clean, 
+                efficient, and maintainable code.
               </p>
               <p className="text-gray-300 mb-4 leading-relaxed">
-                While I&apos;m primarily a backend developer with deep expertise in Apex and
-                Salesforce architecture, I also have frontend capabilities when needed. I
-                specialize in making the impossible possible - taking complex integration
-                requirements and turning them into elegant, maintainable solutions.
+                I have worked on a variety of personal and collaborative software projects, ranging 
+                from Windows kernel drivers to full-stack web applications with React and Flask. 
+                I&apos;m particularly interested in system optimization, software architecture, and 
+                improving user experience through thoughtful design.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                My work spans from enterprise-level Salesforce implementations to low-level
-                system programming. I enjoy pushing the boundaries of what&apos;s possible with
-                Salesforce and creating solutions that drive real business value.
+                I&apos;m now seeking a junior software engineering position where I can continue 
+                learning, contribute to real-world products, and grow within a professional team. 
+                I&apos;m available for full-time roles and open to hybrid or remote working arrangements.
               </p>
             </div>
           </Card>
+        </motion.div>
+
+        {/* Project Experience Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="max-w-4xl mx-auto mb-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="text-white">Project </span>
+            <span className="gradient-text">Experience</span>
+          </h2>
+          <div className="space-y-6">
+            <Card>
+              <h3 className="text-xl font-semibold text-white mb-3">Windows Kernel Driver (C)</h3>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Designed and developed a low-level Windows kernel driver with secure memory access and performance optimizations</li>
+                <li>• Gained experience in system-level programming, driver signing, and hardware abstraction</li>
+              </ul>
+            </Card>
+
+            <Card>
+              <h3 className="text-xl font-semibold text-white mb-3">Automation and Scripting (Python)</h3>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Built a suite of automation scripts to reduce manual workflows and improve consistency</li>
+                <li>• Used SQLite and MongoDB for lightweight local data storage and efficient querying</li>
+              </ul>
+            </Card>
+
+            <Card>
+              <h3 className="text-xl font-semibold text-white mb-3">Full-Stack Web Applications</h3>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Developed full-stack web applications with Flask, Django, and React</li>
+                <li>• Implemented RESTful APIs, user authentication, and responsive UI designs</li>
+                <li>• Created clean user interfaces with robust back-end logic</li>
+              </ul>
+            </Card>
+
+            <Card>
+              <h3 className="text-xl font-semibold text-white mb-3">Collaborative Projects</h3>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Contributed to various team-based software builds, participating in code reviews, planning, and testing</li>
+                <li>• Regularly used Git and GitHub for version control and collaborative development</li>
+              </ul>
+            </Card>
+          </div>
+        </motion.div>
+
+        {/* Education Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, duration: 0.6 }}
+          className="max-w-4xl mx-auto mb-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="text-white">Education & </span>
+            <span className="gradient-text">Certifications</span>
+          </h2>
+          <div className="space-y-6">
+            <Card>
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    Extended Diploma in Engineering
+                  </h3>
+                  <p className="text-purple-400 mb-2">Waterfront UTC, Kent</p>
+                </div>
+                <span className="text-gray-400 text-sm">Completed May 2023</span>
+              </div>
+              <p className="text-gray-300 mb-3">Focus: Mechanical, Electrical, and Software Engineering</p>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Built embedded systems using Arduino and Python</li>
+                <li>• Designed and programmed custom PCBs for integrated engineering solutions</li>
+              </ul>
+            </Card>
+
+            <Card>
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">GCSEs</h3>
+                  <p className="text-purple-400 mb-2">Waterfront UTC, Kent</p>
+                </div>
+                <span className="text-gray-400 text-sm">Completed July 2021</span>
+              </div>
+              <p className="text-gray-300 text-sm">Achieved strong academic performance, including Level 9 in Business</p>
+            </Card>
+
+            <Card>
+              <h3 className="text-xl font-semibold text-white mb-4">Certifications & Ongoing Learning</h3>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Google UX Design Professional Certificate (in progress)</li>
+                <li>• Amazon Junior Software Developer Certificate (in progress)</li>
+                <li>• Committed to self-learning through open-source contributions and technical deep-dives</li>
+              </ul>
+            </Card>
+          </div>
         </motion.div>
 
         {/* Skills Section */}
@@ -135,6 +256,33 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
+
+        {/* Interests Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="max-w-4xl mx-auto mb-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-8">
+            <span className="text-white">Personal </span>
+            <span className="gradient-text">Interests</span>
+          </h2>
+          <Card>
+            <div className="prose prose-invert max-w-none">
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                I have a strong personal interest in system optimization, software architecture, 
+                and improving user experience through thoughtful design. I&apos;m committed to 
+                continuous learning through open-source contributions and technical deep-dives.
+              </p>
+              <p className="text-gray-300 leading-relaxed">
+                Outside of coding, I&apos;m dedicated to fitness and powerlifting, applying the 
+                same consistency, discipline, and focus to my technical work. This mindset helps 
+                me tackle challenging problems and maintain steady progress on long-term projects.
+              </p>
+            </div>
+          </Card>
+        </motion.div>
 
         {/* CTA Section */}
         <motion.div
