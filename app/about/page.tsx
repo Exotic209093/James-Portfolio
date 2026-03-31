@@ -35,8 +35,9 @@ const workExperience = [
     company: 'Uniper',
     period: 'April 2023 to August 2023',
     points: [
-      'Diagnosed technical issues in an industrial environment and supported maintenance work.',
-      'Worked with contractors and safety processes in a setting where precision mattered.',
+      'Supported fault diagnosis and maintenance work on industrial electrical systems at an active power generation facility — a setting where accuracy and safety procedures were non-negotiable.',
+      'Worked directly alongside contractors and qualified engineers, building practical exposure to industrial-scale systems and the documentation and sign-off processes that govern them.',
+      'Developed the habit of working precisely under constraint — a discipline that carries directly into software debugging, incident response, and production deployments.',
     ],
   },
 ]
@@ -51,8 +52,9 @@ const education = [
   {
     title: 'Self-directed software learning',
     organisation: 'Independent study',
-    period: 'Ongoing',
-    summary: 'Built personal products in TypeScript, Python, Salesforce tooling, and automation while documenting and testing the work.',
+    period: 'Ongoing since 2023',
+    summary:
+      'Built and shipped production-grade personal projects across TypeScript, Python, Apex, C++, and automation tooling — including an AppExchange managed package, a Chrome extension for Salesforce migration, and a Windows kernel driver. Formal certifications in progress: Google UX Design and Amazon Junior Software Developer.',
   },
 ]
 
@@ -85,14 +87,15 @@ export default function AboutPage() {
             <div className="prose prose-invert max-w-none">
               <h2 className="text-2xl font-semibold text-white mb-4">What I am targeting</h2>
               <p className="text-gray-300 mb-4 leading-relaxed">
-                I am looking for a software engineering role where I can contribute quickly by building useful tools,
-                internal platforms, and data-heavy workflows. The strongest work in this portfolio is the work that
-                maps cleanly to that kind of role: full-stack product builds, migration tooling, browser extensions,
-                and automation.
+                I am looking for a software engineering role where I can contribute quickly — building
+                internal platforms, developer tooling, automation, and data-heavy workflows. I am self-taught,
+                and the projects in this portfolio reflect how I actually work: with real integration points,
+                tested behaviour, and a preference for maintainable code over quick demos.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                I have intentionally removed weaker filler projects and reshaped this site around projects that show
-                maintainable code, real integration points, and clear technical decisions.
+                My strongest recent work is in Salesforce engineering (including an AppExchange managed package),
+                TypeScript browser extension development, and Python tooling — but I am comfortable moving
+                across the stack and picking up new platforms quickly.
               </p>
             </div>
           </Card>

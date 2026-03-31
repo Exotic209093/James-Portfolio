@@ -23,6 +23,32 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'nebula-vault',
+    title: 'Nebula-Vault',
+    description:
+      'Salesforce AppExchange managed package that replaces native file storage with configurable cloud backends across AWS S3, Azure Blob, GCS, OneDrive, and Dropbox.',
+    longDescription:
+      'Nebula-Vault is a production-grade Salesforce AppExchange managed package designed to solve the storage limitations inherent in native Salesforce file handling. It provides a unified API for routing file operations to AWS S3, Azure Blob Storage, Google Cloud Storage, Microsoft OneDrive, or Dropbox — configurable per org without code changes. The project demonstrates enterprise Salesforce platform engineering, multi-cloud provider abstraction, and the packaging and deployment constraints specific to the AppExchange.',
+    category: 'Salesforce Platform Engineering',
+    status: 'Active build',
+    role: 'Designed and built a multi-cloud storage abstraction layer for Salesforce orgs, packaged as an AppExchange managed package with configurable provider support.',
+    highlights: [
+      'Implemented a unified file-routing API that abstracts across five cloud providers (AWS S3, Azure Blob, GCS, OneDrive, Dropbox) behind a consistent Salesforce interface.',
+      'Built as an AppExchange managed package — enforcing the namespacing, security review readiness, and metadata packaging constraints of the Salesforce ISV model.',
+      'Designed the provider configuration layer to be admin-configurable per org without requiring code changes or redeployment.',
+    ],
+    image: '/projects/nebula-vault.jpg',
+    tech: ['Apex', 'Salesforce', 'AWS S3', 'Azure Blob', 'GCS', 'OneDrive', 'Dropbox', 'AppExchange'],
+    techStack: [
+      { category: 'Platform', items: ['Apex', 'Salesforce Metadata API', 'Managed Package', 'AppExchange'] },
+      { category: 'Cloud Providers', items: ['AWS S3', 'Azure Blob Storage', 'Google Cloud Storage', 'OneDrive', 'Dropbox'] },
+      { category: 'Architecture', items: ['Provider Abstraction Layer', 'Admin-Configurable Routing', 'Namespaced Packaging'] },
+    ],
+    github: 'https://github.com/Exotic209093/Nebula-Vault',
+    featured: true,
+    date: '2026-03-31',
+  },
+  {
     id: 'wave-link',
     title: 'WaveLink',
     description:
@@ -45,7 +71,7 @@ export const projects: Project[] = [
       { category: 'Platform', items: ['Chrome Extension APIs', 'Salesforce REST APIs', 'Local Storage', 'Packaged Release Builds'] },
       { category: 'Quality', items: ['Jest', 'ESLint', 'Type Checking', 'Unit Tests'] },
     ],
-    github: 'https://github.com/jc-wave/wave-link',
+    github: 'https://github.com/Exotic209093/WaveLink',
     featured: true,
     date: '2026-03-24',
   },
@@ -100,7 +126,7 @@ export const projects: Project[] = [
       { category: 'Developer Experience', items: ['ESLint', 'Type Safety', 'Environment Configuration', 'Admin Bootstrap Script'] },
     ],
     github: 'https://github.com/Exotic209093/Apex-HQ',
-    featured: true,
+    featured: false,
     date: '2025-12-31',
   },
   {
@@ -153,6 +179,31 @@ export const projects: Project[] = [
     github: 'https://github.com/Exotic209093/ExoCraft',
     featured: false,
     date: '2026-03-05',
+  },
+  {
+    id: 'exoware-kernel-driver',
+    title: 'ExoWare Kernel Driver',
+    description:
+      'Windows kernel-mode driver written in C++ for secure memory access and low-level system interaction.',
+    longDescription:
+      'A Windows kernel driver project exploring low-level systems programming in C++. The driver implements secure memory access patterns and performance-aware operations within the kernel address space — territory that requires precise pointer management, adherence to Windows Driver Model constraints, and careful handling of system stability. Built as a standalone learning project to complement the higher-level application work in the rest of the portfolio.',
+    category: 'Systems Programming',
+    status: 'Prototype',
+    role: 'Explored kernel-mode development in C++ to understand low-level Windows system architecture and memory access patterns.',
+    highlights: [
+      'Implemented a Windows kernel-mode driver following WDM conventions for memory access and I/O handling.',
+      'Applied C++ with strict discipline around pointer safety, IRQL constraints, and kernel-space memory management.',
+      'Demonstrated willingness to work at the systems layer — below the abstraction level of most application developers.',
+    ],
+    image: '/projects/exoware-kernel-driver.jpg',
+    tech: ['C++', 'Windows Kernel', 'WDM', 'Systems Programming'],
+    techStack: [
+      { category: 'Core', items: ['C++', 'Windows Driver Model', 'Kernel-Mode Development'] },
+      { category: 'Systems', items: ['Memory Management', 'Pointer Safety', 'IRQL Handling', 'I/O Control'] },
+    ],
+    github: 'https://github.com/Exotic209093/ExoWare-Kernal-Driver',
+    featured: false,
+    date: '2026-03-12',
   },
 ]
 
