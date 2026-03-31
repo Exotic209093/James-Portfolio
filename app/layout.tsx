@@ -11,13 +11,24 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'James Collard | Salesforce Software Developer',
-  description: 'Salesforce Software Developer specializing in custom Apex code solutions and external integrations. Based in the UK.',
-  keywords: ['Salesforce', 'Apex', 'developer', 'portfolio', 'integration', 'Salesforce developer', 'UK'],
+  title: 'James Collard | Software Engineer',
+  description:
+    'Software engineer building production-grade tools — Salesforce platform, TypeScript, Python, and systems programming. Based in Kent, UK.',
+  keywords: [
+    'software engineer',
+    'Salesforce',
+    'Apex',
+    'TypeScript',
+    'Python',
+    'full-stack',
+    'developer',
+    'UK',
+  ],
   authors: [{ name: 'James Collard' }],
   openGraph: {
-    title: 'James Collard - Salesforce Software Developer',
-    description: 'Specializing in custom Apex solutions and external integrations',
+    title: 'James Collard — Software Engineer',
+    description:
+      'Production-grade software across Salesforce, TypeScript, Python, and systems programming.',
     type: 'website',
   },
 }

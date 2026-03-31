@@ -6,6 +6,9 @@ import { ButtonLink } from '@/components/ui/Button'
 import { siteConfig } from '@/lib/constants'
 
 export default function Hero() {
+  // Set to true and add /public/profile.jpg to show the photo
+  const showPhoto = false
+
   const scrollToExperience = () => {
     const element = document.getElementById('experience-preview')
     element?.scrollIntoView({ behavior: 'smooth' })
@@ -42,6 +45,27 @@ export default function Hero() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="mb-6"
           >
+            {/* Open to opportunities badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-full px-4 py-1.5 mb-6"
+            >
+              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              <span className="text-green-300 text-xs font-medium tracking-widest uppercase">
+                Open to Opportunities
+              </span>
+            </motion.div>
+
+            {/* Photo slot — set showPhoto = true and add /public/profile.jpg to enable */}
+            {showPhoto && (
+              <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-purple-500/40 mx-auto mb-6">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/profile.jpg" alt="James Collard" className="w-full h-full object-cover" />
+              </div>
+            )}
+
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
               <span className="text-white">Hi, I&apos;m </span>
               <span className="gradient-text">{siteConfig.name}</span>
@@ -60,7 +84,7 @@ export default function Hero() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-lg sm:text-xl text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed"
           >
-            {siteConfig.description}
+            Salesforce platform engineering · TypeScript · Python · Systems programming
           </motion.p>
 
           <motion.div

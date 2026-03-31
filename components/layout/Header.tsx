@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Github, Linkedin } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { navigation } from '@/lib/constants'
+import { navigation, siteConfig } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 export default function Header() {
@@ -43,7 +43,7 @@ export default function Header() {
               href="/"
               className="text-xl md:text-2xl font-bold gradient-text hover:opacity-80 transition-opacity"
             >
-              Portfolio
+              {siteConfig.name}
             </Link>
           </motion.div>
 
@@ -80,6 +80,26 @@ export default function Header() {
                 </motion.div>
               )
             })}
+            <div className="flex items-center gap-4 pl-4 border-l border-gray-700/40">
+              <a
+                href={siteConfig.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-purple-400 transition-colors"
+                aria-label="GitHub"
+              >
+                <Github className="h-5 w-5" />
+              </a>
+              <a
+                href={siteConfig.links.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-purple-400 transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
