@@ -44,7 +44,12 @@ export default function ContactPage() {
                   </motion.div>
                   <div>
                     <h3 className="text-white font-semibold mb-1">Email</h3>
-                    <span className="text-gray-400">{emailAddress}</span>
+                    <a
+                      href={siteConfig.links.email}
+                      className="text-gray-400 hover:text-purple-400 transition-colors"
+                    >
+                      {emailAddress}
+                    </a>
                   </div>
                 </div>
               </Card>
