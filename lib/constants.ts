@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'James Collard',
   title: 'Software Engineer',
   description:
-    'I build practical software with TypeScript, Python, and Salesforce tooling, with recent work spanning browser extensions, migration automation, internal tools, and data-focused workflows.',
+    'I build production-grade software across the full stack — from Salesforce AppExchange packages and cloud storage integrations to TypeScript browser extensions and data migration tooling.',
   url: 'https://jamescollard.vercel.app',
   ogImage: '/og-image.jpg',
   location: 'Kent, United Kingdom',
@@ -25,19 +25,26 @@ export const navigation = [
 export const skills = [
   {
     category: 'Languages',
-    items: ['TypeScript', 'Python', 'JavaScript', 'SQL', 'Apex', 'C++'],
+    items: ['TypeScript', 'JavaScript', 'Python', 'Apex (Salesforce)', 'C++', 'SQL', 'Bash'],
   },
   {
-    category: 'Frameworks & Tools',
-    items: ['Next.js', 'React', 'Preact', 'Node.js', 'Prisma', 'Jest', 'Webpack', 'Git'],
+    category: 'Frameworks & Libraries',
+    items: ['Next.js', 'React', 'Node.js', 'Preact', 'Flask', 'Django', 'Prisma', 'Jest'],
   },
   {
-    category: 'Platform & Delivery',
-    items: ['PostgreSQL', 'Salesforce APIs', 'Chrome Extensions', 'CSV/XLSX Processing', 'REST APIs', 'Workflow Automation'],
+    category: 'Platforms & Tools',
+    items: ['Salesforce / AppExchange', 'Docker', 'Linux', 'Git', 'PostgreSQL', 'MongoDB', 'Chrome Extensions', 'REST APIs'],
   },
 ]
 
 export const projectHistory = [
+  {
+    period: 'March 2026',
+    title: 'Nebula-Vault',
+    summary:
+      'Built a Salesforce AppExchange managed package that replaces native file storage with configurable cloud backends across AWS S3, Azure Blob, GCS, OneDrive, and Dropbox.',
+    impact: 'Demonstrates enterprise Salesforce platform engineering, multi-cloud integration, and managed package architecture — the most production-relevant Salesforce work in the portfolio.',
+  },
   {
     period: 'March 2026',
     title: 'WaveLink',
