@@ -1,56 +1,13 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Send, Mail, MapPin, Phone } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Mail, MapPin } from 'lucide-react'
 import Card from '@/components/ui/Card'
-import Button from '@/components/ui/Button'
 import { siteConfig } from '@/lib/constants'
 
+const emailAddress = siteConfig.links.email.replace('mailto:', '')
+
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      if (response.ok) {
-        setSubmitStatus('success')
-        setFormData({ name: '', email: '', subject: '', message: '' })
-      } else {
-        setSubmitStatus('error')
-      }
-    } catch (error) {
-      setSubmitStatus('error')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
   return (
     <div className="pt-20 md:pt-32 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
@@ -65,7 +22,7 @@ export default function ContactPage() {
             <span className="gradient-text">Touch</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Have a project in mind? I&apos;d love to hear from you. Send me a message and I&apos;ll respond as soon as possible.
+            The best way to reach me is directly by email.
           </p>
         </motion.div>
 
@@ -87,12 +44,7 @@ export default function ContactPage() {
                   </motion.div>
                   <div>
                     <h3 className="text-white font-semibold mb-1">Email</h3>
-                    <a
-                      href={siteConfig.links.email}
-                      className="text-gray-400 hover:text-purple-400 transition-colors"
-                    >
-                      {siteConfig.links.email.replace('mailto:', '')}
-                    </a>
+                    <span className="text-gray-400">{emailAddress}</span>
                   </div>
                 </div>
               </Card>
@@ -120,7 +72,7 @@ export default function ContactPage() {
             </motion.div>
           </div>
 
-          {/* Contact Form */}
+          {/* Mailto CTA */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -128,139 +80,21 @@ export default function ContactPage() {
             className="lg:col-span-2"
           >
             <Card>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                      placeholder="Your name"
-                    />
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                      placeholder="your.email@example.com"
-                    />
-                  </motion.div>
-                </div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
+              <div className="flex flex-col items-center justify-center py-12 text-center gap-6">
+                <h2 className="text-2xl font-semibold text-white">Send me an email</h2>
+                <p className="text-gray-300 max-w-md leading-relaxed">
+                  I&apos;m currently open to new opportunities. Whether you have a role in mind or just want to connect, I&apos;m happy to hear from you.
+                </p>
+                <p className="text-purple-400 text-lg">{emailAddress}</p>
+                <a
+                  href={siteConfig.links.email}
+                  className="inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-black bg-gradient-to-r from-purple-600 to-purple-700 text-white hover:from-purple-500 hover:to-purple-600 shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 px-8 py-4 text-lg"
                 >
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                    placeholder="What's this about?"
-                  />
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                >
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="w-full px-4 py-3 bg-black/50 border border-purple-800/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
-                    placeholder="Tell me about your project..."
-                  />
-                </motion.div>
-
-                <AnimatePresence>
-                  {submitStatus === 'success' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      className="p-4 bg-green-900/30 border border-green-700/50 rounded-lg text-green-300"
-                    >
-                      Thank you! Your message has been sent successfully.
-                    </motion.div>
-                  )}
-
-                  {submitStatus === 'error' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      className="p-4 bg-red-900/30 border border-red-700/50 rounded-lg text-red-300"
-                    >
-                      Something went wrong. Please try again later.
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    size="lg"
-                    disabled={isSubmitting}
-                    className="w-full"
-                  >
-                    {isSubmitting ? (
-                      <motion.span
-                        animate={{ opacity: [1, 0.5, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        Sending...
-                      </motion.span>
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-5 w-5" />
-                        Send Message
-                      </>
-                    )}
-                  </Button>
-                </motion.div>
-              </form>
+                  <Mail className="mr-2 h-5 w-5" />
+                  Send me an email
+                </a>
+                <p className="text-sm text-gray-500">Opens your email client</p>
+              </div>
             </Card>
           </motion.div>
         </div>
