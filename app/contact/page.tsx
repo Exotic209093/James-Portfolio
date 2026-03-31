@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Mail, MapPin } from 'lucide-react'
 import Card from '@/components/ui/Card'
+import { ButtonLink } from '@/components/ui/Button'
 import { siteConfig } from '@/lib/constants'
 
 const emailAddress = siteConfig.links.email.replace('mailto:', '')
@@ -91,13 +92,10 @@ export default function ContactPage() {
                   I&apos;m currently open to new opportunities. Whether you have a role in mind or just want to connect, I&apos;m happy to hear from you.
                 </p>
                 <p className="text-purple-400 text-lg">{emailAddress}</p>
-                <a
-                  href={siteConfig.links.email}
-                  className="inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-black bg-gradient-to-r from-purple-600 to-purple-700 text-white hover:from-purple-500 hover:to-purple-600 shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 px-8 py-4 text-lg"
-                >
+                <ButtonLink href={siteConfig.links.email} variant="primary" size="lg">
                   <Mail className="mr-2 h-5 w-5" />
                   Send me an email
-                </a>
+                </ButtonLink>
                 <p className="text-sm text-gray-500">Opens your email client</p>
               </div>
             </Card>
