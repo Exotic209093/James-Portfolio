@@ -8,7 +8,9 @@ import { ButtonLink } from '@/components/ui/Button'
 import { ArrowRight } from 'lucide-react'
 import { getFeaturedProjects } from '@/lib/projects'
 
-const featuredProjects = getFeaturedProjects().slice(0, 3)
+const featuredProjects = getFeaturedProjects()
+  .sort((a, b) => (a.date < b.date ? 1 : -1))
+  .slice(0, 3)
 
 export default function FeaturedProjects() {
   return (
@@ -26,7 +28,7 @@ export default function FeaturedProjects() {
             <span className="gradient-text">Projects</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            A selection of my recent work showcasing my skills and expertise
+            Recent projects that best reflect the kind of engineering work I want to do next
           </p>
         </motion.div>
 

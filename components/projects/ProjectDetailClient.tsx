@@ -20,6 +20,20 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
+        {(project.category || project.status) && (
+          <div className="flex flex-wrap gap-3 mb-4">
+            {project.category && (
+              <span className="px-3 py-1 text-sm bg-purple-900/30 text-purple-300 rounded-full border border-purple-800/50">
+                {project.category}
+              </span>
+            )}
+            {project.status && (
+              <span className="px-3 py-1 text-sm bg-white/5 text-gray-300 rounded-full border border-white/10">
+                {project.status}
+              </span>
+            )}
+          </div>
+        )}
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           <span className="text-white">{project.title}</span>
         </h1>
@@ -27,6 +41,20 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           {project.longDescription || project.description}
         </p>
       </motion.div>
+
+      {project.role && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="mb-8"
+        >
+          <Card>
+            <h2 className="text-2xl font-semibold text-white mb-3">Role and Focus</h2>
+            <p className="text-gray-300 leading-relaxed">{project.role}</p>
+          </Card>
+        </motion.div>
+      )}
 
       {/* Project Image */}
       <motion.div
@@ -110,6 +138,27 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           </div>
         )}
       </motion.div>
+
+      {project.highlights && project.highlights.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.45 }}
+          className="mb-8"
+        >
+          <h2 className="text-2xl font-semibold text-white mb-6">Key Highlights</h2>
+          <Card>
+            <ul className="space-y-3">
+              {project.highlights.map((highlight) => (
+                <li key={highlight} className="text-gray-300 flex items-start">
+                  <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 mt-2 shrink-0" />
+                  <span>{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </Card>
+        </motion.div>
+      )}
 
       {/* Links */}
       <motion.div

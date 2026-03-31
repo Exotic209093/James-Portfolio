@@ -5,12 +5,61 @@ import { Download } from 'lucide-react'
 import Card from '@/components/ui/Card'
 import { ButtonLink } from '@/components/ui/Button'
 import { skills, siteConfig } from '@/lib/constants'
+import { getProjectHistory } from '@/lib/projects'
+import { formatDate } from '@/lib/utils'
+
+const projectHistory = getProjectHistory()
+const highlightedProjects = projectHistory.slice(0, 3)
+
+const workExperience = [
+  {
+    title: 'Customer Team Member',
+    company: 'Co-op',
+    period: 'June 2024 to present',
+    points: [
+      'Built reliability in a customer-facing environment and handled fast-moving operational work.',
+      'Strengthened communication, prioritisation, and day-to-day problem solving under pressure.',
+    ],
+  },
+  {
+    title: 'Warehouse Operative',
+    company: 'Tesco Distribution Centre',
+    period: 'June 2024 to August 2024',
+    points: [
+      'Worked accurately at pace in a process-heavy environment with strict operational targets.',
+      'Supported stock flow, order handling, and consistent execution across shift work.',
+    ],
+  },
+  {
+    title: 'Electrical Engineer Intern',
+    company: 'Uniper',
+    period: 'April 2023 to August 2023',
+    points: [
+      'Diagnosed technical issues in an industrial environment and supported maintenance work.',
+      'Worked with contractors and safety processes in a setting where precision mattered.',
+    ],
+  },
+]
+
+const education = [
+  {
+    title: 'Extended Diploma in Engineering',
+    organisation: 'Waterfront UTC, Kent',
+    period: 'Completed May 2023',
+    summary: 'Focused on mechanical, electrical, and software engineering with practical project work.',
+  },
+  {
+    title: 'Self-directed software learning',
+    organisation: 'Independent study',
+    period: 'Ongoing',
+    summary: 'Built personal products in TypeScript, Python, Salesforce tooling, and automation while documenting and testing the work.',
+  },
+]
 
 export default function AboutPage() {
   return (
     <div className="pt-20 md:pt-32 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -26,200 +75,87 @@ export default function AboutPage() {
           </p>
         </motion.div>
 
-        {/* Professional Experience Section - Now First */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
           className="max-w-4xl mx-auto mb-16"
         >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Work </span>
-            <span className="gradient-text">Experience</span>
-          </h2>
-          <div className="space-y-6">
-            <Card>
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    Customer Team Member
-                  </h3>
-                  <p className="text-purple-400 mb-2">Co-op</p>
-                </div>
-                <span className="text-gray-400 text-sm">June 2024 – Present</span>
-              </div>
-              <ul className="text-gray-300 space-y-2 text-sm">
-                <li>• Delivered customer service with professionalism and technical support for in-store devices</li>
-                <li>• Maintained operational efficiency through teamwork, product handling, and store upkeep</li>
-              </ul>
-            </Card>
-
-            <Card>
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    Warehouse Operative
-                  </h3>
-                  <p className="text-purple-400 mb-2">Tesco Distribution Centre</p>
-                </div>
-                <span className="text-gray-400 text-sm">June – August 2024</span>
-              </div>
-              <ul className="text-gray-300 space-y-2 text-sm">
-                <li>• Worked in a fast-paced logistics environment, accurately processing high-volume orders</li>
-                <li>• Supported stock control processes and met strict operational deadlines</li>
-              </ul>
-            </Card>
-
-            <Card>
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    Electrical Engineer (Internship)
-                  </h3>
-                  <p className="text-purple-400 mb-2">Uniper</p>
-                </div>
-                <span className="text-gray-400 text-sm">April – August 2023</span>
-              </div>
-              <ul className="text-gray-300 space-y-2 text-sm">
-                <li>• Diagnosed technical issues in a power generation setting and supported maintenance efforts</li>
-                <li>• Coordinated with contractors and led daily operational briefings</li>
-                <li>• Ensured compliance with regulatory and safety standards</li>
-              </ul>
-            </Card>
-          </div>
-        </motion.div>
-
-        {/* Bio Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="max-w-4xl mx-auto mb-16"
-        >
           <Card>
             <div className="prose prose-invert max-w-none">
-              <h2 className="text-2xl font-semibold text-white mb-4">About Me</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">What I am targeting</h2>
               <p className="text-gray-300 mb-4 leading-relaxed">
-                I&apos;m a passionate and driven junior software engineer with a solid technical 
-                foundation and a strong interest in solving real-world problems through code. My 
-                experience includes full-stack web development, systems programming, and scripting 
-                automation. I am highly self-motivated, adaptable, and dedicated to writing clean, 
-                efficient, and maintainable code.
-              </p>
-              <p className="text-gray-300 mb-4 leading-relaxed">
-                I have worked on a variety of personal and collaborative software projects, ranging 
-                from Windows kernel drivers to full-stack web applications with React and Flask. 
-                I&apos;m particularly interested in system optimization, software architecture, and 
-                improving user experience through thoughtful design.
+                I am looking for a software engineering role where I can contribute quickly by building useful tools,
+                internal platforms, and data-heavy workflows. The strongest work in this portfolio is the work that
+                maps cleanly to that kind of role: full-stack product builds, migration tooling, browser extensions,
+                and automation.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                I&apos;m now seeking a junior software engineering position where I can continue 
-                learning, contribute to real-world products, and grow within a professional team. 
-                I&apos;m available for full-time roles and open to hybrid or remote working arrangements.
+                I have intentionally removed weaker filler projects and reshaped this site around projects that show
+                maintainable code, real integration points, and clear technical decisions.
               </p>
             </div>
           </Card>
         </motion.div>
 
-        {/* Project Experience Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="max-w-5xl mx-auto mb-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="text-white">Project </span>
+            <span className="gradient-text">History</span>
+          </h2>
+          <div className="space-y-6">
+            {projectHistory.map((entry) => (
+              <Card key={entry.id}>
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white mb-2">{entry.title}</h3>
+                    <p className="text-gray-300 leading-relaxed">{entry.description}</p>
+                  </div>
+                  <span className="text-sm uppercase tracking-[0.2em] text-purple-400 whitespace-nowrap">
+                    {formatDate(entry.date)}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-400 leading-relaxed">{entry.role}</p>
+              </Card>
+            ))}
+          </div>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="max-w-4xl mx-auto mb-16"
+          className="max-w-5xl mx-auto mb-16"
         >
           <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Project </span>
-            <span className="gradient-text">Experience</span>
+            <span className="text-white">Why These </span>
+            <span className="gradient-text">Projects Matter</span>
           </h2>
-          <div className="space-y-6">
-            <Card>
-              <h3 className="text-xl font-semibold text-white mb-3">Windows Kernel Driver (C)</h3>
-              <ul className="text-gray-300 space-y-2 text-sm">
-                <li>• Designed and developed a low-level Windows kernel driver with secure memory access and performance optimizations</li>
-                <li>• Gained experience in system-level programming, driver signing, and hardware abstraction</li>
-              </ul>
-            </Card>
-
-            <Card>
-              <h3 className="text-xl font-semibold text-white mb-3">Automation and Scripting (Python)</h3>
-              <ul className="text-gray-300 space-y-2 text-sm">
-                <li>• Built a suite of automation scripts to reduce manual workflows and improve consistency</li>
-                <li>• Used SQLite and MongoDB for lightweight local data storage and efficient querying</li>
-              </ul>
-            </Card>
-
-            <Card>
-              <h3 className="text-xl font-semibold text-white mb-3">Full-Stack Web Applications</h3>
-              <ul className="text-gray-300 space-y-2 text-sm">
-                <li>• Developed full-stack web applications with Flask, Django, and React</li>
-                <li>• Implemented RESTful APIs, user authentication, and responsive UI designs</li>
-                <li>• Created clean user interfaces with robust back-end logic</li>
-              </ul>
-            </Card>
-
-            <Card>
-              <h3 className="text-xl font-semibold text-white mb-3">Collaborative Projects</h3>
-              <ul className="text-gray-300 space-y-2 text-sm">
-                <li>• Contributed to various team-based software builds, participating in code reviews, planning, and testing</li>
-                <li>• Regularly used Git and GitHub for version control and collaborative development</li>
-              </ul>
-            </Card>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {highlightedProjects.map((project) => (
+              <Card key={project.id} hover className="h-full">
+                <h3 className="text-xl font-semibold text-white mb-3">{project.title}</h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.slice(0, 4).map((item) => (
+                    <span
+                      key={item}
+                      className="px-2 py-1 text-xs bg-purple-900/30 text-purple-300 rounded border border-purple-800/50"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </Card>
+            ))}
           </div>
         </motion.div>
 
-        {/* Education Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.6 }}
-          className="max-w-4xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Education & </span>
-            <span className="gradient-text">Certifications</span>
-          </h2>
-          <div className="space-y-6">
-            <Card>
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    Extended Diploma in Engineering
-                  </h3>
-                  <p className="text-purple-400 mb-2">Waterfront UTC, Kent</p>
-                </div>
-                <span className="text-gray-400 text-sm">Completed May 2023</span>
-              </div>
-              <p className="text-gray-300 mb-3">Focus: Mechanical, Electrical, and Software Engineering</p>
-              <ul className="text-gray-300 space-y-2 text-sm">
-                <li>• Built embedded systems using Arduino and Python</li>
-                <li>• Designed and programmed custom PCBs for integrated engineering solutions</li>
-              </ul>
-            </Card>
-
-            <Card>
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">GCSEs</h3>
-                  <p className="text-purple-400 mb-2">Waterfront UTC, Kent</p>
-                </div>
-                <span className="text-gray-400 text-sm">Completed July 2021</span>
-              </div>
-              <p className="text-gray-300 text-sm">Achieved strong academic performance, including Level 9 in Business</p>
-            </Card>
-
-            <Card>
-              <h3 className="text-xl font-semibold text-white mb-4">Certifications & Ongoing Learning</h3>
-              <ul className="text-gray-300 space-y-2 text-sm">
-                <li>• Google UX Design Professional Certificate (in progress)</li>
-                <li>• Amazon Junior Software Developer Certificate (in progress)</li>
-                <li>• Committed to self-learning through open-source contributions and technical deep-dives</li>
-              </ul>
-            </Card>
-          </div>
-        </motion.div>
-
-        {/* Skills Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -236,12 +172,10 @@ export default function AboutPage() {
                 key={skillGroup.category}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
+                transition={{ delay: 0.45 + index * 0.1, duration: 0.5 }}
               >
                 <Card hover>
-                  <h3 className="text-xl font-semibold text-purple-400 mb-4">
-                    {skillGroup.category}
-                  </h3>
+                  <h3 className="text-xl font-semibold text-purple-400 mb-4">{skillGroup.category}</h3>
                   <ul className="space-y-3">
                     {skillGroup.items.map((skill) => (
                       <li key={skill} className="text-gray-300 flex items-center">
@@ -256,39 +190,55 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
-
-        {/* Interests Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="max-w-4xl mx-auto mb-16"
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="max-w-5xl mx-auto mb-16"
         >
-          <h2 className="text-3xl font-bold text-center mb-8">
-            <span className="text-white">Personal </span>
-            <span className="gradient-text">Interests</span>
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="text-white">Work & </span>
+            <span className="gradient-text">Education</span>
           </h2>
-          <Card>
-            <div className="prose prose-invert max-w-none">
-              <p className="text-gray-300 mb-4 leading-relaxed">
-                I have a strong personal interest in system optimization, software architecture, 
-                and improving user experience through thoughtful design. I&apos;m committed to 
-                continuous learning through open-source contributions and technical deep-dives.
-              </p>
-              <p className="text-gray-300 leading-relaxed">
-                Outside of coding, I&apos;m dedicated to fitness and powerlifting, applying the 
-                same consistency, discipline, and focus to my technical work. This mindset helps 
-                me tackle challenging problems and maintain steady progress on long-term projects.
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-6">
+              {workExperience.map((role) => (
+                <Card key={`${role.company}-${role.title}`}>
+                  <div className="flex flex-col gap-2 mb-4">
+                    <h3 className="text-xl font-semibold text-white">{role.title}</h3>
+                    <p className="text-purple-400">{role.company}</p>
+                    <span className="text-sm text-gray-400">{role.period}</span>
+                  </div>
+                  <ul className="text-gray-300 space-y-2 text-sm">
+                    {role.points.map((point) => (
+                      <li key={point} className="flex items-start">
+                        <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 mt-1.5 shrink-0" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              ))}
             </div>
-          </Card>
+            <div className="space-y-6">
+              {education.map((item) => (
+                <Card key={`${item.organisation}-${item.title}`}>
+                  <div className="flex flex-col gap-2 mb-4">
+                    <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                    <p className="text-purple-400">{item.organisation}</p>
+                    <span className="text-sm text-gray-400">{item.period}</span>
+                  </div>
+                  <p className="text-gray-300 text-sm leading-relaxed">{item.summary}</p>
+                </Card>
+              ))}
+            </div>
+          </div>
         </motion.div>
 
-        {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
           className="text-center"
         >
           <ButtonLink href="/resume.pdf" variant="primary" size="lg" download>
