@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#7e22ce" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#1e0a2e" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+    <linearGradient id="stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e9d5ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="laneA" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="laneB" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#5b21b6"/>
+    </linearGradient>
+    <linearGradient id="laneC" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f0abfc"/>
+      <stop offset="100%" stop-color="#a21caf"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#7c3aed" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#000"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <!-- VS Code-style sidebar panel mockup behind graph -->
+  <g transform="translate(150 150)" opacity="0.55">
+    <rect x="0" y="0" width="240" height="380" rx="10" fill="#0f0a1a" stroke="url(#stroke)" stroke-width="2" stroke-opacity="0.45"/>
+    <rect x="0" y="0" width="240" height="32" rx="10" fill="#1e0a2e"/>
+    <rect x="0" y="22" width="240" height="10" fill="#1e0a2e"/>
+    <text x="14" y="22" fill="#a78bfa" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" letter-spacing="1">GIT NAVIGATOR</text>
+    <!-- section: Changes -->
+    <text x="14" y="58" fill="#c4b5fd" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">CHANGES (3)</text>
+    <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#a78bfa">
+      <text x="14" y="80">M  src/extension.ts</text>
+      <text x="14" y="98">M  README.md</text>
+      <text x="14" y="116">A  src/graph.ts</text>
+    </g>
+    <!-- section: Branches -->
+    <text x="14" y="148" fill="#c4b5fd" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">BRANCHES</text>
+    <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11">
+      <text x="14" y="170" fill="#e9d5ff" font-weight="700">⎇ main</text>
+      <text x="14" y="188" fill="#a78bfa">  feature/graph</text>
+      <text x="14" y="206" fill="#a78bfa">  fix/refresh</text>
+    </g>
+    <!-- commit message input -->
+    <rect x="14" y="226" width="212" height="44" rx="6" fill="#000" stroke="#7c3aed" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="22" y="250" fill="#6d28d9" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">Type a commit message…</text>
+    <!-- commit button -->
+    <rect x="14" y="282" width="100" height="28" rx="6" fill="url(#stroke)"/>
+    <text x="64" y="301" text-anchor="middle" fill="#1e0a2e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700">COMMIT</text>
+    <rect x="122" y="282" width="100" height="28" rx="6" fill="none" stroke="url(#stroke)" stroke-width="1.5"/>
+    <text x="172" y="301" text-anchor="middle" fill="#c4b5fd" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700">SYNC</text>
+  </g>
+
+  <!-- Commit graph in foreground -->
+  <g transform="translate(560 100)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- lane lines -->
+    <line x1="40" y1="20" x2="40" y2="420" stroke="url(#laneA)" stroke-width="3" stroke-opacity="0.7"/>
+    <line x1="120" y1="120" x2="120" y2="340" stroke="url(#laneB)" stroke-width="3" stroke-opacity="0.7"/>
+    <line x1="200" y1="200" x2="200" y2="280" stroke="url(#laneC)" stroke-width="3" stroke-opacity="0.7"/>
+    <!-- branch off curves -->
+    <path d="M 40 100 Q 40 120 60 120 L 100 120 Q 120 120 120 140" stroke="url(#laneB)" stroke-width="3" stroke-opacity="0.7"/>
+    <path d="M 120 200 Q 120 200 140 200 L 180 200 Q 200 200 200 220" stroke="url(#laneC)" stroke-width="3" stroke-opacity="0.7"/>
+    <!-- merges back -->
+    <path d="M 200 280 Q 200 300 180 300 L 140 300 Q 120 300 120 320" stroke="url(#laneC)" stroke-width="3" stroke-opacity="0.7"/>
+    <path d="M 120 340 Q 120 360 100 360 L 60 360 Q 40 360 40 380" stroke="url(#laneB)" stroke-width="3" stroke-opacity="0.7"/>
+    <!-- commit dots -->
+    <circle cx="40" cy="40" r="11" fill="url(#laneA)" stroke="#000" stroke-width="3"/>
+    <circle cx="40" cy="100" r="11" fill="url(#laneA)" stroke="#000" stroke-width="3"/>
+    <circle cx="120" cy="160" r="11" fill="url(#laneB)" stroke="#000" stroke-width="3"/>
+    <circle cx="120" cy="200" r="11" fill="url(#laneB)" stroke="#000" stroke-width="3"/>
+    <circle cx="200" cy="240" r="11" fill="url(#laneC)" stroke="#000" stroke-width="3"/>
+    <circle cx="200" cy="280" r="11" fill="url(#laneC)" stroke="#000" stroke-width="3"/>
+    <circle cx="120" cy="340" r="11" fill="url(#laneB)" stroke="#000" stroke-width="3"/>
+    <circle cx="40" cy="400" r="13" fill="url(#stroke)" stroke="#000" stroke-width="3"/>
+    <!-- commit messages -->
+    <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#e9d5ff">
+      <text x="240" y="45">a3f7b9c · feat: add commit graph</text>
+      <text x="240" y="105" fill="#c4b5fd">8d2c1a4 · refactor sidebar layout</text>
+      <text x="240" y="165" fill="#c4b5fd">2e9f6b1 · feat: branch switcher</text>
+      <text x="240" y="205" fill="#c4b5fd">4a1d8c3 · fix: status bar refresh</text>
+      <text x="240" y="245" fill="#c4b5fd">7b3e2d0 · feat: PR creation flow</text>
+      <text x="240" y="285" fill="#c4b5fd">9c5a8e2 · test: webview render</text>
+      <text x="240" y="345" fill="#c4b5fd">6f0d4a7 · merge feature/graph</text>
+      <text x="240" y="405" fill="#e9d5ff" font-weight="700">HEAD · merge into main</text>
+    </g>
+  </g>
+
+  <text x="60" y="615" fill="#e9d5ff" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="38" font-weight="700" letter-spacing="-0.5">Git Navigator</text>
+  <text x="60" y="648" fill="#a78bfa" fill-opacity="0.65" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" letter-spacing="2">VS CODE EXTENSION · GIT WORKFLOWS</text>
+</svg>
