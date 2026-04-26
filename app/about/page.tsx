@@ -54,7 +54,7 @@ const education = [
     organisation: 'Independent study',
     period: 'Ongoing since 2023',
     summary:
-      'Built and shipped production-grade personal projects across TypeScript, Python, Apex, C++, and automation tooling — including an AppExchange managed package, a Chrome extension for Salesforce migration, and a Windows kernel driver. Formal certifications in progress: Google UX Design and Amazon Junior Software Developer.',
+      'Built and shipped production-grade personal projects across TypeScript, Python, Apex, C++, and automation tooling — including a Cerebral Valley × Anthropic 4.7 Hackathon submission powered by Claude Opus 4.7 agents, an AppExchange managed package, a Chrome extension for Salesforce migration, and a Windows kernel driver. Formal certifications in progress: Google UX Design and Amazon Junior Software Developer.',
   },
 ]
 
@@ -93,9 +93,10 @@ export default function AboutPage() {
                 tested behaviour, and a preference for maintainable code over quick demos.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                My strongest recent work is in Salesforce engineering (including an AppExchange managed package),
-                TypeScript browser extension development, and Python tooling — but I am comfortable moving
-                across the stack and picking up new platforms quickly.
+                My strongest recent work spans AI agent engineering with the Anthropic Agent SDK
+                (delivered live at the Cerebral Valley × Anthropic 4.7 Hackathon), Salesforce platform
+                engineering including an AppExchange managed package, and TypeScript browser extension
+                development — but I am comfortable moving across the stack and picking up new platforms quickly.
               </p>
             </div>
           </Card>

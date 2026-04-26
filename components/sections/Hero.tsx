@@ -84,7 +84,7 @@ export default function Hero() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-lg sm:text-xl text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed"
           >
-            Salesforce platform engineering · TypeScript · Python · Systems programming
+            AI agents · Salesforce engineering · TypeScript · Python · Systems programming
           </motion.p>
 
           <motion.div

@@ -42,71 +42,72 @@ export default function FeaturedProjects() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              <Link href={`/projects/${project.id}`}>
-                <Card hover className="h-full flex flex-col group cursor-pointer overflow-hidden">
-                  {project.image && (
-                    <div className="relative w-full h-44 mb-4 rounded-lg overflow-hidden bg-purple-900/20">
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                    </div>
+              <Card hover className="relative h-full flex flex-col group cursor-pointer overflow-hidden">
+                <Link
+                  href={`/projects/${project.id}`}
+                  aria-label={`View project: ${project.title}`}
+                  className="absolute inset-0 z-10"
+                />
+                {project.image && (
+                  <div className="relative w-full h-44 mb-4 rounded-lg overflow-hidden bg-purple-900/20">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                )}
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-purple-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.slice(0, 4).map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-1 text-xs bg-purple-900/30 text-purple-300 rounded border border-purple-800/50"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.tech.length > 4 && (
+                      <span className="px-2 py-1 text-xs text-gray-500">
+                        +{project.tech.length - 4}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="relative z-20 flex gap-3 pt-4 border-t border-purple-800/30">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-purple-400 transition-colors"
+                      aria-label={`${project.title} on GitHub`}
+                    >
+                      <Github className="h-5 w-5" />
+                    </a>
                   )}
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-purple-400 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-3">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.slice(0, 4).map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2 py-1 text-xs bg-purple-900/30 text-purple-300 rounded border border-purple-800/50"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.tech.length > 4 && (
-                        <span className="px-2 py-1 text-xs text-gray-500">
-                          +{project.tech.length - 4}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex gap-3 pt-4 border-t border-purple-800/30">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-gray-400 hover:text-purple-400 transition-colors"
-                        aria-label="View on GitHub"
-                      >
-                        <Github className="h-5 w-5" />
-                      </a>
-                    )}
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-gray-400 hover:text-purple-400 transition-colors"
-                        aria-label="View live site"
-                      >
-                        <ExternalLink className="h-5 w-5" />
-                      </a>
-                    )}
-                  </div>
-                </Card>
-              </Link>
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-purple-400 transition-colors"
+                      aria-label={`${project.title} live site`}
+                    >
+                      <ExternalLink className="h-5 w-5" />
+                    </a>
+                  )}
+                </div>
+              </Card>
             </motion.div>
           ))}
         </div>

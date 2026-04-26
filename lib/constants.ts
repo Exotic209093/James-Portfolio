@@ -2,14 +2,14 @@ export const siteConfig = {
   name: 'James Collard',
   title: 'Software Engineer',
   description:
-    'I build production-grade software across the full stack — from Salesforce AppExchange packages and cloud storage integrations to TypeScript browser extensions and data migration tooling.',
+    'I build production-grade software across the full stack — from AI agents on the Anthropic Agent SDK and Salesforce AppExchange packages to TypeScript browser extensions and data migration tooling.',
   url: 'https://jamescollard.vercel.app',
   ogImage: '/og-image.jpg',
   location: 'Kent, United Kingdom',
   links: {
     twitter: 'https://twitter.com/Exotic209093',
     github: 'https://github.com/Exotic209093',
-    linkedin: 'https://linkedin.com/in/james-collard',
+    linkedin: 'https://www.linkedin.com/in/james-collard-6b925a313/',
     email: 'mailto:jamescollard2005@gmail.com',
   },
 }
@@ -28,64 +28,12 @@ export const skills = [
     items: ['TypeScript', 'JavaScript', 'Python', 'Apex (Salesforce)', 'C++', 'SQL', 'Bash'],
   },
   {
-    category: 'Frameworks & Libraries',
-    items: ['Next.js', 'React', 'Node.js', 'Preact', 'Flask', 'Django', 'Prisma', 'Jest'],
+    category: 'Frameworks & Runtimes',
+    items: ['Next.js', 'React', 'Node.js', 'Bun', 'Hono', 'Three.js', 'Preact', 'Vite', 'Flask', 'Django', 'Prisma', 'Jest'],
   },
   {
     category: 'Platforms & Tools',
-    items: ['Salesforce / AppExchange', 'Docker', 'Linux', 'Git', 'PostgreSQL', 'MongoDB', 'Chrome Extensions', 'REST APIs'],
-  },
-]
-
-export const projectHistory = [
-  {
-    period: 'April 2026',
-    title: 'Vastify',
-    summary:
-      'Built the Cerebral Valley × Anthropic 4.7 Hackathon submission solo: a transparent Salesforce storage-offload platform driven by three Claude Opus 4.7 agents (Setup, Diff Explainer, Rule Generator) over a Bun + Hono middleware and React dashboard.',
-    impact: 'Demonstrates production-grade agent engineering with the Anthropic Agent SDK, full-stack delivery under hackathon pressure, and a deep pairing of AI with the Salesforce platform.',
-  },
-  {
-    period: 'March 2026',
-    title: 'Nebula-Vault',
-    summary:
-      'Built a Salesforce AppExchange managed package that replaces native file storage with configurable cloud backends across AWS S3, Azure Blob, GCS, OneDrive, and Dropbox.',
-    impact: 'Demonstrates enterprise Salesforce platform engineering, multi-cloud integration, and managed package architecture — the most production-relevant Salesforce work in the portfolio.',
-  },
-  {
-    period: 'March 2026',
-    title: 'WaveLink',
-    summary:
-      'Built a Chrome extension for Salesforce migration and data operations, including schema diffing, validation, dependency-aware record moves, and rollback support.',
-    impact: 'Shows product thinking, TypeScript frontend work, API integration, and testable migration logic.',
-  },
-  {
-    period: 'March 2026',
-    title: 'Salesforce Spreadsheet Formatter',
-    summary:
-      'Created a Python CLI that normalizes CSV and XLSX exports before Data Loader imports, with config-driven rules and issues reporting for failed conversions.',
-    impact: 'Demonstrates practical automation, data quality handling, and unit-tested tooling for a real migration workflow.',
-  },
-  {
-    period: 'January 2026',
-    title: 'Apex HQ',
-    summary:
-      'Designed an internal staff portal foundation using Next.js 14, Prisma, PostgreSQL, and NextAuth with role-based access and deployment-oriented architecture.',
-    impact: 'Useful evidence of full-stack application structure, auth flows, and maintainable project setup.',
-  },
-  {
-    period: 'March 2026',
-    title: 'AI Email Triage Automation',
-    summary:
-      'Connected n8n workflows to a local Node service that classifies inbound email into structured actions and summaries using an LLM CLI bridge.',
-    impact: 'Highlights workflow automation, local service integration, and pragmatic use of AI in operations tooling.',
-  },
-  {
-    period: 'March 2026',
-    title: 'ExoCraft',
-    summary:
-      'Built a browser voxel sandbox in Three.js with persistence, progression systems, crafting, combat loops, and save-state handling.',
-    impact: 'Shows strong self-directed engineering, state management, and interactive frontend problem solving.',
+    items: ['Salesforce / AppExchange', 'Anthropic Agent SDK', 'Claude Opus 4.7', 'AWS S3', 'Docker', 'Linux', 'Git', 'PostgreSQL', 'MongoDB', 'Chrome Extensions', 'REST APIs'],
   },
 ]
 
