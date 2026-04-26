@@ -29,31 +29,46 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     >
       <Link href={`/projects/${project.id}`}>
         <Card hover className="h-full flex flex-col group cursor-pointer overflow-hidden">
-          <motion.div 
+          <motion.div
             className="relative w-full h-48 mb-4 rounded-lg overflow-hidden bg-purple-900/20"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-black/50" />
-            <motion.div 
-              className="absolute inset-0 flex items-center justify-center"
-              animate={{ 
-                background: [
-                  'radial-gradient(circle, rgba(147,51,234,0.1) 0%, transparent 70%)',
-                  'radial-gradient(circle, rgba(147,51,234,0.2) 0%, transparent 70%)',
-                  'radial-gradient(circle, rgba(147,51,234,0.1) 0%, transparent 70%)',
-                ]
-              }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              <motion.span 
-                className="text-4xl font-bold text-purple-500/30"
-                whileHover={{ scale: 1.2, color: 'rgba(147, 51, 234, 0.5)' }}
-                transition={{ duration: 0.2 }}
-              >
-                {project.title.charAt(0)}
-              </motion.span>
-            </motion.div>
+            {project.image ? (
+              <>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+              </>
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-black/50" />
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center"
+                  animate={{
+                    background: [
+                      'radial-gradient(circle, rgba(147,51,234,0.1) 0%, transparent 70%)',
+                      'radial-gradient(circle, rgba(147,51,234,0.2) 0%, transparent 70%)',
+                      'radial-gradient(circle, rgba(147,51,234,0.1) 0%, transparent 70%)',
+                    ]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                >
+                  <motion.span
+                    className="text-4xl font-bold text-purple-500/30"
+                    whileHover={{ scale: 1.2, color: 'rgba(147, 51, 234, 0.5)' }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {project.title.charAt(0)}
+                  </motion.span>
+                </motion.div>
+              </>
+            )}
           </motion.div>
 
           <div className="flex-1">

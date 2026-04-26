@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#7e22ce" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#1e0a2e" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+    <linearGradient id="stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e9d5ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="topFace" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.35"/>
+    </linearGradient>
+    <linearGradient id="leftFace" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#3b0764" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="rightFace" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5b21b6" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#1e0a2e" stop-opacity="0.65"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#7c3aed" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#000"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <!-- isometric voxel stack -->
+  <g transform="translate(600 320)" stroke="url(#stroke)" stroke-linejoin="round" stroke-width="3">
+    <!-- ground row, 3 cubes -->
+    <g transform="translate(-160 60)">
+      <polygon points="0,0 70,-40 140,0 70,40" fill="url(#topFace)"/>
+      <polygon points="0,0 0,70 70,110 70,40" fill="url(#leftFace)"/>
+      <polygon points="140,0 140,70 70,110 70,40" fill="url(#rightFace)"/>
+    </g>
+    <g transform="translate(-20 60)">
+      <polygon points="0,0 70,-40 140,0 70,40" fill="url(#topFace)"/>
+      <polygon points="0,0 0,70 70,110 70,40" fill="url(#leftFace)"/>
+      <polygon points="140,0 140,70 70,110 70,40" fill="url(#rightFace)"/>
+    </g>
+    <g transform="translate(120 60)">
+      <polygon points="0,0 70,-40 140,0 70,40" fill="url(#topFace)"/>
+      <polygon points="0,0 0,70 70,110 70,40" fill="url(#leftFace)"/>
+      <polygon points="140,0 140,70 70,110 70,40" fill="url(#rightFace)"/>
+    </g>
+    <!-- middle row, 2 cubes -->
+    <g transform="translate(-90 -20)">
+      <polygon points="0,0 70,-40 140,0 70,40" fill="url(#topFace)"/>
+      <polygon points="0,0 0,70 70,110 70,40" fill="url(#leftFace)"/>
+      <polygon points="140,0 140,70 70,110 70,40" fill="url(#rightFace)"/>
+    </g>
+    <g transform="translate(50 -20)">
+      <polygon points="0,0 70,-40 140,0 70,40" fill="url(#topFace)"/>
+      <polygon points="0,0 0,70 70,110 70,40" fill="url(#leftFace)"/>
+      <polygon points="140,0 140,70 70,110 70,40" fill="url(#rightFace)"/>
+    </g>
+    <!-- top cube -->
+    <g transform="translate(-20 -100)">
+      <polygon points="0,0 70,-40 140,0 70,40" fill="url(#topFace)"/>
+      <polygon points="0,0 0,70 70,110 70,40" fill="url(#leftFace)"/>
+      <polygon points="140,0 140,70 70,110 70,40" fill="url(#rightFace)"/>
+    </g>
+  </g>
+  <text x="60" y="615" fill="#e9d5ff" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="38" font-weight="700" letter-spacing="-0.5">ExoCraft</text>
+  <text x="60" y="648" fill="#a78bfa" fill-opacity="0.65" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" letter-spacing="2">THREE.JS · VOXEL SANDBOX</text>
+</svg>

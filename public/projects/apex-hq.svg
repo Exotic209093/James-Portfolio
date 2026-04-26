@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#7e22ce" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#1e0a2e" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+    <linearGradient id="stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e9d5ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="windowGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.15"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#7c3aed" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#000"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g transform="translate(600 110)" fill="none" stroke="url(#stroke)" stroke-linecap="round" stroke-linejoin="round" stroke-width="5">
+    <!-- left tower -->
+    <rect x="-220" y="80" width="120" height="280" rx="4"/>
+    <!-- center tower (tallest) -->
+    <rect x="-60" y="0" width="120" height="360" rx="4"/>
+    <!-- right tower -->
+    <rect x="100" y="120" width="120" height="240" rx="4"/>
+    <!-- windows on center tower -->
+    <g stroke-width="0" fill="url(#windowGlow)">
+      <rect x="-44" y="40" width="20" height="28"/>
+      <rect x="-12" y="40" width="20" height="28"/>
+      <rect x="20" y="40" width="20" height="28"/>
+      <rect x="-44" y="84" width="20" height="28"/>
+      <rect x="-12" y="84" width="20" height="28"/>
+      <rect x="20" y="84" width="20" height="28"/>
+      <rect x="-44" y="128" width="20" height="28"/>
+      <rect x="20" y="128" width="20" height="28"/>
+      <rect x="-44" y="172" width="20" height="28"/>
+      <rect x="-12" y="172" width="20" height="28"/>
+      <rect x="20" y="172" width="20" height="28"/>
+      <rect x="-44" y="216" width="20" height="28"/>
+      <rect x="20" y="216" width="20" height="28"/>
+      <rect x="-44" y="260" width="20" height="28"/>
+      <rect x="-12" y="260" width="20" height="28"/>
+      <rect x="20" y="260" width="20" height="28"/>
+      <rect x="-44" y="304" width="20" height="28"/>
+      <rect x="20" y="304" width="20" height="28"/>
+    </g>
+    <!-- windows side towers -->
+    <g stroke-width="0" fill="url(#windowGlow)">
+      <rect x="-204" y="120" width="20" height="28"/>
+      <rect x="-172" y="120" width="20" height="28"/>
+      <rect x="-140" y="120" width="20" height="28"/>
+      <rect x="-204" y="164" width="20" height="28"/>
+      <rect x="-140" y="164" width="20" height="28"/>
+      <rect x="-204" y="208" width="20" height="28"/>
+      <rect x="-172" y="208" width="20" height="28"/>
+      <rect x="-204" y="252" width="20" height="28"/>
+      <rect x="-140" y="252" width="20" height="28"/>
+      <rect x="-204" y="296" width="20" height="28"/>
+      <rect x="-172" y="296" width="20" height="28"/>
+      <rect x="116" y="160" width="20" height="28"/>
+      <rect x="148" y="160" width="20" height="28"/>
+      <rect x="184" y="160" width="20" height="28"/>
+      <rect x="116" y="204" width="20" height="28"/>
+      <rect x="184" y="204" width="20" height="28"/>
+      <rect x="116" y="248" width="20" height="28"/>
+      <rect x="148" y="248" width="20" height="28"/>
+      <rect x="184" y="248" width="20" height="28"/>
+      <rect x="116" y="292" width="20" height="28"/>
+    </g>
+    <!-- antenna on top of center tower -->
+    <line x1="0" y1="0" x2="0" y2="-40" stroke-width="4"/>
+    <circle cx="0" cy="-44" r="6" fill="url(#stroke)" stroke="none"/>
+    <!-- base ground line -->
+    <line x1="-280" y1="362" x2="280" y2="362" stroke-width="4" stroke-opacity="0.6"/>
+  </g>
+  <text x="60" y="615" fill="#e9d5ff" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="38" font-weight="700" letter-spacing="-0.5">Apex HQ</text>
+  <text x="60" y="648" fill="#a78bfa" fill-opacity="0.65" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" letter-spacing="2">NEXT.JS · POSTGRES · INTERNAL PORTAL</text>
+</svg>

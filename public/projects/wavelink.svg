@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#7e22ce" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#1e0a2e" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+    <linearGradient id="stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e9d5ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#7c3aed" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#000"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g transform="translate(600 300)" fill="none" stroke="url(#stroke)" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+    <!-- left chain link -->
+    <rect x="-280" y="-50" width="170" height="100" rx="50" ry="50"/>
+    <rect x="-260" y="-30" width="130" height="60" rx="30" ry="30" stroke-opacity="0.5" stroke-width="4"/>
+    <!-- right chain link -->
+    <rect x="110" y="-50" width="170" height="100" rx="50" ry="50"/>
+    <rect x="130" y="-30" width="130" height="60" rx="30" ry="30" stroke-opacity="0.5" stroke-width="4"/>
+    <!-- wave passing through -->
+    <path d="M -180 0 Q -140 -90 -90 0 T 0 0 T 90 0 T 180 0" stroke-width="6"/>
+    <!-- nodes at endpoints -->
+    <circle cx="-280" cy="0" r="8" fill="#e9d5ff" stroke="none"/>
+    <circle cx="280" cy="0" r="8" fill="#e9d5ff" stroke="none"/>
+  </g>
+  <text x="60" y="615" fill="#e9d5ff" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="38" font-weight="700" letter-spacing="-0.5">WaveLink</text>
+  <text x="60" y="648" fill="#a78bfa" fill-opacity="0.65" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" letter-spacing="2">CHROME EXTENSION · MIGRATION TOOL</text>
+</svg>

@@ -39,6 +39,13 @@ export const skills = [
 
 export const projectHistory = [
   {
+    period: 'April 2026',
+    title: 'Vastify',
+    summary:
+      'Built the Cerebral Valley × Anthropic 4.7 Hackathon submission solo: a transparent Salesforce storage-offload platform driven by three Claude Opus 4.7 agents (Setup, Diff Explainer, Rule Generator) over a Bun + Hono middleware and React dashboard.',
+    impact: 'Demonstrates production-grade agent engineering with the Anthropic Agent SDK, full-stack delivery under hackathon pressure, and a deep pairing of AI with the Salesforce platform.',
+  },
+  {
     period: 'March 2026',
     title: 'Nebula-Vault',
     summary:

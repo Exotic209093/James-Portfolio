@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#7e22ce" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#1e0a2e" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+    <linearGradient id="stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e9d5ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#7c3aed" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#000"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g transform="translate(380 180)" fill="none" stroke="url(#stroke)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
+    <!-- left messy spreadsheet -->
+    <g>
+      <rect x="0" y="0" width="180" height="270" rx="6" stroke-width="5"/>
+      <line x1="0" y1="50" x2="180" y2="50"/>
+      <line x1="0" y1="100" x2="180" y2="100"/>
+      <line x1="0" y1="150" x2="180" y2="150"/>
+      <line x1="0" y1="200" x2="180" y2="200"/>
+      <line x1="60" y1="0" x2="60" y2="270"/>
+      <line x1="120" y1="0" x2="120" y2="270"/>
+      <!-- "messy" data dashes -->
+      <line x1="12" y1="75" x2="48" y2="75" stroke-width="6" stroke-opacity="0.55"/>
+      <line x1="72" y1="75" x2="108" y2="75" stroke-width="6" stroke="#dc2626" stroke-opacity="0.7"/>
+      <line x1="132" y1="75" x2="168" y2="75" stroke-width="6" stroke-opacity="0.55"/>
+      <line x1="12" y1="125" x2="40" y2="125" stroke-width="6" stroke="#dc2626" stroke-opacity="0.7"/>
+      <line x1="72" y1="125" x2="108" y2="125" stroke-width="6" stroke-opacity="0.55"/>
+      <line x1="12" y1="175" x2="48" y2="175" stroke-width="6" stroke-opacity="0.55"/>
+      <line x1="72" y1="175" x2="100" y2="175" stroke-width="6" stroke-opacity="0.55"/>
+    </g>
+    <!-- arrow -->
+    <g transform="translate(220 135)" stroke-width="8">
+      <line x1="0" y1="0" x2="80" y2="0"/>
+      <polyline points="60,-18 80,0 60,18"/>
+    </g>
+    <!-- right clean spreadsheet -->
+    <g transform="translate(340 0)">
+      <rect x="0" y="0" width="180" height="270" rx="6" stroke-width="5"/>
+      <line x1="0" y1="50" x2="180" y2="50"/>
+      <line x1="0" y1="100" x2="180" y2="100"/>
+      <line x1="0" y1="150" x2="180" y2="150"/>
+      <line x1="0" y1="200" x2="180" y2="200"/>
+      <line x1="60" y1="0" x2="60" y2="270"/>
+      <line x1="120" y1="0" x2="120" y2="270"/>
+      <!-- clean uniform data -->
+      <line x1="12" y1="75" x2="48" y2="75" stroke-width="6"/>
+      <line x1="72" y1="75" x2="108" y2="75" stroke-width="6"/>
+      <line x1="132" y1="75" x2="168" y2="75" stroke-width="6"/>
+      <line x1="12" y1="125" x2="48" y2="125" stroke-width="6"/>
+      <line x1="72" y1="125" x2="108" y2="125" stroke-width="6"/>
+      <line x1="132" y1="125" x2="168" y2="125" stroke-width="6"/>
+      <line x1="12" y1="175" x2="48" y2="175" stroke-width="6"/>
+      <line x1="72" y1="175" x2="108" y2="175" stroke-width="6"/>
+      <line x1="132" y1="175" x2="168" y2="175" stroke-width="6"/>
+      <line x1="12" y1="225" x2="48" y2="225" stroke-width="6"/>
+      <line x1="72" y1="225" x2="108" y2="225" stroke-width="6"/>
+      <line x1="132" y1="225" x2="168" y2="225" stroke-width="6"/>
+    </g>
+  </g>
+  <text x="60" y="615" fill="#e9d5ff" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="38" font-weight="700" letter-spacing="-0.5">Salesforce Spreadsheet Formatter</text>
+  <text x="60" y="648" fill="#a78bfa" fill-opacity="0.65" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" letter-spacing="2">PYTHON CLI · DATA NORMALIZATION</text>
+</svg>

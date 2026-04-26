@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { ExternalLink, Github } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
@@ -63,22 +64,38 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
         transition={{ duration: 0.5, delay: 0.2 }}
         className="relative w-full h-64 md:h-96 mb-8 rounded-lg overflow-hidden bg-purple-900/20"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-black/50" />
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center"
-          animate={{
-            background: [
-              'radial-gradient(circle, rgba(147,51,234,0.1) 0%, transparent 70%)',
-              'radial-gradient(circle, rgba(147,51,234,0.2) 0%, transparent 70%)',
-              'radial-gradient(circle, rgba(147,51,234,0.1) 0%, transparent 70%)',
-            ]
-          }}
-          transition={{ duration: 4, repeat: Infinity }}
-        >
-          <span className="text-6xl font-bold text-purple-500/30">
-            {project.title.charAt(0)}
-          </span>
-        </motion.div>
+        {project.image ? (
+          <>
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 800px"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+          </>
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-black/50" />
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center"
+              animate={{
+                background: [
+                  'radial-gradient(circle, rgba(147,51,234,0.1) 0%, transparent 70%)',
+                  'radial-gradient(circle, rgba(147,51,234,0.2) 0%, transparent 70%)',
+                  'radial-gradient(circle, rgba(147,51,234,0.1) 0%, transparent 70%)',
+                ]
+              }}
+              transition={{ duration: 4, repeat: Infinity }}
+            >
+              <span className="text-6xl font-bold text-purple-500/30">
+                {project.title.charAt(0)}
+              </span>
+            </motion.div>
+          </>
+        )}
       </motion.div>
 
       {/* Tech Stack - Detailed */}

@@ -23,6 +23,34 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'vastify',
+    title: 'Vastify',
+    description:
+      'Hackathon-built Salesforce storage-offload platform that routes files into customer-owned cloud buckets while staying transparent to dependent apps — driven by three Claude Opus 4.7 agents.',
+    longDescription:
+      'Vastify is a transparent storage and backup platform for Salesforce, built during the Cerebral Valley × Anthropic 4.7 Hackathon. It reduces Salesforce data storage costs by approximately 90% by proxying the OData endpoint and offloading files into customer-owned object storage (S3, GCS, Azure Blob, MinIO, or Cloudflare R2) — without breaking any Salesforce app that depends on the original data. The submission centres on three Claude Opus 4.7 agents built with the Anthropic Agent SDK: a Setup Agent that provisions the system in 42 seconds across six autonomous tool calls, a Diff Explainer that produces structured per-object verdicts on backup change-sets, and a Rule Generator that converts plain-English routing intent into validated JSON rules.',
+    category: 'Hackathon · Salesforce + AI Agents',
+    status: 'Cerebral Valley × Anthropic 4.7 Hackathon submission',
+    role: 'Designed and built the full stack solo for the hackathon: agent orchestration with the Anthropic Agent SDK, the Bun/Hono middleware, the Salesforce-side Apex integration, and the React dashboard.',
+    highlights: [
+      'Built three Claude Opus 4.7 agents with the Anthropic Agent SDK — Setup, Diff Explainer, and Rule Generator — demonstrating structured outputs and self-recovering agent loops.',
+      'Implemented a transparent OData proxy so Salesforce apps continue to function identically even after files are offloaded into a customer-owned cloud bucket.',
+      'Delivered a full working stack in the hackathon timeframe: Bun/Hono middleware, SQLite index, multi-cloud storage abstraction, Apex triggers and Queueables, and a Vite/React dashboard.',
+    ],
+    image: '/projects/vastify.png',
+    tech: ['TypeScript', 'Bun', 'Hono', 'React', 'Apex', 'Anthropic Agent SDK', 'Claude Opus 4.7', 'OData'],
+    techStack: [
+      { category: 'AI Agents', items: ['Anthropic Agent SDK', 'Claude Opus 4.7', 'Structured Outputs', 'Tool-Calling Loops'] },
+      { category: 'Middleware', items: ['Bun 1.3', 'Hono', 'bun:sqlite', 'TypeScript'] },
+      { category: 'Object Storage', items: ['AWS S3', 'Google Cloud Storage', 'Azure Blob', 'MinIO', 'Cloudflare R2'] },
+      { category: 'Salesforce', items: ['Apex Triggers', 'Queueables', 'External Objects', 'OData 4.0'] },
+      { category: 'Dashboard', items: ['React 18', 'Vite', 'Tailwind CSS', 'Recharts'] },
+    ],
+    github: 'https://github.com/Exotic209093/Vastify',
+    featured: true,
+    date: '2026-04-26',
+  },
+  {
     id: 'nebula-vault',
     title: 'Nebula-Vault',
     description:
@@ -37,7 +65,7 @@ export const projects: Project[] = [
       'Built as an AppExchange managed package — enforcing the namespacing, security review readiness, and metadata packaging constraints of the Salesforce ISV model.',
       'Designed the provider configuration layer to be admin-configurable per org without requiring code changes or redeployment.',
     ],
-    image: '/projects/nebula-vault.jpg',
+    image: '/projects/nebula-vault.svg',
     tech: ['Apex', 'Salesforce', 'AWS S3', 'Azure Blob', 'GCS', 'OneDrive', 'Dropbox', 'AppExchange'],
     techStack: [
       { category: 'Platform', items: ['Apex', 'Salesforce Metadata API', 'Managed Package', 'AppExchange'] },
@@ -63,7 +91,7 @@ export const projects: Project[] = [
       'Built a Chrome extension UI with TypeScript and Preact instead of a simple single-page demo.',
       'Added automated tests around key data-handling behaviour to keep complex workflows stable.',
     ],
-    image: '/projects/wavelink.jpg',
+    image: '/projects/wavelink.svg',
     tech: ['TypeScript', 'Preact', 'Webpack', 'Jest', 'Salesforce APIs', 'Chrome Extension'],
     techStack: [
       { category: 'Frontend', items: ['TypeScript', 'Preact', 'Shadow DOM UI', 'Command Palette', 'Keyboard Shortcuts'] },
@@ -90,7 +118,7 @@ export const projects: Project[] = [
       'Uses config-driven rules and preview modes so the tool can adapt to different export structures.',
       'Includes unit tests covering rule matching and workbook or CSV processing behaviour.',
     ],
-    image: '/projects/salesforce-formatter.jpg',
+    image: '/projects/salesforce-formatter.svg',
     tech: ['Python', 'openpyxl', 'CLI Tooling', 'CSV', 'XLSX', 'Unit Tests'],
     techStack: [
       { category: 'Core Tooling', items: ['Python', 'argparse CLI', 'openpyxl', 'CSV Processing'] },
@@ -117,7 +145,7 @@ export const projects: Project[] = [
       'Integrated authentication and role-aware access patterns with NextAuth.',
       'Documented architecture and deployment so the project could be extended beyond the initial scaffold.',
     ],
-    image: '/projects/apex-hq.jpg',
+    image: '/projects/apex-hq.svg',
     tech: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'NextAuth', 'Tailwind CSS'],
     techStack: [
       { category: 'Application Stack', items: ['Next.js 14', 'React 18', 'TypeScript', 'Tailwind CSS'] },
@@ -144,7 +172,7 @@ export const projects: Project[] = [
       'Returns structured fields instead of raw text so the output can feed follow-on automation.',
       'Shows pragmatic AI integration through a clear service boundary rather than bolting prompts into UI code.',
     ],
-    image: '/projects/email-triage.jpg',
+    image: '/projects/email-triage.svg',
     tech: ['n8n', 'Node.js', 'Workflow Automation', 'HTTP Services', 'LLM Integration'],
     techStack: [
       { category: 'Workflow Layer', items: ['n8n', 'IMAP Trigger', 'Workflow JSON', 'Smoke-Test Workflow'] },
@@ -169,7 +197,7 @@ export const projects: Project[] = [
       'Handled state-heavy interactions such as combat, furnace processing, and objective tracking.',
       'Used the project as a proving ground for iterative feature delivery and browser performance tradeoffs.',
     ],
-    image: '/projects/exocraft.jpg',
+    image: '/projects/exocraft.svg',
     tech: ['TypeScript', 'Three.js', 'Vite', 'IndexedDB', 'Game Systems'],
     techStack: [
       { category: 'Rendering', items: ['Three.js', 'Voxel World', 'Lighting', 'Camera and Input Handling'] },
@@ -195,7 +223,7 @@ export const projects: Project[] = [
       'Applied C++ with strict discipline around pointer safety, IRQL constraints, and kernel-space memory management.',
       'Demonstrated willingness to work at the systems layer — below the abstraction level of most application developers.',
     ],
-    image: '/projects/exoware-kernel-driver.jpg',
+    image: '/projects/exoware-kernel-driver.svg',
     tech: ['C++', 'Windows Kernel', 'WDM', 'Systems Programming'],
     techStack: [
       { category: 'Core', items: ['C++', 'Windows Driver Model', 'Kernel-Mode Development'] },

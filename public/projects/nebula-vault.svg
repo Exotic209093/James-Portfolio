@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#7e22ce" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#1e0a2e" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+    <linearGradient id="stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e9d5ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#7c3aed" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#000"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g transform="translate(600 290)" fill="none" stroke="url(#stroke)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- five orbiting cloud nodes -->
+    <g stroke-width="3" stroke-opacity="0.5">
+      <circle r="220"/>
+      <circle r="160"/>
+    </g>
+    <g stroke-width="4">
+      <g transform="rotate(0)"><circle cx="0" cy="-220" r="22" fill="#000"/></g>
+      <g transform="rotate(72)"><circle cx="0" cy="-220" r="22" fill="#000"/></g>
+      <g transform="rotate(144)"><circle cx="0" cy="-220" r="22" fill="#000"/></g>
+      <g transform="rotate(216)"><circle cx="0" cy="-220" r="22" fill="#000"/></g>
+      <g transform="rotate(288)"><circle cx="0" cy="-220" r="22" fill="#000"/></g>
+    </g>
+    <!-- central vault -->
+    <g stroke-width="6">
+      <circle r="90" fill="#000"/>
+      <circle r="62"/>
+      <line x1="0" y1="-90" x2="0" y2="-128"/>
+      <line x1="0" y1="90" x2="0" y2="128"/>
+      <line x1="-90" y1="0" x2="-128" y2="0"/>
+      <line x1="90" y1="0" x2="128" y2="0"/>
+      <circle r="10" fill="url(#stroke)" stroke="none"/>
+    </g>
+  </g>
+  <text x="60" y="615" fill="#e9d5ff" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="38" font-weight="700" letter-spacing="-0.5">Nebula-Vault</text>
+  <text x="60" y="648" fill="#a78bfa" fill-opacity="0.65" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" letter-spacing="2">SALESFORCE · MULTI-CLOUD STORAGE</text>
+</svg>

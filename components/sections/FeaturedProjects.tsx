@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ExternalLink, Github } from 'lucide-react'
 import Card from '@/components/ui/Card'
 import { ButtonLink } from '@/components/ui/Button'
@@ -42,7 +43,19 @@ export default function FeaturedProjects() {
               transition={{ delay: index * 0.1, duration: 0.5 }}
             >
               <Link href={`/projects/${project.id}`}>
-                <Card hover className="h-full flex flex-col group cursor-pointer">
+                <Card hover className="h-full flex flex-col group cursor-pointer overflow-hidden">
+                  {project.image && (
+                    <div className="relative w-full h-44 mb-4 rounded-lg overflow-hidden bg-purple-900/20">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                    </div>
+                  )}
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-purple-400 transition-colors">
                       {project.title}
