@@ -197,7 +197,7 @@ export const projects: Project[] = [
       'Handled state-heavy interactions such as combat, furnace processing, and objective tracking.',
       'Used the project as a proving ground for iterative feature delivery and browser performance tradeoffs.',
     ],
-    image: '/projects/exocraft.svg',
+    image: '/projects/exocraft.png',
     tech: ['TypeScript', 'Three.js', 'Vite', 'IndexedDB', 'Game Systems'],
     techStack: [
       { category: 'Rendering', items: ['Three.js', 'Voxel World', 'Lighting', 'Camera and Input Handling'] },
@@ -205,6 +205,7 @@ export const projects: Project[] = [
       { category: 'Persistence', items: ['IndexedDB', 'Autosave', 'World State Serialization'] },
     ],
     github: 'https://github.com/Exotic209093/ExoCraft',
+    live: 'https://exo-craft.vercel.app/',
     featured: false,
     date: '2026-03-05',
   },
