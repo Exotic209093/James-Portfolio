@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react'
+import { Github, Linkedin, Twitter, Mail, Chrome } from 'lucide-react'
 import { siteConfig, socialLinks } from '@/lib/constants'
 
 const iconMap = {
@@ -10,6 +10,7 @@ const iconMap = {
   linkedin: Linkedin,
   twitter: Twitter,
   mail: Mail,
+  chrome: Chrome,
 }
 
 export default function Footer() {

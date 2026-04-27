@@ -11,6 +11,7 @@ export const siteConfig = {
     github: 'https://github.com/Exotic209093',
     linkedin: 'https://www.linkedin.com/in/james-collard-6b925a313/',
     email: 'mailto:jamescollard2005@gmail.com',
+    chromeStore: 'https://chromewebstore.google.com/detail/wavelink-salesforce-data/ccknhhibbedolfnbgnenomdohlmojblo',
   },
 }
 
@@ -52,6 +53,11 @@ export const socialLinks = [
     name: 'Twitter',
     href: siteConfig.links.twitter,
     icon: 'twitter',
+  },
+  {
+    name: 'WaveLink on the Chrome Web Store',
+    href: siteConfig.links.chromeStore,
+    icon: 'chrome',
   },
   {
     name: 'Email',
