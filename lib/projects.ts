@@ -18,10 +18,11 @@ export interface Project {
   github?: string
   live?: string
   featured: boolean
+  hidden?: boolean
   date: string
 }
 
-export const projects: Project[] = [
+const allProjects: Project[] = [
   {
     id: 'vastify',
     title: 'Vastify',
@@ -157,6 +158,7 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/Exotic209093/Apex-HQ',
     featured: false,
+    hidden: true,
     date: '2025-12-31',
   },
   {
@@ -267,6 +269,8 @@ export const projects: Project[] = [
     date: '2026-03-12',
   },
 ]
+
+export const projects: Project[] = allProjects.filter((project) => !project.hidden)
 
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((project) => project.id === slug)
