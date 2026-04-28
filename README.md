@@ -1,137 +1,85 @@
-# Portfolio Website
+# James Collard — Portfolio
 
-A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. Features a black and deep purple theme with smooth animations and excellent user experience.
+Personal portfolio site for [James Collard](https://jamescollard.vercel.app). Next.js 14 (App Router), TypeScript, Tailwind CSS, deployed on Vercel.
 
-## 🚀 Features
+## Pages
 
-- **Modern Design**: Clean, black/deep purple theme with smooth animations
-- **Responsive**: Fully responsive design that works on all devices
-- **Fast Performance**: Optimized for Core Web Vitals
-- **SEO Friendly**: Built with Next.js for excellent SEO
-- **Smooth Animations**: Framer Motion for delightful user interactions
-- **Type Safe**: Full TypeScript support
-- **Vercel Ready**: Optimized for Vercel deployment
+| Path | Purpose |
+|---|---|
+| `/` | Hero, "open to work" badge, featured projects, contact CTA |
+| `/about` | Bio, skills, photo |
+| `/projects` | Full project listing with filters and sort |
+| `/projects/[id]` | Individual project page — long description, role, highlights, tech stack |
+| `/blog` | Blog index (Markdown-backed; see `content/blog/`) |
+| `/blog/[slug]` | Individual blog post with frontmatter metadata |
+| `/contact` | Contact CTA — opens the system mail client via `mailto:` |
 
-## 📄 Pages
+## Project list
 
-- **Home**: Hero section, about preview, featured projects, contact CTA
-- **About**: Full bio, skills, and experience
-- **Projects**: Project listing and individual project pages
-- **Blog**: Blog listing and individual blog post pages (Markdown support)
-- **Contact**: Contact form with API route
+Projects are defined in [`lib/projects.ts`](lib/projects.ts). Currently shipped:
 
-## 🛠️ Tech Stack
+| Project | Status |
+|---|---|
+| **Vastify** — Salesforce storage-offload + three Claude Opus 4.7 agents | Cerebral Valley × Anthropic 4.7 Hackathon submission |
+| **Nebula-Vault** — Salesforce AppExchange managed package, multi-cloud storage routing | Active build |
+| **WaveLink** — Chrome extension for Salesforce data work | Published on the Chrome Web Store |
+| **Git Navigator** — VS Code extension for git/GitHub workflows | Published on the Visual Studio Marketplace |
+| **Salesforce Spreadsheet Formatter** — Python CLI for migration prep | Production-ready utility |
+| **AI Email Triage Automation** — n8n + Node bridge → structured action recommendations | Prototype |
+| **ExoCraft** — Three.js voxel sandbox with persistence and progression | [Live on Vercel](https://exo-craft.vercel.app/) |
+| **ExoWare Kernel Driver** — Windows kernel-mode driver in C++ | Prototype |
+| **Apex HQ** — Internal staff portal foundation (Next.js 14 + Prisma + NextAuth) | Hidden from public listings |
 
-- **Next.js 14** (App Router)
-- **TypeScript**
-- **Tailwind CSS**
-- **Framer Motion**
-- **React Hook Form**
-- **Zod**
-- **Lucide React** (Icons)
+To add a project, append a new entry to the `allProjects` array in `lib/projects.ts` and drop a matching image into `public/projects/`. Set `featured: true` to surface on the homepage and `hidden: true` to keep an item out of public listings.
 
-## 📦 Installation
+## Tech stack
 
-1. Install dependencies:
+- **Next.js 14** (App Router) + **TypeScript**
+- **Tailwind CSS** with a black + deep-purple theme
+- **Framer Motion** for hover and section animations
+- **Lucide React** for icons
+- **Markdown blog** via `gray-matter` + `remark` (no CMS)
+- **Vercel** hosting
+
+## Local development
+
 ```bash
 npm install
-```
-
-2. Run the development server:
-```bash
 npm run dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000).
 
-## 🔧 Configuration
+## Deployment
 
-### Update Site Information
+Pushing to `main` auto-deploys to Vercel. The production site lives at <https://jamescollard.vercel.app>.
 
-Edit `lib/constants.ts` to update:
-- Your name and title
-- Social media links
-- Site description
-- Navigation items
-
-### Add Projects
-
-Edit `lib/projects.ts` to add your projects. Each project should have:
-- Title and description
-- Tech stack
-- GitHub and live links
-- Featured flag
-
-### Add Blog Posts
-
-Create Markdown files in `content/blog/` directory. Each file should have frontmatter:
-
-```markdown
----
-title: Your Post Title
-date: 2024-01-15
-excerpt: A brief description
-tags: [web development, next.js]
-author: Your Name
----
-
-Your blog post content here...
+```bash
+npm run build   # local production build
+npm start       # serve the production bundle
 ```
 
-### Resume
+## Customising
 
-Add your resume PDF file to the `public/` directory and name it `resume.pdf`. The download button on the About page and Hero section will automatically link to it.
+| To change… | Edit |
+|---|---|
+| Name, title, social links, location | [`lib/constants.ts`](lib/constants.ts) |
+| Project list | [`lib/projects.ts`](lib/projects.ts) |
+| Skills | `skills` array in [`lib/constants.ts`](lib/constants.ts) |
+| Theme colours / fonts | [`tailwind.config.ts`](tailwind.config.ts), [`app/layout.tsx`](app/layout.tsx) |
+| Blog posts | Markdown files in [`content/blog/`](content/blog/) |
+| Resume PDF | Drop `resume.pdf` into [`public/`](public/) |
 
-### Contact Form
+## Contact
 
-The contact form API route is at `app/api/contact/route.ts`. You'll need to integrate with an email service like:
-- [Resend](https://resend.com)
-- [SendGrid](https://sendgrid.com)
-- [Formspree](https://formspree.io)
-- Or any other email service
+Contact is handled via a `mailto:` link rather than an API-backed form. There is no contact API route to configure — the previous `/api/contact` endpoint was removed. See [`components/layout/Footer.tsx`](components/layout/Footer.tsx) and the contact CTAs across the site for the live wiring.
 
-Currently, the form just logs submissions to the console. Update the route handler to send actual emails.
+## Responsive breakpoints
 
-## 🎨 Customization
+- Mobile: < 640 px
+- Tablet: 640 – 1024 px
+- Desktop: > 1024 px
 
-### Colors
+## License
 
-Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
-- Background: Black (#000000)
-- Primary: Deep purple shades
-- Accent: Purple gradients
-
-### Fonts
-
-Fonts are configured in `app/layout.tsx`. Currently using Inter from Google Fonts.
-
-## 📱 Responsive Breakpoints
-
-- Mobile: < 640px
-- Tablet: 640px - 1024px
-- Desktop: > 1024px
-
-## 🚀 Deployment
-
-### Deploy to Vercel
-
-1. Push your code to GitHub
-2. Import your repository in Vercel
-3. Vercel will automatically detect Next.js and configure the build
-4. Your site will be live!
-
-### Environment Variables
-
-If you're using an email service, add your API keys as environment variables in Vercel.
-
-## 📝 License
-
-This project is open source and available under the MIT License.
-
-## 🤝 Contributing
-
-Feel free to fork this project and customize it for your own portfolio!
-
----
-
-Built with ❤️ using Next.js and Tailwind CSS
+MIT.

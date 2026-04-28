@@ -1,130 +1,114 @@
 # Setup Guide
 
-Follow these steps to get your portfolio website up and running.
+End-to-end setup for working on this portfolio locally.
 
-## 1. Install Dependencies
+## 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-## 2. Configure Your Information
+## 2. Configure your information
 
-### Update Site Configuration
+### Site config
 
-Edit `lib/constants.ts` and update:
-- `siteConfig.name` - Your name
-- `siteConfig.title` - Your title/role
-- `siteConfig.description` - Your description
-- `siteConfig.links` - Your social media links and email
+Edit [`lib/constants.ts`](lib/constants.ts):
 
-### Update Navigation
+- `siteConfig.name`, `siteConfig.title`, `siteConfig.description`
+- `siteConfig.url` — production URL (used for OG metadata)
+- `siteConfig.location`
+- `siteConfig.links` — `github`, `linkedin`, `twitter`, `email`, `chromeStore`
 
-In `lib/constants.ts`, modify the `navigation` array if you want to change menu items.
+### Navigation
 
-### Update Skills
+The `navigation` array drives the header. Add or rename entries to change the menu.
 
-In `lib/constants.ts`, update the `skills` array with your actual skills organized by category.
+### Skills
 
-## 3. Add Your Projects
+The `skills` array on the About page is grouped by category — each entry is `{ category, items: string[] }`.
 
-Edit `lib/projects.ts` and replace the sample projects with your own. Each project needs:
-- `id` - Unique identifier (used in URL)
-- `title` - Project name
-- `description` - Short description
-- `longDescription` - Detailed description (optional)
-- `image` - Path to project image (place in `public/` folder)
-- `tech` - Array of technologies used
-- `github` - GitHub repository URL (optional)
-- `live` - Live demo URL (optional)
-- `featured` - Boolean to show on homepage
-- `date` - Project date (YYYY-MM-DD format)
+## 3. Add a project
 
-## 4. Add Your Resume
+Append a new entry to the `allProjects` array in [`lib/projects.ts`](lib/projects.ts):
 
-1. Create or export your resume as a PDF
-2. Place it in the `public/` directory
-3. Name it `resume.pdf`
+```ts
+{
+  id: 'kebab-case-slug',          // also the URL: /projects/kebab-case-slug
+  title: 'Project Title',
+  description: 'One-sentence elevator pitch.',
+  longDescription: 'Paragraph-form deeper explanation.',
+  category: 'Category Label',
+  status: 'Active build' | 'Production-ready' | 'Prototype' | …,
+  role: 'What you did on it.',
+  highlights: ['Bullet 1', 'Bullet 2', 'Bullet 3'],
+  image: '/projects/your-image.png',
+  tech: ['TypeScript', 'Next.js', …],
+  techStack: [{ category: 'Frontend', items: ['…'] }, …],   // optional, deeper grouping
+  github: 'https://github.com/…',                            // optional
+  live: 'https://…',                                          // optional
+  featured: true,                                             // surface on homepage
+  hidden: false,                                              // hide from public listings
+  date: '2026-04-26',
+}
+```
 
-## 5. Add Blog Posts (Optional)
+Drop the project image into [`public/projects/`](public/) — PNG or SVG both work.
 
-1. Create a new Markdown file in `content/blog/`
-2. Use the following frontmatter format:
+## 4. Resume
+
+Place `resume.pdf` in [`public/`](public/). The hero and About download buttons link to `/resume.pdf` automatically.
+
+## 5. Add blog posts
+
+Create a Markdown file in [`content/blog/`](content/blog/). Frontmatter is required:
 
 ```markdown
 ---
 title: Your Post Title
-date: 2024-01-15
-excerpt: A brief description of your post
-tags: [tag1, tag2, tag3]
-author: Your Name
+date: 2026-04-26
+excerpt: A brief description of the post.
+tags: [tag1, tag2]
+author: James Collard
 ---
 
-Your blog post content here in Markdown format...
+Your content here, in Markdown.
 ```
 
-## 6. Set Up Contact Form
+The blog index is generated at build time — no extra configuration required.
 
-The contact form currently logs submissions to the console. To enable email sending:
+## 6. Contact
 
-1. Choose an email service (Resend, SendGrid, etc.)
-2. Get your API key
-3. Add it as an environment variable (e.g., `RESEND_API_KEY`)
-4. Update `app/api/contact/route.ts` to use your email service
+Contact is handled via a `mailto:` link, so no backend setup is needed. To change the address, update `siteConfig.links.email` in [`lib/constants.ts`](lib/constants.ts).
 
-Example with Resend:
-```typescript
-import { Resend } from 'resend'
-
-const resend = new Resend(process.env.RESEND_API_KEY)
-
-await resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'your-email@example.com',
-  subject: `Portfolio Contact: ${subject}`,
-  html: `<p>From: ${name} (${email})</p><p>${message}</p>`,
-})
-```
-
-## 7. Customize Colors (Optional)
-
-Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
-- Background: Black
-- Primary: Deep purple shades
-- Accent: Purple gradients
-
-## 8. Run Development Server
+## 7. Run the dev server
 
 ```bash
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to see your site.
+Open [http://localhost:3000](http://localhost:3000).
 
-## 9. Build for Production
+## 8. Production build
 
 ```bash
-npm run build
-npm start
+npm run build   # generate the .next bundle
+npm start       # serve the bundle on port 3000
 ```
 
-## 10. Deploy to Vercel
+## 9. Deploy
 
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repository
-4. Vercel will automatically detect Next.js
-5. Add environment variables if needed (for email service)
-6. Deploy!
+The site auto-deploys to Vercel on every push to `main`. To wire a new fork:
 
-Your site will be live at `your-project.vercel.app`
+1. Push the repo to GitHub.
+2. Import the repository at <https://vercel.com/new>.
+3. Vercel detects Next.js and configures the build automatically.
+4. Add a custom domain under **Settings → Domains** if you want one.
 
-## Next Steps
+There are no required environment variables — the site is fully static apart from Markdown rendering.
 
-- Add your project images to `public/projects/`
-- Write blog posts in `content/blog/`
-- Customize the design to match your brand
-- Add analytics (Vercel Analytics, Google Analytics, etc.)
-- Set up a custom domain in Vercel
+## Next steps
 
-Happy building! 🚀
+- Add project images to [`public/projects/`](public/projects/).
+- Write blog posts in [`content/blog/`](content/blog/).
+- Set up Vercel Analytics or Plausible if you want traffic data.
+- Configure a custom domain.
