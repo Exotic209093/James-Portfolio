@@ -1,12 +1,17 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Download } from 'lucide-react'
+import { ArrowRight, Download } from 'lucide-react'
 import Card from '@/components/ui/Card'
 import { ButtonLink } from '@/components/ui/Button'
+import CertificationCard from '@/components/sections/CertificationCard'
 import { skills, siteConfig } from '@/lib/constants'
 import { getProjectHistory } from '@/lib/projects'
+import { getRecentCertifications, certifications } from '@/lib/certifications'
 import { formatDate } from '@/lib/utils'
+
+const recentCertifications = getRecentCertifications(3)
 
 const projectHistory = getProjectHistory()
 const highlightedProjects = projectHistory.slice(0, 3)
@@ -54,7 +59,7 @@ const education = [
     organisation: 'Independent study',
     period: 'Ongoing since 2023',
     summary:
-      'Built and shipped production-grade personal projects across TypeScript, Python, Apex, C++, and automation tooling — including a Cerebral Valley × Anthropic 4.7 Hackathon submission powered by Claude Opus 4.7 agents, an AppExchange managed package, a Chrome extension for Salesforce migration, and a Windows kernel driver. Formal certifications in progress: Google UX Design and Amazon Junior Software Developer.',
+      'Built and shipped production-grade personal projects across TypeScript, Python, Apex, C++, and automation tooling — including a Cerebral Valley × Anthropic 4.7 Hackathon submission powered by Claude Opus 4.7 agents, an AppExchange managed package, a Chrome extension for Salesforce migration, and a Windows kernel driver.',
   },
 ]
 
@@ -238,6 +243,40 @@ export default function AboutPage() {
             </div>
           </div>
         </motion.div>
+
+        {recentCertifications.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55, duration: 0.6 }}
+            className="max-w-5xl mx-auto mb-16"
+          >
+            <h2 className="text-3xl font-bold text-center mb-12">
+              <span className="text-white">Recent </span>
+              <span className="gradient-text">Certifications</span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {recentCertifications.map((certification, index) => (
+                <CertificationCard
+                  key={certification.id}
+                  certification={certification}
+                  index={index}
+                />
+              ))}
+            </div>
+            {certifications.length > recentCertifications.length && (
+              <div className="text-center mt-8">
+                <Link
+                  href="/certifications"
+                  className="inline-flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors"
+                >
+                  View all certifications
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            )}
+          </motion.div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
