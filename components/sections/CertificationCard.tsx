@@ -1,7 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { FileText, BadgeCheck, Award } from 'lucide-react'
+import { Award } from 'lucide-react'
 import Card from '@/components/ui/Card'
 import type { Certification } from '@/lib/certifications'
 import { formatDate } from '@/lib/utils'
@@ -26,7 +27,13 @@ export default function CertificationCard({ certification, index = 0 }: Certific
       whileHover={{ y: -6 }}
       className="h-full"
     >
-      <Card hover className="relative h-full flex flex-col">
+      <Card hover className="relative h-full flex flex-col group cursor-pointer">
+        <Link
+          href={`/certifications/${certification.id}`}
+          aria-label={`View details for ${certification.title}`}
+          className="absolute inset-0 z-10"
+        />
+
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2 text-purple-400">
             <Award className="h-5 w-5 shrink-0" />
@@ -37,7 +44,7 @@ export default function CertificationCard({ certification, index = 0 }: Certific
           </span>
         </div>
 
-        <h3 className="text-lg font-semibold text-white mb-2 leading-snug">
+        <h3 className="text-lg font-semibold text-white mb-2 leading-snug group-hover:text-purple-400 transition-colors">
           {certification.title}
         </h3>
 
@@ -48,7 +55,7 @@ export default function CertificationCard({ certification, index = 0 }: Certific
         </p>
 
         {certification.skills && certification.skills.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="mt-auto flex flex-wrap gap-2 pt-2">
             {certification.skills.map((skill) => (
               <span
                 key={skill}
@@ -59,29 +66,6 @@ export default function CertificationCard({ certification, index = 0 }: Certific
             ))}
           </div>
         )}
-
-        <div className="mt-auto flex flex-wrap gap-3 pt-4 border-t border-purple-800/30">
-          <a
-            href={certification.pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-purple-300 transition-colors"
-            aria-label={`View ${certification.title} certificate PDF`}
-          >
-            <FileText className="h-4 w-4" />
-            View certificate
-          </a>
-          <a
-            href={certification.verifyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-purple-300 transition-colors"
-            aria-label={`Verify ${certification.title} on Coursera`}
-          >
-            <BadgeCheck className="h-4 w-4" />
-            Verify
-          </a>
-        </div>
       </Card>
     </motion.div>
   )
