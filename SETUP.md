@@ -1,130 +1,167 @@
-# Setup Guide
+# Setup guide
 
-Follow these steps to get your portfolio website up and running.
+A step-by-step walkthrough for forking this site and making it your own. If you only need a high-level overview, start with the [README](./README.md).
 
-## 1. Install Dependencies
+## Prerequisites
+
+- **Node.js 18.17+** (Next.js 14 requirement)
+- **npm 9+** (or pnpm / yarn — the lockfile is npm)
+- A code editor with TypeScript support
+
+## 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-## 2. Configure Your Information
+## 2. Configure site metadata
 
-### Update Site Configuration
+Edit `lib/constants.ts`:
 
-Edit `lib/constants.ts` and update:
-- `siteConfig.name` - Your name
-- `siteConfig.title` - Your title/role
-- `siteConfig.description` - Your description
-- `siteConfig.links` - Your social media links and email
+| Field                    | What it controls                                                  |
+| ------------------------ | ----------------------------------------------------------------- |
+| `siteConfig.name`        | Your name (used in metadata, footer, and the header logo).        |
+| `siteConfig.title`       | Your role tagline.                                                |
+| `siteConfig.description` | Used by `<meta>` description and OpenGraph.                       |
+| `siteConfig.url`         | Canonical URL (set this to your deployed domain).                 |
+| `siteConfig.location`    | Shown in the hero and footer.                                     |
+| `siteConfig.links`       | `twitter`, `github`, `linkedin`, `email`, `chromeStore`.          |
+| `navigation`             | Top-nav entries. Routes must exist under `app/`.                  |
+| `skills`                 | Skill groups rendered on `/about`.                                |
+| `socialLinks`            | Icon + href pairs for the footer connect row.                     |
 
-### Update Navigation
+> The footer expects `siteConfig.links.email` to be a `mailto:` URL — it powers the email entry in the connect row and the CTA on `/contact`.
 
-In `lib/constants.ts`, modify the `navigation` array if you want to change menu items.
+## 3. Add your projects
 
-### Update Skills
+Edit `lib/projects.ts`. Each entry follows the `Project` type:
 
-In `lib/constants.ts`, update the `skills` array with your actual skills organized by category.
+```ts
+{
+  id: 'project-slug',           // URL slug for /projects/[slug]
+  title: 'Project Title',
+  description: 'One-line summary.',
+  longDescription: '…',         // optional, rendered on detail page
+  image: '/projects/slug.png',  // see step 3a
+  tech: ['TypeScript', 'Next.js'],
+  github: 'https://github.com/...',
+  live: 'https://...',          // optional
+  featured: true,               // shown on the homepage featured grid
+  hidden: false,                // omit from public listings entirely
+  date: '2026-04-26',
+}
+```
 
-## 3. Add Your Projects
+### 3a. Project images
 
-Edit `lib/projects.ts` and replace the sample projects with your own. Each project needs:
-- `id` - Unique identifier (used in URL)
-- `title` - Project name
-- `description` - Short description
-- `longDescription` - Detailed description (optional)
-- `image` - Path to project image (place in `public/` folder)
-- `tech` - Array of technologies used
-- `github` - GitHub repository URL (optional)
-- `live` - Live demo URL (optional)
-- `featured` - Boolean to show on homepage
-- `date` - Project date (YYYY-MM-DD format)
+Place each project image at `public/projects/<id>.png` (or `.svg`). The slug must match the project `id`. Real screenshots beat placeholder SVGs — the existing entries (Vastify, ExoCraft, WaveLink) use captured screenshots.
 
-## 4. Add Your Resume
+### 3b. Hiding a work-in-progress project
 
-1. Create or export your resume as a PDF
-2. Place it in the `public/` directory
-3. Name it `resume.pdf`
+Set `hidden: true` to omit a project from the index, featured grid, history, and slug routes without deleting it. This is how Apex HQ stays parked until launch.
 
-## 5. Add Blog Posts (Optional)
+## 4. Add your certifications
 
-1. Create a new Markdown file in `content/blog/`
-2. Use the following frontmatter format:
+Edit `lib/certifications.ts`. Each entry:
+
+```ts
+{
+  id: 'meta-programming-in-python',
+  title: 'Programming in Python',
+  issuer: 'Meta',
+  platform: 'Coursera',
+  issueDate: '2026-04-30',
+  credentialId: 'M9H29EYRUWME',
+  verifyUrl: 'https://coursera.org/verify/M9H29EYRUWME',
+  pdf: '/certifications/meta-programming-in-python.pdf',
+  skills: ['Python', 'OOP'],
+}
+```
+
+Then drop the issued certificate PDF into `public/certifications/` so the linked download resolves. `getRecentCertifications(limit)` is consumed by the **Recent certifications** strip on `/about`.
+
+## 5. Add your resume
+
+1. Export your resume as a PDF.
+2. Save it to `public/resume.pdf`.
+
+The Hero and About download buttons link to `/resume.pdf` directly — no further wiring required.
+
+## 6. Add blog posts (optional)
+
+1. Create a Markdown file in `content/blog/` (the filename becomes the slug).
+2. Add frontmatter:
 
 ```markdown
 ---
 title: Your Post Title
-date: 2024-01-15
-excerpt: A brief description of your post
-tags: [tag1, tag2, tag3]
-author: Your Name
+date: 2026-04-30
+excerpt: A single-sentence summary used on the index page.
+tags: [next.js, typescript]
+author: James Collard
 ---
 
-Your blog post content here in Markdown format...
+Your post body in Markdown…
 ```
 
-## 6. Set Up Contact Form
+`lib/blog.ts` parses frontmatter with `gray-matter` and renders the body with `remark` + `remark-html`.
 
-The contact form currently logs submissions to the console. To enable email sending:
+## 7. Wire up the contact page
 
-1. Choose an email service (Resend, SendGrid, etc.)
-2. Get your API key
-3. Add it as an environment variable (e.g., `RESEND_API_KEY`)
-4. Update `app/api/contact/route.ts` to use your email service
+`/contact` opens the user's mail client via a `mailto:` link sourced from `siteConfig.links.email` — there is **no backend route to configure**. The previously orphaned `/api/contact` route has been removed.
 
-Example with Resend:
-```typescript
-import { Resend } from 'resend'
+If you want a true server-side form later, add a new route under `app/api/` and integrate with [Resend](https://resend.com), [Formspree](https://formspree.io), or similar. There is no plumbing to remove first.
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+## 8. Customise the theme (optional)
 
-await resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'your-email@example.com',
-  subject: `Portfolio Contact: ${subject}`,
-  html: `<p>From: ${name} (${email})</p><p>${message}</p>`,
-})
-```
+- Colours, gradients, and font sizes live in `tailwind.config.ts` under `theme.extend`.
+- Global CSS variables and base styles are in `app/globals.css`.
+- Replace `app/icon.svg` to change the favicon.
 
-## 7. Customize Colors (Optional)
-
-Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
-- Background: Black
-- Primary: Deep purple shades
-- Accent: Purple gradients
-
-## 8. Run Development Server
+## 9. Run the dev server
 
 ```bash
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to see your site.
+Visit [http://localhost:3000](http://localhost:3000). Hot reload picks up edits to `lib/`, `app/`, `components/`, and `content/` automatically.
 
-## 9. Build for Production
+## 10. Build for production
 
 ```bash
 npm run build
 npm start
 ```
 
-## 10. Deploy to Vercel
+`npm run build` should complete with no TypeScript or ESLint errors before you deploy.
 
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repository
-4. Vercel will automatically detect Next.js
-5. Add environment variables if needed (for email service)
-6. Deploy!
+## 11. Deploy to Vercel
 
-Your site will be live at `your-project.vercel.app`
+1. Push the repo to GitHub.
+2. Import it into [Vercel](https://vercel.com/new).
+3. Vercel auto-detects Next.js — accept the defaults.
+4. (Optional) Add a custom domain in the project settings.
 
-## Next Steps
+No environment variables are required for the default build.
 
-- Add your project images to `public/projects/`
-- Write blog posts in `content/blog/`
-- Customize the design to match your brand
-- Add analytics (Vercel Analytics, Google Analytics, etc.)
-- Set up a custom domain in Vercel
+## Verification checklist
 
-Happy building! 🚀
+Before declaring it done, click through:
+
+- [ ] `/` — hero, photo slot, featured grid, recent certifications strip, mailto CTA.
+- [ ] `/about` — bio, skills sections, certifications, education entry.
+- [ ] `/projects` — every visible project has an image and the right links.
+- [ ] `/projects/[slug]` for at least one featured project — long description renders.
+- [ ] `/certifications` — every PDF download resolves, every verify link opens the issuer page.
+- [ ] `/blog` and one post — Markdown renders, frontmatter values appear.
+- [ ] `/contact` — clicking the CTA opens a pre-filled compose window in the default mail client.
+- [ ] Footer connect row — every icon links to the right URL, including the Chrome Web Store entry if you keep it.
+
+## Next steps
+
+- Add analytics (Vercel Analytics, Plausible, or GA4 via `app/layout.tsx`).
+- Set up a custom domain in Vercel.
+- Wire up a real backend for `/contact` if a mailto link is not enough.
+- Replace placeholder project SVGs with real product screenshots as projects ship.
+
+Happy building.
