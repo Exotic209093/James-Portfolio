@@ -14,6 +14,29 @@ export interface Certification {
 
 export const certifications: Certification[] = [
   {
+    id: 'meta-intro-databases-back-end-development',
+    title: 'Introduction to Databases for Back-End Development',
+    issuer: 'Meta',
+    platform: 'Coursera',
+    issueDate: '2026-05-01',
+    credentialId: 'W88B0IRCW8WZ',
+    verifyUrl: 'https://coursera.org/verify/W88B0IRCW8WZ',
+    pdf: '/certifications/meta-intro-databases-back-end-development.pdf',
+    skills: ['SQL', 'Relational databases', 'Data modelling', 'Database design'],
+    summary:
+      'Meta’s introduction to the data layer that sits behind every back-end. Worked through relational database fundamentals — tables, schemas, keys, and relationships — and SQL for querying and modifying data, plus how a back-end actually talks to the database it depends on.',
+    topics: [
+      'Why back-end systems need databases',
+      'Relational vs non-relational data models',
+      'Tables, columns, rows, and schemas',
+      'Primary keys, foreign keys, and relationships',
+      'SQL fundamentals: SELECT, INSERT, UPDATE, DELETE',
+      'Filtering, sorting, and grouping query results',
+      'Joining data across multiple tables',
+      'Database design and normalisation basics',
+    ],
+  },
+  {
     id: 'meta-version-control',
     title: 'Version Control',
     issuer: 'Meta',
