@@ -14,6 +14,29 @@ export interface Certification {
 
 export const certifications: Certification[] = [
   {
+    id: 'meta-version-control',
+    title: 'Version Control',
+    issuer: 'Meta',
+    platform: 'Coursera',
+    issueDate: '2026-05-01',
+    credentialId: 'IKI0O5RMNTSR',
+    verifyUrl: 'https://coursera.org/verify/IKI0O5RMNTSR',
+    pdf: '/certifications/meta-version-control.pdf',
+    skills: ['Git', 'GitHub', 'Branching', 'Code review'],
+    summary:
+      'Meta’s end-to-end course on Git and collaborative version control. Covered the full Git mental model — repos, commits, branches, merges, conflicts — and the GitHub side of the workflow: forks, pull requests, and code review. The same workflow underpins every project in this portfolio.',
+    topics: [
+      'Git fundamentals: working tree, staging area, and commits',
+      'Creating and switching branches; fast-forward vs three-way merges',
+      'Resolving merge conflicts safely',
+      'Reading history with log, diff, and blame',
+      'Remotes, fetching, pulling, and pushing',
+      'Collaborating on GitHub: forks, pull requests, and code review',
+      '.gitignore and managing untracked files',
+      'Tagging releases and reverting unwanted changes',
+    ],
+  },
+  {
     id: 'meta-intro-back-end-development',
     title: 'Introduction to Back-End Development',
     issuer: 'Meta',
