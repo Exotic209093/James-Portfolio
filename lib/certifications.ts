@@ -14,6 +14,29 @@ export interface Certification {
 
 export const certifications: Certification[] = [
   {
+    id: 'meta-django-web-framework',
+    title: 'Django Web Framework',
+    issuer: 'Meta',
+    platform: 'Coursera',
+    issueDate: '2026-05-02',
+    credentialId: '3OKABTOW7DUD',
+    verifyUrl: 'https://coursera.org/verify/3OKABTOW7DUD',
+    pdf: '/certifications/meta-django-web-framework.pdf',
+    skills: ['Django', 'Python web', 'ORM', 'Authentication'],
+    summary:
+      'Meta’s deep-dive into Django, the batteries-included Python web framework. Built Django apps end-to-end — models, views, templates, URL routing — and worked through the pieces the framework gives you for free: the ORM, migrations, forms, authentication, and the admin site.',
+    topics: [
+      'Django project structure: projects vs apps',
+      'Models and the Django ORM',
+      'Migrations and schema evolution',
+      'URL routing and function-based views',
+      'Class-based views and generic CRUD',
+      'Templates and the Django template language',
+      'Forms, validation, and CSRF protection',
+      'User authentication, sessions, and the admin site',
+    ],
+  },
+  {
     id: 'meta-intro-databases-back-end-development',
     title: 'Introduction to Databases for Back-End Development',
     issuer: 'Meta',
