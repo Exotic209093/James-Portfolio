@@ -14,6 +14,52 @@ export interface Certification {
 
 export const certifications: Certification[] = [
   {
+    id: 'meta-coding-interview-preparation',
+    title: 'Coding Interview Preparation',
+    issuer: 'Meta',
+    platform: 'Coursera',
+    issueDate: '2026-05-03',
+    credentialId: 'EJ9UQO7K0UYC',
+    verifyUrl: 'https://coursera.org/verify/EJ9UQO7K0UYC',
+    pdf: '/certifications/meta-coding-interview-preparation.pdf',
+    skills: ['Data structures', 'Algorithms', 'Problem solving', 'Big-O analysis'],
+    summary:
+      'Meta’s technical interview prep course. Drilled the data structures and algorithms that come up in real engineering interviews — arrays, strings, hash maps, trees, graphs — alongside the patterns for breaking problems down, reasoning out loud, and analysing time and space complexity under pressure.',
+    topics: [
+      'How technical interviews are structured at large tech companies',
+      'A repeatable framework for tackling unfamiliar problems',
+      'Time and space complexity, and Big-O analysis',
+      'Arrays, strings, hash maps, and two-pointer techniques',
+      'Linked lists, stacks, and queues',
+      'Recursion, trees, and graph traversal (BFS / DFS)',
+      'Sorting, searching, and divide-and-conquer patterns',
+      'Behavioural interviews and communicating thought process clearly',
+    ],
+  },
+  {
+    id: 'meta-apis',
+    title: 'APIs',
+    issuer: 'Meta',
+    platform: 'Coursera',
+    issueDate: '2026-05-03',
+    credentialId: '3QGUE530T8WI',
+    verifyUrl: 'https://coursera.org/verify/3QGUE530T8WI',
+    pdf: '/certifications/meta-apis.pdf',
+    skills: ['REST APIs', 'Django REST Framework', 'JSON', 'API design'],
+    summary:
+      'Meta’s deep-dive into building and consuming web APIs. Worked through REST principles end-to-end — resources, verbs, status codes, and JSON payloads — then built APIs in Django REST Framework with serializers, authentication, throttling, and filtering, and tested them like a real client would.',
+    topics: [
+      'REST architectural style: resources, verbs, and status codes',
+      'Designing clean, predictable URL structures',
+      'Request and response payloads with JSON',
+      'Building APIs with Django REST Framework',
+      'Serializers, model serializers, and validation',
+      'Authentication, permissions, and token-based access',
+      'Throttling, pagination, filtering, and search',
+      'Testing APIs with Insomnia and automated tests',
+    ],
+  },
+  {
     id: 'meta-django-web-framework',
     title: 'Django Web Framework',
     issuer: 'Meta',
