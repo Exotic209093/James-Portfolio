@@ -15,10 +15,11 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 ## 📄 Pages
 
 - **Home**: Hero section, about preview, featured projects, contact CTA
-- **About**: Full bio, skills, and experience
+- **About**: Full bio, skills, experience, and recent certifications preview
 - **Projects**: Project listing and individual project pages
+- **Certifications**: Certifications index plus per-certification detail pages with embedded PDF viewer, skills, topics covered, and credential verification link
 - **Blog**: Blog listing and individual blog post pages (Markdown support)
-- **Contact**: Contact form with API route
+- **Contact**: Mailto-based contact link
 
 ## 🛠️ Tech Stack
 
@@ -61,6 +62,33 @@ Edit `lib/projects.ts` to add your projects. Each project should have:
 - Tech stack
 - GitHub and live links
 - Featured flag
+
+### Add Certifications
+
+Drop the certificate PDF into `public/certifications/` using a slug-style filename
+(`<issuer>-<course-slug>.pdf`) and add a matching entry to `lib/certifications.ts`:
+
+```ts
+{
+  id: 'meta-version-control',
+  title: 'Version Control',
+  issuer: 'Meta',
+  platform: 'Coursera',
+  issueDate: '2026-05-15',
+  credentialId: 'XXXXXXXXXXXX',
+  verifyUrl: 'https://coursera.org/verify/XXXXXXXXXXXX',
+  pdf: '/certifications/meta-version-control.pdf',
+  skills: ['Git', 'GitHub', 'Branching'],
+  summary: 'One-paragraph description shown on the detail page.',
+  topics: ['What you covered', 'Bullet by bullet'],
+}
+```
+
+The `/certifications` index, the per-certification detail page at
+`/certifications/[id]`, and the "Recent Certifications" preview on `/about`
+pick it up automatically. Entries are sorted newest-first by `issueDate`.
+See [`public/certifications/README.md`](public/certifications/README.md) for
+the full reference.
 
 ### Add Blog Posts
 
