@@ -11,14 +11,16 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 - **Smooth Animations**: Framer Motion for delightful user interactions
 - **Type Safe**: Full TypeScript support
 - **Vercel Ready**: Optimized for Vercel deployment
+- **Recruiter-friendly**: Open-to-work badge in the hero, downloadable resume, real project + certification pages
 
 ## 📄 Pages
 
-- **Home**: Hero section, about preview, featured projects, contact CTA
+- **Home**: Hero with open-to-work badge, about preview, featured projects, certifications preview, contact CTA
 - **About**: Full bio, skills, and experience
-- **Projects**: Project listing and individual project pages
+- **Projects**: Project listing and individual project pages — currently 9 entries including Vastify, ExoCraft, WaveLink, Git Navigator, and a Chrome extension
+- **Certifications**: Listing page plus a detail page per credential (`/certifications/[id]`) with embedded PDF, summary, topics covered, and a verify-on-issuer link. Currently 7 Meta certifications (APIs, Coding Interview Preparation, Django Web Framework, Introduction to Databases, Version Control, …).
 - **Blog**: Blog listing and individual blog post pages (Markdown support)
-- **Contact**: Contact form with API route
+- **Contact**: Mailto-based contact (no server-side form) — the address is exposed as a clickable link in the page and the footer.
 
 ## 🛠️ Tech Stack
 
@@ -62,6 +64,17 @@ Edit `lib/projects.ts` to add your projects. Each project should have:
 - GitHub and live links
 - Featured flag
 
+### Add Certifications
+
+Edit `lib/certifications.ts` to add a credential. Each entry needs:
+- `id` — slug used in the URL (`/certifications/[id]`)
+- `title`, `issuer`, `platform`, `issueDate`, `credentialId`
+- `verifyUrl` — link to the issuer's verification page
+- `pdf` — path to the PDF under `public/certifications/`
+- `skills`, `summary`, `topics` — populate the detail page
+
+The listing page and per-cert detail page render automatically from this file.
+
 ### Add Blog Posts
 
 Create Markdown files in `content/blog/` directory. Each file should have frontmatter:
@@ -82,15 +95,12 @@ Your blog post content here...
 
 Add your resume PDF file to the `public/` directory and name it `resume.pdf`. The download button on the About page and Hero section will automatically link to it.
 
-### Contact Form
+### Contact
 
-The contact form API route is at `app/api/contact/route.ts`. You'll need to integrate with an email service like:
-- [Resend](https://resend.com)
-- [SendGrid](https://sendgrid.com)
-- [Formspree](https://formspree.io)
-- Or any other email service
-
-Currently, the form just logs submissions to the console. Update the route handler to send actual emails.
+The contact page uses a `mailto:` link, not a server-side form. Update
+`siteConfig.links.email` in `lib/constants.ts` to change the destination.
+There is no `/api/contact` route — earlier versions had one but it was
+removed when the form was replaced with a clickable mailto link.
 
 ## 🎨 Customization
 

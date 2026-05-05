@@ -63,28 +63,27 @@ author: Your Name
 Your blog post content here in Markdown format...
 ```
 
-## 6. Set Up Contact Form
+## 6. Configure Contact
 
-The contact form currently logs submissions to the console. To enable email sending:
+The contact page uses a `mailto:` link rather than a server-side form,
+so there is nothing to wire up. Set the destination address in
+`lib/constants.ts`:
 
-1. Choose an email service (Resend, SendGrid, etc.)
-2. Get your API key
-3. Add it as an environment variable (e.g., `RESEND_API_KEY`)
-4. Update `app/api/contact/route.ts` to use your email service
-
-Example with Resend:
-```typescript
-import { Resend } from 'resend'
-
-const resend = new Resend(process.env.RESEND_API_KEY)
-
-await resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'your-email@example.com',
-  subject: `Portfolio Contact: ${subject}`,
-  html: `<p>From: ${name} (${email})</p><p>${message}</p>`,
-})
+```ts
+export const siteConfig = {
+  links: {
+    email: 'you@example.com',
+    // ...
+  },
+}
 ```
+
+The address appears as a clickable link on the contact page and in the
+footer. If you prefer a server-side form, restore an API route under
+`app/api/contact/route.ts` and replace the mailto link in
+`app/contact/page.tsx` — it was removed in favour of the simpler mailto
+flow because Next.js serverless functions don't deliver email on their
+own and the empty handler was misleading.
 
 ## 7. Customize Colors (Optional)
 
