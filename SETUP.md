@@ -1,130 +1,115 @@
 # Setup Guide
 
-Follow these steps to get your portfolio website up and running.
+Get a local copy of the portfolio running and customised in about ten minutes.
 
-## 1. Install Dependencies
+## 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-## 2. Configure Your Information
+Requires Node.js 18+ (Next.js 14 requirement).
 
-### Update Site Configuration
+## 2. Configure your information
 
-Edit `lib/constants.ts` and update:
-- `siteConfig.name` - Your name
-- `siteConfig.title` - Your title/role
-- `siteConfig.description` - Your description
-- `siteConfig.links` - Your social media links and email
+Edit [`lib/constants.ts`](lib/constants.ts):
 
-### Update Navigation
+- `siteConfig.name` — your name
+- `siteConfig.title` — your title / role
+- `siteConfig.description` — used in `<meta>` tags and the OG card
+- `siteConfig.url` — your deployed URL
+- `siteConfig.location` — optional, surfaced in the About page
+- `siteConfig.links` — `twitter`, `github`, `linkedin`, `email` (use `mailto:`), and any extra link such as `chromeStore`
 
-In `lib/constants.ts`, modify the `navigation` array if you want to change menu items.
+Update the `navigation` array if you want to add or remove top-nav items. Update the `skills` array — it's grouped by category and rendered on the About page.
 
-### Update Skills
+## 3. Add your projects
 
-In `lib/constants.ts`, update the `skills` array with your actual skills organized by category.
+Projects live in [`lib/projects.ts`](lib/projects.ts). Each entry conforms to the `Project` type:
 
-## 3. Add Your Projects
+| Field | Required | Notes |
+|---|---|---|
+| `id` | Yes | Used in the URL: `/projects/<id>` |
+| `title` | Yes | Display name |
+| `description` | Yes | One-paragraph card summary |
+| `longDescription` | No | Detail-page paragraph |
+| `category` / `status` / `role` | No | Surfaced on the detail page |
+| `highlights` | No | Bulleted achievements |
+| `image` | Yes | Path under `public/` (e.g. `/projects/foo.png`) |
+| `tech` | Yes | Flat list rendered on the card |
+| `techStack` | No | Grouped tech list rendered on the detail page |
+| `github` / `live` | No | Link icons on the card |
+| `featured` | Yes | If `true`, shown on the home page |
+| `hidden` | No | If `true`, the project is filtered out of all public listings |
+| `date` | Yes | `YYYY-MM-DD`; used for sorting |
 
-Edit `lib/projects.ts` and replace the sample projects with your own. Each project needs:
-- `id` - Unique identifier (used in URL)
-- `title` - Project name
-- `description` - Short description
-- `longDescription` - Detailed description (optional)
-- `image` - Path to project image (place in `public/` folder)
-- `tech` - Array of technologies used
-- `github` - GitHub repository URL (optional)
-- `live` - Live demo URL (optional)
-- `featured` - Boolean to show on homepage
-- `date` - Project date (YYYY-MM-DD format)
+## 4. Add your certifications
 
-## 4. Add Your Resume
+Certifications live in [`lib/certifications.ts`](lib/certifications.ts). Each entry conforms to the `Certification` type:
 
-1. Create or export your resume as a PDF
-2. Place it in the `public/` directory
-3. Name it `resume.pdf`
+| Field | Required | Notes |
+|---|---|---|
+| `id` | Yes | Used in the URL: `/certifications/<id>` |
+| `title` / `issuer` / `platform` | Yes | Card heading text |
+| `issueDate` | Yes | `YYYY-MM-DD`; used for sorting |
+| `credentialId` / `verifyUrl` | Yes | Verify link on the card |
+| `pdf` | Yes | Path under `public/certifications/` (e.g. `/certifications/meta-django-web-framework.pdf`) — rendered inline on the detail page |
+| `skills` | No | Pill list rendered on the detail page |
+| `summary` / `topics` | No | Personal write-up + topics-covered checklist on the detail page |
 
-## 5. Add Blog Posts (Optional)
+Drop the PDF in `public/certifications/` so the inline preview can load.
 
-1. Create a new Markdown file in `content/blog/`
-2. Use the following frontmatter format:
+## 5. Add your resume
+
+Export your CV as a PDF and save it to `public/resume.pdf`. The Hero and About pages link to it automatically.
+
+## 6. Add blog posts (optional)
+
+Create Markdown files in `content/blog/` with frontmatter:
 
 ```markdown
 ---
 title: Your Post Title
-date: 2024-01-15
-excerpt: A brief description of your post
-tags: [tag1, tag2, tag3]
+date: 2026-01-15
+excerpt: A brief description of the post.
+tags: [web-development, next-js]
 author: Your Name
 ---
 
-Your blog post content here in Markdown format...
+Your post content here in Markdown…
 ```
 
-## 6. Set Up Contact Form
+## 7. Customise the theme (optional)
 
-The contact form currently logs submissions to the console. To enable email sending:
+Edit [`tailwind.config.ts`](tailwind.config.ts) to change the colour palette. The default theme is black (`#000`) + deep purple. Fonts are configured in [`app/layout.tsx`](app/layout.tsx) — Inter from Google Fonts by default.
 
-1. Choose an email service (Resend, SendGrid, etc.)
-2. Get your API key
-3. Add it as an environment variable (e.g., `RESEND_API_KEY`)
-4. Update `app/api/contact/route.ts` to use your email service
-
-Example with Resend:
-```typescript
-import { Resend } from 'resend'
-
-const resend = new Resend(process.env.RESEND_API_KEY)
-
-await resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'your-email@example.com',
-  subject: `Portfolio Contact: ${subject}`,
-  html: `<p>From: ${name} (${email})</p><p>${message}</p>`,
-})
-```
-
-## 7. Customize Colors (Optional)
-
-Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
-- Background: Black
-- Primary: Deep purple shades
-- Accent: Purple gradients
-
-## 8. Run Development Server
+## 8. Run the dev server
 
 ```bash
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to see your site.
+Visit [http://localhost:3000](http://localhost:3000).
 
-## 9. Build for Production
+## 9. Build and deploy
 
 ```bash
-npm run build
-npm start
+npm run build        # production build
+npm start            # serve the build locally
 ```
 
-## 10. Deploy to Vercel
+Deploy to [Vercel](https://vercel.com):
 
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repository
-4. Vercel will automatically detect Next.js
-5. Add environment variables if needed (for email service)
-6. Deploy!
+1. Push to GitHub.
+2. Import the repo in Vercel — it auto-detects Next.js.
+3. (Optional) Configure a custom domain in the Vercel dashboard.
 
-Your site will be live at `your-project.vercel.app`
+No environment variables are required for the default configuration.
 
-## Next Steps
+## Next steps
 
-- Add your project images to `public/projects/`
+- Add project images to `public/projects/` (SVG or PNG)
+- Add certification PDFs to `public/certifications/`
 - Write blog posts in `content/blog/`
-- Customize the design to match your brand
-- Add analytics (Vercel Analytics, Google Analytics, etc.)
+- Wire up Vercel Analytics or your analytics provider of choice
 - Set up a custom domain in Vercel
-
-Happy building! 🚀
