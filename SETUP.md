@@ -63,28 +63,40 @@ author: Your Name
 Your blog post content here in Markdown format...
 ```
 
-## 6. Set Up Contact Form
+## 5a. Add Certifications
 
-The contact form currently logs submissions to the console. To enable email sending:
+Each certification has a typed entry in `lib/certifications.ts` and a PDF in
+`public/certifications/`. The detail route (`/certifications/[slug]`) renders
+the PDF inline; the cards on `/certifications` link to the entry.
 
-1. Choose an email service (Resend, SendGrid, etc.)
-2. Get your API key
-3. Add it as an environment variable (e.g., `RESEND_API_KEY`)
-4. Update `app/api/contact/route.ts` to use your email service
+1. **Drop the PDF** at `public/certifications/<slug>.pdf` — the `<slug>` must
+   match the entry below. Naming convention is documented in
+   [`public/certifications/README.md`](public/certifications/README.md).
 
-Example with Resend:
-```typescript
-import { Resend } from 'resend'
+2. **Append a typed entry** to `lib/certifications.ts`:
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
-await resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'your-email@example.com',
-  subject: `Portfolio Contact: ${subject}`,
-  html: `<p>From: ${name} (${email})</p><p>${message}</p>`,
-})
+```ts
+{
+  slug: 'meta-version-control',         // matches the PDF filename
+  title: 'Version Control',
+  issuer: 'Meta',
+  platform: 'Coursera',
+  issued: '2026-04-12',                 // YYYY-MM-DD
+  url: 'https://coursera.org/verify/…', // verification link
+  skills: ['Git', 'GitHub', 'PR review'],
+  summary: 'Branching, merging, and PR-based collaboration workflows.',
+}
 ```
+
+3. **(Optional) Surface on the home page** — the home component pulls the
+   N most recent entries by `issued` date; bumping the count lives in
+   `lib/constants.ts` (`certifications.previewCount`).
+
+## 6. Contact
+
+This portfolio uses a **`mailto:`** CTA on `/contact`; there is no contact
+form, no API route, and no email-service integration. If you want to bring
+back the form, the previous implementation is in git history.
 
 ## 7. Customize Colors (Optional)
 
