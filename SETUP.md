@@ -63,37 +63,46 @@ author: Your Name
 Your blog post content here in Markdown format...
 ```
 
-## 6. Set Up Contact Form
+## 6. Wire Up Contact
 
-The contact form currently logs submissions to the console. To enable email sending:
+The contact page is a static `mailto:` CTA — there is no API route or server-side form.
 
-1. Choose an email service (Resend, SendGrid, etc.)
-2. Get your API key
-3. Add it as an environment variable (e.g., `RESEND_API_KEY`)
-4. Update `app/api/contact/route.ts` to use your email service
+1. Open `lib/constants.ts`.
+2. Set `siteConfig.links.email` to the address that should receive mail.
 
-Example with Resend:
-```typescript
-import { Resend } from 'resend'
+That's it. The button on `/contact` and the email link in the footer both read from that value.
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+## 7. Add Certifications (Optional)
 
-await resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'your-email@example.com',
-  subject: `Portfolio Contact: ${subject}`,
-  html: `<p>From: ${name} (${email})</p><p>${message}</p>`,
-})
-```
+1. Drop the certificate PDF into `public/certifications/` using a slug-style filename
+   (e.g. `meta-version-control.pdf`).
+2. Add an entry to `lib/certifications.ts`:
 
-## 7. Customize Colors (Optional)
+   ```ts
+   {
+     id: 'meta-version-control',
+     title: 'Version Control',
+     issuer: 'Meta',
+     platform: 'Coursera',
+     issueDate: '2026-05-15',
+     credentialId: 'XXXXXXXXXXXX',
+     verifyUrl: 'https://coursera.org/verify/XXXXXXXXXXXX',
+     pdf: '/certifications/meta-version-control.pdf',
+     skills: ['Git', 'GitHub', 'Branching'],
+   },
+   ```
+
+The `/certifications` listing, the per-credential `/certifications/[id]` detail page,
+and the "Recent Certifications" preview on `/about` all pick it up automatically.
+
+## 8. Customize Colors (Optional)
 
 Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
 - Background: Black
 - Primary: Deep purple shades
 - Accent: Purple gradients
 
-## 8. Run Development Server
+## 9. Run Development Server
 
 ```bash
 npm run dev
@@ -101,14 +110,14 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) to see your site.
 
-## 9. Build for Production
+## 10. Build for Production
 
 ```bash
 npm run build
 npm start
 ```
 
-## 10. Deploy to Vercel
+## 11. Deploy to Vercel
 
 1. Push your code to GitHub
 2. Go to [vercel.com](https://vercel.com)
