@@ -14,9 +14,10 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 
 ## 📄 Pages
 
-- **Home**: Hero section, about preview, featured projects, contact CTA
-- **About**: Full bio, skills, and experience
+- **Home**: Hero section, about preview, featured projects, recent certifications preview, contact CTA
+- **About**: Full bio, skills, experience, and a Recent Certifications preview
 - **Projects**: Project listing and individual project pages
+- **Certifications**: Certification listing and individual certification detail pages (data-driven from `lib/certifications.ts`)
 - **Blog**: Blog listing and individual blog post pages (Markdown support)
 - **Contact**: Contact form with API route
 
@@ -57,10 +58,25 @@ Edit `lib/constants.ts` to update:
 ### Add Projects
 
 Edit `lib/projects.ts` to add your projects. Each project should have:
-- Title and description
-- Tech stack
-- GitHub and live links
-- Featured flag
+- Title and description (short + long form)
+- Category, status, and role
+- Tech stack (`tech`) and grouped `techStack` for the detail page
+- GitHub and live links (optional)
+- `featured` flag — surfaces the project on the homepage
+- `hidden` flag — when `true`, the project is excluded from public listings (useful for internal/work-in-progress projects)
+- `date` (YYYY-MM-DD) — used for ordering
+
+### Add Certifications
+
+Edit `lib/certifications.ts` to add a certification. Each entry needs:
+- `id` — slug used in the URL (`/certifications/<id>`)
+- `title`, `issuer`, `platform`
+- `issueDate` (YYYY-MM-DD), `credentialId`, `verifyUrl`
+- `pdf` — path to the certificate PDF in `public/certifications/`
+- `skills` and `topics` (optional)
+- `summary` (optional, shown on the detail page)
+
+Drop the certificate PDF into `public/certifications/` using the same filename as the `pdf` field.
 
 ### Add Blog Posts
 
