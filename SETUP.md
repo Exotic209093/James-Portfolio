@@ -28,17 +28,24 @@ In `lib/constants.ts`, update the `skills` array with your actual skills organiz
 
 ## 3. Add Your Projects
 
-Edit `lib/projects.ts` and replace the sample projects with your own. Each project needs:
-- `id` - Unique identifier (used in URL)
+Edit the `allProjects` array in `lib/projects.ts`. Each entry follows the
+`Project` interface:
+- `id` - Unique slug (used in the `/projects/[slug]` URL)
 - `title` - Project name
-- `description` - Short description
-- `longDescription` - Detailed description (optional)
-- `image` - Path to project image (place in `public/` folder)
+- `description` - Short description for cards
+- `longDescription` - Detailed body (optional)
+- `category`, `status`, `role` - Optional metadata strings
+- `highlights` - Optional string array of achievements
+- `image` - Path under `public/projects/` (e.g. `/projects/<id>.svg`)
 - `tech` - Array of technologies used
+- `techStack` - Optional grouped tech: `{ category, items[] }[]`
 - `github` - GitHub repository URL (optional)
 - `live` - Live demo URL (optional)
 - `featured` - Boolean to show on homepage
-- `date` - Project date (YYYY-MM-DD format)
+- `hidden` - `true` to exclude from all public listings (optional)
+- `date` - Project date (`YYYY-MM-DD`; history sorts newest-first)
+
+Place project images in `public/projects/`, named after the project `id`.
 
 ## 4. Add Your Resume
 
@@ -63,37 +70,36 @@ author: Your Name
 Your blog post content here in Markdown format...
 ```
 
-## 6. Set Up Contact Form
+## 6. Add Certifications (Optional)
 
-The contact form currently logs submissions to the console. To enable email sending:
+Certifications are data-driven and require no server setup:
 
-1. Choose an email service (Resend, SendGrid, etc.)
-2. Get your API key
-3. Add it as an environment variable (e.g., `RESEND_API_KEY`)
-4. Update `app/api/contact/route.ts` to use your email service
+1. Drop the certificate PDF into `public/certifications/` using a
+   `<issuer>-<course-slug>.pdf` filename (e.g. `meta-version-control.pdf`).
+2. Add an entry to the `certifications` array in `lib/certifications.ts` with:
+   `id`, `title`, `issuer`, `platform`, `issueDate` (`YYYY-MM-DD`),
+   `credentialId`, `verifyUrl`, `pdf`, and the optional `skills`, `summary`,
+   and `topics` fields.
+3. The `/certifications` page, the per-certification detail pages, and the
+   About-page preview pick it up automatically (sorted newest-first by
+   `issueDate`).
 
-Example with Resend:
-```typescript
-import { Resend } from 'resend'
+See `public/certifications/README.md` for the full conventions.
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+## 7. Contact
 
-await resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'your-email@example.com',
-  subject: `Portfolio Contact: ${subject}`,
-  html: `<p>From: ${name} (${email})</p><p>${message}</p>`,
-})
-```
+No setup is needed. The Contact page is a `mailto:` link. Change the
+destination address via the `email` field under `siteConfig.links` in
+`lib/constants.ts`.
 
-## 7. Customize Colors (Optional)
+## 8. Customize Colors (Optional)
 
 Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
 - Background: Black
 - Primary: Deep purple shades
 - Accent: Purple gradients
 
-## 8. Run Development Server
+## 9. Run Development Server
 
 ```bash
 npm run dev
@@ -101,21 +107,20 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) to see your site.
 
-## 9. Build for Production
+## 10. Build for Production
 
 ```bash
 npm run build
 npm start
 ```
 
-## 10. Deploy to Vercel
+## 11. Deploy to Vercel
 
 1. Push your code to GitHub
 2. Go to [vercel.com](https://vercel.com)
 3. Import your repository
 4. Vercel will automatically detect Next.js
-5. Add environment variables if needed (for email service)
-6. Deploy!
+5. Deploy! (no environment variables are required)
 
 Your site will be live at `your-project.vercel.app`
 

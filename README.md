@@ -14,21 +14,24 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 
 ## 📄 Pages
 
-- **Home**: Hero section, about preview, featured projects, contact CTA
-- **About**: Full bio, skills, and experience
-- **Projects**: Project listing and individual project pages
-- **Blog**: Blog listing and individual blog post pages (Markdown support)
-- **Contact**: Contact form with API route
+- **Home** (`/`): Hero section, about preview, featured projects, contact CTA
+- **About** (`/about`): Full bio, skills, experience, and a "Recent Certifications" preview
+- **Projects** (`/projects`, `/projects/[slug]`): Project listing and individual project detail pages
+- **Certifications** (`/certifications`, `/certifications/[id]`): Certification listing and per-certification detail pages
+- **Blog** (`/blog`, `/blog/[slug]`): Blog listing and individual blog post pages (Markdown support)
+- **Contact** (`/contact`): Direct `mailto:` contact (no server-side form)
 
 ## 🛠️ Tech Stack
 
 - **Next.js 14** (App Router)
 - **TypeScript**
 - **Tailwind CSS**
-- **Framer Motion**
-- **React Hook Form**
-- **Zod**
+- **Framer Motion** (animations)
+- **gray-matter** + **remark** / **remark-html** (Markdown blog rendering)
 - **Lucide React** (Icons)
+
+> `react-hook-form` and `zod` remain in `package.json` but are not used by the
+> current contact flow, which is a plain `mailto:` link.
 
 ## 📦 Installation
 
@@ -56,11 +59,57 @@ Edit `lib/constants.ts` to update:
 
 ### Add Projects
 
-Edit `lib/projects.ts` to add your projects. Each project should have:
-- Title and description
-- Tech stack
-- GitHub and live links
-- Featured flag
+Add or edit entries in the `allProjects` array in `lib/projects.ts`. Each entry
+follows the `Project` interface:
+
+| Field | Required | Notes |
+| --- | --- | --- |
+| `id` | yes | Unique slug, used in the `/projects/[slug]` URL |
+| `title` | yes | Project name |
+| `description` | yes | Short summary for cards |
+| `longDescription` | no | Detailed body shown on the detail page |
+| `category` | no | Grouping label (e.g. "Salesforce Tooling") |
+| `status` | no | Free-text status (e.g. "Published on the Chrome Web Store") |
+| `role` | no | Your role on the project |
+| `highlights` | no | String array of bullet-point achievements |
+| `image` | yes | Path under `public/projects/` (e.g. `/projects/<id>.svg` or `.png`) |
+| `tech` | yes | Flat string array of technologies |
+| `techStack` | no | Grouped tech: array of `{ category, items[] }` |
+| `github` | no | Repository URL |
+| `live` | no | Live/deployment URL |
+| `featured` | yes | `true` to surface on the homepage |
+| `hidden` | no | `true` to exclude from all public listings (kept for history) |
+| `date` | yes | `YYYY-MM-DD`; project history is sorted newest-first |
+
+Place the project image in `public/projects/` named after the project `id`.
+
+### Add a Certification
+
+Certifications are data-driven. To add one:
+
+1. Drop the certificate PDF into `public/certifications/` using a
+   `<issuer>-<course-slug>.pdf` filename (e.g. `meta-version-control.pdf`).
+2. Add an entry to the `certifications` array in `lib/certifications.ts`
+   following the `Certification` interface:
+
+| Field | Required | Notes |
+| --- | --- | --- |
+| `id` | yes | Unique slug, used in the `/certifications/[id]` URL |
+| `title` | yes | Certificate title |
+| `issuer` | yes | Issuing organisation (e.g. "Meta") |
+| `platform` | yes | Where it was earned (e.g. "Coursera") |
+| `issueDate` | yes | `YYYY-MM-DD`; list is sorted newest-first |
+| `credentialId` | yes | Credential identifier |
+| `verifyUrl` | yes | Public verification URL |
+| `pdf` | yes | Path to the PDF under `public/certifications/` |
+| `skills` | no | String array of skills |
+| `summary` | no | Paragraph shown on the detail page |
+| `topics` | no | String array of topics covered |
+
+The `/certifications` page and the About-page "Recent Certifications" preview
+pick up new entries automatically. See
+[`public/certifications/README.md`](public/certifications/README.md) for the
+authoring conventions.
 
 ### Add Blog Posts
 
@@ -82,15 +131,18 @@ Your blog post content here...
 
 Add your resume PDF file to the `public/` directory and name it `resume.pdf`. The download button on the About page and Hero section will automatically link to it.
 
-### Contact Form
+### Contact
 
-The contact form API route is at `app/api/contact/route.ts`. You'll need to integrate with an email service like:
-- [Resend](https://resend.com)
-- [SendGrid](https://sendgrid.com)
-- [Formspree](https://formspree.io)
-- Or any other email service
+There is no server-side contact form or API route. The Contact page
+(`app/contact/page.tsx`) is a direct `mailto:` link that opens the visitor's
+email client. Change the destination address by editing the `email` field
+under `siteConfig.links` in `lib/constants.ts`.
 
-Currently, the form just logs submissions to the console. Update the route handler to send actual emails.
+### Footer / Social Links
+
+The footer "Connect" row and social icons are driven by `siteConfig.links`
+and `socialLinks` in `lib/constants.ts`, including a Chrome Web Store link
+(`siteConfig.links.chromeStore`). Update or remove entries there.
 
 ## 🎨 Customization
 
@@ -122,7 +174,36 @@ Fonts are configured in `app/layout.tsx`. Currently using Inter from Google Font
 
 ### Environment Variables
 
-If you're using an email service, add your API keys as environment variables in Vercel.
+None are required. The site is fully static/SSG with no server-side secrets —
+contact is a `mailto:` link and there are no API routes.
+
+## 🗂️ Project Structure
+
+```
+app/                     App Router routes
+  page.tsx               Home (/)
+  about/                 /about (includes Recent Certifications preview)
+  projects/              /projects and /projects/[slug]
+  certifications/        /certifications and /certifications/[id]
+  blog/                  /blog and /blog/[slug]
+  contact/               /contact (mailto link)
+components/              Reusable UI and section components
+content/blog/            Markdown blog posts (frontmatter + body)
+lib/
+  constants.ts           Site config, navigation, skills, social links
+  projects.ts            Project data + helpers (Project interface)
+  certifications.ts      Certification data + helpers (Certification interface)
+public/
+  projects/              Project images (named after project id)
+  certifications/        Certificate PDFs (see its README for conventions)
+```
+
+Content is data-driven: projects and certifications live in typed arrays under
+`lib/`, blog posts are Markdown files under `content/blog/`.
+
+## 📋 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of notable changes.
 
 ## 📝 License
 
