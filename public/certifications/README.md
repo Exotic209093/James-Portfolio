@@ -19,8 +19,19 @@ Drop new certificate PDFs into this folder.
      verifyUrl: 'https://coursera.org/verify/XXXXXXXXXXXX',
      pdf: '/certifications/meta-version-control.pdf',
      skills: ['Git', 'GitHub', 'Branching'],
+     summary:
+       'One-paragraph description of what the course covered. Shown at ' +
+       'the top of the certification detail page.',
+     topics: [
+       'A specific thing the course taught',
+       'Another topic covered',
+     ],
    },
    ```
 
-3. The `/certifications` page and the "Recent Certifications" preview on `/about`
-   pick it up automatically. Entries are sorted newest-first by `issueDate`.
+   `skills`, `summary`, and `topics` are optional but recommended. `summary`
+   and `topics` populate the `/certifications/<id>` detail page — omitting
+   them renders a thin page with only the PDF and verify link.
+3. The `/certifications` page and the "Recent Certifications" preview on
+   `/about` pick it up automatically. Entries are sorted newest-first by
+   `issueDate`.
