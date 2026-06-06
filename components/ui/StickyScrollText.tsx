@@ -13,11 +13,14 @@ export default function StickyScrollText({
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start'],
+    // Progress runs only while the sticky element is locked in the viewport:
+    // 0 when section top hits viewport top, 1 when section bottom hits viewport bottom.
+    offset: ['start start', 'end end'],
   })
 
+  // Tall enough that every word gets ~20vh of scroll to reveal.
   return (
-    <section ref={ref} className="relative" style={{ height: `${lines.length * 80}vh` }}>
+    <section ref={ref} className="relative" style={{ height: `${lines.length * 120 + 50}vh` }}>
       {eyebrow && (
         <p className="absolute top-10 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-purple-400/70 uppercase z-10">
           {eyebrow}
