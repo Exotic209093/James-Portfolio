@@ -152,16 +152,55 @@ export default function AnimationLab() {
       {/* AI video hero scaffold */}
       <Section id="video-hero" label="08 — AI Video Hero (scaffold)">
         <VideoHero
-          eyebrow="Generated externally — drop URL into src prop"
+          src="/lab/ink-droplet.mp4"
+          eyebrow="Ink droplet — generated 8s loop"
           headline="Cinema-grade backdrops."
-          sub="Generate a 4–8s seamless loop with Sora / Veo / Runway / Kling, host it (Vercel, S3, Mux), and paste the URL into the src prop. Dark overlay keeps the text legible."
+          sub="A real AI-generated clip behind the text. Same component, just point src at a different file."
           ctaText="See an example"
-          ctaHref="#video-hero"
+          ctaHref="#video-hero-fullbleed"
         />
         <Caption>
           Component lives at <code>components/lab/VideoHero.tsx</code>. Accepts <code>src</code>,{' '}
           <code>poster</code>, <code>eyebrow</code>, <code>headline</code>, <code>sub</code>,{' '}
           <code>ctaText</code>, <code>ctaHref</code>, <code>overlay</code>.
+        </Caption>
+      </Section>
+
+      {/* Full-bleed video hero — what the real homepage could look like */}
+      <Section id="video-hero-fullbleed" label="08b — Full-bleed Video Hero">
+        <div className="-mx-6">
+          <div className="relative h-screen w-full overflow-hidden">
+            <video
+              src="/lab/ink-droplet.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/85" />
+            <div className="relative z-10 h-full flex items-center justify-center px-6 text-center">
+              <div className="max-w-3xl">
+                <p className="text-xs tracking-[0.3em] text-purple-300 uppercase mb-6">
+                  Open to opportunities
+                </p>
+                <h2 className="text-5xl sm:text-7xl md:text-8xl font-bold leading-[0.95] mb-6">
+                  <LetterReveal text="Hi, I'm " trigger="inView" />
+                  <span className="gradient-text">
+                    <LetterReveal text="James." trigger="inView" delay={0.3} />
+                  </span>
+                </h2>
+                <p className="text-lg sm:text-xl text-gray-200 max-w-xl mx-auto">
+                  AI agents · Salesforce engineering · TypeScript · Python · Systems programming
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <Caption>
+          Same Hero treatment but with the ink-droplet clip as the backdrop. This is the
+          version you&apos;d promote to the real homepage if you like it.
         </Caption>
       </Section>
 
