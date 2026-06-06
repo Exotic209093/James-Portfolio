@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import ModeProvider from '@/components/ModeProvider'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -40,12 +41,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var m=localStorage.getItem('site-mode');if(m==='basic')document.documentElement.classList.add('basic-mode');}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="antialiased">
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        <ModeProvider>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </ModeProvider>
       </body>
     </html>
   )

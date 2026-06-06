@@ -5,11 +5,12 @@ import AuroraBackground from './AuroraBackground'
 import CustomCursor from './CustomCursor'
 import MagneticButton from './MagneticButton'
 import TextScramble from './TextScramble'
-import LetterReveal from './LetterReveal'
+import LetterReveal from '@/components/ui/LetterReveal'
 import Marquee from './Marquee'
 import ScrollReveal from './ScrollReveal'
 import TiltCard from './TiltCard'
-import StickyScrollText from './StickyScrollText'
+import StickyScrollText from '@/components/ui/StickyScrollText'
+import VideoHero from './VideoHero'
 import SpotlightGrid from './SpotlightGrid'
 
 export default function AnimationLab() {
@@ -134,6 +135,7 @@ export default function AnimationLab() {
 
       {/* Sticky scroll text */}
       <StickyScrollText
+        eyebrow="Sticky scroll text"
         lines={[
           'I build production-grade tools',
           'across Salesforce, TypeScript,',
@@ -145,6 +147,22 @@ export default function AnimationLab() {
       <Section id="spotlight" label="07 — Cursor Spotlight Grid">
         <SpotlightGrid />
         <Caption>Move your mouse over the grid — the cells under your cursor light up.</Caption>
+      </Section>
+
+      {/* AI video hero scaffold */}
+      <Section id="video-hero" label="08 — AI Video Hero (scaffold)">
+        <VideoHero
+          eyebrow="Generated externally — drop URL into src prop"
+          headline="Cinema-grade backdrops."
+          sub="Generate a 4–8s seamless loop with Sora / Veo / Runway / Kling, host it (Vercel, S3, Mux), and paste the URL into the src prop. Dark overlay keeps the text legible."
+          ctaText="See an example"
+          ctaHref="#video-hero"
+        />
+        <Caption>
+          Component lives at <code>components/lab/VideoHero.tsx</code>. Accepts <code>src</code>,{' '}
+          <code>poster</code>, <code>eyebrow</code>, <code>headline</code>, <code>sub</code>,{' '}
+          <code>ctaText</code>, <code>ctaHref</code>, <code>overlay</code>.
+        </Caption>
       </Section>
 
       {/* End */}

@@ -3,7 +3,13 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
-export default function StickyScrollText({ lines }: { lines: string[] }) {
+export default function StickyScrollText({
+  lines,
+  eyebrow,
+}: {
+  lines: string[]
+  eyebrow?: string
+}) {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -12,9 +18,11 @@ export default function StickyScrollText({ lines }: { lines: string[] }) {
 
   return (
     <section ref={ref} className="relative" style={{ height: `${lines.length * 80}vh` }}>
-      <p className="absolute top-10 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-purple-400/70 uppercase z-10">
-        Sticky scroll text
-      </p>
+      {eyebrow && (
+        <p className="absolute top-10 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-purple-400/70 uppercase z-10">
+          {eyebrow}
+        </p>
+      )}
       <div className="sticky top-0 h-screen flex items-center justify-center px-6">
         <div className="max-w-4xl text-3xl sm:text-5xl md:text-6xl font-bold leading-tight">
           {lines.map((line, i) => {

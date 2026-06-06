@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Github, Linkedin, Twitter, Mail, Chrome } from 'lucide-react'
 import { siteConfig, socialLinks } from '@/lib/constants'
+import ModeToggle from '@/components/ui/ModeToggle'
 
 const iconMap = {
   github: Github,
@@ -106,10 +107,11 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-purple-900/20 text-center">
+        <div className="mt-8 pt-8 border-t border-purple-900/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-center">
           <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
+          <ModeToggle />
         </div>
       </div>
     </motion.footer>

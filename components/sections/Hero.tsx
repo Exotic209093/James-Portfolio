@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { ArrowDown, Download } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
+import LetterReveal from '@/components/ui/LetterReveal'
 import { siteConfig } from '@/lib/constants'
 
 export default function Hero() {
@@ -67,8 +68,12 @@ export default function Hero() {
             )}
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
-              <span className="text-white">Hi, I&apos;m </span>
-              <span className="gradient-text">{siteConfig.name}</span>
+              <span className="text-white">
+                <LetterReveal text="Hi, I'm " delay={0.1} />
+              </span>
+              <span className="gradient-text">
+                <LetterReveal text={siteConfig.name} delay={0.35} />
+              </span>
             </h1>
             <h2 className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-light">
               {siteConfig.title}
