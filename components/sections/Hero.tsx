@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { ArrowDown, Download } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
+import LetterReveal from '@/components/ui/LetterReveal'
 import { siteConfig } from '@/lib/constants'
 
 export default function Hero() {
@@ -16,19 +17,33 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Animated Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950/20 to-black" />
+      {/* Ink-droplet ambient video background */}
+      <video
+        src="/lab/ink-droplet.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        className="absolute inset-0 h-full w-full object-cover"
+        data-basic-hide
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/55 to-black/90"
+        data-basic-hide
+      />
       <motion.div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.1),transparent_50%)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.08),transparent_60%)]"
         animate={{
           background: [
-            'radial-gradient(circle at 50% 50%, rgba(147,51,234,0.1) 0%, transparent 50%)',
-            'radial-gradient(circle at 60% 40%, rgba(147,51,234,0.15) 0%, transparent 50%)',
-            'radial-gradient(circle at 40% 60%, rgba(147,51,234,0.1) 0%, transparent 50%)',
-            'radial-gradient(circle at 50% 50%, rgba(147,51,234,0.1) 0%, transparent 50%)',
+            'radial-gradient(circle at 50% 50%, rgba(147,51,234,0.08) 0%, transparent 60%)',
+            'radial-gradient(circle at 60% 40%, rgba(147,51,234,0.12) 0%, transparent 60%)',
+            'radial-gradient(circle at 40% 60%, rgba(147,51,234,0.08) 0%, transparent 60%)',
+            'radial-gradient(circle at 50% 50%, rgba(147,51,234,0.08) 0%, transparent 60%)',
           ]
         }}
         transition={{ duration: 8, repeat: Infinity }}
+        data-basic-hide
       />
       
       {/* Content */}
@@ -67,8 +82,12 @@ export default function Hero() {
             )}
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
-              <span className="text-white">Hi, I&apos;m </span>
-              <span className="gradient-text">{siteConfig.name}</span>
+              <span className="text-white">
+                <LetterReveal text="Hi, I'm " delay={0.1} />
+              </span>
+              <span className="gradient-text">
+                <LetterReveal text={siteConfig.name} delay={0.35} />
+              </span>
             </h1>
             <h2 className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-light">
               {siteConfig.title}
