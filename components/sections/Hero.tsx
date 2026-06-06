@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useMotionValueEvent, useTransform } from 'framer-motion'
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { ArrowDown, Download } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import LetterReveal from '@/components/ui/LetterReveal'
@@ -19,32 +19,49 @@ export default function Hero() {
     offset: ['start start', 'end end'],
   })
 
-  // Drive video currentTime from scroll progress so the droplet
-  // scrubs forward as the visitor scrolls through the section.
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const video = videoRef.current
-    if (!video || !videoReady) return
-    const duration = video.duration
-    if (!Number.isFinite(duration) || duration <= 0) return
-    const target = Math.max(0, Math.min(duration - 0.05, latest * duration))
-    if (Math.abs(video.currentTime - target) > 0.02) {
-      video.currentTime = target
-    }
+  // Smooth the raw scroll progress with a spring so the video scrubs
+  // fluidly instead of snapping with every wheel tick.
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 28,
+    mass: 0.35,
   })
 
-  // Prime the video so currentTime is seekable on iOS/Safari.
+  // Prime the video so currentTime is seekable on iOS/Safari,
+  // then drive playback from the smoothed scroll progress in a
+  // single rAF loop (cheaper than firing on every motion-value tick).
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
+
     const ready = () => {
       setVideoReady(true)
-      // Touch play/pause once so mobile browsers allow seeking.
       v.play().then(() => v.pause()).catch(() => {})
     }
     if (v.readyState >= 1) ready()
     else v.addEventListener('loadedmetadata', ready, { once: true })
-    return () => v.removeEventListener('loadedmetadata', ready)
-  }, [])
+
+    let raf = 0
+    const tick = () => {
+      const duration = v.duration
+      if (Number.isFinite(duration) && duration > 0) {
+        const progress = smoothProgress.get()
+        const target = Math.max(0, Math.min(duration - 0.05, progress * duration))
+        // Only seek when the delta is large enough to be visible,
+        // so we don't pile up decoder seeks on tiny scroll movements.
+        if (Math.abs(v.currentTime - target) > 0.03) {
+          v.currentTime = target
+        }
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      v.removeEventListener('loadedmetadata', ready)
+    }
+  }, [smoothProgress])
 
   // Content stays fully visible through the first 60% of scroll, then
   // softens and drifts upward as the droplet finishes dispersing.
@@ -63,7 +80,7 @@ export default function Hero() {
         {/* Scroll-scrubbed ink droplet */}
         <video
           ref={videoRef}
-          src="/lab/ink-droplet.mp4"
+          src="/lab/ink-droplet-scrub.mp4"
           muted
           playsInline
           preload="auto"
