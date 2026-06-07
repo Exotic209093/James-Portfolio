@@ -1,130 +1,88 @@
 # Setup Guide
 
-Follow these steps to get your portfolio website up and running.
+Step-by-step checklist for running and personalising this portfolio. See
+`README.md` for the full reference.
 
-## 1. Install Dependencies
+## 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-## 2. Configure Your Information
+## 2. Configure site information
 
-### Update Site Configuration
+Edit `lib/constants.ts`:
 
-Edit `lib/constants.ts` and update:
-- `siteConfig.name` - Your name
-- `siteConfig.title` - Your title/role
-- `siteConfig.description` - Your description
-- `siteConfig.links` - Your social media links and email
+- `siteConfig.name`, `siteConfig.title`, `siteConfig.description`,
+  `siteConfig.url`, `siteConfig.location`
+- `siteConfig.links` — `github`, `linkedin`, `twitter`, `email` (keep the
+  `mailto:` prefix), `chromeStore`
+- `navigation` — header menu items
+- `skills` — skills grouped by category
 
-### Update Navigation
+## 3. Add your projects
 
-In `lib/constants.ts`, modify the `navigation` array if you want to change menu items.
+Edit the `allProjects` array in `lib/projects.ts`. Required fields: `id`,
+`title`, `description`, `image`, `tech`, `featured`, `date`. Optional:
+`longDescription`, `category`, `status`, `role`, `highlights`, `techStack`,
+`github`, `live`, `hidden`. Put images in `public/projects/`. See the
+"Add a project" section of `README.md` for the full shape and field meanings.
 
-### Update Skills
+## 4. Add your certifications
 
-In `lib/constants.ts`, update the `skills` array with your actual skills organized by category.
+Save the certificate PDF in `public/certifications/` as
+`<issuer>-<course-slug>.pdf`, then add an entry to `lib/certifications.ts`
+(`id`, `title`, `issuer`, `platform`, `issueDate`, `credentialId`,
+`verifyUrl`, `pdf`; optional `skills`, `summary`, `topics`). It appears on
+`/certifications` and the `/about` preview automatically, newest-first.
 
-## 3. Add Your Projects
+## 5. Add your resume
 
-Edit `lib/projects.ts` and replace the sample projects with your own. Each project needs:
-- `id` - Unique identifier (used in URL)
-- `title` - Project name
-- `description` - Short description
-- `longDescription` - Detailed description (optional)
-- `image` - Path to project image (place in `public/` folder)
-- `tech` - Array of technologies used
-- `github` - GitHub repository URL (optional)
-- `live` - Live demo URL (optional)
-- `featured` - Boolean to show on homepage
-- `date` - Project date (YYYY-MM-DD format)
+Place your resume PDF at `public/resume.pdf`.
 
-## 4. Add Your Resume
+## 6. Add blog posts (optional)
 
-1. Create or export your resume as a PDF
-2. Place it in the `public/` directory
-3. Name it `resume.pdf`
-
-## 5. Add Blog Posts (Optional)
-
-1. Create a new Markdown file in `content/blog/`
-2. Use the following frontmatter format:
+Create a Markdown file in `content/blog/` with frontmatter:
 
 ```markdown
 ---
 title: Your Post Title
-date: 2024-01-15
+date: 2026-05-01
 excerpt: A brief description of your post
-tags: [tag1, tag2, tag3]
-author: Your Name
+tags: [tag1, tag2]
+author: James Collard
 ---
 
-Your blog post content here in Markdown format...
+Your content in Markdown...
 ```
 
-## 6. Set Up Contact Form
+## 7. Contact
 
-The contact form currently logs submissions to the console. To enable email sending:
+The contact page is a static `mailto:` link — there is no form or backend.
+Set the address via `siteConfig.links.email` in `lib/constants.ts`.
 
-1. Choose an email service (Resend, SendGrid, etc.)
-2. Get your API key
-3. Add it as an environment variable (e.g., `RESEND_API_KEY`)
-4. Update `app/api/contact/route.ts` to use your email service
+## 8. Customise colours (optional)
 
-Example with Resend:
-```typescript
-import { Resend } from 'resend'
+Edit `tailwind.config.ts` to adjust the theme (black background, deep-purple
+primary, purple gradient accents). Fonts are configured in `app/layout.tsx`
+(Inter from Google Fonts).
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
-await resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'your-email@example.com',
-  subject: `Portfolio Contact: ${subject}`,
-  html: `<p>From: ${name} (${email})</p><p>${message}</p>`,
-})
-```
-
-## 7. Customize Colors (Optional)
-
-Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
-- Background: Black
-- Primary: Deep purple shades
-- Accent: Purple gradients
-
-## 8. Run Development Server
+## 9. Run, lint, and build
 
 ```bash
-npm run dev
-```
-
-Visit [http://localhost:3000](http://localhost:3000) to see your site.
-
-## 9. Build for Production
-
-```bash
-npm run build
-npm start
+npm run dev      # http://localhost:3000
+npm run lint     # ESLint
+npm run build    # production build
+npm start        # serve the production build
 ```
 
 ## 10. Deploy to Vercel
 
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repository
-4. Vercel will automatically detect Next.js
-5. Add environment variables if needed (for email service)
-6. Deploy!
+1. Push to the repository.
+2. Import the repo at [vercel.com](https://vercel.com) — Next.js is
+   auto-detected.
+3. `vercel.json` pins the build region to `iad1`; no environment variables
+   are required.
 
-Your site will be live at `your-project.vercel.app`
-
-## Next Steps
-
-- Add your project images to `public/projects/`
-- Write blog posts in `content/blog/`
-- Customize the design to match your brand
-- Add analytics (Vercel Analytics, Google Analytics, etc.)
-- Set up a custom domain in Vercel
-
-Happy building! 🚀
+Your site goes live at the assigned Vercel URL (custom domains configurable
+in the Vercel dashboard).
