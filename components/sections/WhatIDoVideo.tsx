@@ -67,7 +67,7 @@ export default function WhatIDoVideo() {
         {/* Reversed ink clip — tendrils gather, sphere forms, droplet pulls up */}
         <video
           ref={videoRef}
-          src="/lab/ink-coalesce.mp4"
+          src="/lab/ink-coalesce-v2.mp4"
           muted
           playsInline
           preload="auto"
