@@ -1,137 +1,126 @@
-# Portfolio Website
+# James Collard - Portfolio
 
-A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. Features a black and deep purple theme with smooth animations and excellent user experience.
+Production portfolio site for James Collard, a software engineer focused on Salesforce platform engineering, AI agents, and full-stack tooling. Built with Next.js 14 (App Router), TypeScript, and Tailwind CSS, deployed on Vercel.
 
-## 🚀 Features
+**Live:** [jamescollard.dev](https://jamescollard.dev)
 
-- **Modern Design**: Clean, black/deep purple theme with smooth animations
-- **Responsive**: Fully responsive design that works on all devices
-- **Fast Performance**: Optimized for Core Web Vitals
-- **SEO Friendly**: Built with Next.js for excellent SEO
-- **Smooth Animations**: Framer Motion for delightful user interactions
-- **Type Safe**: Full TypeScript support
-- **Vercel Ready**: Optimized for Vercel deployment
+## Highlights
 
-## 📄 Pages
+- **Featured projects** include Vastify (Cerebral Valley × Anthropic 4.7 Hackathon submission), [Git Navigator Pro](https://marketplace.visualstudio.com/items?itemName=Exotic209093.git-navigator-exotic209093) on the Visual Studio Marketplace, and [WaveLink](https://chromewebstore.google.com/detail/wavelink-salesforce-data/ccknhhibbedolfnbgnenomdohlmojblo) on the Chrome Web Store.
+- **Certifications** page with per-credential detail views, including the full Meta Back-End Developer Professional Certificate track (umbrella, capstone, and all nine constituent courses).
+- **Mobile-first dark theme** with deep purple accents, glass-morphism surfaces, and Framer Motion micro-interactions.
+- **Static-by-default content model** — projects, certifications, skills, and blog posts are typed TypeScript modules and Markdown, no CMS required.
 
-- **Home**: Hero section, about preview, featured projects, contact CTA
-- **About**: Full bio, skills, and experience
-- **Projects**: Project listing and individual project pages
-- **Blog**: Blog listing and individual blog post pages (Markdown support)
-- **Contact**: Contact form with API route
+## Tech Stack
 
-## 🛠️ Tech Stack
+| Layer | Stack |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript 5 |
+| Styling | Tailwind CSS 3 |
+| Animation | Framer Motion |
+| Forms | React Hook Form + Zod |
+| Markdown | gray-matter + remark / remark-html |
+| Icons | lucide-react |
+| Hosting | Vercel |
 
-- **Next.js 14** (App Router)
-- **TypeScript**
-- **Tailwind CSS**
-- **Framer Motion**
-- **React Hook Form**
-- **Zod**
-- **Lucide React** (Icons)
+## Project Structure
 
-## 📦 Installation
-
-1. Install dependencies:
-```bash
-npm install
+```
+james-portfolio/
+├── app/                       Next.js App Router pages
+│   ├── about/                   Bio, skills, recent certifications preview
+│   ├── blog/                    Blog index + dynamic [slug] route
+│   ├── certifications/          Certifications index + dynamic [id] route
+│   ├── contact/                 Mailto-based contact page
+│   ├── projects/                Projects index + dynamic [slug] route
+│   ├── icon.svg                 Favicon
+│   └── layout.tsx               Root layout, metadata, fonts
+├── components/                Shared React components
+├── content/blog/              Markdown blog posts (frontmatter + body)
+├── lib/                       Typed content modules
+│   ├── certifications.ts        Certification type + getCertifications() etc.
+│   ├── projects.ts              Project type + featured / hidden / history helpers
+│   └── constants.ts             Site config, navigation, skills
+├── public/
+│   ├── certifications/          PDF certificates served by /certifications/<id>
+│   ├── projects/                Project images / SVGs
+│   └── resume.pdf               Downloadable résumé
+├── docs/                      Internal notes
+├── next.config.js
+├── tailwind.config.ts
+├── tsconfig.json
+└── vercel.json
 ```
 
-2. Run the development server:
+## Pages
+
+| Route | Purpose |
+|---|---|
+| `/` | Hero with open-to-work badge, About preview, Featured Projects, Recent Certifications, contact CTA |
+| `/about` | Full bio, skills (Frameworks & Runtimes, Languages, Tools), education, recent certifications preview |
+| `/projects` | Listing of all visible projects, sorted by date |
+| `/projects/[slug]` | Long-form project page with techStack, role, highlights, image, GitHub / live links |
+| `/certifications` | Listing of all certifications, sorted by date |
+| `/certifications/[id]` | Per-certification page with summary, topics, skills, inline PDF preview, Verify and direct PDF links |
+| `/blog` | Markdown blog index |
+| `/blog/[slug]` | Individual blog post |
+| `/contact` | Mailto-based contact CTA (no API route, no form submission) |
+
+## Local Development
+
+Node 20+ recommended.
+
 ```bash
+npm install
 npm run dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Opens on [http://localhost:3000](http://localhost:3000).
 
-## 🔧 Configuration
-
-### Update Site Information
-
-Edit `lib/constants.ts` to update:
-- Your name and title
-- Social media links
-- Site description
-- Navigation items
-
-### Add Projects
-
-Edit `lib/projects.ts` to add your projects. Each project should have:
-- Title and description
-- Tech stack
-- GitHub and live links
-- Featured flag
-
-### Add Blog Posts
-
-Create Markdown files in `content/blog/` directory. Each file should have frontmatter:
-
-```markdown
----
-title: Your Post Title
-date: 2024-01-15
-excerpt: A brief description
-tags: [web development, next.js]
-author: Your Name
----
-
-Your blog post content here...
+```bash
+npm run lint     # ESLint (next/core-web-vitals)
+npm run build    # Production build
+npm start        # Run the production build locally
 ```
 
-### Resume
+See [SETUP.md](SETUP.md) for a step-by-step walkthrough including content authoring, project / certification data, and deployment.
 
-Add your resume PDF file to the `public/` directory and name it `resume.pdf`. The download button on the About page and Hero section will automatically link to it.
+## Editing Content
 
-### Contact Form
+All site content is data-driven — there's no CMS to log into and no backend.
 
-The contact form API route is at `app/api/contact/route.ts`. You'll need to integrate with an email service like:
-- [Resend](https://resend.com)
-- [SendGrid](https://sendgrid.com)
-- [Formspree](https://formspree.io)
-- Or any other email service
+| What you want to change | Where to edit |
+|---|---|
+| Site name, tagline, social links, navigation, skills | [`lib/constants.ts`](lib/constants.ts) |
+| Projects (featured, hidden, history) | [`lib/projects.ts`](lib/projects.ts) |
+| Certifications | [`lib/certifications.ts`](lib/certifications.ts) + drop PDF in [`public/certifications/`](public/certifications) |
+| Project imagery | Drop into [`public/projects/`](public/projects) and reference by `image: '/projects/<file>'` |
+| Blog posts | Add a Markdown file to [`content/blog/`](content/blog) with `title`, `date`, `excerpt`, `tags`, `author` frontmatter |
+| Résumé | Replace [`public/resume.pdf`](public/resume.pdf) |
+| Theme colours | [`tailwind.config.ts`](tailwind.config.ts) |
 
-Currently, the form just logs submissions to the console. Update the route handler to send actual emails.
+### Hiding a project without deleting it
 
-## 🎨 Customization
+Projects with `hidden: true` are excluded from `/projects`, the featured section, history, and the dynamic slug route. Use this for work that isn't ready for public view yet (Apex HQ uses this today).
 
-### Colors
+### Adding a certification
 
-Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
-- Background: Black (#000000)
-- Primary: Deep purple shades
-- Accent: Purple gradients
+1. Drop the PDF in `public/certifications/<id>.pdf`.
+2. Append a `Certification` entry to the `certifications` array in [`lib/certifications.ts`](lib/certifications.ts) with matching `id`, `pdf`, optional `summary`, `topics`, and `skills`.
+3. The `/certifications` index, the per-cert detail page, and the About-page preview pick it up automatically.
 
-### Fonts
+## Deployment
 
-Fonts are configured in `app/layout.tsx`. Currently using Inter from Google Fonts.
+The site deploys to Vercel from `main`. Push to `main` and Vercel rebuilds automatically. There are no required environment variables.
 
-## 📱 Responsive Breakpoints
+For a manual deploy:
 
-- Mobile: < 640px
-- Tablet: 640px - 1024px
-- Desktop: > 1024px
+```bash
+npm run build
+vercel --prod
+```
 
-## 🚀 Deployment
+## License
 
-### Deploy to Vercel
-
-1. Push your code to GitHub
-2. Import your repository in Vercel
-3. Vercel will automatically detect Next.js and configure the build
-4. Your site will be live!
-
-### Environment Variables
-
-If you're using an email service, add your API keys as environment variables in Vercel.
-
-## 📝 License
-
-This project is open source and available under the MIT License.
-
-## 🤝 Contributing
-
-Feel free to fork this project and customize it for your own portfolio!
-
----
-
-Built with ❤️ using Next.js and Tailwind CSS
+MIT. See [LICENSE](LICENSE) if present, or use freely as a starting point for your own portfolio.
