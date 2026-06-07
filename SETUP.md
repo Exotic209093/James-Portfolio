@@ -1,130 +1,130 @@
 # Setup Guide
 
-Follow these steps to get your portfolio website up and running.
+How to edit and run the portfolio locally, plus how to add content.
 
-## 1. Install Dependencies
+## 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-## 2. Configure Your Information
-
-### Update Site Configuration
-
-Edit `lib/constants.ts` and update:
-- `siteConfig.name` - Your name
-- `siteConfig.title` - Your title/role
-- `siteConfig.description` - Your description
-- `siteConfig.links` - Your social media links and email
-
-### Update Navigation
-
-In `lib/constants.ts`, modify the `navigation` array if you want to change menu items.
-
-### Update Skills
-
-In `lib/constants.ts`, update the `skills` array with your actual skills organized by category.
-
-## 3. Add Your Projects
-
-Edit `lib/projects.ts` and replace the sample projects with your own. Each project needs:
-- `id` - Unique identifier (used in URL)
-- `title` - Project name
-- `description` - Short description
-- `longDescription` - Detailed description (optional)
-- `image` - Path to project image (place in `public/` folder)
-- `tech` - Array of technologies used
-- `github` - GitHub repository URL (optional)
-- `live` - Live demo URL (optional)
-- `featured` - Boolean to show on homepage
-- `date` - Project date (YYYY-MM-DD format)
-
-## 4. Add Your Resume
-
-1. Create or export your resume as a PDF
-2. Place it in the `public/` directory
-3. Name it `resume.pdf`
-
-## 5. Add Blog Posts (Optional)
-
-1. Create a new Markdown file in `content/blog/`
-2. Use the following frontmatter format:
-
-```markdown
----
-title: Your Post Title
-date: 2024-01-15
-excerpt: A brief description of your post
-tags: [tag1, tag2, tag3]
-author: Your Name
----
-
-Your blog post content here in Markdown format...
-```
-
-## 6. Set Up Contact Form
-
-The contact form currently logs submissions to the console. To enable email sending:
-
-1. Choose an email service (Resend, SendGrid, etc.)
-2. Get your API key
-3. Add it as an environment variable (e.g., `RESEND_API_KEY`)
-4. Update `app/api/contact/route.ts` to use your email service
-
-Example with Resend:
-```typescript
-import { Resend } from 'resend'
-
-const resend = new Resend(process.env.RESEND_API_KEY)
-
-await resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'your-email@example.com',
-  subject: `Portfolio Contact: ${subject}`,
-  html: `<p>From: ${name} (${email})</p><p>${message}</p>`,
-})
-```
-
-## 7. Customize Colors (Optional)
-
-Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
-- Background: Black
-- Primary: Deep purple shades
-- Accent: Purple gradients
-
-## 8. Run Development Server
+## 2. Run the dev server
 
 ```bash
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to see your site.
+Open [http://localhost:3000](http://localhost:3000). Hot reload covers
+component edits, content under `lib/`, and Markdown under `content/`.
 
-## 9. Build for Production
+## 3. Edit site config
+
+`lib/constants.ts` is the source of truth for:
+
+- `siteConfig.name`, `siteConfig.title`, `siteConfig.description` — used in
+  the hero, metadata, and OG tags.
+- `siteConfig.url` — production URL, used by metadata.
+- `siteConfig.location` — shown under the hero.
+- `siteConfig.links` — `github`, `linkedin`, `twitter`, `email` (a
+  `mailto:` URI), and `chromeStore`.
+- `navigation` — top-nav links. Adding a route here also needs a page file
+  under `app/<route>/page.tsx`.
+- `skills` — `{ category, items[] }` groups rendered on `/about`.
+- `socialLinks` — header + footer social icons (must match `lucide-react`
+  icon names).
+
+## 4. Add a project
+
+Append a `Project` to the `allProjects` array in `lib/projects.ts`. The
+shape (`lib/projects.ts`) supports:
+
+| Field | Required | Purpose |
+|---|---|---|
+| `id` | yes | Slug used in `/projects/[slug]`. Lower-kebab-case. |
+| `title`, `description` | yes | Card + listing copy. |
+| `longDescription` | optional | Rendered on the detail page. |
+| `category`, `status`, `role` | optional | Metadata badges on the detail page. |
+| `highlights` | optional | Bullet list under the description. |
+| `image` | yes | Path under `public/` (e.g. `/projects/foo.png`). |
+| `tech` | yes | Short tech-tag list for the card. |
+| `techStack` | optional | `{ category, items[] }` for the detail page. |
+| `github`, `live` | optional | External links. |
+| `featured` | yes | If `true`, surfaces on the home page. |
+| `hidden` | optional | If `true`, omitted from public listings. |
+| `date` | yes | ISO date (YYYY-MM-DD), used for sorting. |
+
+Place the hero image in `public/projects/<id>.{png,svg,…}`.
+
+## 5. Add a certification
+
+Append a `Certification` to the `certifications` array in
+`lib/certifications.ts`:
+
+| Field | Purpose |
+|---|---|
+| `id` | Slug used in `/certifications/[id]`. |
+| `title`, `issuer`, `platform` | Header copy on the card + detail page. |
+| `issueDate` | ISO date (YYYY-MM-DD). |
+| `credentialId`, `verifyUrl` | Linked from the **Verify on Credly** button. |
+| `pdf` | Path under `public/certifications/` for the embedded PDF preview. |
+| `skills` | Optional tag list. |
+| `summary` | Optional one-paragraph blurb. |
+| `topics` | Optional bullet list of covered topics. |
+
+Put the credential PDF in `public/certifications/<filename>.pdf`.
+
+## 6. Replace the resume
+
+Drop your PDF at `public/resume.pdf`. The hero CTA and the About-page
+download button both link there — no code change needed.
+
+## 7. Write a blog post
+
+Create `content/blog/<slug>.md` with frontmatter:
+
+```markdown
+---
+title: Your Post Title
+date: 2026-05-12
+excerpt: A one-line description.
+tags: [next.js, tooling]
+author: James Collard
+---
+
+Markdown body…
+```
+
+The loader in `lib/blog.ts` reads frontmatter via `gray-matter` and renders
+the body with `remark`. No registry to update.
+
+## 8. Contact
+
+The `/contact` page is a `mailto:` CTA. There is no API route, no form
+handler, and no secret to provision. To change the destination address,
+edit `siteConfig.links.email` in `lib/constants.ts`.
+
+## 9. Customize the theme
+
+`tailwind.config.ts` defines the colour palette (black background, deep
+purple primaries, purple gradient accents). Fonts are configured in
+`app/layout.tsx` (Inter via `next/font/google`).
+
+## 10. Build for production
 
 ```bash
 npm run build
 npm start
 ```
 
-## 10. Deploy to Vercel
+## 11. Deploy
 
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repository
-4. Vercel will automatically detect Next.js
-5. Add environment variables if needed (for email service)
-6. Deploy!
+Push to the default branch. Vercel auto-builds via `vercel.json`. No
+environment variables are required because the contact flow is mailto-only.
 
-Your site will be live at `your-project.vercel.app`
+To use a custom domain, add it in the Vercel project's **Domains** tab and
+update `siteConfig.url` in `lib/constants.ts` so metadata + OG tags resolve
+correctly.
 
-## Next Steps
+---
 
-- Add your project images to `public/projects/`
-- Write blog posts in `content/blog/`
-- Customize the design to match your brand
-- Add analytics (Vercel Analytics, Google Analytics, etc.)
-- Set up a custom domain in Vercel
-
-Happy building! 🚀
+Happy shipping.
