@@ -33,20 +33,34 @@ Edit `lib/projects.ts` and replace the sample projects with your own. Each proje
 - `title` - Project name
 - `description` - Short description
 - `longDescription` - Detailed description (optional)
-- `image` - Path to project image (place in `public/` folder)
+- `image` - Path to project image (place in `public/projects/` folder)
 - `tech` - Array of technologies used
+- `techStack` - Grouped breakdown shown on the detail page (optional)
+- `category`, `status`, `role`, `highlights` - Detail-page metadata (optional)
 - `github` - GitHub repository URL (optional)
 - `live` - Live demo URL (optional)
 - `featured` - Boolean to show on homepage
+- `hidden` - Boolean to exclude from public listings (defaults to `false`)
 - `date` - Project date (YYYY-MM-DD format)
 
-## 4. Add Your Resume
+## 4. Add Your Certifications
+
+Edit `lib/certifications.ts` to list your certifications. Each entry needs:
+- `id` - Unique slug used in the URL (`/certifications/<id>`)
+- `title`, `issuer`, `platform`
+- `issueDate` (YYYY-MM-DD), `credentialId`, `verifyUrl`
+- `pdf` - path to the certificate PDF
+- `skills`, `topics`, `summary` (optional)
+
+Then drop the certificate PDF into `public/certifications/` using the same filename you referenced in the `pdf` field.
+
+## 5. Add Your Resume
 
 1. Create or export your resume as a PDF
 2. Place it in the `public/` directory
 3. Name it `resume.pdf`
 
-## 5. Add Blog Posts (Optional)
+## 6. Add Blog Posts (Optional)
 
 1. Create a new Markdown file in `content/blog/`
 2. Use the following frontmatter format:
@@ -63,7 +77,7 @@ author: Your Name
 Your blog post content here in Markdown format...
 ```
 
-## 6. Set Up Contact Form
+## 7. Set Up Contact Form
 
 The contact form currently logs submissions to the console. To enable email sending:
 
@@ -86,14 +100,14 @@ await resend.emails.send({
 })
 ```
 
-## 7. Customize Colors (Optional)
+## 8. Customize Colors (Optional)
 
 Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
 - Background: Black
 - Primary: Deep purple shades
 - Accent: Purple gradients
 
-## 8. Run Development Server
+## 9. Run Development Server
 
 ```bash
 npm run dev
@@ -101,14 +115,14 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) to see your site.
 
-## 9. Build for Production
+## 10. Build for Production
 
 ```bash
 npm run build
 npm start
 ```
 
-## 10. Deploy to Vercel
+## 11. Deploy to Vercel
 
 1. Push your code to GitHub
 2. Go to [vercel.com](https://vercel.com)
@@ -122,6 +136,7 @@ Your site will be live at `your-project.vercel.app`
 ## Next Steps
 
 - Add your project images to `public/projects/`
+- Add your certificate PDFs to `public/certifications/`
 - Write blog posts in `content/blog/`
 - Customize the design to match your brand
 - Add analytics (Vercel Analytics, Google Analytics, etc.)
