@@ -113,7 +113,7 @@ export default function Hero() {
         {/* Scroll-scrubbed ink droplet */}
         <video
           ref={videoRef}
-          src="/lab/ink-droplet-scrub.mp4"
+          src="/lab/ink-droplet-v2-scrub.mp4"
           muted
           playsInline
           preload="auto"
