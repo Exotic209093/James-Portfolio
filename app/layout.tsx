@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import PageBackground from '@/components/layout/PageBackground'
 import ModeProvider from '@/components/ModeProvider'
 
 const inter = Inter({ 
@@ -50,6 +51,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <ModeProvider>
+          <PageBackground />
           <div className="flex min-h-screen flex-col">
             <Header />
             <main className="flex-1">{children}</main>
