@@ -1,137 +1,140 @@
-# Portfolio Website
+# James Portfolio
 
-A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. Features a black and deep purple theme with smooth animations and excellent user experience.
+A modern, performance-first portfolio site built with Next.js 14 (App Router),
+TypeScript, and Tailwind CSS. Showcases shipped projects, Meta back-end
+developer certifications, and long-form writing — with no contact form,
+no third-party tracking, and a black/deep-purple theme tuned for low light.
 
-## 🚀 Features
+## Pages
 
-- **Modern Design**: Clean, black/deep purple theme with smooth animations
-- **Responsive**: Fully responsive design that works on all devices
-- **Fast Performance**: Optimized for Core Web Vitals
-- **SEO Friendly**: Built with Next.js for excellent SEO
-- **Smooth Animations**: Framer Motion for delightful user interactions
-- **Type Safe**: Full TypeScript support
-- **Vercel Ready**: Optimized for Vercel deployment
+| Path | Purpose |
+|---|---|
+| `/` | Hero, "open to work" badge, about preview, featured projects, recent certifications |
+| `/about` | Bio, skills, experience |
+| `/projects` | All public projects with images |
+| `/projects/[slug]` | Per-project detail page |
+| `/certifications` | All Meta back-end certifications |
+| `/certifications/[slug]` | Per-certification detail page (PDF embed + transcript link) |
+| `/blog` | Markdown blog index |
+| `/blog/[slug]` | Per-post page |
+| `/contact` | `mailto:` CTA (no form, no API route) |
 
-## 📄 Pages
+## Content
 
-- **Home**: Hero section, about preview, featured projects, contact CTA
-- **About**: Full bio, skills, and experience
-- **Projects**: Project listing and individual project pages
-- **Blog**: Blog listing and individual blog post pages (Markdown support)
-- **Contact**: Contact form with API route
+### Projects
 
-## 🛠️ Tech Stack
+Visible projects are defined in [`lib/projects.ts`](lib/projects.ts):
 
-- **Next.js 14** (App Router)
-- **TypeScript**
-- **Tailwind CSS**
-- **Framer Motion**
-- **React Hook Form**
-- **Zod**
-- **Lucide React** (Icons)
+| Project | Featured | Notes |
+|---|---|---|
+| Vastify | yes | Hackathon project; renders project images |
+| Nebula-Vault | yes | |
+| WaveLink | yes | Chrome Web Store listing linked from the footer |
+| Salesforce Spreadsheet Formatter | yes | |
+| AI Email Triage Automation | no | |
+| ExoCraft | no | Live deployment + real gameplay screenshot |
+| Git Navigator | yes | |
+| ExoWare Kernel Driver | no | |
 
-## 📦 Installation
+Apex HQ is intentionally `hidden: true` — kept in the data file for future
+re-listing but not rendered in any public route.
 
-1. Install dependencies:
+### Certifications
+
+All entries live in [`lib/certifications.ts`](lib/certifications.ts) and
+PDFs in [`public/certifications/`](public/certifications/) — see
+[`public/certifications/README.md`](public/certifications/README.md) for the
+file-naming convention.
+
+| # | Certification | Issuer |
+|---|---|---|
+| 1 | Meta Back-End Developer **Professional Certificate** | Meta (Coursera) |
+| 2 | Back-End Developer Capstone | Meta (Coursera) |
+| 3 | The Full Stack | Meta (Coursera) |
+| 4 | APIs | Meta (Coursera) |
+| 5 | Coding Interview Preparation | Meta (Coursera) |
+| 6 | Django Web Framework | Meta (Coursera) |
+| 7 | Introduction to Databases for Back-End Development | Meta (Coursera) |
+| 8 | Version Control | Meta (Coursera) |
+| 9 | Introduction to Back-End Development | Meta (Coursera) |
+| 10 | Programming in Python | Meta (Coursera) |
+
+## Tech stack
+
+- **Next.js 14** (App Router) on Node 18+
+- **TypeScript** (strict)
+- **Tailwind CSS 3** (utility-first; deep-purple theme)
+- **Framer Motion** (page + element animations)
+- **React Hook Form + Zod** (form validation, kept for future use)
+- **Lucide React** (icons)
+- **gray-matter + remark + remark-html** (Markdown blog pipeline)
+- **Vercel** (hosting + edge cache)
+
+## Getting started
+
 ```bash
 npm install
+npm run dev          # http://localhost:3000
 ```
 
-2. Run the development server:
+Production build:
+
 ```bash
-npm run dev
+npm run build
+npm start
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Lint:
 
-## 🔧 Configuration
-
-### Update Site Information
-
-Edit `lib/constants.ts` to update:
-- Your name and title
-- Social media links
-- Site description
-- Navigation items
-
-### Add Projects
-
-Edit `lib/projects.ts` to add your projects. Each project should have:
-- Title and description
-- Tech stack
-- GitHub and live links
-- Featured flag
-
-### Add Blog Posts
-
-Create Markdown files in `content/blog/` directory. Each file should have frontmatter:
-
-```markdown
----
-title: Your Post Title
-date: 2024-01-15
-excerpt: A brief description
-tags: [web development, next.js]
-author: Your Name
----
-
-Your blog post content here...
+```bash
+npm run lint
 ```
 
-### Resume
+## Repository layout
 
-Add your resume PDF file to the `public/` directory and name it `resume.pdf`. The download button on the About page and Hero section will automatically link to it.
+```
+app/                 Next.js App Router routes
+components/          Reusable UI (Hero, ProjectCard, Footer, …)
+content/blog/        Markdown blog posts (frontmatter + body)
+lib/                 Data sources (projects, certifications, blog),
+                     site constants, utility helpers
+public/              Static assets — favicons, project images,
+                     certifications/<slug>.pdf
+docs/                Long-form notes
+SETUP.md             Step-by-step content authoring workflow
+CHANGELOG.md         Dated release notes (Keep a Changelog format)
+```
 
-### Contact Form
+## Authoring content
 
-The contact form API route is at `app/api/contact/route.ts`. You'll need to integrate with an email service like:
-- [Resend](https://resend.com)
-- [SendGrid](https://sendgrid.com)
-- [Formspree](https://formspree.io)
-- Or any other email service
+See [`SETUP.md`](SETUP.md) for the full workflow. Quick reference:
 
-Currently, the form just logs submissions to the console. Update the route handler to send actual emails.
+- **Add a project** — append to `lib/projects.ts` (use `featured: true` to
+  surface on the home page; use `hidden: true` to keep in data without
+  rendering).
+- **Add a certification** — append to `lib/certifications.ts` and place the
+  PDF at `public/certifications/<slug>.pdf`.
+- **Add a blog post** — drop a Markdown file into `content/blog/` with
+  frontmatter (`title`, `date`, `excerpt`, `tags`, `author`).
+- **Update site identity** — `lib/constants.ts`.
 
-## 🎨 Customization
+## Deployment
 
-### Colors
+The site is hosted on **Vercel** with the configuration in
+[`vercel.json`](vercel.json). Pushes to the default branch deploy to
+production; PR branches get preview deployments automatically.
 
-Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
-- Background: Black (#000000)
-- Primary: Deep purple shades
-- Accent: Purple gradients
+## Resume
 
-### Fonts
+Drop the latest CV at `public/resume.pdf`. The hero CTA and About-page
+download button link to it; no other configuration is required.
 
-Fonts are configured in `app/layout.tsx`. Currently using Inter from Google Fonts.
+## License
 
-## 📱 Responsive Breakpoints
+MIT — see [`LICENSE`](LICENSE) (if present) or the package metadata.
 
-- Mobile: < 640px
-- Tablet: 640px - 1024px
-- Desktop: > 1024px
+## Changelog
 
-## 🚀 Deployment
-
-### Deploy to Vercel
-
-1. Push your code to GitHub
-2. Import your repository in Vercel
-3. Vercel will automatically detect Next.js and configure the build
-4. Your site will be live!
-
-### Environment Variables
-
-If you're using an email service, add your API keys as environment variables in Vercel.
-
-## 📝 License
-
-This project is open source and available under the MIT License.
-
-## 🤝 Contributing
-
-Feel free to fork this project and customize it for your own portfolio!
-
----
-
-Built with ❤️ using Next.js and Tailwind CSS
+Dated release notes live in [`CHANGELOG.md`](CHANGELOG.md), formatted per
+[Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/) and
+following [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
