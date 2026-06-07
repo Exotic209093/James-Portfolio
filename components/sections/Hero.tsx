@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion, useScroll, useSpring, useTransform, MotionValue } from 'framer-motion'
 import { ArrowDown, Download } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import LetterReveal from '@/components/ui/LetterReveal'
+import { useVideoMode } from '@/lib/useVideoMode'
 import { siteConfig } from '@/lib/constants'
 
 // Animation phase markers, tied to the ink-droplet timeline:
@@ -25,7 +26,7 @@ export default function Hero() {
 
   const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [videoReady, setVideoReady] = useState(false)
+  const videoMode = useVideoMode()
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -38,12 +39,13 @@ export default function Hero() {
     mass: 0.35,
   })
 
+  // Only the desktop 'scrub' mode ties currentTime to scroll. 'loop' lets the
+  // browser play the clip cheaply; 'static' leaves the poster frame in place.
   useEffect(() => {
     const v = videoRef.current
-    if (!v) return
+    if (!v || videoMode !== 'scrub') return
 
     const ready = () => {
-      setVideoReady(true)
       v.play().then(() => v.pause()).catch(() => {})
     }
     if (v.readyState >= 1) ready()
@@ -67,7 +69,7 @@ export default function Hero() {
       cancelAnimationFrame(raf)
       v.removeEventListener('loadedmetadata', ready)
     }
-  }, [smoothProgress])
+  }, [smoothProgress, videoMode])
 
   // Phase-by-phase content choreography
   const headingOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0.5])
@@ -113,10 +115,13 @@ export default function Hero() {
         {/* Scroll-scrubbed ink droplet */}
         <video
           ref={videoRef}
-          src="/lab/ink-droplet-v2-scrub.mp4"
+          src={videoMode === 'static' ? undefined : '/lab/ink-droplet-v2-scrub.mp4'}
+          poster="/lab/ink-droplet-v2-poster.jpg"
           muted
           playsInline
-          preload="auto"
+          autoPlay={videoMode === 'loop'}
+          loop={videoMode === 'loop'}
+          preload={videoMode === 'scrub' ? 'auto' : 'metadata'}
           style={{ filter: 'brightness(1.22) contrast(1.12) saturate(1.35)' }}
           className="absolute inset-0 h-full w-full object-cover scale-[1.02]"
           data-basic-hide

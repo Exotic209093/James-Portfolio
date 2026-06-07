@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { motion, useScroll, useSpring, useTransform, MotionValue } from 'framer-motion'
+import { useVideoMode } from '@/lib/useVideoMode'
 
 // Tags scatter in from these px offsets (relative to centre) and
 // converge to (0, 0) as the ink gathers in the reversed video.
@@ -18,6 +19,7 @@ const TECH_TAGS = [
 export default function WhatIDoVideo() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const videoMode = useVideoMode()
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -32,7 +34,7 @@ export default function WhatIDoVideo() {
 
   useEffect(() => {
     const v = videoRef.current
-    if (!v) return
+    if (!v || videoMode !== 'scrub') return
     const ready = () => {
       v.play().then(() => v.pause()).catch(() => {})
     }
@@ -55,7 +57,7 @@ export default function WhatIDoVideo() {
       cancelAnimationFrame(raf)
       v.removeEventListener('loadedmetadata', ready)
     }
-  }, [smooth])
+  }, [smooth, videoMode])
 
   const eyebrowOpacity = useTransform(scrollYProgress, [0, 0.05, 0.9, 1], [0, 1, 1, 0.4])
   const statementOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1])
@@ -67,10 +69,13 @@ export default function WhatIDoVideo() {
         {/* Reversed ink clip — tendrils gather, sphere forms, droplet pulls up */}
         <video
           ref={videoRef}
-          src="/lab/ink-coalesce-v2.mp4"
+          src={videoMode === 'static' ? undefined : '/lab/ink-coalesce-v2.mp4'}
+          poster="/lab/ink-coalesce-v2-poster.jpg"
           muted
           playsInline
-          preload="auto"
+          autoPlay={videoMode === 'loop'}
+          loop={videoMode === 'loop'}
+          preload={videoMode === 'scrub' ? 'auto' : 'metadata'}
           style={{ filter: 'brightness(1.22) contrast(1.12) saturate(1.35)' }}
           className="absolute inset-0 h-full w-full object-cover scale-[1.02]"
           data-basic-hide
