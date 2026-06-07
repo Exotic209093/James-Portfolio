@@ -7,8 +7,15 @@ import { siteConfig } from '@/lib/constants'
 
 export default function ContactCTA() {
   return (
-    <section className="py-20 md:py-32 bg-gradient-to-b from-black via-purple-950/20 to-black">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-20 md:py-32 overflow-hidden">
+      {/* Finale glow — the ink settles here */}
+      <div
+        aria-hidden
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-96 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(147,51,234,0.14), transparent 70%)', filter: 'blur(60px)' }}
+        data-basic-hide
+      />
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -11,15 +11,15 @@ const featuredHistory = getProjectHistory().slice(0, 4)
 
 export default function ProfessionalExperiencePreview() {
   return (
-    <section id="experience-preview" className="relative py-20 md:py-32 bg-gradient-to-b from-black to-purple-950/10 overflow-hidden">
-      {/* Ambient purple glow at the top — visual handoff from the video sections */}
+    <section id="experience-preview" className="relative py-20 md:py-32 overflow-hidden">
+      {/* The video above ends near-black; this fades the page background up
+          out of that darkness so the content emerges rather than cuts in */}
       <div
         aria-hidden
-        className="absolute -top-32 left-1/2 -translate-x-1/2 w-[80vw] h-64 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, rgba(147,51,234,0.18), transparent 70%)', filter: 'blur(40px)' }}
+        className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-black to-transparent pointer-events-none"
         data-basic-hide
       />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
