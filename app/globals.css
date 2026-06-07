@@ -84,6 +84,14 @@ html.basic-mode .basic-hide {
   display: none !important;
 }
 
+/* Elements that should ONLY appear in basic mode (e.g. canvas fallbacks) */
+.basic-only {
+  display: none;
+}
+html.basic-mode .basic-only {
+  display: flex;
+}
+
 html.basic-mode a {
   color: #0000ee;
   text-decoration: underline;
