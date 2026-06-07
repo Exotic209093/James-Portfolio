@@ -46,7 +46,21 @@ Edit `lib/projects.ts` and replace the sample projects with your own. Each proje
 2. Place it in the `public/` directory
 3. Name it `resume.pdf`
 
-## 5. Add Blog Posts (Optional)
+## 5. Add Certifications (Optional)
+
+1. Save the certificate PDF in `public/certifications/` using a slug-style
+   filename (e.g. `meta-version-control.pdf`).
+2. Append an entry to `lib/certifications.ts` with `id`, `title`, `issuer`,
+   `platform`, `issueDate`, `credentialId`, `verifyUrl`, `pdf`, plus optional
+   `skills`, `summary`, and `topics`.
+3. The `/certifications` index, the per-cert detail page at
+   `/certifications/[id]`, and the "Recent Certifications" block on `/about`
+   pick it up automatically (sorted newest-first by `issueDate`).
+
+See [`public/certifications/README.md`](public/certifications/README.md) for
+the full reference and example.
+
+## 6. Add Blog Posts (Optional)
 
 1. Create a new Markdown file in `content/blog/`
 2. Use the following frontmatter format:
@@ -63,7 +77,7 @@ author: Your Name
 Your blog post content here in Markdown format...
 ```
 
-## 6. Set Up Contact Form
+## 7. Set Up Contact Form
 
 The contact form currently logs submissions to the console. To enable email sending:
 
@@ -86,14 +100,14 @@ await resend.emails.send({
 })
 ```
 
-## 7. Customize Colors (Optional)
+## 8. Customize Colors (Optional)
 
 Edit `tailwind.config.ts` to customize the color scheme. The current theme uses:
 - Background: Black
 - Primary: Deep purple shades
 - Accent: Purple gradients
 
-## 8. Run Development Server
+## 9. Run Development Server
 
 ```bash
 npm run dev
@@ -101,14 +115,14 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) to see your site.
 
-## 9. Build for Production
+## 10. Build for Production
 
 ```bash
 npm run build
 npm start
 ```
 
-## 10. Deploy to Vercel
+## 11. Deploy to Vercel
 
 1. Push your code to GitHub
 2. Go to [vercel.com](https://vercel.com)
