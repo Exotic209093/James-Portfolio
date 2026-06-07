@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Mail, MapPin } from 'lucide-react'
 import Card from '@/components/ui/Card'
+import Reveal from '@/components/ui/Reveal'
 import { ButtonLink } from '@/components/ui/Button'
 import { siteConfig } from '@/lib/constants'
 
@@ -12,12 +13,7 @@ export default function ContactPage() {
   return (
     <div className="pt-20 md:pt-32 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <Reveal className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-white">Get In </span>
             <span className="gradient-text">Touch</span>
@@ -25,16 +21,12 @@ export default function ContactPage() {
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             The best way to reach me is directly by email.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Info */}
           <div className="lg:col-span-1 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+            <Reveal direction="right" delay={0.1}>
               <Card hover>
                 <div className="flex items-start space-x-4">
                   <motion.div
@@ -54,13 +46,9 @@ export default function ContactPage() {
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </Reveal>
 
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
+            <Reveal direction="right" delay={0.2}>
               <Card hover>
                 <div className="flex items-start space-x-4">
                   <motion.div
@@ -75,16 +63,11 @@ export default function ContactPage() {
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </Reveal>
           </div>
 
           {/* Mailto CTA */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-2"
-          >
+          <Reveal direction="left" delay={0.1} className="lg:col-span-2">
             <Card>
               <div className="flex flex-col items-center justify-center py-12 text-center gap-6">
                 <h2 className="text-2xl font-semibold text-white">Send me an email</h2>
@@ -99,7 +82,7 @@ export default function ContactPage() {
                 <p className="text-sm text-gray-500">Opens your email client</p>
               </div>
             </Card>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </div>

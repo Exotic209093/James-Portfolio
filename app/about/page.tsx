@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { ArrowRight, Download } from 'lucide-react'
 import Card from '@/components/ui/Card'
+import Reveal from '@/components/ui/Reveal'
 import { ButtonLink } from '@/components/ui/Button'
 import CertificationCard from '@/components/sections/CertificationCard'
 import { skills, siteConfig } from '@/lib/constants'
@@ -67,12 +67,7 @@ export default function AboutPage() {
   return (
     <div className="pt-20 md:pt-32 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <Reveal className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-white">About </span>
             <span className="gradient-text">Me</span>
@@ -80,14 +75,9 @@ export default function AboutPage() {
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             {siteConfig.description}
           </p>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          className="max-w-4xl mx-auto mb-16"
-        >
+        <Reveal className="max-w-4xl mx-auto mb-16">
           <Card>
             <div className="prose prose-invert max-w-none">
               <h2 className="text-2xl font-semibold text-white mb-4">What I am targeting</h2>
@@ -105,84 +95,68 @@ export default function AboutPage() {
               </p>
             </div>
           </Card>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
+        <Reveal className="max-w-5xl mx-auto mb-16">
           <h2 className="text-3xl font-bold text-center mb-12">
             <span className="text-white">Project </span>
             <span className="gradient-text">History</span>
           </h2>
           <div className="space-y-6">
-            {projectHistory.map((entry) => (
-              <Card key={entry.id}>
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">{entry.title}</h3>
-                    <p className="text-gray-300 leading-relaxed">{entry.description}</p>
+            {projectHistory.map((entry, index) => (
+              <Reveal key={entry.id} delay={index * 0.06}>
+                <Card hover>
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-2">{entry.title}</h3>
+                      <p className="text-gray-300 leading-relaxed">{entry.description}</p>
+                    </div>
+                    <span className="text-sm uppercase tracking-[0.2em] text-purple-400 whitespace-nowrap">
+                      {formatDate(entry.date)}
+                    </span>
                   </div>
-                  <span className="text-sm uppercase tracking-[0.2em] text-purple-400 whitespace-nowrap">
-                    {formatDate(entry.date)}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-400 leading-relaxed">{entry.role}</p>
-              </Card>
+                  <p className="text-sm text-gray-400 leading-relaxed">{entry.role}</p>
+                </Card>
+              </Reveal>
             ))}
           </div>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
+        <Reveal className="max-w-5xl mx-auto mb-16">
           <h2 className="text-3xl font-bold text-center mb-12">
             <span className="text-white">Why These </span>
             <span className="gradient-text">Projects Matter</span>
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {highlightedProjects.map((project) => (
-              <Card key={project.id} hover className="h-full">
-                <h3 className="text-xl font-semibold text-white mb-3">{project.title}</h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.slice(0, 4).map((item) => (
-                    <span
-                      key={item}
-                      className="px-2 py-1 text-xs bg-purple-900/30 text-purple-300 rounded border border-purple-800/50"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </Card>
+            {highlightedProjects.map((project, index) => (
+              <Reveal key={project.id} delay={index * 0.08} className="h-full">
+                <Card hover className="h-full">
+                  <h3 className="text-xl font-semibold text-white mb-3">{project.title}</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.slice(0, 4).map((item) => (
+                      <span
+                        key={item}
+                        className="px-2 py-1 text-xs bg-purple-900/30 text-purple-300 rounded border border-purple-800/50"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </Card>
+              </Reveal>
             ))}
           </div>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mb-16"
-        >
+        <Reveal className="mb-16">
           <h2 className="text-3xl font-bold text-center mb-12">
             <span className="text-white">Skills & </span>
             <span className="gradient-text">Technologies</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {skills.map((skillGroup, index) => (
-              <motion.div
-                key={skillGroup.category}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45 + index * 0.1, duration: 0.5 }}
-              >
+              <Reveal key={skillGroup.category} delay={index * 0.1}>
                 <Card hover>
                   <h3 className="text-xl font-semibold text-purple-400 mb-4">{skillGroup.category}</h3>
                   <ul className="space-y-3">
@@ -194,63 +168,57 @@ export default function AboutPage() {
                     ))}
                   </ul>
                 </Card>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
+        <Reveal className="max-w-5xl mx-auto mb-16">
           <h2 className="text-3xl font-bold text-center mb-12">
             <span className="text-white">Work & </span>
             <span className="gradient-text">Education</span>
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-6">
-              {workExperience.map((role) => (
-                <Card key={`${role.company}-${role.title}`}>
-                  <div className="flex flex-col gap-2 mb-4">
-                    <h3 className="text-xl font-semibold text-white">{role.title}</h3>
-                    <p className="text-purple-400">{role.company}</p>
-                    <span className="text-sm text-gray-400">{role.period}</span>
-                  </div>
-                  <ul className="text-gray-300 space-y-2 text-sm">
-                    {role.points.map((point) => (
-                      <li key={point} className="flex items-start">
-                        <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 mt-1.5 shrink-0" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
+              {workExperience.map((role, index) => (
+                <Reveal key={`${role.company}-${role.title}`} direction="right" delay={index * 0.06}>
+                  <Card hover>
+                    <div className="flex flex-col gap-2 mb-4">
+                      <h3 className="text-xl font-semibold text-white">{role.title}</h3>
+                      <p className="text-purple-400">{role.company}</p>
+                      <span className="text-sm text-gray-400">{role.period}</span>
+                    </div>
+                    <ul className="text-gray-300 space-y-2 text-sm">
+                      {role.points.map((point) => (
+                        <li key={point} className="flex items-start">
+                          <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 mt-1.5 shrink-0" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </Card>
+                </Reveal>
               ))}
             </div>
             <div className="space-y-6">
-              {education.map((item) => (
-                <Card key={`${item.organisation}-${item.title}`}>
-                  <div className="flex flex-col gap-2 mb-4">
-                    <h3 className="text-xl font-semibold text-white">{item.title}</h3>
-                    <p className="text-purple-400">{item.organisation}</p>
-                    <span className="text-sm text-gray-400">{item.period}</span>
-                  </div>
-                  <p className="text-gray-300 text-sm leading-relaxed">{item.summary}</p>
-                </Card>
+              {education.map((item, index) => (
+                <Reveal key={`${item.organisation}-${item.title}`} direction="left" delay={index * 0.06}>
+                  <Card hover>
+                    <div className="flex flex-col gap-2 mb-4">
+                      <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                      <p className="text-purple-400">{item.organisation}</p>
+                      <span className="text-sm text-gray-400">{item.period}</span>
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed">{item.summary}</p>
+                  </Card>
+                </Reveal>
               ))}
             </div>
           </div>
-        </motion.div>
+        </Reveal>
 
         {recentCertifications.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.6 }}
-            className="max-w-5xl mx-auto mb-16"
-          >
+          <Reveal className="max-w-5xl mx-auto mb-16">
             <h2 className="text-3xl font-bold text-center mb-12">
               <span className="text-white">Recent </span>
               <span className="gradient-text">Certifications</span>
@@ -275,20 +243,15 @@ export default function AboutPage() {
                 </Link>
               </div>
             )}
-          </motion.div>
+          </Reveal>
         )}
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="text-center"
-        >
+        <Reveal className="text-center">
           <ButtonLink href="/resume.pdf" variant="primary" size="lg" download>
             <Download className="mr-2 h-5 w-5" />
             Download My Resume
           </ButtonLink>
-        </motion.div>
+        </Reveal>
       </div>
     </div>
   )
