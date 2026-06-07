@@ -14,11 +14,12 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 
 ## 📄 Pages
 
-- **Home**: Hero section, about preview, featured projects, contact CTA
-- **About**: Full bio, skills, and experience
-- **Projects**: Project listing and individual project pages
+- **Home**: Hero section with open-to-work badge, about preview, featured projects, recent certifications preview, contact CTA
+- **About**: Full bio, skills, experience, and recent certifications
+- **Projects**: Project listing and individual project pages (cover images, live + repo links)
+- **Certifications**: Listing at `/certifications` with per-credential detail pages at `/certifications/[id]`
 - **Blog**: Blog listing and individual blog post pages (Markdown support)
-- **Contact**: Contact form with API route
+- **Contact**: Mailto CTA — no server route, no contact form
 
 ## 🛠️ Tech Stack
 
@@ -82,15 +83,13 @@ Your blog post content here...
 
 Add your resume PDF file to the `public/` directory and name it `resume.pdf`. The download button on the About page and Hero section will automatically link to it.
 
-### Contact Form
+### Certifications
 
-The contact form API route is at `app/api/contact/route.ts`. You'll need to integrate with an email service like:
-- [Resend](https://resend.com)
-- [SendGrid](https://sendgrid.com)
-- [Formspree](https://formspree.io)
-- Or any other email service
+Drop a certificate PDF into `public/certifications/` and add a matching entry to `lib/certifications.ts`. The `/certifications` listing and the "Recent Certifications" preview on `/about` pick it up automatically (sorted newest-first by `issueDate`). See [`public/certifications/README.md`](public/certifications/README.md) for the field reference.
 
-Currently, the form just logs submissions to the console. Update the route handler to send actual emails.
+### Contact
+
+The contact page is a `mailto:` CTA pointing at `siteConfig.links.email` — there is no contact form or API route. Edit the email in `lib/constants.ts` to redirect mail elsewhere.
 
 ## 🎨 Customization
 
