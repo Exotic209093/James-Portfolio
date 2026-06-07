@@ -117,13 +117,20 @@ export default function Hero() {
           muted
           playsInline
           preload="auto"
-          style={{ filter: 'brightness(1.15) contrast(1.05) saturate(1.2)' }}
-          className="absolute inset-0 h-full w-full object-cover"
+          style={{ filter: 'brightness(1.22) contrast(1.12) saturate(1.35)' }}
+          className="absolute inset-0 h-full w-full object-cover scale-[1.02]"
           data-basic-hide
         />
-        {/* Lighter overlay so the droplet has more presence */}
+        {/* Cinematic vignette — gentle dark corners so the centre pops */}
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/25 to-black/65"
+          className="absolute inset-0 pointer-events-none"
+          style={{ boxShadow: 'inset 0 0 220px 40px rgba(0,0,0,0.55)' }}
+          data-basic-hide
+        />
+        {/* Overlay: light in middle, darker at top (handoff from page top)
+            and bottom (smooth handoff to the next video section) */}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/70"
           data-basic-hide
         />
         <motion.div

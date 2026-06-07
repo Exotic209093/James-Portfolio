@@ -15,7 +15,13 @@ const featuredProjects = getFeaturedProjects()
 
 export default function FeaturedProjects() {
   return (
-    <section className="py-20 md:py-32 bg-black">
+    <section className="relative py-20 md:py-32 bg-gradient-to-b from-purple-950/10 via-black to-black overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute -top-40 right-0 w-[60vw] h-80 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(147,51,234,0.12), transparent 70%)', filter: 'blur(60px)' }}
+        data-basic-hide
+      />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

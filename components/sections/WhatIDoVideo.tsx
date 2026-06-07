@@ -71,14 +71,21 @@ export default function WhatIDoVideo() {
           muted
           playsInline
           preload="auto"
-          style={{ filter: 'brightness(1.15) contrast(1.05) saturate(1.2)' }}
-          className="absolute inset-0 h-full w-full object-cover"
+          style={{ filter: 'brightness(1.22) contrast(1.12) saturate(1.35)' }}
+          className="absolute inset-0 h-full w-full object-cover scale-[1.02]"
           data-basic-hide
         />
-        {/* Dark at top to flow out of the Hero's dark bottom, brighter at the
-            bottom to hand off to the next section */}
+        {/* Cinematic vignette */}
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/15"
+          className="absolute inset-0 pointer-events-none"
+          style={{ boxShadow: 'inset 0 0 220px 40px rgba(0,0,0,0.55)' }}
+          data-basic-hide
+        />
+        {/* Dark on both ends so the video reveals in the middle — handoff
+            from the Hero's dark bottom (top) and to the dark content
+            sections below (bottom) */}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/15 to-black/90"
           data-basic-hide
         />
 
