@@ -5,6 +5,7 @@ import { motion, useScroll, useSpring, useTransform, MotionValue } from 'framer-
 import { ArrowDown, Download } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import LetterReveal from '@/components/ui/LetterReveal'
+import { useMode } from '@/components/ModeProvider'
 import { siteConfig } from '@/lib/constants'
 
 // Animation phase markers, tied to the ink-droplet timeline:
@@ -22,6 +23,8 @@ const PHASES = {
 
 export default function Hero() {
   const showPhoto = false
+  const { mode } = useMode()
+  const showVideo = mode !== 'basic'
 
   const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -108,19 +111,21 @@ export default function Hero() {
   }
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: '300vh' }}>
+    <section ref={sectionRef} className="relative h-[220vh] md:h-[300vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden pt-20">
         {/* Scroll-scrubbed ink droplet */}
-        <video
-          ref={videoRef}
-          src="/lab/ink-droplet-v2-scrub.mp4"
-          muted
-          playsInline
-          preload="auto"
-          style={{ filter: 'brightness(1.22) contrast(1.12) saturate(1.35)' }}
-          className="absolute inset-0 h-full w-full object-cover scale-[1.02]"
-          data-basic-hide
-        />
+        {showVideo && (
+          <video
+            ref={videoRef}
+            src="/lab/ink-droplet-v2-scrub.mp4"
+            muted
+            playsInline
+            preload="auto"
+            style={{ filter: 'brightness(1.22) contrast(1.12) saturate(1.35)' }}
+            className="absolute inset-0 h-full w-full object-cover scale-[1.02]"
+            data-basic-hide
+          />
+        )}
         {/* Cinematic vignette — gentle dark corners so the centre pops */}
         <div
           className="absolute inset-0 pointer-events-none"

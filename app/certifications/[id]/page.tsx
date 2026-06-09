@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Award, BadgeCheck, Calendar, FileText } from 'lucide-react'
@@ -10,6 +11,20 @@ export async function generateStaticParams() {
   return certifications.map((certification) => ({
     id: certification.id,
   }))
+}
+
+export function generateMetadata({ params }: { params: { id: string } }): Metadata {
+  const certification = getCertificationById(params.id)
+  if (!certification) {
+    return { title: 'Certification not found' }
+  }
+  return {
+    title: certification.title,
+    description:
+      certification.summary ??
+      `${certification.title} — issued by ${certification.issuer} (${certification.platform}).`,
+    alternates: { canonical: `/certifications/${certification.id}` },
+  }
 }
 
 export default function CertificationDetailPage({ params }: { params: { id: string } }) {

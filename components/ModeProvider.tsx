@@ -32,9 +32,15 @@ export default function ModeProvider({ children }: { children: ReactNode }) {
       const stored = window.localStorage.getItem(STORAGE_KEY) as Mode | null
       if (stored === 'exciting' || stored === 'basic') {
         setModeState(stored)
-      } else {
-        setModeState('unset')
+        return
       }
+      // No explicit choice yet — honor the OS "reduce motion" preference by
+      // defaulting to basic (skips the scroll-scrubbed video heroes and the
+      // interstitial). Not persisted, so the footer toggle still lets them opt in.
+      const prefersReducedMotion =
+        typeof window.matchMedia === 'function' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      setModeState(prefersReducedMotion ? 'basic' : 'unset')
     } catch {
       setModeState('unset')
     }

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Calendar } from 'lucide-react'
@@ -9,6 +10,24 @@ export async function generateStaticParams() {
   return projects.map((project) => ({
     slug: project.id,
   }))
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const project = getProjectBySlug(params.slug)
+  if (!project) {
+    return { title: 'Project not found' }
+  }
+  return {
+    title: project.title,
+    description: project.description,
+    alternates: { canonical: `/projects/${project.id}` },
+    openGraph: {
+      title: `${project.title} — James Collard`,
+      description: project.description,
+      type: 'article',
+      url: `/projects/${project.id}`,
+    },
+  }
 }
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
