@@ -14,11 +14,12 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 
 ## 📄 Pages
 
-- **Home**: Hero section, about preview, featured projects, contact CTA
-- **About**: Full bio, skills, and experience
-- **Projects**: Project listing and individual project pages
-- **Blog**: Blog listing and individual blog post pages (Markdown support)
-- **Contact**: Contact form with API route
+- **Home**: Scroll-scrubbed ink hero, "what I bring together" convergence, experience preview, featured projects, contact CTA
+- **About**: Full bio, skills, project history, work/education, and recent certifications
+- **Projects**: Project listing and individual project case-study pages
+- **Certifications**: Certification listing and detail pages with downloadable PDFs
+- **Blog**: Markdown-based blog listing and individual post pages
+- **Contact**: Direct email contact page (mailto)
 
 ## 🛠️ Tech Stack
 
@@ -82,15 +83,11 @@ Your blog post content here...
 
 Add your resume PDF file to the `public/` directory and name it `resume.pdf`. The download button on the About page and Hero section will automatically link to it.
 
-### Contact Form
+### Contact
 
-The contact form API route is at `app/api/contact/route.ts`. You'll need to integrate with an email service like:
-- [Resend](https://resend.com)
-- [SendGrid](https://sendgrid.com)
-- [Formspree](https://formspree.io)
-- Or any other email service
-
-Currently, the form just logs submissions to the console. Update the route handler to send actual emails.
+The Contact page (`app/contact/page.tsx`) uses a direct `mailto:` link rather than a form,
+so there's no API route or email service to configure. Update the email address in
+`lib/constants.ts` (`siteConfig.links.email`).
 
 ## 🎨 Customization
 

@@ -1,8 +1,16 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Calendar, Tag } from 'lucide-react'
 import { getBlogPosts } from '@/lib/blog'
 import { formatDate } from '@/lib/utils'
 import Card from '@/components/ui/Card'
+
+export const metadata: Metadata = {
+  title: 'Blog',
+  description:
+    'Notes and write-ups on software engineering — Salesforce, AI agents, TypeScript, and systems work.',
+  alternates: { canonical: '/blog' },
+}
 
 export default function BlogPage() {
   const posts = getBlogPosts()

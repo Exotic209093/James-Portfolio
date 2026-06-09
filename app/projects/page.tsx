@@ -1,5 +1,13 @@
+import type { Metadata } from 'next'
 import { projects } from '@/lib/projects'
 import ProjectCard from '@/components/projects/ProjectCard'
+
+export const metadata: Metadata = {
+  title: 'Projects',
+  description:
+    'Selected engineering work: AI agents on the Anthropic Agent SDK, a Salesforce AppExchange package, published Chrome and VS Code extensions, and developer tooling.',
+  alternates: { canonical: '/projects' },
+}
 
 const sortedProjects = [...projects].sort((a, b) => (a.date < b.date ? 1 : -1))
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { motion, useScroll, useSpring, useTransform, MotionValue } from 'framer-motion'
+import { useMode } from '@/components/ModeProvider'
 
 // Tags scatter in from these px offsets (relative to centre) and
 // converge to (0, 0) as the ink gathers in the reversed video.
@@ -16,6 +17,8 @@ const TECH_TAGS = [
 ]
 
 export default function WhatIDoVideo() {
+  const { mode } = useMode()
+  const showVideo = mode !== 'basic'
   const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -62,19 +65,21 @@ export default function WhatIDoVideo() {
   const statementY = useTransform(scrollYProgress, [0.5, 0.7], ['20px', '0px'])
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: '280vh' }}>
+    <section ref={sectionRef} className="relative h-[200vh] md:h-[280vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Reversed ink clip — tendrils gather, sphere forms, droplet pulls up */}
-        <video
-          ref={videoRef}
-          src="/lab/ink-coalesce-v2.mp4"
-          muted
-          playsInline
-          preload="auto"
-          style={{ filter: 'brightness(1.22) contrast(1.12) saturate(1.35)' }}
-          className="absolute inset-0 h-full w-full object-cover scale-[1.02]"
-          data-basic-hide
-        />
+        {showVideo && (
+          <video
+            ref={videoRef}
+            src="/lab/ink-coalesce-v2.mp4"
+            muted
+            playsInline
+            preload="auto"
+            style={{ filter: 'brightness(1.22) contrast(1.12) saturate(1.35)' }}
+            className="absolute inset-0 h-full w-full object-cover scale-[1.02]"
+            data-basic-hide
+          />
+        )}
         {/* Cinematic vignette */}
         <div
           className="absolute inset-0 pointer-events-none"
