@@ -25,6 +25,15 @@ const ThreeHologram = dynamic(() => import('./ThreeHologram'), {
   ),
 })
 
+const LabPlayground = dynamic(() => import('./LabPlayground'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex aspect-video items-center justify-center rounded-2xl border border-purple-800/40 bg-black/60 text-sm text-gray-500">
+      Booting WebGL…
+    </div>
+  ),
+})
+
 export default function AnimationLab() {
   return (
     <div className="relative">
@@ -234,6 +243,17 @@ export default function AnimationLab() {
           <code>CanvasTexture</code> on a subdivided plane that a custom GLSL shader ripples,
           bends, and splits chromatically inside a particle field. Component:{' '}
           <code>components/lab/ThreeHologram.tsx</code>.
+        </Caption>
+      </Section>
+
+      {/* Live-painted 2D canvas streamed onto a 3D mesh */}
+      <Section id="canvas-texture" label="11 — Live canvas → texture">
+        <LabPlayground />
+        <Caption>
+          A different abuse of the same idea: a plain 2D <code>&lt;canvas&gt;</code> is repainted
+          every frame and streamed into a <code>THREE.CanvasTexture</code> wrapped around a
+          spinning torus knot — the raw surface is mirrored beside it. Drag to orbit, scroll to
+          zoom. Component: <code>components/lab/LabPlayground.tsx</code>.
         </Caption>
       </Section>
 
