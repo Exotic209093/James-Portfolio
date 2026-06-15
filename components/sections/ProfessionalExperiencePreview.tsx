@@ -11,7 +11,7 @@ const featuredHistory = getProjectHistory().slice(0, 4)
 
 export default function ProfessionalExperiencePreview() {
   return (
-    <section id="experience-preview" className="relative py-20 md:py-32 overflow-hidden">
+    <section id="experience-preview" className="home-snap-section home-snap-fill relative py-20 md:py-32 overflow-hidden">
       {/* The video above ends near-black; this fades the page background up
           out of that darkness so the content emerges rather than cuts in */}
       <div

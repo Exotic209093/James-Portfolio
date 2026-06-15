@@ -7,7 +7,7 @@ import { siteConfig } from '@/lib/constants'
 
 export default function ContactCTA() {
   return (
-    <section className="relative py-20 md:py-32 overflow-hidden">
+    <section className="home-snap-section home-snap-fill relative py-20 md:py-32 overflow-hidden">
       {/* Finale glow — the ink settles here */}
       <div
         aria-hidden

@@ -28,7 +28,7 @@ export default function WhatIDoVideo() {
   const statementY = useTransform(progress, [0.5, 0.7], ['20px', '0px'])
 
   return (
-    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden">
+    <section ref={sectionRef} className="home-snap-section relative h-screen w-full overflow-hidden">
       {/* Reversed ink clip — tendrils gather, sphere forms, droplet pulls up.
           Plays through once as the section scrolls into view. */}
       {showVideo && (
