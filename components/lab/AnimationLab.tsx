@@ -1,6 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
+import dynamic from 'next/dynamic'
 import AuroraBackground from './AuroraBackground'
 import CustomCursor from './CustomCursor'
 import MagneticButton from './MagneticButton'
@@ -12,6 +13,17 @@ import TiltCard from './TiltCard'
 import StickyScrollText from '@/components/ui/StickyScrollText'
 import VideoHero from './VideoHero'
 import SpotlightGrid from './SpotlightGrid'
+import HtmlCanvas from './HtmlCanvas'
+
+// three.js touches WebGL/window, so keep it out of the server render entirely.
+const ThreeHologram = dynamic(() => import('./ThreeHologram'), {
+  ssr: false,
+  loading: () => (
+    <div className="mx-auto flex aspect-[16/10] max-w-4xl items-center justify-center rounded-2xl border border-purple-800/40 bg-black/60 text-sm text-gray-500">
+      Booting WebGL…
+    </div>
+  ),
+})
 
 export default function AnimationLab() {
   return (
@@ -201,6 +213,27 @@ export default function AnimationLab() {
         <Caption>
           Same Hero treatment but with the ink-droplet clip as the backdrop. This is the
           version you&apos;d promote to the real homepage if you like it.
+        </Caption>
+      </Section>
+
+      {/* HTML rasterised into a canvas */}
+      <Section id="html-canvas" label="09 — HTML → Canvas">
+        <HtmlCanvas />
+        <Caption>
+          The card is real DOM serialised into an <code>&lt;svg&gt;&lt;foreignObject&gt;</code> and
+          drawn into a <code>&lt;canvas&gt;</code> with <code>drawImage</code>. Once it&apos;s pixels we
+          warp, glitch, and shatter them. Component: <code>components/lab/HtmlCanvas.tsx</code>.
+        </Caption>
+      </Section>
+
+      {/* Abusing three.js — HTML texture on a shader-warped plane */}
+      <Section id="three-hologram" label="10 — Abusing three.js">
+        <ThreeHologram />
+        <Caption>
+          Same trick, pushed into WebGL: the rasterised HTML becomes a{' '}
+          <code>CanvasTexture</code> on a subdivided plane that a custom GLSL shader ripples,
+          bends, and splits chromatically inside a particle field. Component:{' '}
+          <code>components/lab/ThreeHologram.tsx</code>.
         </Caption>
       </Section>
 
