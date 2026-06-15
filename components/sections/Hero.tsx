@@ -66,7 +66,7 @@ export default function Hero() {
   }
 
   return (
-    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden pt-20">
+    <section ref={sectionRef} className="home-snap-section relative h-screen w-full overflow-hidden pt-20">
       {/* Self-playing ink droplet — plays through once when the hero is in view */}
       {showVideo && (
         <video

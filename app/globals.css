@@ -53,6 +53,47 @@
 }
 
 /* ============================================
+ * HOME SCROLL-SNAP — full-viewport "carried through the page" journey.
+ * Toggled by HomeScrollSnap (adds `.snap-home` to <html> in exciting mode).
+ * Scoped to desktop + fine pointer so phones/tablets keep normal scrolling,
+ * and disabled for reduced motion.
+ * ============================================ */
+@media (min-width: 768px) and (pointer: fine) {
+  html.snap-home {
+    scroll-snap-type: y mandatory;
+  }
+
+  /* Every top-level home section is a snap target; `always` forces the scroll
+     to stop on each one so a single gesture advances exactly one section. */
+  html.snap-home .home-snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* Shorter content sections grow to a full screen and centre their content
+     so each lands as a clean, full-viewport slide. Hero/video are already
+     full-height and keep their own internal layout. */
+  html.snap-home .home-snap-fill {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Make the footer a terminal snap point so mandatory snap can't trap it
+     below the last section's snap target. */
+  html.snap-home footer {
+    scroll-snap-align: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.snap-home {
+    scroll-snap-type: none;
+  }
+}
+
+/* ============================================
  * BASIC MODE — stripped, no-animation experience
  * Activated when ModeProvider sets `.basic-mode` on <html>.
  * ============================================ */
