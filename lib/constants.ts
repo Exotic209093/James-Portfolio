@@ -21,6 +21,7 @@ export const navigation = [
   { name: 'Projects', href: '/projects' },
   { name: 'Certifications', href: '/certifications' },
   { name: 'Blog', href: '/blog' },
+  { name: 'Lab', href: '/lab' },
   { name: 'Contact', href: '/contact' },
 ]
 
