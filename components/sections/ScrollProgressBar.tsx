@@ -1,23 +1,36 @@
 'use client'
 
 import { motion, useScroll, useSpring } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { useMode } from '@/components/ModeProvider'
 
 /**
  * Thin gradient bar pinned to the top of the viewport that fills as you scroll
  * the page — the small continuous signal that ties the whole journey together.
- * Hidden in basic mode (and for reduced-motion users, who resolve to basic).
+ *
+ * The scroll wiring lives in a child that only renders after mount, so none of
+ * framer-motion's scroll hooks run during SSR or the first client paint of this
+ * statically-prerendered page. Hidden in basic mode (and for reduced-motion
+ * users, who resolve to basic).
  */
 export default function ScrollProgressBar() {
   const { mode } = useMode()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
+
+  if (!mounted || mode === 'basic') return null
+
+  return <ProgressBar />
+}
+
+function ProgressBar() {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 30,
     mass: 0.3,
   })
-
-  if (mode === 'basic') return null
 
   return (
     <motion.div

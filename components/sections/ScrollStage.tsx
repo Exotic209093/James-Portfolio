@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useRef } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useMode } from '@/components/ModeProvider'
 
@@ -11,8 +11,12 @@ import { useMode } from '@/components/ModeProvider'
  * (parallax) and eases its opacity at the very edges, so each part dissolves
  * into the next instead of hard-cutting.
  *
- * In basic mode (and therefore for reduced-motion users) it renders the section
- * untouched — no transforms, no parallax.
+ * The scroll wiring is isolated in StagedMotion, which only renders once the
+ * component has mounted on the client. That keeps framer-motion's scroll hooks
+ * out of SSR and the first client paint of this statically-prerendered page —
+ * SSR and first render emit the section untouched, so there's no hydration
+ * mismatch and no scroll work before the DOM exists. In basic mode (and for
+ * reduced-motion users) it stays untouched permanently.
  */
 export default function ScrollStage({
   children,
@@ -26,6 +30,30 @@ export default function ScrollStage({
   fade?: boolean
 }) {
   const { mode } = useMode()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
+
+  if (!mounted || mode === 'basic') {
+    return <>{children}</>
+  }
+
+  return (
+    <StagedMotion parallax={parallax} fade={fade}>
+      {children}
+    </StagedMotion>
+  )
+}
+
+function StagedMotion({
+  children,
+  parallax,
+  fade,
+}: {
+  children: ReactNode
+  parallax: number
+  fade: boolean
+}) {
   const ref = useRef<HTMLDivElement>(null)
 
   // 0 when the section top reaches the viewport bottom; 1 when its bottom
@@ -41,11 +69,6 @@ export default function ScrollStage({
     [0, 0.15, 0.85, 1],
     fade ? [0.25, 1, 1, 0.25] : [1, 1, 1, 1]
   )
-
-  // basic mode: opt out of all scroll motion.
-  if (mode === 'basic') {
-    return <div ref={ref}>{children}</div>
-  }
 
   return (
     <motion.div ref={ref} style={{ y, opacity }} className="will-change-transform">
