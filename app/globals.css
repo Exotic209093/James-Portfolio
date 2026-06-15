@@ -51,3 +51,57 @@
     z-index: -1;
   }
 }
+
+/* ============================================
+ * BASIC MODE — stripped, no-animation experience
+ * Activated when ModeProvider sets `.basic-mode` on <html>.
+ * ============================================ */
+html.basic-mode {
+  scroll-behavior: auto;
+}
+
+html.basic-mode body {
+  background: #ffffff;
+  color: #111111;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+html.basic-mode * {
+  animation: none !important;
+  transition: none !important;
+}
+
+html.basic-mode .gradient-text {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: #111111 !important;
+}
+
+html.basic-mode [data-basic-hide],
+html.basic-mode .basic-hide {
+  display: none !important;
+}
+
+html.basic-mode a {
+  color: #0000ee;
+  text-decoration: underline;
+}
+
+html.basic-mode a:visited {
+  color: #551a8b;
+}
+
+html.basic-mode h1,
+html.basic-mode h2,
+html.basic-mode h3,
+html.basic-mode h4 {
+  color: #111111;
+}
+
+html.basic-mode header,
+html.basic-mode footer {
+  background: #ffffff !important;
+  border-color: #cccccc !important;
+}

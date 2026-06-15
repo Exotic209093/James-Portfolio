@@ -71,7 +71,7 @@ export default function ContactPage() {
                   </motion.div>
                   <div>
                     <h3 className="text-white font-semibold mb-1">Location</h3>
-                    <p className="text-gray-400">Available for remote work</p>
+                    <p className="text-gray-400">{siteConfig.location} · open to remote</p>
                   </div>
                 </div>
               </Card>

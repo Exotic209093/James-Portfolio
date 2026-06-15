@@ -15,7 +15,7 @@ const featuredProjects = getFeaturedProjects()
 
 export default function FeaturedProjects() {
   return (
-    <section className="py-20 md:py-32 bg-black">
+    <section className="relative py-20 md:py-32 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

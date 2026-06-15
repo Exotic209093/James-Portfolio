@@ -3,7 +3,7 @@ export const siteConfig = {
   title: 'Software Engineer',
   description:
     'I build production-grade software across the full stack — from AI agents on the Anthropic Agent SDK and Salesforce AppExchange packages to TypeScript browser extensions and data migration tooling.',
-  url: 'https://jamescollard.vercel.app',
+  url: 'https://james-c.app',
   ogImage: '/og-image.jpg',
   location: 'Kent, United Kingdom',
   links: {
@@ -21,7 +21,6 @@ export const navigation = [
   { name: 'Projects', href: '/projects' },
   { name: 'Certifications', href: '/certifications' },
   { name: 'Blog', href: '/blog' },
-  { name: 'Lab', href: '/lab' },
   { name: 'Contact', href: '/contact' },
 ]
 

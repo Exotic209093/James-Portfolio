@@ -24,6 +24,33 @@ export interface Project {
 
 const allProjects: Project[] = [
   {
+    id: 'flux-terminal',
+    title: 'Flux Terminal',
+    description:
+      'Electron desktop terminal built for Claude Code — a fully-capable terminal that records, replays, and analyses your coding sessions with live token, cost, and tool-usage metrics.',
+    longDescription:
+      'Flux Terminal is a cross-platform desktop application that wraps a production-grade terminal in a rich interface designed around Claude Code. It runs real shell sessions (claude, PowerShell, git, and anything else) on a true pseudo-terminal, while capturing each session so it can be navigated and replayed afterwards on a scrubable timeline. A live dashboard tracks tokens, model-specific cost, and tool calls in real time, and cross-session analytics surface activity charts, streaks, and plan-limit gauges. The app is built on Electron with xterm.js for the terminal surface, node-pty (with Windows ConPTY support) for the PTY bridge, and a React renderer — with a hardened IPC boundary exposed through a contextBridge preload.',
+    category: 'Developer Tooling · Desktop App',
+    status: 'Active build',
+    role: 'Designed and built the full desktop app solo: the Electron main process and PTY bridging, the contextBridge IPC surface, and the React + xterm.js renderer, plus the session-capture, replay, and metrics systems.',
+    highlights: [
+      'Wraps a real pseudo-terminal (node-pty with ConPTY on Windows) in an Electron app, so claude, git, and shell commands run exactly as they would natively.',
+      'Captures Claude Code sessions and replays them on a scrubable timeline with token, cost, and tool-usage metrics computed per model.',
+      'Adds cross-session analytics — activity charts, streaks, achievements, and plan-limit gauges — on top of a hardened contextBridge IPC boundary.',
+    ],
+    image: '/projects/flux-terminal.svg',
+    tech: ['JavaScript', 'Electron', 'React', 'xterm.js', 'node-pty', 'ConPTY'],
+    techStack: [
+      { category: 'Desktop Shell', items: ['Electron', 'node-pty', 'ConPTY (Windows)', 'contextBridge IPC'] },
+      { category: 'Terminal UI', items: ['xterm.js', 'React', 'Theme Presets', 'Live Dashboards'] },
+      { category: 'Sessions', items: ['Session Capture', 'Timeline Scrubbing & Replay', 'Resume & Send'] },
+      { category: 'Analytics', items: ['Token / Cost Metrics', 'Tool-Usage Tracking', 'Activity Charts & Streaks', 'Plan-Limit Gauges'] },
+    ],
+    github: 'https://github.com/Exotic209093/Flux-Terminal',
+    featured: true,
+    date: '2026-06-09',
+  },
+  {
     id: 'vastify',
     title: 'Vastify',
     description:
@@ -81,30 +108,30 @@ const allProjects: Project[] = [
     id: 'wave-link',
     title: 'WaveLink',
     description:
-      'Chrome extension for Salesforce data work — push CSV/JSON/Excel, run SOQL with autocomplete, compare schemas across orgs, generate test data, and recover from mistakes with one-click undo.',
+      'Published Chrome extension for Salesforce data work — query out to CSV/JSON/Excel/XML, push via REST or Bulk API, schedule recurring snapshots, run multi-object migrations with dependency ordering, and diff data across orgs. All processing stays local.',
     longDescription:
-      'WaveLink (published on the Chrome Web Store as "WaveLink - Salesforce Data Seeding") is a browser-based toolkit that compresses the most common Salesforce data tasks into a single extension. It handles bulk data push from CSV, JSON, or Excel via the REST Collections API or Bulk API 2.0; a structured SOQL editor with autocomplete, query folders, and performance metrics; a schema explorer with relationship graphs and side-by-side org diffing; a visual pipeline builder for filter/transform/lookup/aggregate steps; faker.js-driven test data generation with relationship ID injection; cross-org data comparison with selective sync; duplicate detection (exact, Levenshtein, Soundex); cross-object cloning with topological ordering; and full Push History with one-click Ctrl+Z undo. The UI ships in three modes — popup, in-page side panel, and full-page app — with a Ctrl+K command palette and Shadow DOM isolation for the in-page panel.',
+      'WaveLink (published on the Chrome Web Store as "WaveLink - Salesforce Data Seeding") is a browser-based toolkit that compresses the most common Salesforce data tasks into a single extension — with every operation running locally against the Salesforce APIs, no external server in the loop. It pairs a structured SOQL builder (aggregates, GROUP BY, subqueries, syntax highlighting) with scheduled recurring exports and offline conversion between CSV, JSON, Excel, and XML. Bulk data push runs through the REST Collections API or Bulk API 2.0 with field mapping, dry-run validation, and live progress. Beyond simple pushes it handles multi-object migration projects with dependency graphing and topological ordering, cross-object cloning with automatic ID remapping, bulk delete with safety confirmations, duplicate detection (exact, Levenshtein, Soundex), and a visual pipeline builder for transform workflows. A schema layer adds relationship graphs, cross-org schema gap analysis, and field usage analytics, while a governor-limit dashboard and org-health view keep an eye on the org itself. The UI ships in three modes — popup, in-page side panel, and full-page app — with a Ctrl+K command palette and Shadow DOM isolation for the in-page panel.',
     category: 'Salesforce Tooling',
     status: 'Published on the Chrome Web Store',
-    role: 'Designed and built a published Chrome extension that consolidates everyday Salesforce data work — pushes, SOQL, schema diffing, test data generation, and recovery — into one toolkit aimed at admins and consultants.',
+    role: 'Designed and built a published Chrome extension that consolidates everyday Salesforce data work — exports, pushes, scheduled snapshots, migrations, schema diffing, and org monitoring — into one local-first toolkit aimed at admins and consultants.',
     highlights: [
-      'Shipped to the Chrome Web Store with a broad feature surface: data push, SOQL editor, schema explorer, pipeline builder, test data generator, duplicate detection, cross-object cloning, and Ctrl+Z undo.',
-      'Built three UI modes (popup, in-page side panel, full-page app) with a command palette and Shadow DOM isolation so the in-page panel never collides with Salesforce styling.',
-      'Treated reliability as a feature — automatic capture of inserted IDs for one-click rollback, push history with error grouping, and data quality scorecards before write.',
+      'Expanded well beyond a seeding tool: scheduled recurring exports, offline CSV/JSON/Excel/XML conversion, multi-object migration projects with dependency graphing and topological ordering, and bulk delete with safety confirmations.',
+      'Added an org-awareness layer — cross-org schema gap analysis, field usage analytics, a governor-limit dashboard, and org-health monitoring — on top of the existing SOQL builder, relationship graphs, and pipeline builder.',
+      'Kept everything local-first: all processing happens in chrome.storage.local with no external server beyond the Salesforce API, across three UI modes (popup, side panel, full-page app) with a Ctrl+K command palette and Shadow DOM isolation.',
     ],
     image: '/projects/wavelink.png',
     tech: ['TypeScript', 'Preact', 'Webpack', 'Jest', 'Salesforce APIs', 'Chrome Extension', 'Bulk API 2.0'],
     techStack: [
       { category: 'Frontend', items: ['TypeScript', 'Preact', 'Shadow DOM UI', 'Command Palette (Ctrl+K)', 'Three UI Modes', 'Dark Mode'] },
-      { category: 'Data Operations', items: ['REST Collections API', 'Bulk API 2.0', 'CSV/JSON/Excel Ingest', 'Pipeline Builder', 'Field Mapping', 'faker.js Test Data'] },
-      { category: 'Querying & Schema', items: ['SOQL Editor with Autocomplete', 'Schema Explorer', 'Relationship Graph', 'Cross-Org Schema Diff', 'Field Usage Analytics'] },
-      { category: 'Cross-Org & Quality', items: ['Multi-Org Switching', 'Data Comparison', 'Duplicate Detection (Levenshtein, Soundex)', 'Data Quality Scorecards'] },
-      { category: 'Recovery & Platform', items: ['Push History', 'Undo / Rollback (Ctrl+Z)', 'Chrome Extension APIs', 'chrome.storage.local', 'Jest'] },
+      { category: 'Export & Import', items: ['SOQL Builder (Aggregates, GROUP BY, Subqueries)', 'Scheduled Recurring Exports', 'CSV/JSON/Excel/XML', 'REST Collections API', 'Bulk API 2.0', 'Dry-Run Validation'] },
+      { category: 'Data Operations', items: ['Multi-Object Migration Projects', 'Dependency Graphing & Topological Ordering', 'Cross-Object Cloning + ID Remap', 'Bulk Delete', 'Duplicate Detection (Levenshtein, Soundex)', 'Pipeline Builder', 'faker.js Test Data'] },
+      { category: 'Schema & Analytics', items: ['Schema Explorer', 'Relationship Graph', 'Cross-Org Schema Gap Analysis', 'Field Usage Analytics', 'Governor-Limit Dashboard', 'Org-Health Monitoring'] },
+      { category: 'Cross-Org & Platform', items: ['Multi-Org Connections + Environment Badges', 'Record-Level Data Comparison', 'Selective Sync', 'Local-First (chrome.storage.local)', 'Jest'] },
     ],
     github: 'https://github.com/Exotic209093/WaveLink',
     live: 'https://chromewebstore.google.com/detail/wavelink-salesforce-data/ccknhhibbedolfnbgnenomdohlmojblo',
     featured: true,
-    date: '2026-03-24',
+    date: '2026-06-08',
   },
   {
     id: 'salesforce-spreadsheet-formatter',

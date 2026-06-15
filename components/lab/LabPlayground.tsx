@@ -64,13 +64,6 @@ export default function LabPlayground() {
             )}
           </div>
         </div>
-        <p className="text-sm leading-relaxed text-gray-400">
-          This square is a plain 2D <code className="text-purple-300">{'<canvas>'}</code>{' '}
-          repainted on every frame. The exact same pixels are streamed into a{' '}
-          <code className="text-purple-300">THREE.CanvasTexture</code> and wrapped
-          around the torus knot on the left. No DOM, no HTML elements in the 3D
-          scene — just a painted surface the GPU treats as an image map.
-        </p>
       </motion.div>
     </div>
   )
