@@ -1,213 +1,116 @@
 'use client'
 
-import { motion, useTransform, MotionValue } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { ArrowDown, Download } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
-import LetterReveal from '@/components/ui/LetterReveal'
-import { useMode } from '@/components/ModeProvider'
 import { siteConfig } from '@/lib/constants'
-import { useVideoReveal } from './useVideoReveal'
 
-// Animation phase markers, tied to the ink-droplet timeline. These used to be
-// driven by scroll position; now the clip plays itself and publishes the same
-// 0 → 1 progress, so the choreography is unchanged:
-//   0.00 → 0.22  droplet falling
-//   0.22 → 0.32  IMPACT (droplet hits water)
-//   0.32 → 0.70  tendrils disperse outward
-//   0.70 → 1.00  tendrils settle, scene quiets
-const PHASES = {
-  impact: { in: 0.22, settled: 0.32 },
-  dispersion: { in: 0.35, settled: 0.5 },
-  detail: { in: 0.55, settled: 0.7 },
-  ctas: { in: 0.72, settled: 0.85 },
+// Staggered, restrained entrance — each line eases up into place.
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  }),
 }
 
 export default function Hero() {
-  const showPhoto = false
-  const { mode } = useMode()
-  const showVideo = mode !== 'basic'
-
-  const { sectionRef, videoRef, progress } = useVideoReveal({ mode, targetSeconds: 5 })
-
-  // The "James" name pulses at the impact moment to punctuate it.
-  const namePunchScale = useTransform(
-    progress,
-    [PHASES.impact.in - 0.04, PHASES.impact.in, PHASES.impact.settled, PHASES.impact.settled + 0.05],
-    [1, 1.08, 1.02, 1]
-  )
-
-  // Impact accent — a thin gradient line that flashes when the droplet lands.
-  const impactAccentOpacity = useTransform(
-    progress,
-    [PHASES.impact.in - 0.04, PHASES.impact.in, PHASES.impact.settled, PHASES.impact.settled + 0.08],
-    [0, 1, 1, 0]
-  )
-  const impactAccentScale = useTransform(
-    progress,
-    [PHASES.impact.in - 0.04, PHASES.impact.settled + 0.08],
-    [0.2, 1.4]
-  )
-
-  const subtitleOpacity = useReveal(progress, PHASES.dispersion.in, PHASES.dispersion.settled)
-  const subtitleY = useRevealY(progress, PHASES.dispersion.in, PHASES.dispersion.settled)
-
-  const taglineOpacity = useReveal(progress, PHASES.detail.in, PHASES.detail.settled)
-  const taglineY = useRevealY(progress, PHASES.detail.in, PHASES.detail.settled)
-
-  const ctasOpacity = useReveal(progress, PHASES.ctas.in, PHASES.ctas.settled)
-  const ctasY = useRevealY(progress, PHASES.ctas.in, PHASES.ctas.settled)
-
-  // Scroll cue fades in only once the intro has settled, inviting the next
-  // section instead of inviting you to "scrub" the hero.
-  const arrowOpacity = useTransform(progress, [0.8, 0.95], [0, 1])
-
-  const scrollToExperience = () => {
-    document.getElementById('experience-preview')?.scrollIntoView({ behavior: 'smooth' })
+  const scrollToNext = () => {
+    document.getElementById('expertise')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <section ref={sectionRef} className="home-snap-section relative h-screen w-full overflow-hidden pt-20">
-      {/* Self-playing ink droplet — plays through once when the hero is in view */}
-      {showVideo && (
-        <video
-          ref={videoRef}
-          src="/lab/ink-droplet-v2-scrub.mp4"
-          muted
-          playsInline
-          preload="auto"
-          style={{ filter: 'brightness(1.22) contrast(1.12) saturate(1.35)' }}
-          className="absolute inset-0 h-full w-full object-cover scale-[1.02]"
-          data-basic-hide
-        />
-      )}
-      {/* Cinematic vignette — gentle dark corners so the centre pops */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ boxShadow: 'inset 0 0 220px 40px rgba(0,0,0,0.55)' }}
-        data-basic-hide
-      />
-      {/* Overlay: light in middle, darker at top (handoff from page top)
-          and bottom (smooth handoff to the next video section) */}
-      <div
-        className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/70"
-        data-basic-hide
-      />
-      <motion.div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.05),transparent_60%)]"
-        animate={{
-          background: [
-            'radial-gradient(circle at 50% 50%, rgba(147,51,234,0.05) 0%, transparent 60%)',
-            'radial-gradient(circle at 60% 40%, rgba(147,51,234,0.08) 0%, transparent 60%)',
-            'radial-gradient(circle at 40% 60%, rgba(147,51,234,0.05) 0%, transparent 60%)',
-            'radial-gradient(circle at 50% 50%, rgba(147,51,234,0.05) 0%, transparent 60%)',
-          ],
-        }}
-        transition={{ duration: 8, repeat: Infinity }}
-        data-basic-hide
-      />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Availability badge */}
+          <motion.div
+            custom={0}
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-full px-4 py-1.5 mb-6"
+          >
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            <span className="text-green-300 text-xs font-medium tracking-widest uppercase">
+              Open to Opportunities
+            </span>
+          </motion.div>
 
-      {/* Content */}
-      <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto">
-          <div className="text-center max-w-4xl mx-auto">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm"
-            >
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-green-300 text-xs font-medium tracking-widest uppercase">
-                Open to Opportunities
-              </span>
-            </motion.div>
+          <motion.h1
+            custom={1}
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4"
+          >
+            <span className="text-white">Hi, I&apos;m </span>
+            <span className="gradient-text">{siteConfig.name}</span>
+          </motion.h1>
 
-            {showPhoto && (
-              <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-purple-500/40 mx-auto mb-6">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/profile.jpg" alt="James Collard" className="w-full h-full object-cover" />
-              </div>
-            )}
+          <motion.h2
+            custom={2}
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-light"
+          >
+            {siteConfig.title}
+          </motion.h2>
 
-            {/* Heading — punches slightly at the impact moment */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 relative">
-              <span className="text-white">
-                <LetterReveal text="Hi, I'm " delay={0.1} />
-              </span>
-              <motion.span style={{ scale: namePunchScale, display: 'inline-block' }} className="gradient-text">
-                <LetterReveal text={siteConfig.name} delay={0.35} />
-              </motion.span>
+          <motion.p
+            custom={3}
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="text-base sm:text-lg text-purple-300 mt-2"
+          >
+            Based in {siteConfig.location}
+          </motion.p>
 
-              {/* Impact accent line — flashes when droplet lands */}
-              <motion.span
-                aria-hidden
-                style={{ opacity: impactAccentOpacity, scaleX: impactAccentScale }}
-                className="absolute left-1/2 -translate-x-1/2 -bottom-3 h-px w-40 sm:w-72 bg-gradient-to-r from-transparent via-purple-300 to-transparent origin-center"
-                data-basic-hide
-              />
-            </h1>
+          <motion.p
+            custom={4}
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="text-lg sm:text-xl text-gray-400 mt-8 mb-10 max-w-2xl mx-auto leading-relaxed"
+          >
+            AI agents · Salesforce engineering · TypeScript · Python · Systems programming
+          </motion.p>
 
-            {/* Subtitle — drops in as tendrils start dispersing */}
-            <motion.div style={{ opacity: subtitleOpacity, y: subtitleY }}>
-              <h2 className="text-xl sm:text-2xl md:text-3xl text-gray-200 font-light">
-                {siteConfig.title}
-              </h2>
-              <p className="text-lg sm:text-xl text-purple-300 mt-2">
-                Based in {siteConfig.location}
-              </p>
-            </motion.div>
-
-            {/* Tagline — appears mid-dispersion */}
-            <motion.p
-              style={{ opacity: taglineOpacity, y: taglineY }}
-              className="text-lg sm:text-xl text-gray-300 mt-8 mb-8 max-w-2xl mx-auto leading-relaxed"
-            >
-              AI agents · Salesforce engineering · TypeScript · Python · Systems programming
-            </motion.p>
-
-            {/* CTAs — settle in last as the scene quiets */}
-            <motion.div
-              style={{ opacity: ctasOpacity, y: ctasY }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-            >
-              <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
-                <ButtonLink href="/projects" variant="primary" size="lg">
-                  View My Work
-                </ButtonLink>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
-                <ButtonLink href="/resume.pdf" variant="outline" size="lg" download>
-                  <Download className="mr-2 h-5 w-5" />
-                  Download Resume
-                </ButtonLink>
-              </motion.div>
-            </motion.div>
-          </div>
+          <motion.div
+            custom={5}
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
+            <ButtonLink href="/projects" variant="primary" size="lg">
+              View My Work
+            </ButtonLink>
+            <ButtonLink href="/resume.pdf" variant="outline" size="lg" download>
+              <Download className="mr-2 h-5 w-5" />
+              Download Resume
+            </ButtonLink>
+          </motion.div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll cue */}
       <motion.button
-        style={{ opacity: arrowOpacity }}
-        onClick={scrollToExperience}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-300 hover:text-purple-300 transition-colors z-20"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.6 }}
+        onClick={scrollToNext}
         aria-label="Scroll down"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-500 hover:text-purple-400 transition-colors"
+        data-basic-hide
       >
-        <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
+        <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
           <ArrowDown className="h-6 w-6" />
         </motion.div>
       </motion.button>
     </section>
   )
-}
-
-// Reveal element opacity from 0 → 1 across a window, then hold.
-function useReveal(progress: MotionValue<number>, start: number, end: number) {
-  return useTransform(progress, [start, end], [0, 1])
-}
-
-// Slide element up by 16px while revealing.
-function useRevealY(progress: MotionValue<number>, start: number, end: number) {
-  return useTransform(progress, [start, end], ['16px', '0px'])
 }
