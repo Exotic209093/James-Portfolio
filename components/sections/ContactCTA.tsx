@@ -7,7 +7,7 @@ import { siteConfig } from '@/lib/constants'
 
 export default function ContactCTA() {
   return (
-    <section className="home-snap-section home-snap-fill relative py-20 md:py-32 overflow-hidden">
+    <section className="relative py-20 md:py-32 overflow-hidden">
       {/* Finale glow — the ink settles here */}
       <div
         aria-hidden
@@ -30,19 +30,7 @@ export default function ContactCTA() {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <motion.div
-              animate={{
-                rotate: [0, 10, -10, 0],
-                scale: [1, 1.1, 1],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatDelay: 2,
-              }}
-            >
-              <MessageCircle className="h-16 w-16 text-purple-500 mx-auto mb-6" />
-            </motion.div>
+            <MessageCircle className="h-16 w-16 text-purple-500 mx-auto mb-6" />
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               <span className="text-white">Let&apos;s Work </span>
               <span className="gradient-text">Together</span>
