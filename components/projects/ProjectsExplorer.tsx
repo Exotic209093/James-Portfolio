@@ -103,7 +103,7 @@ export default function ProjectsExplorer() {
         >
           <ProjectGitGraph projects={sorted} activeTrack={activeTrack} />
           <p className="mt-4 px-3 text-center text-xs text-gray-600">
-            Each dot is a project, plotted on its branch by ship date. Click a commit to open it.
+            One timeline — every project branches off it, newest first, colour-coded by discipline. Click a node to open it.
           </p>
         </motion.div>
       ) : (
