@@ -3,6 +3,58 @@ export interface TechStack {
   items: string[]
 }
 
+/**
+ * A "track" is a branch in the project git-graph — the lane a project's commit
+ * sits on. Tracks double as the top-level sections of the work (Salesforce,
+ * tooling, AI, systems) so the graph and any filtering share one source of truth.
+ */
+export type ProjectTrack = 'salesforce' | 'tooling' | 'ai' | 'systems'
+
+export interface TrackMeta {
+  id: ProjectTrack
+  label: string
+  /** Short blurb used in the legend / branch label. */
+  description: string
+  /** Hex colour used for the SVG lane + dots. */
+  color: string
+}
+
+// Ordered newest-discipline-first; this order also fixes the lane columns in the graph.
+export const projectTracks: TrackMeta[] = [
+  {
+    id: 'salesforce',
+    label: 'Salesforce',
+    description: 'Platform engineering, AppExchange packages, and admin tooling',
+    color: '#a855f7',
+  },
+  {
+    id: 'tooling',
+    label: 'Developer Tooling',
+    description: 'Desktop, editor, and CLI tools that other developers use',
+    color: '#38bdf8',
+  },
+  {
+    id: 'ai',
+    label: 'AI & Automation',
+    description: 'Agents on the Anthropic SDK and workflow automation',
+    color: '#34d399',
+  },
+  {
+    id: 'systems',
+    label: 'Systems & Interactive',
+    description: 'Low-level systems work and interactive browser frontends',
+    color: '#fbbf24',
+  },
+]
+
+export const trackById: Record<ProjectTrack, TrackMeta> = projectTracks.reduce(
+  (acc, track) => {
+    acc[track.id] = track
+    return acc
+  },
+  {} as Record<ProjectTrack, TrackMeta>
+)
+
 export interface Project {
   id: string
   title: string
@@ -20,6 +72,8 @@ export interface Project {
   featured: boolean
   hidden?: boolean
   date: string
+  /** Branch this project's commit sits on in the git-graph view. */
+  track: ProjectTrack
 }
 
 const allProjects: Project[] = [
@@ -49,6 +103,7 @@ const allProjects: Project[] = [
     github: 'https://github.com/Exotic209093/Flux-Terminal',
     featured: true,
     date: '2026-06-09',
+    track: 'tooling',
   },
   {
     id: 'vastify',
@@ -77,6 +132,7 @@ const allProjects: Project[] = [
     github: 'https://github.com/Exotic209093/Vastify',
     featured: true,
     date: '2026-04-26',
+    track: 'ai',
   },
   {
     id: 'nebula-vault',
@@ -103,6 +159,7 @@ const allProjects: Project[] = [
     github: 'https://github.com/Exotic209093/Nebula-Vault',
     featured: true,
     date: '2026-03-31',
+    track: 'salesforce',
   },
   {
     id: 'wave-link',
@@ -132,6 +189,7 @@ const allProjects: Project[] = [
     live: 'https://chromewebstore.google.com/detail/wavelink-salesforce-data/ccknhhibbedolfnbgnenomdohlmojblo',
     featured: true,
     date: '2026-06-08',
+    track: 'salesforce',
   },
   {
     id: 'salesforce-spreadsheet-formatter',
@@ -159,6 +217,7 @@ const allProjects: Project[] = [
     github: 'https://github.com/Exotic209093/Salesforce-Data-Formator',
     featured: true,
     date: '2026-03-24',
+    track: 'salesforce',
   },
   {
     id: 'apex-hq',
@@ -187,6 +246,7 @@ const allProjects: Project[] = [
     featured: false,
     hidden: true,
     date: '2025-12-31',
+    track: 'tooling',
   },
   {
     id: 'ai-email-triage-automation',
@@ -212,6 +272,7 @@ const allProjects: Project[] = [
     ],
     featured: false,
     date: '2026-03-25',
+    track: 'ai',
   },
   {
     id: 'exocraft',
@@ -239,6 +300,7 @@ const allProjects: Project[] = [
     live: 'https://exo-craft.vercel.app/',
     featured: false,
     date: '2026-03-05',
+    track: 'systems',
   },
   {
     id: 'git-navigator',
@@ -269,6 +331,7 @@ const allProjects: Project[] = [
     live: 'https://marketplace.visualstudio.com/items?itemName=Exotic209093.git-navigator-exotic209093',
     featured: true,
     date: '2026-02-25',
+    track: 'tooling',
   },
   {
     id: 'exoware-kernel-driver',
@@ -294,6 +357,7 @@ const allProjects: Project[] = [
     github: 'https://github.com/Exotic209093/ExoWare-Kernal-Driver',
     featured: false,
     date: '2026-03-12',
+    track: 'systems',
   },
 ]
 
