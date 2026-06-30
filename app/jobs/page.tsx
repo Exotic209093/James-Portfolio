@@ -3,13 +3,15 @@
 import { motion } from 'framer-motion'
 import { Send, Search, Filter, Target } from 'lucide-react'
 import JobApplicationCard from '@/components/jobs/JobApplicationCard'
+import ApplicantProfileCard from '@/components/jobs/ApplicantProfileCard'
 import Card from '@/components/ui/Card'
-import { getApplications, getLatestRun, getJobStats } from '@/lib/jobs'
+import { getApplications, getLatestRun, getJobStats, getApplicantProfile } from '@/lib/jobs'
 import { formatDate } from '@/lib/utils'
 
 const applications = getApplications()
 const latestRun = getLatestRun()
 const stats = getJobStats()
+const profile = getApplicantProfile()
 
 const tiles = [
   { label: 'Applications prepared', value: stats.applications, icon: Send },
@@ -60,6 +62,17 @@ export default function JobsPage() {
             </motion.div>
           ))}
         </div>
+
+        {/* Applicant details */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-16"
+        >
+          <ApplicantProfileCard profile={profile} />
+        </motion.div>
 
         {/* Latest run summary */}
         {latestRun && (

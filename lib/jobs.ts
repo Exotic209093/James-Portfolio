@@ -70,6 +70,35 @@ export interface JobRun {
   notes?: string[]
 }
 
+export interface ApplicantProfile {
+  linkedin: string
+  portfolio: string
+  relocation: string
+  workStyle: string
+  drivingLicence: string
+}
+
+// Canonical applicant details, mirrored from the job-search profile
+// (Claude-Skills `jobs/profile/profile-context.md`). Anything answered here is
+// removed from an application's outstanding `needsInput` automatically.
+export const applicantProfile: ApplicantProfile = {
+  linkedin: 'https://www.linkedin.com/in/james-collard-6b925a313/',
+  portfolio: 'https://james-c.app',
+  relocation: 'Open to relocating for the right role (negotiable)',
+  workStyle: 'No strong preference — remote, hybrid, or on-site',
+  drivingLicence: 'Full UK driving licence',
+}
+
+// needsInput keys that the profile above now answers, so they no longer count
+// as outstanding on any application (current or future).
+const profileAnsweredKeys = new Set([
+  'linkedin',
+  'portfolio',
+  'relocation',
+  'remote_preference',
+  'driving_licence',
+])
+
 const jobRuns: JobRun[] = [
   {
     id: '2026-06-09',
@@ -336,6 +365,15 @@ export function getApplications(): JobApplication[] {
 
 export function getApplicationById(id: string): JobApplication | undefined {
   return getApplications().find((application) => application.id === id)
+}
+
+export function getApplicantProfile(): ApplicantProfile {
+  return applicantProfile
+}
+
+// An application's outstanding inputs, minus anything the profile now answers.
+export function getOutstandingInputs(application: JobApplication): string[] {
+  return application.needsInput.filter((key) => !profileAnsweredKeys.has(key))
 }
 
 export interface JobStats {

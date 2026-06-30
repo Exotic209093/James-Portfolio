@@ -14,7 +14,8 @@ import {
 } from 'lucide-react'
 import Card from '@/components/ui/Card'
 import { ButtonLink } from '@/components/ui/Button'
-import { getApplications, getApplicationById } from '@/lib/jobs'
+import ApplicantProfileCard from '@/components/jobs/ApplicantProfileCard'
+import { getApplications, getApplicationById, getApplicantProfile, getOutstandingInputs } from '@/lib/jobs'
 import { formatDate } from '@/lib/utils'
 
 const needsInputLabels: Record<string, string> = {
@@ -54,6 +55,9 @@ export default function JobDetailPage({ params }: { params: { slug: string } }) 
   if (!application) {
     notFound()
   }
+
+  const outstandingInputs = getOutstandingInputs(application)
+  const profile = getApplicantProfile()
 
   return (
     <div className="pt-20 md:pt-32 pb-20">
@@ -159,7 +163,11 @@ export default function JobDetailPage({ params }: { params: { slug: string } }) 
           </div>
         </div>
 
-        {application.needsInput.length > 0 && (
+        <div className="mb-10">
+          <ApplicantProfileCard profile={profile} />
+        </div>
+
+        {outstandingInputs.length > 0 && (
           <div className="mb-4">
             <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
               <HelpCircle className="h-5 w-5 text-purple-400" />
@@ -167,7 +175,7 @@ export default function JobDetailPage({ params }: { params: { slug: string } }) 
             </h2>
             <Card>
               <div className="flex flex-wrap gap-2">
-                {application.needsInput.map((key) => (
+                {outstandingInputs.map((key) => (
                   <span
                     key={key}
                     className="px-3 py-1.5 text-sm bg-purple-900/30 text-purple-200 rounded-md border border-purple-800/50"
