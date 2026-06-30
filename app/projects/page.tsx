@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import { projects } from '@/lib/projects'
-import ProjectCard from '@/components/projects/ProjectCard'
+import ProjectsExplorer from '@/components/projects/ProjectsExplorer'
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -9,27 +8,21 @@ export const metadata: Metadata = {
   alternates: { canonical: '/projects' },
 }
 
-const sortedProjects = [...projects].sort((a, b) => (a.date < b.date ? 1 : -1))
-
 export default function ProjectsPage() {
   return (
     <div className="pt-20 md:pt-32 pb-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+        <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-white">My </span>
             <span className="gradient-text">Projects</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Selected work from my broader project workspace that shows practical product engineering, automation, and Salesforce-focused tooling
+            A commit history of what I&apos;ve shipped — each project sits on a branch by discipline, plotted by date. Switch to the grid for a classic card view.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        <ProjectsExplorer />
       </div>
     </div>
   )
