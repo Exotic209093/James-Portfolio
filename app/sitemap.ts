@@ -2,13 +2,13 @@ import type { MetadataRoute } from 'next'
 import { siteConfig } from '@/lib/constants'
 import { projects } from '@/lib/projects'
 import { certifications } from '@/lib/certifications'
-import { getApplications } from '@/lib/jobs'
 import { getBlogPosts } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url
 
-  const staticRoutes = ['', '/about', '/projects', '/certifications', '/jobs', '/blog', '/contact'].map(
+  // Note: /jobs is intentionally excluded — it's a private, auth-gated dashboard.
+  const staticRoutes = ['', '/about', '/projects', '/certifications', '/blog', '/contact'].map(
     (route) => ({
       url: `${base}${route}`,
       lastModified: new Date(),
@@ -31,13 +31,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }))
 
-  const jobRoutes = getApplications().map((application) => ({
-    url: `${base}/jobs/${application.id}`,
-    lastModified: new Date(application.appliedDate),
-    changeFrequency: 'weekly' as const,
-    priority: 0.5,
-  }))
-
   const blogRoutes = getBlogPosts().map((post) => ({
     url: `${base}/blog/${post.slug}`,
     lastModified: new Date(post.date),
@@ -45,5 +38,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticRoutes, ...projectRoutes, ...certificationRoutes, ...jobRoutes, ...blogRoutes]
+  return [...staticRoutes, ...projectRoutes, ...certificationRoutes, ...blogRoutes]
 }

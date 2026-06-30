@@ -20,7 +20,6 @@ export const navigation = [
   { name: 'About', href: '/about' },
   { name: 'Projects', href: '/projects' },
   { name: 'Certifications', href: '/certifications' },
-  { name: 'Jobs', href: '/jobs' },
   { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ]
