@@ -4,27 +4,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ExternalLink, Github, GitCommitHorizontal, X } from 'lucide-react'
-import {
-  projectTracks,
-  trackById,
-  type Project,
-  type ProjectTrack,
-} from '@/lib/projects'
-
-/* ------------------------------------------------------------------ *
- * Geometry — the graph is a fixed-width SVG "gutter" on the left with
- * commit rows aligned to it on the right (GitHub network-graph style).
- * Lane columns are derived from `projectTracks` order plus the trunk.
- * ------------------------------------------------------------------ */
-const ROW_H = 88
-const TRUNK_X = 22
-const COL_W = 26
-const DOT_R = 6.5
-const GUTTER_W = TRUNK_X + projectTracks.length * COL_W + 14
-
-const laneX = (track: ProjectTrack) =>
-  TRUNK_X + (projectTracks.findIndex((t) => t.id === track) + 1) * COL_W
+import { ExternalLink, Github, X } from 'lucide-react'
+import { trackById, type Project } from '@/lib/projects'
 
 function formatDate(date: string) {
   const d = new Date(`${date}T00:00:00`)
@@ -33,176 +14,161 @@ function formatDate(date: string) {
 
 interface ProjectGitGraphProps {
   projects: Project[]
-  activeTrack: ProjectTrack | null
+  activeTrack: string | null
 }
 
+/**
+ * A single animated "main" line running down the page. Every project is a
+ * commit that branches off it — alternating left/right on desktop, all to the
+ * right on mobile — with the branch spur + node coloured by its track.
+ */
 export default function ProjectGitGraph({ projects, activeTrack }: ProjectGitGraphProps) {
   const [openId, setOpenId] = useState<string | null>(null)
 
-  // Newest commit at the top, like `git log`.
   const ordered = useMemo(
     () => [...projects].sort((a, b) => (a.date < b.date ? 1 : -1)),
     [projects]
   )
 
-  // For each track, find the index span of its commits so we can draw a
-  // continuous lane that also passes *through* rows owned by other tracks.
-  const laneSpan = useMemo(() => {
-    const span: Partial<Record<ProjectTrack, { top: number; bottom: number }>> = {}
-    ordered.forEach((p, i) => {
-      const cur = span[p.track]
-      span[p.track] = cur
-        ? { top: Math.min(cur.top, i), bottom: Math.max(cur.bottom, i) }
-        : { top: i, bottom: i }
-    })
-    return span
-  }, [ordered])
-
-  const height = Math.max(ordered.length * ROW_H, ROW_H)
   const openProject = ordered.find((p) => p.id === openId) ?? null
 
   return (
-    <div className="relative">
-      <div className="grid" style={{ gridTemplateColumns: `${GUTTER_W}px 1fr` }}>
-        {/* ---- SVG graph gutter (spans all rows) ---- */}
-        <div className="relative" style={{ height }}>
-          <svg
-            width={GUTTER_W}
-            height={height}
-            viewBox={`0 0 ${GUTTER_W} ${height}`}
-            className="absolute inset-0"
-            aria-hidden="true"
-          >
-            {/* main trunk */}
-            <line
-              x1={TRUNK_X}
-              y1={ROW_H / 2}
-              x2={TRUNK_X}
-              y2={height}
-              stroke="#6b7280"
-              strokeWidth={2}
-              strokeOpacity={activeTrack ? 0.35 : 0.6}
-            />
-            {/* HEAD node at the top of the trunk */}
-            <circle cx={TRUNK_X} cy={ROW_H / 2} r={4} fill="#9ca3af" />
-
-            {/* lanes + branch connectors */}
-            {projectTracks.map((track) => {
-              const span = laneSpan[track.id]
-              if (!span) return null
-              const x = laneX(track.id)
-              const yTop = span.top * ROW_H + ROW_H / 2
-              const yBottom = span.bottom * ROW_H + ROW_H / 2
-              const dim = activeTrack && activeTrack !== track.id
-              const opacity = dim ? 0.12 : 1
-              // branch-off curve: oldest commit of the lane curves back to the trunk
-              const branchY = yBottom + ROW_H / 2
-              return (
-                <g key={track.id} style={{ opacity }} className="transition-opacity duration-300">
-                  <path
-                    d={`M ${x} ${yBottom} C ${x} ${branchY}, ${TRUNK_X} ${yBottom}, ${TRUNK_X} ${branchY}`}
-                    fill="none"
-                    stroke={track.color}
-                    strokeWidth={2}
-                  />
-                  {yBottom > yTop && (
-                    <line
-                      x1={x}
-                      y1={yTop}
-                      x2={x}
-                      y2={yBottom}
-                      stroke={track.color}
-                      strokeWidth={2}
-                    />
-                  )}
-                </g>
-              )
-            })}
-
-            {/* commit dots */}
-            {ordered.map((p, i) => {
-              const x = laneX(p.track)
-              const y = i * ROW_H + ROW_H / 2
-              const dim = activeTrack && activeTrack !== p.track
-              const color = trackById[p.track].color
-              return (
-                <g
-                  key={p.id}
-                  style={{ opacity: dim ? 0.2 : 1 }}
-                  className="transition-opacity duration-300"
-                >
-                  <circle cx={x} cy={y} r={DOT_R + 3} fill={color} opacity={0.18} />
-                  <circle
-                    cx={x}
-                    cy={y}
-                    r={DOT_R}
-                    fill="#0a0a0a"
-                    stroke={color}
-                    strokeWidth={2.5}
-                  />
-                </g>
-              )
-            })}
-          </svg>
-        </div>
-
-        {/* ---- commit rows ---- */}
-        <div>
-          {ordered.map((p, i) => {
-            const dim = activeTrack && activeTrack !== p.track
-            const track = trackById[p.track]
-            return (
-              <motion.button
-                key={p.id}
-                type="button"
-                onClick={() => setOpenId(p.id)}
-                initial={{ opacity: 0, x: 12 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.35, delay: Math.min(i * 0.04, 0.4) }}
-                style={{ height: ROW_H }}
-                className={`group flex w-full items-center gap-4 border-b border-purple-900/15 px-3 text-left transition-colors hover:bg-purple-900/10 focus:outline-none focus-visible:bg-purple-900/15 ${
-                  dim ? 'opacity-40' : 'opacity-100'
-                }`}
-                aria-label={`Open details for ${p.title}`}
-              >
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="truncate text-base font-semibold text-white group-hover:text-purple-300 sm:text-lg">
-                      {p.title}
-                    </h3>
-                    <span
-                      className="hidden shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider sm:inline"
-                      style={{
-                        color: track.color,
-                        backgroundColor: `${track.color}1a`,
-                        border: `1px solid ${track.color}40`,
-                      }}
-                    >
-                      {track.label}
-                    </span>
-                  </div>
-                  <p className="mt-1 line-clamp-1 text-sm text-gray-400">{p.description}</p>
-                </div>
-                <div className="hidden shrink-0 flex-col items-end gap-1 sm:flex">
-                  <span className="font-mono text-xs text-gray-500">{formatDate(p.date)}</span>
-                  <span className="flex items-center gap-1 font-mono text-[11px] text-gray-600">
-                    <GitCommitHorizontal className="h-3.5 w-3.5" />
-                    {p.id.slice(0, 7)}
-                  </span>
-                </div>
-              </motion.button>
-            )
-          })}
-        </div>
+    <div className="relative py-2">
+      {/* ---- the single main line ---- */}
+      <div className="pointer-events-none absolute inset-y-0 left-[27px] w-[2px] -translate-x-1/2 overflow-hidden rounded-full bg-gradient-to-b from-purple-500/0 via-purple-500/40 to-purple-500/0 md:left-1/2">
+        {/* travelling glow that makes the line feel alive */}
+        <motion.div
+          className="absolute left-0 h-28 w-full bg-gradient-to-b from-transparent via-purple-300 to-transparent"
+          initial={{ y: '-30%' }}
+          animate={{ y: '460%' }}
+          transition={{ duration: 6.5, repeat: Infinity, ease: 'linear' }}
+        />
       </div>
 
-      {/* ---- commit "window" modal ---- */}
+      {/* HEAD marker at the top of the line */}
+      <div className="relative mb-6 flex justify-start md:justify-center">
+        <span className="ml-[27px] -translate-x-1/2 rounded-full border border-purple-500/40 bg-purple-500/10 px-3 py-1 font-mono text-[11px] tracking-wider text-purple-300 md:ml-0 md:translate-x-0">
+          HEAD · now
+        </span>
+      </div>
+
+      {/* ---- commit nodes ---- */}
+      <div>
+        {ordered.map((project, i) => (
+          <TimelineNode
+            key={project.id}
+            project={project}
+            index={i}
+            dimmed={Boolean(activeTrack && activeTrack !== project.track)}
+            onOpen={() => setOpenId(project.id)}
+          />
+        ))}
+      </div>
+
+      {/* origin marker at the bottom */}
+      <div className="relative mt-2 flex justify-start md:justify-center">
+        <span className="ml-[27px] -translate-x-1/2 rounded-full border border-gray-700/60 bg-black/40 px-3 py-1 font-mono text-[11px] tracking-wider text-gray-500 md:ml-0 md:translate-x-0">
+          init · {new Date(`${ordered[ordered.length - 1]?.date}T00:00:00`).getFullYear()}
+        </span>
+      </div>
+
       <AnimatePresence>
         {openProject && (
           <CommitWindow project={openProject} onClose={() => setOpenId(null)} />
         )}
       </AnimatePresence>
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ *
+ * One commit: a dot on the main line + a branch spur out to a card.
+ * Alternates sides on desktop; always branches right on mobile.
+ * ------------------------------------------------------------------ */
+function TimelineNode({
+  project,
+  index,
+  dimmed,
+  onOpen,
+}: {
+  project: Project
+  index: number
+  dimmed: boolean
+  onOpen: () => void
+}) {
+  const track = trackById[project.track]
+  const onLeft = index % 2 === 1 // odd commits branch left on desktop
+
+  return (
+    <div
+      className={`relative md:grid md:grid-cols-2 md:items-center ${
+        dimmed ? 'opacity-30' : 'opacity-100'
+      } transition-opacity duration-300`}
+    >
+      {/* node dot sitting on the line */}
+      <span
+        className="absolute left-[27px] top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full border-2 md:left-1/2 md:top-1/2 md:-translate-y-1/2"
+        style={{
+          borderColor: track.color,
+          background: '#0a0a0a',
+          boxShadow: `0 0 0 4px ${track.color}1f, 0 0 14px ${track.color}66`,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* branch spur — mobile (always to the right) */}
+      <span
+        className="absolute left-[27px] top-[34px] h-[2px] w-7 md:hidden"
+        style={{ background: track.color, opacity: 0.6 }}
+        aria-hidden="true"
+      />
+      {/* branch spur — desktop (toward the card side) */}
+      <span
+        className={`absolute top-1/2 hidden h-[2px] w-10 md:block ${
+          onLeft ? 'right-1/2' : 'left-1/2'
+        }`}
+        style={{ background: track.color, opacity: 0.6 }}
+        aria-hidden="true"
+      />
+
+      {/* the project card that "comes off" the line */}
+      <motion.div
+        initial={{ opacity: 0, x: onLeft ? -24 : 24 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.45 }}
+        className={`py-4 pl-16 pr-2 md:py-6 ${
+          onLeft ? 'md:col-start-1 md:pl-2 md:pr-12 md:text-right' : 'md:col-start-2 md:pl-12 md:pr-2'
+        }`}
+      >
+        <button
+          type="button"
+          onClick={onOpen}
+          className="group w-full rounded-xl border border-purple-900/30 bg-gradient-to-br from-purple-900/15 to-black/40 p-4 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-600/50 hover:shadow-lg hover:shadow-purple-500/10 focus:outline-none focus-visible:border-purple-500"
+          style={{ borderLeftColor: `${track.color}66`, borderLeftWidth: 3 }}
+          aria-label={`Open details for ${project.title}`}
+        >
+          <div
+            className={`mb-1.5 flex items-center gap-2 ${onLeft ? 'md:flex-row-reverse' : ''}`}
+          >
+            <span
+              className="rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider"
+              style={{
+                color: track.color,
+                backgroundColor: `${track.color}1a`,
+                border: `1px solid ${track.color}40`,
+              }}
+            >
+              {track.label}
+            </span>
+            <span className="font-mono text-[11px] text-gray-500">{formatDate(project.date)}</span>
+          </div>
+          <h3 className="text-lg font-semibold text-white transition-colors group-hover:text-purple-300">
+            {project.title}
+          </h3>
+          <p className="mt-1 line-clamp-2 text-sm text-gray-400">{project.description}</p>
+        </button>
+      </motion.div>
     </div>
   )
 }
@@ -224,6 +190,7 @@ function CommitWindow({ project, onClose }: { project: Project; onClose: () => v
       document.body.style.overflow = ''
     }
   }, [onClose])
+
   return (
     <motion.div
       className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm sm:p-8"
