@@ -14,6 +14,7 @@ interface JobApplicationCardProps {
 
 const statusStyles: Record<string, string> = {
   queued: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+  needs_input: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
   applied: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
   interviewing: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
   offer: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',

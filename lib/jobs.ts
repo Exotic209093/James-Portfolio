@@ -1,13 +1,19 @@
 // Reusable data layer for the job-search dashboard.
 //
 // Each job-routine run produces a `JobRun`: the searches that were run, how many
-// candidates were seen, and the tailored applications that were queued. New runs
-// are appended to `jobRuns` below — the dashboard and all getters derive
-// everything (stats, listings, detail pages) from that single source, so future
-// runs only need their data dropped in here.
+// candidates were seen, and the tailored applications that were queued. The
+// hand-written first run lives in `jobRuns` below; every later run is imported
+// from the Claude-Skills application packages via scripts/import-job-runs.mjs,
+// which regenerates lib/job-run-data.ts. The dashboard and all getters derive
+// everything (stats, listings, detail pages) from the combined set.
+
+// The type-only cycle with ./job-run-data (it imports `JobRun` from here) is
+// erased at compile time.
+import { importedJobRuns } from './job-run-data'
 
 export type ApplicationStatus =
   | 'queued'
+  | 'needs_input'
   | 'applied'
   | 'interviewing'
   | 'offer'
@@ -346,9 +352,9 @@ const jobRuns: JobRun[] = [
   },
 ]
 
-/** All runs, newest first. */
+/** All runs (hand-written + imported), newest first. */
 export function getJobRuns(): JobRun[] {
-  return [...jobRuns].sort((a, b) => (a.date < b.date ? 1 : -1))
+  return [...jobRuns, ...importedJobRuns].sort((a, b) => (a.date < b.date ? 1 : -1))
 }
 
 /** The most recent run, or undefined if there are none. */
