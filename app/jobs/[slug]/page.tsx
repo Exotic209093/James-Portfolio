@@ -27,6 +27,11 @@ const needsInputLabels: Record<string, string> = {
   kafka_experience: 'Kafka / message-broker experience',
 }
 
+// Imported runs use free-form snake_case keys; fall back to a readable label.
+function needsInputLabel(key: string): string {
+  return needsInputLabels[key] ?? key.replace(/_/g, ' ').replace(/^\w/, (c) => c.toUpperCase())
+}
+
 function statusLabel(status: string): string {
   return status.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
@@ -180,7 +185,7 @@ export default function JobDetailPage({ params }: { params: { slug: string } }) 
                     key={key}
                     className="px-3 py-1.5 text-sm bg-purple-900/30 text-purple-200 rounded-md border border-purple-800/50"
                   >
-                    {needsInputLabels[key] ?? key}
+                    {needsInputLabel(key)}
                   </span>
                 ))}
               </div>
