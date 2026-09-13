@@ -13,19 +13,21 @@ const inter = Inter({
   display: 'swap',
 })
 
-const description =
-  'Software engineer building production-grade tools — Salesforce platform, AI agents, TypeScript, Python, and systems programming. Based in Kent, UK.'
+const description = siteConfig.description
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: 'James Collard | Software Engineer',
+    default: `${siteConfig.name} | ${siteConfig.title}`,
     template: '%s | James Collard',
   },
   description,
   keywords: [
     'James Collard',
     'software engineer',
+    'solutions engineer',
+    'Electron',
+    'developer tooling',
     'Salesforce',
     'Apex',
     'AppExchange',
@@ -35,7 +37,7 @@ export const metadata: Metadata = {
     'Python',
     'full-stack',
     'developer',
-    'Kent',
+    'London',
     'UK',
   ],
   authors: [{ name: 'James Collard', url: siteConfig.url }],
@@ -44,7 +46,7 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'James Collard — Software Engineer',
+    title: `${siteConfig.name} — ${siteConfig.title}`,
     description,
     type: 'website',
     url: siteConfig.url,
@@ -53,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'James Collard — Software Engineer',
+    title: `${siteConfig.name} — ${siteConfig.title}`,
     description,
     creator: '@Exotic209093',
   },
@@ -83,7 +85,7 @@ export default function RootLayout({
     email: siteConfig.links.email.replace('mailto:', ''),
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Kent',
+      addressLocality: 'London',
       addressCountry: 'GB',
     },
     sameAs: [

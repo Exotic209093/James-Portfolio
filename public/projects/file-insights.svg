@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title">
+  <title id="title">File Insights — project illustration</title>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="75%"><stop stop-color="#38bdf8" stop-opacity=".13"/><stop offset="1" stop-color="#05050d"/></radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#38bdf8" stroke-opacity=".055"/></pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#05050d"/>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <g font-family="system-ui, sans-serif"><rect x="120" y="100" width="960" height="390" rx="18" fill="#0a1626" stroke="#38bdf8" stroke-opacity=".35"/><path d="M440 100v390M120 160h960" stroke="#38bdf8" stroke-opacity=".25"/><text x="155" y="139" font-size="18" fill="#7dd3fc">~/ Photos</text><text x="475" y="139" font-size="18" fill="#e0f2fe">File metadata</text><g font-size="22" fill="#bae6fd"><text x="160" y="220">landscape.jpg</text><text x="160" y="280">recording.flac</text><text x="160" y="340">document.pdf</text></g><rect x="145" y="187" width="270" height="49" rx="8" fill="#38bdf8" opacity=".12"/><g font-size="19" fill="#94a3b8"><text x="478" y="215">FORMAT</text><text x="478" y="280">DIMENSIONS</text><text x="478" y="345">CHECKSUM</text></g><g font-family="monospace" font-size="22" fill="#e0f2fe"><text x="735" y="215">image/jpeg</text><text x="735" y="280">4032 × 3024</text><text x="735" y="345">SHA-256</text></g><rect x="478" y="397" width="220" height="44" rx="8" fill="#38bdf8" opacity=".15"/><text x="502" y="425" font-size="17" fill="#7dd3fc">Inspect. Edit. Keep local.</text></g>
+  <text x="120" y="575" font-family="system-ui, sans-serif" font-size="42" font-weight="700" fill="#f5f3ff">File Insights</text>
+  <text x="120" y="617" font-family="system-ui, sans-serif" font-size="18" letter-spacing="3" fill="#38bdf8">LOCAL FILES / PYTHON</text>
+</svg>

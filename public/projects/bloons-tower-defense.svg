@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title">
+  <title id="title">Bloons Tower Defense — project illustration</title>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="75%"><stop stop-color="#fbbf24" stop-opacity=".13"/><stop offset="1" stop-color="#05050d"/></radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#fbbf24" stroke-opacity=".055"/></pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#05050d"/>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <g font-family="system-ui, sans-serif"><rect x="120" y="100" width="960" height="390" rx="18" fill="#122521" stroke="#fbbf24" stroke-opacity=".3"/><path d="M120 350h180q65 0 65-65v-30q0-60 60-60h160q60 0 60 60v100q0 65 65 65h115q65 0 65-65v-80q0-55 55-55h75" stroke="#6b5740" stroke-width="48" fill="none"/><g stroke="#fbbf24" stroke-opacity=".22" fill="none"><circle cx="505" cy="320" r="93"/><circle cx="840" cy="280" r="80"/></g><g fill="#fbbf24"><circle cx="505" cy="320" r="24"/><rect x="495" y="278" width="20" height="45" rx="7"/><circle cx="840" cy="280" r="24"/><rect x="830" y="273" width="52" height="15" rx="7"/></g><g fill="#f87171"><ellipse cx="245" cy="345" rx="17" ry="22"/><ellipse cx="302" cy="336" rx="17" ry="22"/></g><g fill="#60a5fa"><ellipse cx="363" cy="278" rx="17" ry="22"/><ellipse cx="422" cy="192" rx="17" ry="22"/></g><ellipse cx="500" cy="192" rx="17" ry="22" fill="#4ade80"/><text x="155" y="144" font-size="18" fill="#fde68a" letter-spacing="3">20 ROUNDS / 6 TOWER TYPES</text></g>
+  <text x="120" y="575" font-family="system-ui, sans-serif" font-size="42" font-weight="700" fill="#f5f3ff">Bloons Tower Defense</text>
+  <text x="120" y="617" font-family="system-ui, sans-serif" font-size="18" letter-spacing="3" fill="#fbbf24">BROWSER GAME / TYPESCRIPT + CANVAS</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title">
+  <title id="title">Infinite Idea — project illustration</title>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="75%"><stop stop-color="#c4b5fd" stop-opacity=".13"/><stop offset="1" stop-color="#05050d"/></radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#c4b5fd" stroke-opacity=".055"/></pattern>
+  </defs>
+  <rect width="1200" height="675" fill="#05050d"/>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <g font-family="system-ui, sans-serif"><g stroke="#a78bfa" stroke-width="3" fill="none"><path d="M355 265h115m260 0h115M600 330v65"/><path d="m452 256 18 9-18 9m372-18 18 9-18 9"/></g><rect x="135" y="205" width="220" height="120" rx="14" fill="#21143c" stroke="#a78bfa"/><rect x="470" y="190" width="260" height="150" rx="14" fill="#302050" stroke="#c4b5fd" stroke-width="2"/><rect x="845" y="205" width="220" height="120" rx="14" fill="#21143c" stroke="#a78bfa"/><rect x="495" y="395" width="210" height="70" rx="10" fill="#21143c" stroke="#a78bfa"/><g text-anchor="middle" fill="#ede9fe" font-size="23"><text x="245" y="274">Source metadata</text><text x="600" y="260">Shape the story</text><text x="955" y="274">Client-ready docs</text><text x="600" y="439">PDF / PNG / SVG</text></g><text x="600" y="299" text-anchor="middle" fill="#a78bfa" font-size="17">CANVAS + TEMPLATES</text></g>
+  <text x="120" y="575" font-family="system-ui, sans-serif" font-size="42" font-weight="700" fill="#f5f3ff">Infinite Idea</text>
+  <text x="120" y="617" font-family="system-ui, sans-serif" font-size="18" letter-spacing="3" fill="#c4b5fd">DOCUMENTATION / TLDRAW</text>
+</svg>

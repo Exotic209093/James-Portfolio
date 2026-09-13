@@ -59,7 +59,7 @@ const education = [
     organisation: 'Independent study',
     period: 'Ongoing since 2023',
     summary:
-      'Built and shipped production-grade personal projects across TypeScript, Python, Apex, C++, and automation tooling — including a Cerebral Valley × Anthropic 4.7 Hackathon submission powered by Claude Opus 4.7 agents, an AppExchange managed package, a Chrome extension for Salesforce migration, and a Windows kernel driver.',
+      'Learning through projects across TypeScript, Python, Apex, and C++ — including WaveLink for Salesforce data work, Flux Terminal for AI coding sessions, File Insights for local metadata editing, and browser games built with Three.js and Canvas.',
   },
 ]
 
@@ -98,10 +98,13 @@ export default function AboutPage() {
                 tested behaviour, and a preference for maintainable code over quick demos.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                My strongest recent work spans AI agent engineering with the Anthropic Agent SDK
-                (delivered live at the Cerebral Valley × Anthropic 4.7 Hackathon), Salesforce platform
-                engineering including an AppExchange managed package, and TypeScript browser extension
-                development — but I am comfortable moving across the stack and picking up new platforms quickly.
+                I am building Galacia, my independent software brand, starting with Galacia Vault for
+                Salesforce file storage. Its public website is live, while Vault remains in development
+                and Docs, Track, and Connect are planned concepts. My other work includes WaveLink,
+                a Salesforce data workspace; Flux Terminal, an Electron
+                app for exploring AI coding sessions; and File Insights, a Python tool for editing local
+                file metadata. I also build web experiences such as The Loft Zante and Infinite Idea,
+                and explore rendering and simulation through ExoCraft and a Canvas tower-defense game.
               </p>
             </div>
           </Card>

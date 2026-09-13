@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title">
+  <title id="title">Galacia — independent software</title>
+  <defs>
+    <radialGradient id="bg"><stop stop-color="#164950"/><stop offset="1" stop-color="#071b21"/></radialGradient>
+    <linearGradient id="ice" x2="1" y2="1"><stop stop-color="#e5fff5"/><stop offset="1" stop-color="#70bbba"/></linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <ellipse cx="820" cy="465" rx="245" ry="35" fill="#70bbba" opacity=".1"/>
+  <path d="M600 440 810 95l220 345Z" fill="url(#ice)"/>
+  <path d="m810 95-50 345h270Z" fill="#70bbba"/>
+  <path d="m810 95 90 345h130Z" fill="#e5fff5"/>
+  <path d="m600 440 160-135 0 135Z" fill="#b9f0df"/>
+  <g font-family="system-ui, sans-serif">
+    <text x="100" y="185" fill="#b9f0df" font-size="18" letter-spacing="4">INDEPENDENT SOFTWARE</text>
+    <text x="95" y="285" fill="#e5fff5" font-size="85" font-weight="700">Galacia.</text>
+    <text x="100" y="342" fill="#a7cece" font-size="25">Starting with Vault.</text>
+    <text x="100" y="382" fill="#a7cece" font-size="25">Building with care.</text>
+    <path d="M100 530h1000" stroke="#70bbba" stroke-opacity=".3"/>
+    <text x="100" y="585" fill="#e5fff5" font-size="22">Vault <tspan fill="#8ab8bb" font-size="17"> / In development</tspan></text>
+    <text x="570" y="585" fill="#a7cece" font-size="20">Docs · Track · Connect <tspan font-size="17"> / Planned</tspan></text>
+    <text x="100" y="630" fill="#70bbba" font-size="17" letter-spacing="3">GALACIA.APP</text>
+  </g>
+</svg>

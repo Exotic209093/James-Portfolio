@@ -4,7 +4,7 @@ import ProjectsExplorer from '@/components/projects/ProjectsExplorer'
 export const metadata: Metadata = {
   title: 'Projects',
   description:
-    'Selected engineering work: AI agents on the Anthropic Agent SDK, a Salesforce AppExchange package, published Chrome and VS Code extensions, and developer tooling.',
+    'Explore Salesforce data tooling, an Electron terminal, local Python utilities, Next.js web experiences, and browser games built by James Collard.',
   alternates: { canonical: '/projects' },
 }
 
@@ -18,7 +18,7 @@ export default function ProjectsPage() {
             <span className="gradient-text">Projects</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            A commit history of what I&apos;ve shipped — each project sits on a branch by discipline, plotted by date. Switch to the grid for a classic card view.
+            From Salesforce data tools and desktop apps to websites and browser games — explore my work by discipline and latest project activity. Switch to the grid for a classic card view.
           </p>
         </div>
 

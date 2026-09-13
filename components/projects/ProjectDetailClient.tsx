@@ -214,7 +214,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               rel="noopener noreferrer"
             >
               <ExternalLink className="mr-2 h-5 w-5" />
-              Live Demo
+              {project.liveLabel || 'Live Demo'}
             </ButtonLink>
           </motion.div>
         )}

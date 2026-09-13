@@ -1,11 +1,11 @@
 export const siteConfig = {
   name: 'James Collard',
-  title: 'Software Engineer',
+  title: 'Solutions Engineer',
   description:
-    'I build production-grade software across the full stack — from AI agents on the Anthropic Agent SDK and Salesforce AppExchange packages to TypeScript browser extensions and data migration tooling.',
+    'I build software end to end — from Galacia, my independent software brand, and Salesforce data tools to desktop terminals and interactive web experiences. My work combines TypeScript, Python, and systems programming with a focus on useful products and thoughtful details.',
   url: 'https://james-c.app',
   ogImage: '/og-image.jpg',
-  location: 'Kent, United Kingdom',
+  location: 'London, United Kingdom',
   links: {
     twitter: 'https://twitter.com/Exotic209093',
     github: 'https://github.com/Exotic209093',
@@ -27,15 +27,15 @@ export const navigation = [
 export const skills = [
   {
     category: 'Languages',
-    items: ['TypeScript', 'JavaScript', 'Python', 'Apex (Salesforce)', 'C++', 'SQL', 'Bash'],
+    items: ['TypeScript', 'JavaScript', 'Python', 'Rust', 'C++', 'C', 'Apex (Salesforce)', 'Dart', 'C#', 'SQL'],
   },
   {
     category: 'Frameworks & Runtimes',
-    items: ['Next.js', 'React', 'Node.js', 'Bun', 'Hono', 'Three.js', 'Preact', 'Vite', 'Flask', 'Django', 'Prisma', 'Jest'],
+    items: ['Next.js', 'React', 'Node.js', 'Electron', 'Flask', 'Three.js', 'Preact', 'Vite', 'tldraw', 'Flutter', 'Bun', 'Hono'],
   },
   {
     category: 'Platforms & Tools',
-    items: ['Salesforce / AppExchange', 'Anthropic Agent SDK', 'Claude Opus 4.7', 'AWS S3', 'Docker', 'Linux', 'Git', 'PostgreSQL', 'MongoDB', 'Chrome Extensions', 'REST APIs'],
+    items: ['Salesforce / Apex / LWC', 'Chrome Extensions', 'xterm.js / node-pty', 'HTML5 Canvas', 'SQLite / FTS5', 'AWS', 'Docker', 'GitHub Actions', 'Git', 'Jest', 'Vitest', 'Playwright', 'pytest'],
   },
 ]
 

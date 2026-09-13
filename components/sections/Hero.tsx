@@ -76,7 +76,7 @@ export default function Hero() {
             animate="show"
             className="text-lg sm:text-xl text-gray-400 mt-8 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            AI agents · Salesforce engineering · TypeScript · Python · Systems programming
+            Salesforce data tools · Desktop apps · Web experiences · Systems programming
           </motion.p>
 
           <motion.div

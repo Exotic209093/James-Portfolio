@@ -30,7 +30,7 @@ export const projectTracks: TrackMeta[] = [
   {
     id: 'tooling',
     label: 'Developer Tooling',
-    description: 'Desktop, editor, and CLI tools that other developers use',
+    description: 'Desktop, editor, CLI, and documentation tools',
     color: '#38bdf8',
   },
   {
@@ -42,7 +42,7 @@ export const projectTracks: TrackMeta[] = [
   {
     id: 'systems',
     label: 'Systems & Interactive',
-    description: 'Low-level systems work and interactive browser frontends',
+    description: 'Websites, browser games, and low-level systems work',
     color: '#fbbf24',
   },
 ]
@@ -69,6 +69,7 @@ export interface Project {
   techStack?: TechStack[]
   github?: string
   live?: string
+  liveLabel?: string
   featured: boolean
   hidden?: boolean
   date: string
@@ -76,34 +77,332 @@ export interface Project {
   track: ProjectTrack
 }
 
+// Dates reflect the latest reviewed project activity, not original launch dates.
 const allProjects: Project[] = [
   {
-    id: 'flux-terminal',
-    title: 'Flux Terminal',
-    description:
-      'Electron desktop terminal built for Claude Code — a fully-capable terminal that records, replays, and analyses your coding sessions with live token, cost, and tool-usage metrics.',
-    longDescription:
-      'Flux Terminal is a cross-platform desktop application that wraps a production-grade terminal in a rich interface designed around Claude Code. It runs real shell sessions (claude, PowerShell, git, and anything else) on a true pseudo-terminal, while capturing each session so it can be navigated and replayed afterwards on a scrubable timeline. A live dashboard tracks tokens, model-specific cost, and tool calls in real time, and cross-session analytics surface activity charts, streaks, and plan-limit gauges. The app is built on Electron with xterm.js for the terminal surface, node-pty (with Windows ConPTY support) for the PTY bridge, and a React renderer — with a hardened IPC boundary exposed through a contextBridge preload.',
-    category: 'Developer Tooling · Desktop App',
-    status: 'Active build',
-    role: 'Designed and built the full desktop app solo: the Electron main process and PTY bridging, the contextBridge IPC surface, and the React + xterm.js renderer, plus the session-capture, replay, and metrics systems.',
-    highlights: [
-      'Wraps a real pseudo-terminal (node-pty with ConPTY on Windows) in an Electron app, so claude, git, and shell commands run exactly as they would natively.',
-      'Captures Claude Code sessions and replays them on a scrubable timeline with token, cost, and tool-usage metrics computed per model.',
-      'Adds cross-session analytics — activity charts, streaks, achievements, and plan-limit gauges — on top of a hardened contextBridge IPC boundary.',
+    "id": "galacia",
+    "title": "Galacia",
+    "description": "My independent software brand and public product website, starting with Galacia Vault for Salesforce file storage, with an interactive product explorer and a Three.js glacier.",
+    "longDescription": "Galacia brings my product work together under one brand. I built and deployed its public website with product pages, preparation guides, support information, and a roadmap that distinguishes development from planned concepts. The site uses a static build and a Node.js server, with an optional Three.js glacier layered over an SVG fallback. Galacia Vault is the first product and remains in development; Galacia Docs, Track, and Connect are planned concepts in discovery.",
+    "category": "Product Engineering · Company Website",
+    "status": "Website live · Vault in development",
+    "role": "Created the Galacia brand and product hub, built the public website and interactive experience, and organised the product work into independent repositories.",
+    "highlights": [
+      "Built a public product hub with keyboard-accessible product tabs, guides, support pages, and explicit availability information.",
+      "Added an optional Three.js glacier with an SVG fallback, reduced-motion support, a pause control, and rendering that stops off-screen.",
+      "Deployed the website on Railway with custom domains, HTTPS, redirects, and automated HTTP and browser regression checks."
     ],
-    image: '/projects/flux-terminal.svg',
-    tech: ['JavaScript', 'Electron', 'React', 'xterm.js', 'node-pty', 'ConPTY'],
-    techStack: [
-      { category: 'Desktop Shell', items: ['Electron', 'node-pty', 'ConPTY (Windows)', 'contextBridge IPC'] },
-      { category: 'Terminal UI', items: ['xterm.js', 'React', 'Theme Presets', 'Live Dashboards'] },
-      { category: 'Sessions', items: ['Session Capture', 'Timeline Scrubbing & Replay', 'Resume & Send'] },
-      { category: 'Analytics', items: ['Token / Cost Metrics', 'Tool-Usage Tracking', 'Activity Charts & Streaks', 'Plan-Limit Gauges'] },
+    "image": "/projects/galacia.svg",
+    "tech": [
+      "JavaScript",
+      "Node.js",
+      "Three.js",
+      "SVG",
+      "Playwright",
+      "Railway"
     ],
-    github: 'https://github.com/Exotic209093/Flux-Terminal',
-    featured: true,
-    date: '2026-06-09',
-    track: 'tooling',
+    "techStack": [
+      {
+        "category": "Website",
+        "items": [
+          "JavaScript",
+          "HTML / CSS",
+          "Node.js",
+          "Static Site Build"
+        ]
+      },
+      {
+        "category": "Experience",
+        "items": [
+          "Three.js",
+          "SVG Fallback",
+          "Keyboard Navigation",
+          "Reduced Motion"
+        ]
+      },
+      {
+        "category": "Delivery",
+        "items": [
+          "Docker",
+          "Railway",
+          "Playwright",
+          "HTTP Regression Tests"
+        ]
+      }
+    ],
+    "live": "https://galacia.app",
+    "liveLabel": "Visit Galacia",
+    "featured": true,
+    "date": "2026-09-10",
+    "track": "systems"
+  },
+  {
+    "id": "the-loft-zante",
+    "title": "The Loft Zante",
+    "description": "A hospitality website for O’Callaghan’s Loft in Zakynthos, with a browsable drinks menu, venue photography, events, and visitor information.",
+    "longDescription": "The Loft Zante brings a venue-focused web experience together in Next.js, React, and TypeScript. The site combines a photographic hero and gallery with events, an interactive drinks menu, opening hours, and an embedded location map. Menu sections are driven by structured data, with category buttons, prices, descriptions, and serving options. Tailwind CSS supports responsive layouts across the site.",
+    "category": "Web Development · Hospitality",
+    "status": "Live website",
+    "role": "Built the Next.js website, reusable page sections, responsive styling, and interactive menu browser.",
+    "highlights": [
+      "Built a category-based menu browser backed by typed menu data, including prices, descriptions, and serving options.",
+      "Combined venue photography, event content, opening hours, and a location map into a responsive visitor experience.",
+      "Used reusable React components and Tailwind CSS for a consistent visual presentation."
+    ],
+    "image": "/projects/the-loft-zante.svg",
+    "tech": [
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Tailwind CSS"
+    ],
+    "techStack": [
+      {
+        "category": "Application",
+        "items": [
+          "Next.js",
+          "React",
+          "TypeScript"
+        ]
+      },
+      {
+        "category": "Interface",
+        "items": [
+          "Tailwind CSS",
+          "Responsive Layouts",
+          "Interactive Menu",
+          "Photo Gallery"
+        ]
+      }
+    ],
+    "github": "https://github.com/Exotic209093/the-loft-zante",
+    "live": "https://the-loft-zante.vercel.app",
+    "featured": true,
+    "date": "2026-09-12",
+    "track": "systems"
+  },
+  {
+    "id": "file-insights",
+    "title": "File Insights",
+    "description": "A local Python utility for viewing and editing file metadata in the browser — photo EXIF, audio tags, PDF properties, timestamps, and on-demand checksums.",
+    "longDescription": "File Insights runs a Flask server on the user’s own machine and presents file metadata in a browser interface. It reads filesystem attributes, image EXIF, audio tags, PDF information, and Office document properties. Supported edits include renaming, timestamps, permissions, EXIF cleanup, audio tags, and PDF metadata. Format handlers are optional, browsing is confined to a selected root folder, and a CLI can inspect a file as JSON without opening the interface.",
+    "category": "Developer Tooling · Python Utility",
+    "status": "Available from source",
+    "role": "Built the Python CLI, Flask JSON API, browser interface, and optional format handlers for local metadata inspection and editing.",
+    "highlights": [
+      "Kept processing on the local machine with a loopback-only server and browsing restricted to a configured root folder.",
+      "Added optional handlers for photo EXIF, audio tags, and PDF metadata, alongside built-in Office document property inspection.",
+      "Supported GPS removal, EXIF stripping, file renaming, platform-specific timestamp edits, and on-demand checksums."
+    ],
+    "image": "/projects/file-insights.svg",
+    "tech": [
+      "Python",
+      "Flask",
+      "JavaScript",
+      "Pillow",
+      "mutagen",
+      "pypdf"
+    ],
+    "techStack": [
+      {
+        "category": "Core",
+        "items": [
+          "Python",
+          "Flask",
+          "CLI",
+          "JSON API"
+        ]
+      },
+      {
+        "category": "File Formats",
+        "items": [
+          "Pillow",
+          "piexif",
+          "mutagen",
+          "pypdf",
+          "Office Document Properties"
+        ]
+      },
+      {
+        "category": "Interface & Quality",
+        "items": [
+          "HTML / CSS / JavaScript",
+          "pytest",
+          "Root-Scoped File Access"
+        ]
+      }
+    ],
+    "github": "https://github.com/Exotic209093/File-Insights",
+    "featured": true,
+    "date": "2026-08-08",
+    "track": "tooling"
+  },
+  {
+    "id": "infinite-idea",
+    "title": "Infinite Idea",
+    "description": "A browser-based documentation canvas with Salesforce-aware diagram blocks, metadata importers, reusable templates, and PDF, PNG, and SVG export.",
+    "longDescription": "Infinite Idea is a Next.js and tldraw application for building client-facing documentation on a freeform canvas. It combines general diagram blocks with Salesforce-specific shapes for objects, Apex classes, flows, permissions, and queries. Metadata importers turn supported Salesforce files or pasted data into canvas content. Work stays client-side: users download a versioned .infidoc.json file to resume later, or export finished documents to PDF, PNG, or SVG.",
+    "category": "Web App · Documentation Tooling",
+    "status": "Live web app",
+    "role": "Built the canvas editor, custom diagram blocks, Salesforce importers, save-file workflow, and document exports.",
+    "highlights": [
+      "Extended tldraw with 20 native blocks and six starter templates for process flows, roadmaps, org charts, and Salesforce documentation.",
+      "Added Salesforce metadata importers and structured editing for fields, members, permissions, and table cells.",
+      "Implemented client-side save/resume and PDF, PNG, and SVG export, with Vitest save-file tests and Playwright smoke tests."
+    ],
+    "image": "/projects/infinite-idea.svg",
+    "tech": [
+      "Next.js",
+      "TypeScript",
+      "tldraw",
+      "Tailwind CSS",
+      "pdf-lib"
+    ],
+    "techStack": [
+      {
+        "category": "Canvas",
+        "items": [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "tldraw"
+        ]
+      },
+      {
+        "category": "Documents",
+        "items": [
+          "Salesforce Metadata Importers",
+          "Versioned JSON Saves",
+          "pdf-lib",
+          "PNG / SVG Export"
+        ]
+      },
+      {
+        "category": "Quality",
+        "items": [
+          "Vitest",
+          "Playwright"
+        ]
+      }
+    ],
+    "github": "https://github.com/Exotic209093/Infinity-Idea",
+    "live": "https://infinity-idea.vercel.app",
+    "featured": false,
+    "date": "2026-04-26",
+    "track": "tooling"
+  },
+  {
+    "id": "bloons-tower-defense",
+    "title": "Bloons Tower Defense",
+    "description": "A Bloons-inspired browser game built with TypeScript and HTML5 Canvas: 20 rounds, six tower types, layered enemies, upgrades, and targeting priorities.",
+    "longDescription": "This tower-defense project implements a complete browser game loop without a game engine or runtime dependencies. Players place and upgrade towers, manage cash and lives, and defend against 20 rounds of enemies with different layers and damage immunities. The code separates simulation, path geometry, entity definitions, wave configuration, and rendering, with Vite handling development and production bundling.",
+    "category": "Interactive Frontend · Browser Game",
+    "status": "Playable browser game",
+    "role": "Built the TypeScript simulation, Canvas renderer, tower-placement controls, economy, and wave progression.",
+    "highlights": [
+      "Implemented six tower types with upgrades and four targeting priorities, plus layered enemies with distinct damage immunities.",
+      "Separated simulation, geometry, wave data, and rendering into focused modules without a game engine.",
+      "Added pause, speed controls, placement constraints, and a 20-round progression ending in a boss wave."
+    ],
+    "image": "/projects/bloons-tower-defense.svg",
+    "tech": [
+      "TypeScript",
+      "HTML5 Canvas",
+      "Vite",
+      "Game Systems"
+    ],
+    "techStack": [
+      {
+        "category": "Core",
+        "items": [
+          "TypeScript",
+          "HTML5 Canvas",
+          "Vite"
+        ]
+      },
+      {
+        "category": "Game Systems",
+        "items": [
+          "Wave Simulation",
+          "Projectile Handling",
+          "Tower Upgrades",
+          "Path Geometry",
+          "Economy"
+        ]
+      }
+    ],
+    "github": "https://github.com/Exotic209093/BloonsTD6",
+    "live": "https://bloons-td-6-wheat.vercel.app",
+    "featured": false,
+    "date": "2026-06-29",
+    "track": "systems"
+  },
+  {
+    "id": "flux-terminal",
+    "title": "Flux Terminal",
+    "description": "An Electron terminal and workspace for Claude Code sessions, with live dashboards, multi-session monitoring, searchable transcripts, and split terminal panes.",
+    "longDescription": "Flux Terminal combines a real node-pty terminal with a React interface for exploring Claude Code sessions. It tracks sessions live, displays token and cost metrics, and lets users resume conversations from a rich session view. Mission Control groups sessions by activity, while a persisted session index feeds SQLite FTS5 transcript search. The app also includes terminal tabs and split panes, launch profiles, notifications, onboarding, and downloadable Windows installers with automatic updates.",
+    "category": "Developer Tooling · Desktop App",
+    "status": "Released · v0.4.0",
+    "role": "Built the Electron app, PTY bridge, React interface, session indexing and search, live dashboards, and Windows release packaging.",
+    "highlights": [
+      "Combined node-pty and xterm.js with terminal tabs, split panes, saved launch profiles, and scrollback search.",
+      "Built a persisted session index and incremental SQLite FTS5 search with role, tool, file, project, and error filters.",
+      "Added Mission Control, session notifications, guided onboarding, and Windows installers with automatic updates."
+    ],
+    "image": "/projects/flux-terminal.svg",
+    "tech": [
+      "JavaScript",
+      "Electron",
+      "React",
+      "xterm.js",
+      "node-pty",
+      "SQLite FTS5"
+    ],
+    "techStack": [
+      {
+        "category": "Desktop",
+        "items": [
+          "Electron",
+          "node-pty",
+          "ConPTY",
+          "contextBridge IPC"
+        ]
+      },
+      {
+        "category": "Interface",
+        "items": [
+          "React",
+          "xterm.js",
+          "Split Terminal Panes",
+          "Mission Control"
+        ]
+      },
+      {
+        "category": "Sessions & Search",
+        "items": [
+          "Incremental Session Index",
+          "SQLite FTS5",
+          "Live Transcript Updates",
+          "Token / Cost Metrics"
+        ]
+      },
+      {
+        "category": "Distribution",
+        "items": [
+          "Windows NSIS Installer",
+          "Automatic Updates",
+          "Onboarding",
+          "Local Crash Logs"
+        ]
+      }
+    ],
+    "github": "https://github.com/Exotic209093/Flux-Terminal",
+    "live": "https://github.com/Exotic209093/Flux-Terminal/releases",
+    "liveLabel": "Download Release",
+    "featured": true,
+    "date": "2026-06-14",
+    "track": "tooling"
   },
   {
     id: 'vastify',
@@ -135,61 +434,125 @@ const allProjects: Project[] = [
     track: 'ai',
   },
   {
-    id: 'nebula-vault',
-    title: 'Nebula-Vault',
-    description:
-      'Salesforce AppExchange managed package that replaces native file storage with configurable cloud backends across AWS S3, Azure Blob, GCS, OneDrive, and Dropbox.',
-    longDescription:
-      'Nebula-Vault is a production-grade Salesforce AppExchange managed package designed to solve the storage limitations inherent in native Salesforce file handling. It provides a unified API for routing file operations to AWS S3, Azure Blob Storage, Google Cloud Storage, Microsoft OneDrive, or Dropbox — configurable per org without code changes. The project demonstrates enterprise Salesforce platform engineering, multi-cloud provider abstraction, and the packaging and deployment constraints specific to the AppExchange.',
-    category: 'Salesforce Platform Engineering',
-    status: 'Active build',
-    role: 'Designed and built a multi-cloud storage abstraction layer for Salesforce orgs, packaged as an AppExchange managed package with configurable provider support.',
-    highlights: [
-      'Implemented a unified file-routing API that abstracts across five cloud providers (AWS S3, Azure Blob, GCS, OneDrive, Dropbox) behind a consistent Salesforce interface.',
-      'Built as an AppExchange managed package — enforcing the namespacing, security review readiness, and metadata packaging constraints of the Salesforce ISV model.',
-      'Designed the provider configuration layer to be admin-configurable per org without requiring code changes or redeployment.',
+    "id": "galacia-vault",
+    "title": "Galacia Vault",
+    "description": "A Salesforce-native file storage platform in development, connecting record-based file workflows to customer-owned cloud storage through Apex and Lightning Web Components.",
+    "longDescription": "Galacia Vault, formerly Nebula Vault, is the first product in the Galacia collection. Its source combines an Apex provider abstraction with Lightning Web Components for file management, uploads, storage configuration, and migration workflows. Provider integrations cover AWS S3 and compatible storage, Azure Blob, Google Cloud Storage, OneDrive, SharePoint, Dropbox, Google Drive, and Box. The project also includes a transfer gateway and work on permissions, audit trails, retention, and file governance. The public website explains the product direction and evaluation preparation; public installation and release validation remain outstanding.",
+    "category": "Salesforce Platform Engineering",
+    "status": "In development · Public installation not yet available",
+    "role": "Built the Salesforce product and cloud-provider abstraction, with user and admin interfaces, a transfer gateway, and release-readiness work.",
+    "highlights": [
+      "Implemented a shared storage-provider interface across eight provider families, including S3-compatible services.",
+      "Built Apex services and Lightning Web Components for file browsing, uploads, connection setup, and migration management.",
+      "Developed file-governance workflows around permissions, audit trails, retention, and record context, with release validation tracked separately from source progress."
     ],
-    image: '/projects/nebula-vault.svg',
-    tech: ['Apex', 'Salesforce', 'AWS S3', 'Azure Blob', 'GCS', 'OneDrive', 'Dropbox', 'AppExchange'],
-    techStack: [
-      { category: 'Platform', items: ['Apex', 'Salesforce Metadata API', 'Managed Package', 'AppExchange'] },
-      { category: 'Cloud Providers', items: ['AWS S3', 'Azure Blob Storage', 'Google Cloud Storage', 'OneDrive', 'Dropbox'] },
-      { category: 'Architecture', items: ['Provider Abstraction Layer', 'Admin-Configurable Routing', 'Namespaced Packaging'] },
+    "image": "/projects/galacia-vault.svg",
+    "tech": [
+      "Apex",
+      "Salesforce",
+      "Lightning Web Components",
+      "AWS S3",
+      "Azure Blob",
+      "GCS"
     ],
-    github: 'https://github.com/Exotic209093/Nebula-Vault',
-    featured: true,
-    date: '2026-03-31',
-    track: 'salesforce',
+    "techStack": [
+      {
+        "category": "Salesforce",
+        "items": [
+          "Apex",
+          "Lightning Web Components",
+          "SLDS",
+          "Platform Events",
+          "Scheduled Jobs"
+        ]
+      },
+      {
+        "category": "Storage",
+        "items": [
+          "AWS S3 / S3-compatible",
+          "Azure Blob",
+          "Google Cloud Storage",
+          "OneDrive / SharePoint",
+          "Dropbox",
+          "Google Drive",
+          "Box"
+        ]
+      },
+      {
+        "category": "Architecture & Quality",
+        "items": [
+          "Provider Adapter Pattern",
+          "Transfer Gateway",
+          "Apex Tests",
+          "sfdx-lwc-jest"
+        ]
+      }
+    ],
+    "live": "https://galacia.app/galacia-vault/",
+    "liveLabel": "Explore Galacia Vault",
+    "featured": false,
+    "date": "2026-09-09",
+    "track": "salesforce"
   },
   {
-    id: 'wave-link',
-    title: 'WaveLink',
-    description:
-      'Published Chrome extension for Salesforce data work — query out to CSV/JSON/Excel/XML, push via REST or Bulk API, schedule recurring snapshots, run multi-object migrations with dependency ordering, and diff data across orgs. All processing stays local.',
-    longDescription:
-      'WaveLink (published on the Chrome Web Store as "WaveLink - Salesforce Data Seeding") is a browser-based toolkit that compresses the most common Salesforce data tasks into a single extension — with every operation running locally against the Salesforce APIs, no external server in the loop. It pairs a structured SOQL builder (aggregates, GROUP BY, subqueries, syntax highlighting) with scheduled recurring exports and offline conversion between CSV, JSON, Excel, and XML. Bulk data push runs through the REST Collections API or Bulk API 2.0 with field mapping, dry-run validation, and live progress. Beyond simple pushes it handles multi-object migration projects with dependency graphing and topological ordering, cross-object cloning with automatic ID remapping, bulk delete with safety confirmations, duplicate detection (exact, Levenshtein, Soundex), and a visual pipeline builder for transform workflows. A schema layer adds relationship graphs, cross-org schema gap analysis, and field usage analytics, while a governor-limit dashboard and org-health view keep an eye on the org itself. The UI ships in three modes — popup, in-page side panel, and full-page app — with a Ctrl+K command palette and Shadow DOM isolation for the in-page panel.',
-    category: 'Salesforce Tooling',
-    status: 'Published on the Chrome Web Store',
-    role: 'Designed and built a published Chrome extension that consolidates everyday Salesforce data work — exports, pushes, scheduled snapshots, migrations, schema diffing, and org monitoring — into one local-first toolkit aimed at admins and consultants.',
-    highlights: [
-      'Expanded well beyond a seeding tool: scheduled recurring exports, offline CSV/JSON/Excel/XML conversion, multi-object migration projects with dependency graphing and topological ordering, and bulk delete with safety confirmations.',
-      'Added an org-awareness layer — cross-org schema gap analysis, field usage analytics, a governor-limit dashboard, and org-health monitoring — on top of the existing SOQL builder, relationship graphs, and pipeline builder.',
-      'Kept everything local-first: all processing happens in chrome.storage.local with no external server beyond the Salesforce API, across three UI modes (popup, side panel, full-page app) with a Ctrl+K command palette and Shadow DOM isolation.',
+    "id": "wave-link",
+    "title": "WaveLink",
+    "description": "A Chrome extension for Salesforce data work: SOQL exports, guided imports, offline conversion, comparisons, and repeatable data jobs in a local browser workspace.",
+    "longDescription": "WaveLink brings Salesforce export, import, comparison, and data preparation into one Chrome extension. It supports SOQL exports to CSV, JSON, Excel, and XML, with import workflows using Salesforce REST and Bulk APIs. Recent development focuses on guided workflows, saved jobs, activity and recovery views, and a bounded Copy between orgs flow for one object at a time. The current roadmap replaces the older multi-object migration product with this narrower workflow and tracks reliability work towards 1.0. A version is published on the Chrome Web Store; the repository contains newer development work.",
+    "category": "Salesforce Tooling · Chrome Extension",
+    "status": "Published extension · 1.0 in development",
+    "role": "Built and iterated on a Salesforce data extension, bringing export, import, comparison, and repeatable workflows into a shared browser workspace.",
+    "highlights": [
+      "Combined SOQL exports, offline format conversion, comparison, and guided import workflows using Salesforce REST and Bulk APIs.",
+      "Refocused cross-org work on a controlled single-object copy workflow, replacing the larger migration navigation surface.",
+      "Developed saved-job and activity workflows, with a public roadmap covering write correctness, scheduling reliability, and data fidelity before 1.0."
     ],
-    image: '/projects/wavelink.png',
-    tech: ['TypeScript', 'Preact', 'Webpack', 'Jest', 'Salesforce APIs', 'Chrome Extension', 'Bulk API 2.0'],
-    techStack: [
-      { category: 'Frontend', items: ['TypeScript', 'Preact', 'Shadow DOM UI', 'Command Palette (Ctrl+K)', 'Three UI Modes', 'Dark Mode'] },
-      { category: 'Export & Import', items: ['SOQL Builder (Aggregates, GROUP BY, Subqueries)', 'Scheduled Recurring Exports', 'CSV/JSON/Excel/XML', 'REST Collections API', 'Bulk API 2.0', 'Dry-Run Validation'] },
-      { category: 'Data Operations', items: ['Multi-Object Migration Projects', 'Dependency Graphing & Topological Ordering', 'Cross-Object Cloning + ID Remap', 'Bulk Delete', 'Duplicate Detection (Levenshtein, Soundex)', 'Pipeline Builder', 'faker.js Test Data'] },
-      { category: 'Schema & Analytics', items: ['Schema Explorer', 'Relationship Graph', 'Cross-Org Schema Gap Analysis', 'Field Usage Analytics', 'Governor-Limit Dashboard', 'Org-Health Monitoring'] },
-      { category: 'Cross-Org & Platform', items: ['Multi-Org Connections + Environment Badges', 'Record-Level Data Comparison', 'Selective Sync', 'Local-First (chrome.storage.local)', 'Jest'] },
+    "image": "/projects/wavelink.png",
+    "tech": [
+      "TypeScript",
+      "Preact",
+      "Chrome Extension",
+      "Salesforce APIs",
+      "Bulk API 2.0",
+      "Jest"
     ],
-    github: 'https://github.com/Exotic209093/WaveLink',
-    live: 'https://chromewebstore.google.com/detail/wavelink-salesforce-data/ccknhhibbedolfnbgnenomdohlmojblo',
-    featured: true,
-    date: '2026-06-08',
-    track: 'salesforce',
+    "techStack": [
+      {
+        "category": "Frontend",
+        "items": [
+          "TypeScript",
+          "Preact",
+          "Shadow DOM",
+          "Command Palette"
+        ]
+      },
+      {
+        "category": "Data Workflows",
+        "items": [
+          "SOQL",
+          "CSV / JSON / Excel / XML",
+          "REST Collections API",
+          "Bulk API 2.0",
+          "Offline Comparison"
+        ]
+      },
+      {
+        "category": "Platform & Quality",
+        "items": [
+          "Chrome Manifest V3",
+          "chrome.storage.local",
+          "Webpack",
+          "Jest",
+          "GitHub Actions"
+        ]
+      }
+    ],
+    "github": "https://github.com/Exotic209093/WaveLink",
+    "live": "https://chromewebstore.google.com/detail/wavelink/ccknhhibbedolfnbgnenomdohlmojblo",
+    "liveLabel": "Chrome Web Store",
+    "featured": true,
+    "date": "2026-09-09",
+    "track": "salesforce"
   },
   {
     id: 'salesforce-spreadsheet-formatter',
@@ -275,32 +638,60 @@ const allProjects: Project[] = [
     track: 'ai',
   },
   {
-    id: 'exocraft',
-    title: 'ExoCraft',
-    description:
-      'Three.js voxel sandbox with world persistence, progression systems, combat loops, and browser-based save-state management.',
-    longDescription:
-      'ExoCraft is a browser game project built with Three.js and Vite. It includes world generation, inventory and crafting systems, furnace progression, hostile mob behaviour, branch-based objectives, and persistent save data. While it is not enterprise software, it is credible engineering work that demonstrates complex state management, rendering logic, and iterative feature delivery.',
-    category: 'Interactive Frontend',
-    status: 'Active prototype',
-    role: 'Built and iterated on a browser sandbox game to explore rendering, persistence, and layered gameplay systems in a single codebase.',
-    highlights: [
-      'Implemented world generation, inventory, crafting, and progression systems with persistent saves.',
-      'Handled state-heavy interactions such as combat, furnace processing, and objective tracking.',
-      'Used the project as a proving ground for iterative feature delivery and browser performance tradeoffs.',
+    "id": "exocraft",
+    "title": "ExoCraft",
+    "description": "A Three.js browser voxel sandbox with procedural biomes, flood-fill lighting, survival, crafting, redstone circuits, mobs, and post-processing effects.",
+    "longDescription": "ExoCraft is a JavaScript and Three.js sandbox with seeded terrain, five biomes, connected caves, and streamed chunks with memory eviction. A flood-fill lighting system combines skylight and blocklight with baked ambient occlusion. Survival, crafting, furnaces, inventories, mobs, and persistent redstone circuits share a modular simulation. The rendering pipeline adds tone mapping, bloom, and FXAA, while deterministic debugging hooks expose game state and simulation stepping for automated checks.",
+    "category": "Interactive Frontend · Browser Game",
+    "status": "Playable browser sandbox",
+    "role": "Built the modular voxel world, lighting and rendering pipeline, survival systems, persistent circuits, and browser controls.",
+    "highlights": [
+      "Implemented seeded biomes, caves, chunk streaming, ambient occlusion, and 0–15 skylight and blocklight propagation.",
+      "Added survival, crafting, mobs, and redstone components including repeaters, comparators, lamps, and doors.",
+      "Combined bloom and FXAA post-processing with persistent settings, saves, and deterministic simulation hooks."
     ],
-    image: '/projects/exocraft.png',
-    tech: ['TypeScript', 'Three.js', 'Vite', 'IndexedDB', 'Game Systems'],
-    techStack: [
-      { category: 'Rendering', items: ['Three.js', 'Voxel World', 'Lighting', 'Camera and Input Handling'] },
-      { category: 'Gameplay Systems', items: ['Crafting', 'Inventory', 'Hostile AI', 'Objectives', 'Branch Progression'] },
-      { category: 'Persistence', items: ['IndexedDB', 'Autosave', 'World State Serialization'] },
+    "image": "/projects/exocraft.png",
+    "tech": [
+      "JavaScript",
+      "Three.js",
+      "Vite",
+      "WebGL",
+      "Game Systems"
     ],
-    github: 'https://github.com/Exotic209093/ExoCraft',
-    live: 'https://exo-craft.vercel.app/',
-    featured: false,
-    date: '2026-03-05',
-    track: 'systems',
+    "techStack": [
+      {
+        "category": "World & Rendering",
+        "items": [
+          "Three.js",
+          "Procedural Terrain",
+          "Chunk Streaming",
+          "Flood-Fill Lighting",
+          "Bloom / FXAA"
+        ]
+      },
+      {
+        "category": "Simulation",
+        "items": [
+          "Survival",
+          "Crafting",
+          "Redstone Circuits",
+          "Hostile & Passive Mobs"
+        ]
+      },
+      {
+        "category": "Persistence & Debugging",
+        "items": [
+          "World Saves",
+          "Local Settings",
+          "Deterministic Simulation Hooks"
+        ]
+      }
+    ],
+    "github": "https://github.com/Exotic209093/ExoCraft",
+    "live": "https://exo-craft.vercel.app",
+    "featured": false,
+    "date": "2026-07-12",
+    "track": "systems"
   },
   {
     id: 'git-navigator',

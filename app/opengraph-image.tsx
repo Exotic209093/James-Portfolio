@@ -1,7 +1,10 @@
 import { ImageResponse } from 'next/og'
 import { siteConfig } from '@/lib/constants'
 
-export const alt = 'James Collard — Software Engineer'
+// Avoid the Node OG renderer's file-URL handling on Windows.
+export const runtime = 'edge'
+
+export const alt = `${siteConfig.name} — ${siteConfig.title}`
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -71,7 +74,7 @@ export default function OpenGraphImage() {
             marginTop: 40,
           }}
         >
-          AI agents · Salesforce · TypeScript · Python · Systems
+          Salesforce · Desktop apps · Web · Systems
         </div>
 
         <div
