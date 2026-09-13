@@ -4,13 +4,14 @@ export interface Contribution {
   project: string
   number: number
   title: string
-  description: string
+  description?: string
   url: string
   status: ContributionStatus
   mergedAt?: string
+  updatedAt?: string
 }
 
-// Reviewed against the upstream pull requests, not the personal forks.
+// Offline fallback only. Live entries come from the upstream GitHub API.
 export const contributionsReviewedAt = '2026-09-13'
 
 export const contributionProjects = [

@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
-import { ArrowUpRight, GitPullRequest, GitMerge } from 'lucide-react'
-import { contributionProjects, contributions, contributionsReviewedAt, contributionSearchUrl } from '@/lib/contributions'
+import { ArrowUpRight } from 'lucide-react'
+import { unstable_noStore as noStore } from 'next/cache'
+import { getContributionFeeds } from '@/lib/contribution-feed'
+import ContributionCard from '@/components/sections/ContributionCard'
+import { contributionProjects, contributionSearchUrl } from '@/lib/contributions'
 import { formatDate } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -9,14 +12,10 @@ export const metadata: Metadata = {
   alternates: { canonical: '/open-source' },
 }
 
-const statusStyles = {
-  merged: 'border-purple-400/30 bg-purple-400/10 text-purple-300',
-  open: 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300',
-  closed: 'border-red-400/30 bg-red-400/10 text-red-300',
-  draft: 'border-gray-400/30 bg-gray-400/10 text-gray-300',
-}
-
-export default function OpenSourcePage() {
+export default async function OpenSourcePage() {
+  noStore()
+  const feeds = await getContributionFeeds()
+  const contributions = feeds.flatMap((feed) => feed.items)
   const mergedCount = contributions.filter((item) => item.status === 'merged').length
 
   return (
@@ -27,7 +26,7 @@ export default function OpenSourcePage() {
           <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white mb-6">Open source.<br /><span className="gradient-text">Shared progress.</span></h1>
           <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
             I contribute fixes to tools I use: tracing the problem, making a focused change,
-            and working through upstream review. Here is a selection of my work in T3 Code
+            and working through upstream review. Follow my latest pull requests in T3 Code
             and Salesforce Inspector Reloaded.
           </p>
         </div>
@@ -35,8 +34,8 @@ export default function OpenSourcePage() {
         <dl className="grid grid-cols-3 divide-x divide-purple-900/40 rounded-2xl border border-purple-800/30 bg-black/30 py-6 mb-8">
           {[
             [String(contributionProjects.length), 'Projects'],
-            [String(contributions.length), 'Selected PRs'],
-            [String(mergedCount), 'Merged in selection'],
+            [String(contributions.length), 'PRs in this feed'],
+            [String(mergedCount), 'Merged in this feed'],
           ].map(([value, label]) => (
             <div key={label} className="px-3 sm:px-6 flex flex-col-reverse gap-2">
               <dt className="text-xs sm:text-sm text-gray-400">{label}</dt>
@@ -45,12 +44,14 @@ export default function OpenSourcePage() {
           ))}
         </dl>
         <p className="text-sm text-gray-400 mb-12">
-          Status reviewed <time dateTime={contributionsReviewedAt}>{formatDate(contributionsReviewedAt)}</time>.
-          {' '}These are selected pull requests; GitHub has the latest review and merge status.
+          Updates automatically from GitHub, with an hourly refresh as people visit.
+          Latest activity appears first; expand each project to see more pull requests.
         </p>
 
         <div className="space-y-16">
-          {contributionProjects.map((project) => (
+          {contributionProjects.map((project, index) => {
+            const feed = feeds[index]
+            return (
             <section key={project.id} id={project.id} aria-labelledby={`${project.id}-title`} className="scroll-mt-28">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5 mb-7">
                 <div className="max-w-2xl">
@@ -65,33 +66,33 @@ export default function OpenSourcePage() {
                   All my pull requests <ArrowUpRight className="w-4 h-4" />
                 </a>
               </div>
-              <div className="grid md:grid-cols-2 gap-4">
-                {contributions.filter((item) => item.project === project.id).map((item) => (
-                  <article key={item.url} className="rounded-xl border border-purple-800/30 bg-gradient-to-br from-purple-950/30 to-black/60 p-6 flex flex-col">
-                    <div className="flex items-center justify-between gap-3 mb-5">
-                      <span className="font-mono text-sm text-gray-400">#{item.number}</span>
-                      <span className={`inline-flex items-center gap-1.5 text-xs rounded-full border px-2.5 py-1 ${statusStyles[item.status]}`}>
-                        {item.status === 'merged' ? <GitMerge className="w-3.5 h-3.5" /> : <GitPullRequest className="w-3.5 h-3.5" />}
-                        {item.status === 'open' ? 'Open PR' : item.status.charAt(0).toUpperCase() + item.status.slice(1)}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-white mb-3">
-                      <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:text-purple-300">{item.title}</a>
-                    </h3>
-                    <p className="text-sm leading-relaxed text-gray-300 flex-1">{item.description}</p>
-                    <div className="mt-6 pt-4 border-t border-purple-900/30 flex flex-wrap items-center justify-between gap-3">
-                      <span className="text-xs text-gray-400">
-                        {item.mergedAt ? <>Merged <time dateTime={item.mergedAt}>{formatDate(item.mergedAt)}</time></> : 'Submitted for upstream review'}
-                      </span>
-                      <a href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.name} pull request #${item.number}`} className="inline-flex items-center gap-1 text-sm text-purple-300 hover:text-white">
-                        View PR <ArrowUpRight className="w-4 h-4" />
-                      </a>
-                    </div>
-                  </article>
-                ))}
-              </div>
+              <p className="text-sm text-gray-400 mb-5">
+                {feed.source === 'snapshot' ? 'GitHub is temporarily unavailable. Showing saved contributions from ' : 'Last synced '}
+                <time dateTime={feed.syncedAt}>
+                  {formatDate(feed.syncedAt)}{feed.source === 'github' && ` at ${new Date(feed.syncedAt).toISOString().slice(11, 16)} UTC`}
+                </time>.
+                {feed.totalCount > feed.items.length && ` Showing the ${feed.items.length} most recently updated PRs of ${feed.totalCount}; the full history is on GitHub.`}
+              </p>
+              {feed.items.length === 0 ? (
+                <p className="text-gray-400 border border-purple-900/30 rounded-xl p-6">No public pull requests found yet.</p>
+              ) : (
+                <div className="grid md:grid-cols-2 gap-4">
+                  {feed.items.slice(0, 6).map((item) => <ContributionCard key={item.url} item={item} projectName={project.name} />)}
+                </div>
+              )}
+              {feed.items.length > 6 && (
+                <details className="mt-5 group">
+                  <summary className="cursor-pointer text-sm text-purple-300 hover:text-white rounded-lg border border-purple-800/30 p-4">
+                    More pull requests from {project.name} ({feed.items.length - 6})
+                  </summary>
+                  <div className="grid md:grid-cols-2 gap-4 mt-4">
+                    {feed.items.slice(6).map((item) => <ContributionCard key={item.url} item={item} projectName={project.name} />)}
+                  </div>
+                </details>
+              )}
             </section>
-          ))}
+            )
+          })}
         </div>
       </div>
     </div>

@@ -27,9 +27,21 @@ Galacia's website is live; Vault remains in development without public installat
 
 The `/galacia` company overview reuses the verified company/product context above. The public homepage and product URLs were checked again on 13 September 2026.
 
-The `/open-source` page uses a curated snapshot in `lib/contributions.ts`. Each entry was fetched from the upstream GitHub pull-request API and its author verified as `Exotic209093`. Status is derived from `merged_at`, `draft`, and `state`; a closed PR alone is not evidence of a merge. The page shows the review date and links to current upstream activity, without requiring credentials or a runtime GitHub request.
+The original curated snapshot in `lib/contributions.ts` is now an offline fallback. Each saved entry was fetched from the upstream GitHub pull-request API and its author verified as `Exotic209093`.
 
 - T3 Code: [#7861](https://github.com/pingdotgg/t3code/pull/7861), [#7814](https://github.com/pingdotgg/t3code/pull/7814), [#7801](https://github.com/pingdotgg/t3code/pull/7801), [#7815](https://github.com/pingdotgg/t3code/pull/7815) — open at review.
 - Salesforce Inspector Reloaded: [#1172](https://github.com/tprouvot/Salesforce-Inspector-reloaded/pull/1172) — merged 2 September 2026; [#1154](https://github.com/tprouvot/Salesforce-Inspector-reloaded/pull/1154), [#1166](https://github.com/tprouvot/Salesforce-Inspector-reloaded/pull/1166), [#1163](https://github.com/tprouvot/Salesforce-Inspector-reloaded/pull/1163) — open at review.
 
-To refresh the selection, check each upstream PR and update its status and the reviewed date together. Counts refer only to selected PRs, not lifetime contributions. Summaries describe submitted work and do not imply that open PRs have shipped upstream.
+## Automatic contribution updates
+
+`lib/github-contributions.ts` searches public upstream PRs by `Exotic209093` in the two repositories configured in `contributionProjects`. It discovers new PRs and reads their current titles, status, merge dates, and update times. Status comes from `merged_at`, `draft`, and `state`; closed alone never means merged. API content is rendered as text, without importing PR bodies or HTML.
+
+`lib/contribution-feed.ts` caches each validated project response for 3,600 seconds using Next.js Data Cache. The `/open-source` page renders dynamically so it can request a refresh after the cache expires. This is request-driven revalidation, not a scheduled background job: after an idle period, a visit starts the refresh and subsequent requests receive the updated data. Open tabs do not poll automatically. No GitHub token, cron job, or recurring deployment is needed.
+
+A failed background refresh retains the last successful cache entry. If no successful cache exists, the affected project uses the checked-in snapshot and explicitly displays its original date as saved data. Fallback values are never written into the successful-response cache. Requests have an eight-second timeout; HTTP errors, incomplete results, invalid response shapes, duplicate PRs, and unexpected authors/repositories are rejected. Successful empty searches remain empty.
+
+The page includes up to 100 recently updated PRs per project, displaying six initially with an accessible native expansion control for the remainder. If a project has more than 100, it shows the actual total and links to the complete history on GitHub. Summary counts describe the feed, not lifetime totals. Sync timestamps belong to successful fetches, not page render times. Add another showcased project to `contributionProjects` when needed; PR updates within the configured projects need no manual edits.
+
+Validation: `npm test` covers discovery and title/status changes, distinct status outcomes, partial results, untrusted result scope, independent fallback, empty results, HTTP 403/429/500, and the 100-item bound. The production build and lint pass. Browser checks confirmed 31 real upstream PRs, cached sync timestamps, expansion controls, and no overflow or browser errors at 390px and 1280px in both site modes.
+
+Caching references: [Next.js unstable_cache](https://nextjs.org/docs/14/app/api-reference/functions/unstable_cache), [revalidation and error handling](https://nextjs.org/docs/14/app/building-your-application/data-fetching/fetching-caching-and-revalidating).
