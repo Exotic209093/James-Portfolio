@@ -105,3 +105,26 @@ html.basic-mode footer {
   background: #ffffff !important;
   border-color: #cccccc !important;
 }
+
+/* Keep the company and contribution pages readable in the text-first mode. */
+html.basic-mode [data-portfolio-section],
+html.basic-mode [data-portfolio-section] * {
+  color: #111111 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: #cccccc !important;
+  box-shadow: none !important;
+}
+
+html.basic-mode [data-portfolio-section] a,
+html.basic-mode [data-portfolio-section] a * {
+  color: #0000ee !important;
+}
+
+html.basic-mode #mobile-menu-toggle {
+  color: #111111;
+}
+
+html.basic-mode #mobile-navigation {
+  background: #ffffff;
+}

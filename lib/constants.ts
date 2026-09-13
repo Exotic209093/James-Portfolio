@@ -19,6 +19,8 @@ export const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Projects', href: '/projects' },
+  { name: 'Galacia', href: '/galacia' },
+  { name: 'Open Source', href: '/open-source' },
   { name: 'Certifications', href: '/certifications' },
   { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },

@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url
 
   // Note: /jobs is intentionally excluded — it's a private, auth-gated dashboard.
-  const staticRoutes = ['', '/about', '/projects', '/certifications', '/blog', '/contact'].map(
+  const staticRoutes = ['', '/about', '/projects', '/galacia', '/open-source', '/certifications', '/blog', '/contact'].map(
     (route) => ({
       url: `${base}${route}`,
       lastModified: new Date(),

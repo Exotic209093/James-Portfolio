@@ -21,6 +21,18 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMobileMenuOpen(false)
+        document.getElementById('mobile-menu-toggle')?.focus()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isMobileMenuOpen])
+
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -48,9 +60,9 @@ export default function Header() {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden xl:flex items-center space-x-5">
             {navigation.map((item, index) => {
-              const isActive = pathname === item.href
+              const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(`${item.href}/`))
               return (
                 <motion.div
                   key={item.name}
@@ -60,6 +72,7 @@ export default function Header() {
                 >
                   <Link
                     href={item.href}
+                    aria-current={isActive ? 'page' : undefined}
                     className={cn(
                       'text-sm font-medium transition-colors relative',
                       isActive
@@ -104,11 +117,14 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <motion.button
+            id="mobile-menu-toggle"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="md:hidden text-gray-300 hover:text-purple-400 transition-colors"
+            className="xl:hidden text-gray-300 hover:text-purple-400 transition-colors"
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             <motion.div
               animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
@@ -131,11 +147,12 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black/95 backdrop-blur-md border-t border-purple-900/20"
+            id="mobile-navigation"
+            className="xl:hidden max-h-[calc(100dvh-5rem)] overflow-y-auto bg-black/95 backdrop-blur-md border-t border-purple-900/20"
           >
             <div className="container mx-auto px-4 py-4 space-y-4">
               {navigation.map((item, index) => {
-                const isActive = pathname === item.href
+                const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(`${item.href}/`))
                 return (
                   <motion.div
                     key={item.name}
@@ -147,6 +164,7 @@ export default function Header() {
                     <Link
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
+                      aria-current={isActive ? 'page' : undefined}
                       className={cn(
                         'block text-base font-medium transition-colors',
                         isActive

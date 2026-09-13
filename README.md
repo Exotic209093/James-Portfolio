@@ -17,6 +17,8 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 - **Home**: Scroll-scrubbed ink hero, "what I bring together" convergence, experience preview, featured projects, contact CTA
 - **About**: Full bio, skills, project history, work/education, and recent certifications
 - **Projects**: Project listing and individual project case-study pages
+- **Galacia**: Company overview, product availability, and links to the public company website
+- **Open Source**: Selected upstream contributions to T3 Code and Salesforce Inspector Reloaded, with PR links and reviewed statuses
 - **Certifications**: Certification listing and detail pages with downloadable PDFs
 - **Blog**: Markdown-based blog listing and individual post pages
 - **Contact**: Direct email contact page (mailto)
