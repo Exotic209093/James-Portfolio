@@ -92,7 +92,7 @@ const allProjects: Project[] = [
       'Exposed synchronous and asynchronous Node.js bindings, with diagnostics that allow callers to fall back to another renderer.',
       'Added text and visual comparisons against Chromium, property tests for layout, and fixture-based PDF accessibility validation.',
     ],
-    image: '/projects/docify.svg',
+    image: '/projects/art/docify.webp',
     tech: ['Rust', 'HTML / CSS', 'Node.js', 'PDF', 'DOCX'],
     featured: true,
     date: '2026-08-23',
@@ -111,7 +111,7 @@ const allProjects: Project[] = [
       'Worked across Apex, Lightning Web Components, TypeScript services, and AWS deployment tooling.',
       'Built document workflows spanning rendering, generated-file storage, and delivery.',
     ],
-    image: '/projects/infinity-docs.svg',
+    image: '/projects/art/infinity-docs.webp',
     tech: ['Apex', 'LWC', 'TypeScript', 'AWS', 'Docker'],
     featured: true,
     date: '2026-09-16',
@@ -130,7 +130,7 @@ const allProjects: Project[] = [
       "Added an optional Three.js glacier with an SVG fallback, reduced-motion support, a pause control, and rendering that stops off-screen.",
       "Deployed the website on Railway with custom domains, HTTPS, redirects, and automated HTTP and browser regression checks."
     ],
-    "image": "/projects/galacia.svg",
+    "image": '/projects/art/galacia.webp',
     "tech": [
       "JavaScript",
       "Node.js",
@@ -187,7 +187,7 @@ const allProjects: Project[] = [
       "Combined venue photography, event content, opening hours, and a location map into a responsive visitor experience.",
       "Used reusable React components and Tailwind CSS for a consistent visual presentation."
     ],
-    "image": "/projects/the-loft-zante.svg",
+    "image": '/projects/art/the-loft-zante.webp',
     "tech": [
       "Next.js",
       "TypeScript",
@@ -232,7 +232,7 @@ const allProjects: Project[] = [
       "Added optional handlers for photo EXIF, audio tags, and PDF metadata, alongside built-in Office document property inspection.",
       "Supported GPS removal, EXIF stripping, file renaming, platform-specific timestamp edits, and on-demand checksums."
     ],
-    "image": "/projects/file-insights.svg",
+    "image": '/projects/art/file-insights.webp',
     "tech": [
       "Python",
       "Flask",
@@ -288,7 +288,7 @@ const allProjects: Project[] = [
       "Added Salesforce metadata importers and structured editing for fields, members, permissions, and table cells.",
       "Implemented client-side save/resume and PDF, PNG, and SVG export, with Vitest save-file tests and Playwright smoke tests."
     ],
-    "image": "/projects/infinite-idea.svg",
+    "image": '/projects/art/infinite-idea.webp',
     "tech": [
       "Next.js",
       "TypeScript",
@@ -342,7 +342,7 @@ const allProjects: Project[] = [
       "Separated simulation, geometry, wave data, and rendering into focused modules without a game engine.",
       "Added pause, speed controls, placement constraints, and a 20-round progression ending in a boss wave."
     ],
-    "image": "/projects/bloons-tower-defense.svg",
+    "image": '/projects/art/bloons-tower-defense.webp',
     "tech": [
       "TypeScript",
       "HTML5 Canvas",
@@ -388,7 +388,7 @@ const allProjects: Project[] = [
       "Built a persisted session index and incremental SQLite FTS5 search with role, tool, file, project, and error filters.",
       "Added Mission Control, session notifications, guided onboarding, and Windows installers with automatic updates."
     ],
-    "image": "/projects/flux-terminal.svg",
+    "image": '/projects/art/flux-terminal.webp',
     "tech": [
       "JavaScript",
       "Electron",
@@ -457,7 +457,7 @@ const allProjects: Project[] = [
       'Implemented an OData adapter for Salesforce External Objects alongside file offloading into customer-owned cloud storage.',
       'Delivered a full working stack in the hackathon timeframe: Bun/Hono middleware, SQLite index, multi-cloud storage abstraction, Apex triggers and Queueables, and a Vite/React dashboard.',
     ],
-    image: '/projects/vastify.png',
+    image: '/projects/art/vastify.webp',
     tech: ['TypeScript', 'Bun', 'Hono', 'React', 'Apex', 'Anthropic Agent SDK', 'Claude Opus 4.7', 'OData'],
     techStack: [
       { category: 'AI Agents', items: ['Anthropic Agent SDK', 'Claude Opus 4.7', 'Structured Outputs', 'Tool-Calling Loops'] },
@@ -484,7 +484,7 @@ const allProjects: Project[] = [
       "Built Apex services and Lightning Web Components for file browsing, uploads, connection setup, and migration management.",
       "Developed file-governance workflows around permissions, audit trails, retention, and record context, with release validation tracked separately from source progress."
     ],
-    "image": "/projects/galacia-vault.svg",
+    "image": '/projects/art/galacia-vault.webp',
     "tech": [
       "Apex",
       "Salesforce",
@@ -545,7 +545,7 @@ const allProjects: Project[] = [
       "Refocused cross-org work on a controlled single-object copy workflow, replacing the larger migration navigation surface.",
       "Developed saved-job and activity workflows, with a public roadmap covering write correctness, scheduling reliability, and data fidelity before 1.0."
     ],
-    "image": "/projects/wavelink.png",
+    "image": '/projects/art/wave-link.webp',
     "tech": [
       "TypeScript",
       "Preact",
@@ -607,7 +607,7 @@ const allProjects: Project[] = [
       'Uses config-driven rules and preview modes so the tool can adapt to different export structures.',
       'Includes unit tests covering rule matching and workbook or CSV processing behaviour.',
     ],
-    image: '/projects/salesforce-formatter.svg',
+    image: '/projects/art/salesforce-spreadsheet-formatter.webp',
     tech: ['Python', 'openpyxl', 'CLI Tooling', 'CSV', 'XLSX', 'Unit Tests'],
     techStack: [
       { category: 'Core Tooling', items: ['Python', 'argparse CLI', 'openpyxl', 'CSV Processing'] },
@@ -662,7 +662,7 @@ const allProjects: Project[] = [
       'Returns structured fields instead of raw text so the output can feed follow-on automation.',
       'Shows pragmatic AI integration through a clear service boundary rather than bolting prompts into UI code.',
     ],
-    image: '/projects/email-triage.svg',
+    image: '/projects/art/ai-email-triage-automation.webp',
     tech: ['n8n', 'Node.js', 'Workflow Automation', 'HTTP Services', 'LLM Integration'],
     techStack: [
       { category: 'Workflow Layer', items: ['n8n', 'IMAP Trigger', 'Workflow JSON', 'Smoke-Test Workflow'] },
@@ -686,7 +686,7 @@ const allProjects: Project[] = [
       "Added survival, crafting, mobs, and redstone components including repeaters, comparators, lamps, and doors.",
       "Added procedural PBR textures and graphics quality settings, with browser smoke checks for rendering and core gameplay."
     ],
-    "image": "/projects/exocraft.png",
+    "image": '/projects/art/exocraft.webp',
     "tech": [
       "JavaScript",
       "Three.js",
@@ -745,7 +745,7 @@ const allProjects: Project[] = [
       'Implemented a custom commit graph in a webview — colour-coded branch lanes with SVG connectors, paginated 50-at-a-time history, and per-row commit metadata.',
       'Used VS Code\'s built-in GitHub OAuth for PR creation so users never need to handle a PAT, with `owner/repo` auto-detected from the configured remote.',
     ],
-    image: '/projects/git-navigator.svg',
+    image: '/projects/art/git-navigator.webp',
     tech: ['TypeScript', 'VS Code Extension API', 'esbuild', 'Webviews', 'GitHub OAuth', 'Git'],
     techStack: [
       { category: 'Core', items: ['TypeScript', 'VS Code Extension API', 'esbuild', 'Node.js'] },
@@ -775,7 +775,7 @@ const allProjects: Project[] = [
       'Applied C++ with strict discipline around pointer safety, IRQL constraints, and kernel-space memory management.',
       'Demonstrated willingness to work at the systems layer — below the abstraction level of most application developers.',
     ],
-    image: '/projects/exoware-kernel-driver.svg',
+    image: '/projects/art/exoware-kernel-driver.webp',
     tech: ['C++', 'Windows Kernel', 'WDM', 'Systems Programming'],
     techStack: [
       { category: 'Core', items: ['C++', 'Windows Driver Model', 'Kernel-Mode Development'] },

@@ -1,22 +1,26 @@
 .showcase {
   margin: 2rem 0 3rem;
-  border: 1px solid #334155;
+  border: 1px solid #ffffff20;
   border-radius: 1.5rem;
   overflow: hidden;
-  background: #090f1c;
+  background: #0d1017;
   color: #e2e8f0;
 }
 .heading {
   padding: clamp(1.25rem, 4vw, 2rem);
   border-bottom: 1px solid #253044;
-  background: radial-gradient(ellipse at top right, #123d3c80, transparent 75%);
+  background: radial-gradient(
+    ellipse at top right,
+    color-mix(in srgb, var(--studio-accent) 15%, transparent),
+    transparent 75%
+  );
 }
 .eyebrow {
   display: block;
   font: 600 0.7rem/1.8 monospace;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #5eead4;
+  color: var(--studio-accent, #5eead4);
 }
 .eyebrow span {
   color: #94a3b8;
@@ -65,9 +69,9 @@
   min-height: 44px;
 }
 .choices button[aria-pressed='true'] {
-  background: #ccfbf1;
-  border-color: #5eead4;
-  color: #134e4a;
+  background: var(--studio-accent, #ccfbf1);
+  border-color: var(--studio-accent, #5eead4);
+  color: #111827;
 }
 .showcase button:focus-visible,
 .showcase input:focus-visible {
@@ -427,4 +431,32 @@
   .eyebrow span {
     display: block;
   }
+}
+
+.field {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}
+.field input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #64748b;
+  border-radius: 0.5rem;
+  background: #0d1017;
+  color: #fff;
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+.paper h3 {
+  overflow-wrap: anywhere;
+}
+:global(html.basic-mode) .field {
+  color: #333;
+}
+:global(html.basic-mode) .field input {
+  background: #fff;
+  color: #111;
 }

@@ -1,0 +1,324 @@
+.detail {
+  --project-accent: #c4b5fd;
+  color: #e9e8ec;
+}
+.intro {
+  max-width: 920px;
+  padding: 1.5rem 0 3rem;
+}
+.kicker {
+  color: var(--project-accent, #c4b5fd);
+  font: 500 0.68rem/1.8 monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.kicker span {
+  color: #777580;
+  margin-left: 1rem;
+}
+.intro h1 {
+  font-size: clamp(3rem, 7vw, 6rem);
+  letter-spacing: -0.065em;
+  line-height: 1.02;
+  font-weight: 500;
+  margin: 1.25rem 0 1.5rem;
+}
+.dek {
+  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+  color: #a8a6b0;
+  line-height: 1.65;
+  max-width: 770px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+  margin-top: 2rem;
+  font-size: 0.8rem;
+}
+.actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 44px;
+  color: #d4d1dc;
+}
+.actions .primaryAction {
+  padding: 0.8rem 1.1rem;
+  border: 1px solid var(--project-accent);
+  border-radius: 50px;
+  color: var(--project-accent);
+}
+.actions a:focus-visible,
+.card:focus-visible,
+.nextProject:focus-visible {
+  outline: 3px solid var(--project-accent, #c4b5fd);
+  outline-offset: 6px;
+}
+.hero {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #101017;
+  border: 1px solid #ffffff12;
+}
+.cover {
+  object-fit: cover;
+}
+.imageShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #0002, transparent 35%, #0008);
+  pointer-events: none;
+}
+.heroStatus {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  max-width: calc(100% - 2.5rem);
+  padding: 0.45rem 0.8rem;
+  border: 1px solid #ffffff25;
+  background: #080a0c90;
+  backdrop-filter: blur(12px);
+  border-radius: 40px;
+  font-size: 0.65rem;
+  color: #e5e7eb;
+}
+.hero figcaption {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.5rem;
+  color: #e1e0e7;
+  font: 0.6rem/1.6 monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.hero figcaption span {
+  opacity: 0.65;
+}
+.overview {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: clamp(2rem, 7vw, 6rem);
+  padding: 5rem 0 2rem;
+}
+.overview h2,
+.build h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  letter-spacing: -0.045em;
+  margin: 0.75rem 0 1.5rem;
+  font-weight: 500;
+}
+.overview p:not(.kicker) {
+  color: #aaa7b2;
+  font-size: 0.95rem;
+  line-height: 1.9;
+}
+.role {
+  border-left: 1px solid #ffffff18;
+  padding-left: 2rem;
+}
+.role > p:nth-child(2) {
+  margin: 1rem 0 1.5rem;
+}
+.studioAnchor {
+  scroll-margin-top: 7rem;
+}
+.build {
+  padding: 2rem 0 4rem;
+}
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+.highlights > div {
+  border-top: 1px solid #ffffff20;
+  padding-top: 1.25rem;
+}
+.highlights span {
+  font: 0.7rem monospace;
+  color: var(--project-accent);
+}
+.highlights p {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #aaa7b2;
+  margin-top: 0.75rem;
+}
+.stack {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  padding-top: 3rem;
+}
+.stack h3 {
+  font-size: 0.75rem;
+  color: #e2dfe8;
+  margin-bottom: 0.5rem;
+}
+.stack p {
+  color: #817d8a;
+  font: 0.7rem/1.9 monospace;
+}
+.nextProject {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  border-top: 1px solid #ffffff20;
+  padding: 2rem 0;
+}
+.nextProject h2 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  letter-spacing: -0.04em;
+  margin-top: 0.5rem;
+}
+.nextProject > svg {
+  color: var(--project-accent);
+  flex-shrink: 0;
+}
+.card {
+  --project-accent: #c4b5fd;
+  display: block;
+  border-bottom: 1px solid #ffffff18;
+  padding-bottom: 1.5rem;
+  min-width: 0;
+}
+.cardImage {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 0.85rem;
+  background: #101017;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cardImage .cover {
+  transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.card:hover .cover {
+  transform: scale(1.04);
+}
+.cardNumber {
+  position: absolute;
+  top: 1.1rem;
+  left: 1.2rem;
+  color: #fff;
+  text-transform: uppercase;
+  font: 0.6rem monospace;
+  letter-spacing: 0.12em;
+  text-shadow: 0 1px 8px #000;
+}
+.cardArrow {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  border: 1px solid #ffffff50;
+  background: #07070955;
+  border-radius: 50%;
+  padding: 0.6rem;
+  color: #fff;
+}
+.cardInvitation {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  right: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  font-size: 0.75rem;
+}
+.cardCopy {
+  padding: 1.4rem 0.1rem 0;
+}
+.cardCopy h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  color: #f4f2f7;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  margin: 0.45rem 0 0.6rem;
+}
+.cardDescription {
+  color: #9995a3;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  max-width: 540px;
+}
+.cardTech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.cardTech span {
+  font: 0.65rem/1.5 monospace;
+  color: #c1bdcb;
+  padding: 0.35rem 0.55rem;
+  background: #ffffff06;
+  border: 1px solid #ffffff12;
+  border-radius: 0.25rem;
+}
+:global(html.basic-mode) .detail,
+:global(html.basic-mode) .card {
+  --project-accent: #21534d !important;
+  color: #111;
+}
+:global(html.basic-mode) .detail p,
+:global(html.basic-mode) .cardCopy p,
+:global(html.basic-mode) .cardTech span {
+  color: #333;
+}
+:global(html.basic-mode) .role,
+:global(html.basic-mode) .card,
+:global(html.basic-mode) .highlights > div,
+:global(html.basic-mode) .nextProject {
+  border-color: #ccc;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cardImage .cover {
+    transition: none;
+  }
+  .card:hover .cover {
+    transform: none;
+  }
+}
+@media (max-width: 700px) {
+  .overview {
+    grid-template-columns: 1fr;
+    padding-top: 3rem;
+  }
+  .role {
+    border-left: 0;
+    border-top: 1px solid #ffffff18;
+    padding: 1.5rem 0 0;
+  }
+  .highlights,
+  .stack {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .hero {
+    aspect-ratio: 4 / 3;
+  }
+  .hero figcaption span {
+    display: none;
+  }
+  .intro {
+    padding-top: 0.5rem;
+  }
+  .kicker span {
+    display: block;
+    margin-left: 0;
+  }
+}
+
+:global(html.basic-mode) .actions a,
+:global(html.basic-mode) .stack h3 {
+  color: #21534d;
+}
+:global(html.basic-mode) .cardTech span {
+  border-color: #bbb;
+}

@@ -39,7 +39,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
   return (
     <div className="pt-20 md:pt-32 pb-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         {/* Back Button */}
         <Link
           href="/projects"

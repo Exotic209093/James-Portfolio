@@ -11,14 +11,18 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <div className="pt-20 md:pt-32 pb-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-white">My </span>
-            <span className="gradient-text">Projects</span>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+        <div className="mb-16 max-w-3xl">
+          <p className="text-xs uppercase tracking-[0.25em] text-purple-300 mb-5">
+            Selected work / an ongoing collection
+          </p>
+          <h1 className="text-5xl md:text-7xl font-medium tracking-tight text-white mb-6">
+            Ideas, made real.
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            From Salesforce data tools and desktop apps to websites and browser games — explore my work by discipline and latest project activity. Switch to the grid for a classic card view.
+          <p className="text-lg text-gray-400 leading-relaxed">
+            Document engines, useful tools, and worlds you can play in. Explore
+            the work, try an interactive example, and see what went into the
+            build.
           </p>
         </div>
 

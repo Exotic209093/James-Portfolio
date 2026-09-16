@@ -14,7 +14,7 @@ import ProjectGitGraph from '@/components/projects/ProjectGitGraph'
 type View = 'graph' | 'grid'
 
 export default function ProjectsExplorer() {
-  const [view, setView] = useState<View>('graph')
+  const [view, setView] = useState<View>('grid')
   const [activeTrack, setActiveTrack] = useState<ProjectTrack | null>(null)
 
   const sorted = useMemo(
@@ -112,7 +112,7 @@ export default function ProjectsExplorer() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2"
         >
           {visible.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />

@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { useState, type ReactNode, type CSSProperties } from 'react'
+import { getProjectArt } from '@/lib/project-art'
 import {
   ArrowRight,
   Check,
@@ -51,6 +52,7 @@ function Panel({ label, children }: { label: string; children: ReactNode }) {
 function DocumentDemo({ merge = false }: { merge?: boolean }) {
   const [format, setFormat] = useState('PDF')
   const [customer, setCustomer] = useState('Alex Morgan')
+  const [title, setTitle] = useState('A small idea.')
   return (
     <>
       <Choices
@@ -62,10 +64,20 @@ function DocumentDemo({ merge = false }: { merge?: boolean }) {
       />
       <div className={styles.split}>
         <Panel label={merge ? '01 / Salesforce record' : '01 / Source'}>
+          {!merge && (
+            <label className={styles.field}>
+              Document heading
+              <input
+                value={title}
+                maxLength={60}
+                onChange={(event) => setTitle(event.target.value)}
+              />
+            </label>
+          )}
           <pre>
             {merge
               ? `Contact.Name: ${customer}\nAccount: ${customer === 'Alex Morgan' ? 'North Studio' : 'Harbour Works'}\nDocument: Welcome letter`
-              : '<article>\n  <h1>A small idea.</h1>\n  <p>Many possibilities.</p>\n</article>\n\nh1 { color: #0f766e; }'}
+              : `<article>\n  <h1>${title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</h1>\n  <p>Many possibilities.</p>\n</article>\n\nh1 { color: #0f766e; }`}
           </pre>
           <span className={styles.tag}>
             {merge ? 'Merge fields' : 'HTML + CSS'}
@@ -77,7 +89,9 @@ function DocumentDemo({ merge = false }: { merge?: boolean }) {
           </span>
           <FileText size={30} />
           <h3>
-            {merge ? `Hello, ${customer.split(' ')[0]}.` : 'A small idea.'}
+            {merge
+              ? `Hello, ${customer.split(' ')[0]}.`
+              : title || 'Your heading'}
           </h3>
           <p>
             {merge
@@ -845,10 +859,16 @@ export default function ProjectShowcase({ projectId }: { projectId: string }) {
   const showcase = showcases[projectId]
   if (!showcase) return null
   return (
-    <section className={styles.showcase} aria-labelledby="showcase-title">
+    <section
+      className={styles.showcase}
+      style={
+        { '--studio-accent': getProjectArt(projectId).accent } as CSSProperties
+      }
+      aria-labelledby="showcase-title"
+    >
       <div className={styles.heading}>
         <span className={styles.eyebrow}>
-          Explore the idea <span>/ Illustrative demo</span>
+          02 / Interactive studio <span>/ Illustrative demo</span>
         </span>
         <h2 id="showcase-title">{showcase.title}</h2>
         <p>{showcase.prompt}</p>
