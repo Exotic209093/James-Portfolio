@@ -6,6 +6,7 @@ import { ExternalLink, Github } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import type { Project } from '@/lib/projects'
+import ProjectShowcase from './ProjectShowcase'
 
 interface ProjectDetailClientProps {
   project: Project
@@ -42,6 +43,8 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           {project.longDescription || project.description}
         </p>
       </motion.div>
+
+      <ProjectShowcase projectId={project.id} />
 
       {project.role && (
         <motion.div
