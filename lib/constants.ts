@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'James Collard',
   title: 'Solutions Engineer',
   description:
-    'I build software end to end — from Galacia, my independent software brand, and Salesforce data tools to desktop terminals and interactive web experiences. My work combines TypeScript, Python, and systems programming with a focus on useful products and thoughtful details.',
+    'I build software end to end, from Salesforce implementations and document automation to Galacia, my independent software brand, desktop tools, and interactive web experiences. My work combines TypeScript, Python, and systems programming with a focus on useful products and thoughtful details.',
   url: 'https://james-c.app',
   ogImage: '/og-image.jpg',
   location: 'London, United Kingdom',
@@ -22,7 +22,6 @@ export const navigation = [
   { name: 'Galacia', href: '/galacia' },
   { name: 'Open Source', href: '/open-source' },
   { name: 'Certifications', href: '/certifications' },
-  { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ]
 

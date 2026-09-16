@@ -18,31 +18,23 @@ const highlightedProjects = projectHistory.slice(0, 3)
 
 const workExperience = [
   {
-    title: 'Customer Team Member',
-    company: 'Co-op',
-    period: 'June 2024 to present',
+    title: 'Solutions Engineer',
+    company: 'Apex Infinity Solutions',
+    period: '2026 to present',
     points: [
-      'Built reliability in a customer-facing environment and handled fast-moving operational work.',
-      'Strengthened communication, prioritisation, and day-to-day problem solving under pressure.',
+      'Deliver client-facing Salesforce implementations from solution design through Apex and Lightning Web Component development, configuration, and release.',
+      'Build document-generation tooling and integrations connecting Salesforce to external systems, including MuleSoft and QuickBooks workflows.',
+      'Develop support automation with AWS Lambda, SQS, and language-model APIs, alongside Agentforce and Experience Cloud configuration.',
     ],
   },
   {
-    title: 'Warehouse Operative',
-    company: 'Tesco Distribution Centre',
-    period: 'June 2024 to August 2024',
+    title: 'Junior Software Developer',
+    company: 'Apex Infinity Solutions',
+    period: '2024 to 2026',
     points: [
-      'Worked accurately at pace in a process-heavy environment with strict operational targets.',
-      'Supported stock flow, order handling, and consistent execution across shift work.',
-    ],
-  },
-  {
-    title: 'Electrical Engineer Intern',
-    company: 'Uniper',
-    period: 'April 2023 to August 2023',
-    points: [
-      'Supported fault diagnosis and maintenance work on industrial electrical systems at an active power generation facility — a setting where accuracy and safety procedures were non-negotiable.',
-      'Worked directly alongside contractors and qualified engineers, building practical exposure to industrial-scale systems and the documentation and sign-off processes that govern them.',
-      'Developed the habit of working precisely under constraint — a discipline that carries directly into software debugging, incident response, and production deployments.',
+      'Owned Salesforce configuration and development across data models, record types, page layouts, and Experience Cloud access controls.',
+      'Built backend services with Bun, Express, PostgreSQL, and Redis, deployed through Docker and AWS ECS.',
+      'Implemented Salesforce integrations and GitHub Actions pipelines with automated testing and security checks.',
     ],
   },
 ]
@@ -90,17 +82,20 @@ export default function AboutPage() {
         >
           <Card>
             <div className="prose prose-invert max-w-none">
-              <h2 className="text-2xl font-semibold text-white mb-4">What I am targeting</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">What I do</h2>
               <p className="text-gray-300 mb-4 leading-relaxed">
-                I am looking for a software engineering role where I can contribute quickly — building
-                internal platforms, developer tooling, automation, and data-heavy workflows. I am self-taught,
-                and the projects in this portfolio reflect how I actually work: with real integration points,
-                tested behaviour, and a preference for maintainable code over quick demos.
+                I am a Solutions Engineer at Apex Infinity Solutions, a Salesforce and technology
+                consultancy. I deliver client-facing implementations, integrations, and document
+                automation, following a Junior Software Developer role with the same team. Alongside
+                that work, I build independent products and explore rendering, developer tools, and
+                systems programming.
               </p>
               <p className="text-gray-300 leading-relaxed">
                 I am building Galacia, my independent software brand, starting with Galacia Vault for
                 Salesforce file storage. Its public website is live, while Vault remains in development
-                and Docs, Track, and Connect are planned concepts. My other work includes WaveLink,
+                and Docs, Track, and Connect are planned concepts. I also build Docify, a native Rust
+                document renderer, and work on Infinity Docs, a Salesforce document-generation platform.
+                My other work includes WaveLink,
                 a Salesforce data workspace; Flux Terminal, an Electron
                 app for exploring AI coding sessions; and File Insights, a Python tool for editing local
                 file metadata. I also build web experiences such as The Loft Zante and Infinite Idea,

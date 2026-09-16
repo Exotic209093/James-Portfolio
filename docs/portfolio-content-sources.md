@@ -45,3 +45,23 @@ The page includes up to 100 recently updated PRs per project, displaying six ini
 Validation: `npm test` covers discovery and title/status changes, distinct status outcomes, partial results, untrusted result scope, independent fallback, empty results, HTTP 403/429/500, and the 100-item bound. The production build and lint pass. Browser checks confirmed 31 real upstream PRs, cached sync timestamps, expansion controls, and no overflow or browser errors at 390px and 1280px in both site modes.
 
 Caching references: [Next.js unstable_cache](https://nextjs.org/docs/14/app/api-reference/functions/unstable_cache), [revalidation and error handling](https://nextjs.org/docs/14/app/building-your-application/data-fetching/fetching-caching-and-revalidating).
+
+
+## Content review: 16 September 2026
+
+Reviewed the authenticated GitHub account inventory, including private repositories, then compared the portfolio with the current profile README, project READMEs, recent commits, the saved master CV, and the existing public resume PDF.
+
+- Work history: the private master CV and public resume agree on Apex Infinity Solutions, Junior Software Developer (2024-2026), followed by Solutions Engineer (2026-present). The About page now uses that history and focuses on professional delivery. The old retail history was removed from this selected professional experience section rather than assigning an unverified end date. The PDF already contains these roles and was not regenerated.
+- Location: retained London from the current public GitHub profile. The older CV says Chatham, Kent; no claim about a move date is made.
+- Docify: reviewed both private renderer repositories, including the newer internal README. Added a case study covering the Rust engine, Node bindings, formats, diagnostics, and regression testing. Kept DOCX explicitly pre-production and production PDF/PNG use limited to selected templates with fallback. No universal CSS compatibility, conformance certification, or speed guarantee is claimed.
+- Infinity Docs: reviewed the private platform README and the professional role recorded in the master CV. Added a high-level professional case study without client names, infrastructure identifiers, internal URLs, or private source links. This is distinct from the planned Galacia Docs product.
+- ExoCraft: reviewed the default branch README and 14 September commits for PBR textures and the startup/rendering fix. Updated the activity date and rendering/testing description.
+- Git Navigator: reviewed the current private README. Added development-source capabilities for stashes, conflicts, blame, file history, and multiple repositories. Removed the rating claim and private source link; retained the public Marketplace installation link. Development source is not represented as a verified Marketplace release.
+- Vastify: retained the hackathon context and documented architecture, removing unqualified cost savings, fixed setup timing, and universal compatibility claims. README demo claims were not treated as measured customer outcomes.
+- Removed private or unavailable GitHub destinations from project entries. The authenticated account cannot resolve the older spreadsheet-formatter repository URL.
+- Hid Blog from header/footer navigation and the static sitemap while there are no posts. Existing routes remain available.
+- New SVG project covers are illustrations, not product screenshots.
+
+Public references: [profile](https://github.com/Exotic209093), [ExoCraft history](https://github.com/Exotic209093/ExoCraft/commits/master/), [Vastify](https://github.com/Exotic209093/Vastify), [Git Navigator Marketplace](https://marketplace.visualstudio.com/items?itemName=Exotic209093.git-navigator-exotic209093). Private source material was read for verification, not copied into this repository.
+
+Validation: lint, TypeScript checking, and the production build pass (115 generated pages). Local production HTTP checks pass for the homepage, About, project list, five reviewed case studies, both new SVG covers, and the sitemap. Checks confirm the corrected employment, DOCX status, removed claims and private links, and hidden Blog navigation. Browser visual review could not run because the browser runtime reported no available connections.

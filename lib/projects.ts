@@ -80,6 +80,44 @@ export interface Project {
 // Dates reflect the latest reviewed project activity, not original launch dates.
 const allProjects: Project[] = [
   {
+    id: 'docify',
+    title: 'Docify',
+    description: 'A native Rust document renderer for HTML and CSS, with PDF, PNG, SVG, and editable DOCX output, plus Node.js bindings.',
+    longDescription: 'Docify is a purpose-built document renderer written in Rust. It implements a focused subset of HTML and CSS for business documents, including text shaping, tables, pagination, and running headers and footers. A shared rendering pipeline supports PDF, PNG, and SVG, with a separate reflowable DOCX output from the same source. It includes Node.js bindings and diagnostics for unsupported styling. PDF and PNG are used for selected production templates with a Chromium fallback; DOCX remains pre-production. The source is private.',
+    category: 'Systems Programming / Document Rendering',
+    status: 'Private source / DOCX pre-production',
+    role: 'Built the Rust rendering pipeline, output backends, Node.js integration, and regression checks for document text and layout.',
+    highlights: [
+      'Implemented document layout, font shaping, pagination, and multiple output formats in a modular Rust workspace.',
+      'Exposed synchronous and asynchronous Node.js bindings, with diagnostics that allow callers to fall back to another renderer.',
+      'Added text and visual comparisons against Chromium, property tests for layout, and fixture-based PDF accessibility validation.',
+    ],
+    image: '/projects/docify.svg',
+    tech: ['Rust', 'HTML / CSS', 'Node.js', 'PDF', 'DOCX'],
+    featured: true,
+    date: '2026-08-23',
+    track: 'systems',
+  },
+  {
+    id: 'infinity-docs',
+    title: 'Infinity Docs',
+    description: 'A Salesforce document-generation platform connecting reusable templates and record data to cloud rendering, document storage, and delivery.',
+    longDescription: 'Infinity Docs brings template authoring and document generation into Salesforce. Administrators define templates with merge fields, then start generation from records, Apex, or Flow. A cloud service handles rendering and returns generated documents for storage and delivery. My work spans the Salesforce interface, backend services, document templates, and deployment tooling. This platform is part of my professional work and its source is private.',
+    category: 'Salesforce / Document Automation',
+    status: 'Professional work / Private source',
+    role: 'Developed Salesforce document-generation workflows, template tooling, backend integration, and cloud delivery as part of my consultancy work.',
+    highlights: [
+      'Connected template authoring and Salesforce merge data to generation workflows initiated from Apex and Flow.',
+      'Worked across Apex, Lightning Web Components, TypeScript services, and AWS deployment tooling.',
+      'Built document workflows spanning rendering, generated-file storage, and delivery.',
+    ],
+    image: '/projects/infinity-docs.svg',
+    tech: ['Apex', 'LWC', 'TypeScript', 'AWS', 'Docker'],
+    featured: true,
+    date: '2026-09-16',
+    track: 'salesforce',
+  },
+  {
     "id": "galacia",
     "title": "Galacia",
     "description": "My independent software brand and public product website, starting with Galacia Vault for Salesforce file storage, with an interactive product explorer and a Three.js glacier.",
@@ -408,15 +446,15 @@ const allProjects: Project[] = [
     id: 'vastify',
     title: 'Vastify',
     description:
-      'Hackathon-built Salesforce storage-offload platform that routes files into customer-owned cloud buckets while staying transparent to dependent apps — driven by three Claude Opus 4.7 agents.',
+      'A hackathon prototype for Salesforce storage offloading and backup, with customer-owned cloud storage, an OData adapter, and AI-assisted setup and routing.',
     longDescription:
-      'Vastify is a transparent storage and backup platform for Salesforce, built during the Cerebral Valley × Anthropic 4.7 Hackathon. It reduces Salesforce data storage costs by approximately 90% by proxying the OData endpoint and offloading files into customer-owned object storage (S3, GCS, Azure Blob, MinIO, or Cloudflare R2) — without breaking any Salesforce app that depends on the original data. The submission centres on three Claude Opus 4.7 agents built with the Anthropic Agent SDK: a Setup Agent that provisions the system in 42 seconds across six autonomous tool calls, a Diff Explainer that produces structured per-object verdicts on backup change-sets, and a Rule Generator that converts plain-English routing intent into validated JSON rules.',
+      'Vastify is a Salesforce storage and backup prototype built during a hackathon. It explores lower-cost storage by offloading files into customer-owned cloud buckets and exposing archived records through an OData adapter. Three agents support setup, backup change explanations, and routing-rule generation using structured outputs and typed tools. The project combines Bun/Hono middleware, a SQLite index, Apex integration, and a React dashboard; savings and setup timings depend on the deployment and are not presented as measured customer outcomes.',
     category: 'Hackathon · Salesforce + AI Agents',
     status: 'Cerebral Valley × Anthropic 4.7 Hackathon submission',
     role: 'Designed and built the full stack solo for the hackathon: agent orchestration with the Anthropic Agent SDK, the Bun/Hono middleware, the Salesforce-side Apex integration, and the React dashboard.',
     highlights: [
       'Built three Claude Opus 4.7 agents with the Anthropic Agent SDK — Setup, Diff Explainer, and Rule Generator — demonstrating structured outputs and self-recovering agent loops.',
-      'Implemented a transparent OData proxy so Salesforce apps continue to function identically even after files are offloaded into a customer-owned cloud bucket.',
+      'Implemented an OData adapter for Salesforce External Objects alongside file offloading into customer-owned cloud storage.',
       'Delivered a full working stack in the hackathon timeframe: Bun/Hono middleware, SQLite index, multi-cloud storage abstraction, Apex triggers and Queueables, and a Vite/React dashboard.',
     ],
     image: '/projects/vastify.png',
@@ -577,7 +615,6 @@ const allProjects: Project[] = [
       { category: 'Output', items: ['Formatted Workbooks', 'Formatted CSV Files', 'Issues Reports', 'Preview Mode'] },
       { category: 'Quality', items: ['unittest', 'Temporary File Tests', 'Config-Driven Behaviour'] },
     ],
-    github: 'https://github.com/Exotic209093/Salesforce-Data-Formator',
     featured: true,
     date: '2026-03-24',
     track: 'salesforce',
@@ -605,7 +642,6 @@ const allProjects: Project[] = [
       { category: 'Architecture', items: ['App Router', 'Role-Based Access', 'Feature-Oriented Structure', 'Deployment Docs'] },
       { category: 'Developer Experience', items: ['ESLint', 'Type Safety', 'Environment Configuration', 'Admin Bootstrap Script'] },
     ],
-    github: 'https://github.com/Exotic209093/Apex-HQ',
     featured: false,
     hidden: true,
     date: '2025-12-31',
@@ -640,15 +676,15 @@ const allProjects: Project[] = [
   {
     "id": "exocraft",
     "title": "ExoCraft",
-    "description": "A Three.js browser voxel sandbox with procedural biomes, flood-fill lighting, survival, crafting, redstone circuits, mobs, and post-processing effects.",
-    "longDescription": "ExoCraft is a JavaScript and Three.js sandbox with seeded terrain, five biomes, connected caves, and streamed chunks with memory eviction. A flood-fill lighting system combines skylight and blocklight with baked ambient occlusion. Survival, crafting, furnaces, inventories, mobs, and persistent redstone circuits share a modular simulation. The rendering pipeline adds tone mapping, bloom, and FXAA, while deterministic debugging hooks expose game state and simulation stepping for automated checks.",
+    "description": "A Three.js browser voxel sandbox with procedural biomes, flood-fill lighting, survival, crafting, redstone circuits, mobs, physically based materials, and post-processing effects.",
+    "longDescription": "ExoCraft is a JavaScript and Three.js sandbox with seeded terrain, five biomes, connected caves, and streamed chunks with memory eviction. A flood-fill lighting system combines skylight and blocklight with baked ambient occlusion. Survival, crafting, furnaces, inventories, mobs, and persistent redstone circuits share a modular simulation. The rendering pipeline uses physically based materials with original procedural albedo, normal, and roughness textures, plus tone mapping, bloom, and FXAA. Browser smoke checks cover startup, rendering, movement, menus, fluids, and save/load, with deterministic hooks for simulation checks.",
     "category": "Interactive Frontend · Browser Game",
     "status": "Playable browser sandbox",
     "role": "Built the modular voxel world, lighting and rendering pipeline, survival systems, persistent circuits, and browser controls.",
     "highlights": [
       "Implemented seeded biomes, caves, chunk streaming, ambient occlusion, and 0–15 skylight and blocklight propagation.",
       "Added survival, crafting, mobs, and redstone components including repeaters, comparators, lamps, and doors.",
-      "Combined bloom and FXAA post-processing with persistent settings, saves, and deterministic simulation hooks."
+      "Added procedural PBR textures and graphics quality settings, with browser smoke checks for rendering and core gameplay."
     ],
     "image": "/projects/exocraft.png",
     "tech": [
@@ -666,6 +702,7 @@ const allProjects: Project[] = [
           "Procedural Terrain",
           "Chunk Streaming",
           "Flood-Fill Lighting",
+          "PBR Materials / Procedural Textures",
           "Bloom / FXAA"
         ]
       },
@@ -690,21 +727,21 @@ const allProjects: Project[] = [
     "github": "https://github.com/Exotic209093/ExoCraft",
     "live": "https://exo-craft.vercel.app",
     "featured": false,
-    "date": "2026-07-12",
+    "date": "2026-09-14",
     "track": "systems"
   },
   {
     id: 'git-navigator',
     title: 'Git Navigator',
     description:
-      'VS Code sidebar extension that handles everyday git and GitHub workflows — staging, commits, branches, a visual commit graph, and PR creation — without leaving the editor or touching the terminal.',
+      'VS Code sidebar extension that handles everyday git and GitHub workflows — staging, commits, stashes, conflict resolution, blame, a visual commit graph, and pull requests — without leaving the editor or touching the terminal.',
     longDescription:
-      'Git Navigator is a VS Code extension published on the Visual Studio Marketplace as "Git Navigator Pro". It surfaces day-to-day git and GitHub work in a single, opinionated sidebar panel: a staged/unstaged Changes view with per-file and bulk actions, an inline commit input with Ctrl+Enter, a one-click pull-then-push Sync, a branch switcher backed by VS Code\'s QuickPick, and a webview-rendered commit graph with colour-coded lanes, paginated history, and rich metadata per row. Pull request creation runs through VS Code\'s built-in GitHub OAuth, so users never need to manage a personal access token. File-system watchers on `.git/index` and `.git/HEAD` keep the panel in sync when you also work from the terminal, and a status-bar branch indicator stays visible at all times.',
+      'Git Navigator is a VS Code extension published on the Visual Studio Marketplace as "Git Navigator Pro". It surfaces day-to-day git and GitHub work in a single, opinionated sidebar panel: a staged/unstaged Changes view with per-file and bulk actions, an inline commit input with Ctrl+Enter, a one-click pull-then-push Sync, a branch switcher backed by VS Code\'s QuickPick, and a webview-rendered commit graph with colour-coded lanes, paginated history, and rich metadata per row. Pull request creation runs through VS Code\'s built-in GitHub OAuth, so users never need to manage a personal access token. The current source also includes stash management, guided conflict resolution, line blame, file history, branch comparison, and a multi-repository picker. These describe the development source; the Marketplace listing is the public installation route.',
     category: 'Developer Tooling · VS Code Extension',
     status: 'Published on Visual Studio Marketplace',
     role: 'Built and published a VS Code extension that consolidates day-to-day git work into a single sidebar panel, including a custom webview-rendered commit graph and OAuth-based PR creation.',
     highlights: [
-      'Published on the Visual Studio Marketplace as "Git Navigator Pro" with a 5-star rating; built in TypeScript and bundled with esbuild.',
+      'Published on the Visual Studio Marketplace as "Git Navigator Pro", built in TypeScript and bundled with esbuild.',
       'Implemented a custom commit graph in a webview — colour-coded branch lanes with SVG connectors, paginated 50-at-a-time history, and per-row commit metadata.',
       'Used VS Code\'s built-in GitHub OAuth for PR creation so users never need to handle a PAT, with `owner/repo` auto-detected from the configured remote.',
     ],
@@ -718,10 +755,9 @@ const allProjects: Project[] = [
       { category: 'GitHub Integration', items: ['VS Code GitHub OAuth', 'Pull Request Creation', 'Auto-detected owner/repo'] },
       { category: 'Reactivity', items: ['.git/index Watcher', '.git/HEAD Watcher', 'Status Bar Branch Indicator'] },
     ],
-    github: 'https://github.com/Exotic209093/Git-Navigator',
     live: 'https://marketplace.visualstudio.com/items?itemName=Exotic209093.git-navigator-exotic209093',
     featured: true,
-    date: '2026-02-25',
+    date: '2026-07-12',
     track: 'tooling',
   },
   {
@@ -745,7 +781,6 @@ const allProjects: Project[] = [
       { category: 'Core', items: ['C++', 'Windows Driver Model', 'Kernel-Mode Development'] },
       { category: 'Systems', items: ['Memory Management', 'Pointer Safety', 'IRQL Handling', 'I/O Control'] },
     ],
-    github: 'https://github.com/Exotic209093/ExoWare-Kernal-Driver',
     featured: false,
     date: '2026-03-12',
     track: 'systems',

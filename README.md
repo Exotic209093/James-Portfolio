@@ -20,7 +20,7 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 - **Galacia**: Company overview, product availability, and links to the public company website
 - **Open Source**: Automatically updated upstream PRs for T3 Code and Salesforce Inspector Reloaded, with statuses, sync timestamps, and saved-data fallback
 - **Certifications**: Certification listing and detail pages with downloadable PDFs
-- **Blog**: Markdown-based blog listing and individual post pages
+- **Blog**: Markdown-based routes retained; hidden from navigation and the sitemap until posts are available
 - **Contact**: Direct email contact page (mailto)
 
 ## 🛠️ Tech Stack

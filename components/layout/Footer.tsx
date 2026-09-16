@@ -54,7 +54,6 @@ export default function Footer() {
                 { href: '/projects', label: 'Projects' },
                 { href: '/galacia', label: 'Galacia' },
                 { href: '/open-source', label: 'Open Source' },
-                { href: '/blog', label: 'Blog' },
                 { href: '/contact', label: 'Contact' },
               ].map((link, index) => (
                 <motion.li
