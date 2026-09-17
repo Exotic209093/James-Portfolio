@@ -23,7 +23,7 @@ export default function ContactPage() {
             <span className="gradient-text">Touch</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            The best way to reach me is directly by email.
+            Have a freelance project, role, or idea in mind? The best way to reach me is directly by email.
           </p>
         </motion.div>
 
@@ -89,7 +89,8 @@ export default function ContactPage() {
               <div className="flex flex-col items-center justify-center py-12 text-center gap-6">
                 <h2 className="text-2xl font-semibold text-white">Send me an email</h2>
                 <p className="text-gray-300 max-w-md leading-relaxed">
-                  I&apos;m currently open to new opportunities. Whether you have a role in mind or just want to connect, I&apos;m happy to hear from you.
+                  I&apos;m currently open to freelance projects and new opportunities. Share what you&apos;re
+                  looking to build, the problem you want to solve, and any timescale you have in mind.
                 </p>
                 <p className="text-purple-400 text-lg">{emailAddress}</p>
                 <ButtonLink href={siteConfig.links.email} variant="primary" size="lg">

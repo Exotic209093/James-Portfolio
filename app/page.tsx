@@ -2,8 +2,8 @@ import Hero from '@/components/sections/Hero'
 import Expertise from '@/components/sections/Expertise'
 import ProfessionalExperiencePreview from '@/components/sections/ProfessionalExperiencePreview'
 import FeaturedProjects from '@/components/sections/FeaturedProjects'
-import ContactCTA from '@/components/sections/ContactCTA'
 import CompanyAndCommunity from '@/components/sections/CompanyAndCommunity'
+import Freelance from '@/components/sections/Freelance'
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       <CompanyAndCommunity />
       <ProfessionalExperiencePreview />
       <FeaturedProjects />
-      <ContactCTA />
+      <Freelance />
     </>
   )
 }

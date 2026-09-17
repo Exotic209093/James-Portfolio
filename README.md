@@ -14,7 +14,7 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 
 ## 📄 Pages
 
-- **Home**: Scroll-scrubbed ink hero, "what I bring together" convergence, experience preview, featured projects, contact CTA
+- **Home**: Scroll-scrubbed ink hero, "what I bring together" convergence, experience preview, featured projects, and freelance services
 - **About**: Full bio, skills, project history, work/education, and recent certifications
 - **Projects**: Project listing and case studies with custom interactive showcases for all 16 public projects. Each showcase uses illustrative local data; live product links remain separate.
 - **Galacia**: Company overview, product availability, and links to the public company website
