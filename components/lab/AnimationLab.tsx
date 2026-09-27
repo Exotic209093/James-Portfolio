@@ -44,7 +44,7 @@ export default function AnimationLab() {
         <AuroraBackground />
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
           <p className="text-xs tracking-[0.3em] text-purple-300 uppercase mb-6">
-            Animation Lab — Private
+            Animation Lab — Experimental
           </p>
           <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold leading-[0.95] mb-6">
             <LetterReveal text="Move things." />

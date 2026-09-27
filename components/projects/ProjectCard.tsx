@@ -10,9 +10,11 @@ import styles from './ProjectEditorial.module.css'
 export default function ProjectCard({
   project,
   index = 0,
+  evidence,
 }: {
   project: Project
   index?: number
+  evidence?: { image: string; alt: string }
 }) {
   const art = getProjectArt(project.id)
   return (
@@ -23,8 +25,8 @@ export default function ProjectCard({
     >
       <div className={styles.cardImage}>
         <Image
-          src={project.image}
-          alt={`${project.title} concept artwork`}
+          src={evidence?.image || project.image}
+          alt={evidence?.alt || `${project.title} concept artwork`}
           fill
           sizes="(max-width: 767px) 100vw, 50vw"
           className={styles.cover}

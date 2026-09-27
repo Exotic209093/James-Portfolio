@@ -187,8 +187,8 @@ export default function AboutPage() {
                     <h3 className="text-xl font-semibold text-white mb-2"><Link href={`/projects/${entry.id}`} className="hover:text-purple-300">{entry.title}</Link></h3>
                     <p className="text-gray-300 leading-relaxed">{entry.description}</p>
                   </div>
-                  <span className="text-sm uppercase tracking-[0.2em] text-purple-400 whitespace-nowrap">
-                    {formatDate(entry.date)}
+                  <span className="text-sm uppercase tracking-[0.2em] text-purple-400 md:min-w-40">
+                    Last reviewed {formatDate(entry.date)}
                   </span>
                 </div>
                 <p className="text-sm text-gray-400 leading-relaxed">{entry.role}</p>

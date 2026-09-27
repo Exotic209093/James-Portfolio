@@ -5,6 +5,7 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import PageBackground from '@/components/layout/PageBackground'
 import ModeProvider from '@/components/ModeProvider'
+import PortfolioAnalytics from '@/components/PortfolioAnalytics'
 import { siteConfig } from '@/lib/constants'
 
 const inter = Inter({
@@ -124,6 +125,7 @@ export default function RootLayout({
             <Header />
             <main id="main-content" tabIndex={-1} className="flex-1">{children}</main>
             <Footer />
+            <PortfolioAnalytics />
           </div>
         </ModeProvider>
       </body>
