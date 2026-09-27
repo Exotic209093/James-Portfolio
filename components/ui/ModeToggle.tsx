@@ -9,7 +9,7 @@ export default function ModeToggle() {
   return (
     <button
       onClick={() => setMode(next)}
-      className="text-xs tracking-widest uppercase text-gray-500 hover:text-purple-400 transition-colors"
+      className="text-xs tracking-widest uppercase text-gray-400 hover:text-purple-400 transition-colors"
     >
       Switch to {next} mode
     </button>

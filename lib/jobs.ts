@@ -1,3 +1,5 @@
+import 'server-only'
+
 // Reusable data layer for the job-search dashboard.
 //
 // Each job-routine run produces a `JobRun`: the searches that were run, how many

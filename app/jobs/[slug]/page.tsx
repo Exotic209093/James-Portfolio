@@ -15,7 +15,7 @@ import {
 import Card from '@/components/ui/Card'
 import { ButtonLink } from '@/components/ui/Button'
 import ApplicantProfileCard from '@/components/jobs/ApplicantProfileCard'
-import { getApplications, getApplicationById, getApplicantProfile, getOutstandingInputs } from '@/lib/jobs'
+import { getApplicationById, getApplicantProfile, getOutstandingInputs } from '@/lib/jobs'
 import { formatDate } from '@/lib/utils'
 
 const needsInputLabels: Record<string, string> = {
@@ -36,14 +36,8 @@ function statusLabel(status: string): string {
   return status.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
-export async function generateStaticParams() {
-  return getApplications().map((application) => ({
-    slug: application.id,
-  }))
-}
-
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const application = getApplicationById(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const application = getApplicationById((await params).slug)
   if (!application) {
     return { title: 'Application not found' }
   }
@@ -54,8 +48,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   }
 }
 
-export default function JobDetailPage({ params }: { params: { slug: string } }) {
-  const application = getApplicationById(params.slug)
+export default async function JobDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const application = getApplicationById((await params).slug)
 
   if (!application) {
     notFound()

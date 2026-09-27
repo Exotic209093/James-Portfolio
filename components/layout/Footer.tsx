@@ -109,7 +109,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-8 border-t border-purple-900/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-center">
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-400 text-sm">
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
           <ModeToggle />

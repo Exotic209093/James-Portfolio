@@ -26,7 +26,6 @@ export default function VideoHero({
     <div className="relative h-[80vh] w-full overflow-hidden rounded-2xl border border-purple-900/40">
       {/* Video layer */}
       {src ? (
-        // eslint-disable-next-line jsx-a11y/media-has-caption
         <video
           src={src}
           poster={poster}

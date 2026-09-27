@@ -211,6 +211,15 @@
   letter-spacing: 0.12em;
   text-shadow: 0 1px 8px #000;
 }
+:global(html.basic-mode) .cardNumber,
+:global(html.basic-mode) .cardArrow,
+:global(html.basic-mode) .cardInvitation,
+:global(html.basic-mode) .heroStatus,
+:global(html.basic-mode) .hero figcaption {
+  background-color: #fff !important;
+  padding: 0.4rem 0.6rem;
+  text-shadow: none;
+}
 .cardArrow {
   position: absolute;
   right: 1rem;

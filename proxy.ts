@@ -18,6 +18,7 @@ function unauthorized(): NextResponse {
     status: 401,
     headers: {
       'WWW-Authenticate': 'Basic realm="Job Dashboard", charset="UTF-8"',
+      'Cache-Control': 'private, no-store',
     },
   })
 }
@@ -32,7 +33,7 @@ function safeEqual(a: string, b: string): boolean {
   return mismatch === 0
 }
 
-export function middleware(request: NextRequest): NextResponse {
+export function proxy(request: NextRequest): NextResponse {
   const expectedPassword = process.env.JOBS_DASHBOARD_PASSWORD
   if (!expectedPassword) {
     return unauthorized()
@@ -47,7 +48,7 @@ export function middleware(request: NextRequest): NextResponse {
       const user = decoded.slice(0, separator)
       const password = decoded.slice(separator + 1)
       if (safeEqual(user, expectedUser) && safeEqual(password, expectedPassword)) {
-        return NextResponse.next()
+        return NextResponse.next({ headers: { 'Cache-Control': 'private, no-store' } })
       }
     } catch {
       // Malformed header — fall through to the auth challenge.

@@ -7,7 +7,7 @@ const nextConfig = {
     ]
   },
   images: {
-    domains: [],
+    remotePatterns: [],
     formats: ['image/avif', 'image/webp'],
   },
 }

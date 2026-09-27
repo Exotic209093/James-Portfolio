@@ -1,6 +1,6 @@
 # Portfolio Website
 
-A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. Features a black and deep purple theme with smooth animations and excellent user experience.
+A modern, clean portfolio website built with Next.js 16, TypeScript, and Tailwind CSS. Features a black and deep purple theme with smooth animations and a readable Basic mode.
 
 ## 🚀 Features
 
@@ -25,7 +25,7 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 
 ## 🛠️ Tech Stack
 
-- **Next.js 14** (App Router)
+- **Next.js 16** (App Router) and **React 19**
 - **TypeScript**
 - **Tailwind CSS**
 - **Framer Motion**
@@ -34,6 +34,10 @@ A modern, clean portfolio website built with Next.js 14, TypeScript, and Tailwin
 - **Lucide React** (Icons)
 
 ## 📦 Installation
+
+Use Node.js 24.x (validated with Node.js 24.13.1). Production and
+development builds explicitly retain Webpack. ESLint runs separately from the
+Next.js build.
 
 1. Install dependencies:
 ```bash
@@ -46,6 +50,18 @@ npm run dev
 ```
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+Run `npm test`, `npm run lint`, and `npm run build` before publishing.
+After building, `npm run test:production` starts temporary loopback servers to
+verify public routes, downloads and the private `/jobs` authentication boundary
+with synthetic credentials. `proxy.ts` keeps that dashboard locked when
+`JOBS_DASHBOARD_PASSWORD` is absent. Private job data is marked server-only and
+rendered per authenticated request with private/no-store responses; job pages
+are not prerendered. The production check also verifies that distinctive private
+values are absent from public static assets. Do not place deployment credentials in Git.
+
+The [27 September 2026 review](docs/website-readiness-2026-09-27.md) records the
+framework migration, browser checks and remaining validation limits.
 
 ## 🔧 Configuration
 

@@ -38,16 +38,16 @@ export default function ContactPage() {
               <Card hover>
                 <div className="flex items-start space-x-4">
                   <motion.div
-                    className="p-3 bg-purple-900/30 rounded-lg"
+                    className="shrink-0 p-3 bg-purple-900/30 rounded-lg"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                   >
                     <Mail className="h-5 w-5 text-purple-400" />
                   </motion.div>
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="text-white font-semibold mb-1">Email</h3>
                     <a
                       href={siteConfig.links.email}
-                      className="text-gray-400 hover:text-purple-400 transition-colors"
+                      className="break-all text-gray-400 hover:text-purple-400 transition-colors"
                     >
                       {emailAddress}
                     </a>
@@ -92,7 +92,7 @@ export default function ContactPage() {
                   I&apos;m currently open to freelance projects and new opportunities. Share what you&apos;re
                   looking to build, the problem you want to solve, and any timescale you have in mind.
                 </p>
-                <p className="text-purple-400 text-lg">{emailAddress}</p>
+                <p className="max-w-full break-all text-purple-400 text-lg">{emailAddress}</p>
                 <ButtonLink href={siteConfig.links.email} variant="primary" size="lg">
                   <Mail className="mr-2 h-5 w-5" />
                   Send me an email

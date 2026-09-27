@@ -362,6 +362,8 @@ function main() {
 // application packages. Re-run the script to refresh; see the script header
 // for how to materialise run folders from unmerged branches.
 
+import 'server-only'
+
 import type { JobRun } from './jobs'
 
 export const importedJobRuns: JobRun[] = `

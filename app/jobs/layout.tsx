@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 
-// The job dashboard is private (gated by middleware Basic Auth). Keep it out of
-// search indexes as well, so the gated page is never surfaced or cached publicly.
+// Private job responses must be rendered per request behind proxy Basic Auth,
+// never emitted as prerendered HTML or RSC assets. Robots metadata separately
+// keeps authenticated pages out of search indexes; it is not an access control.
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }

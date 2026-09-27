@@ -13,8 +13,8 @@ export async function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }: { params: { id: string } }): Metadata {
-  const certification = getCertificationById(params.id)
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const certification = getCertificationById((await params).id)
   if (!certification) {
     return { title: 'Certification not found' }
   }
@@ -27,8 +27,8 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
   }
 }
 
-export default function CertificationDetailPage({ params }: { params: { id: string } }) {
-  const certification = getCertificationById(params.id)
+export default async function CertificationDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const certification = getCertificationById((await params).id)
 
   if (!certification) {
     notFound()
