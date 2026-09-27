@@ -1,8 +1,8 @@
 import { ImageResponse } from 'next/og'
 import { siteConfig } from '@/lib/constants'
 
-// Avoid the Node OG renderer's file-URL handling on Windows.
-export const runtime = 'edge'
+// Render at build time with Node; the OG renderer exceeds the Hobby Edge limit.
+export const runtime = 'nodejs'
 
 export const alt = `${siteConfig.name} — ${siteConfig.title}`
 export const size = { width: 1200, height: 630 }

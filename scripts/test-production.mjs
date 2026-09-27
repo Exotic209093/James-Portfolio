@@ -13,6 +13,10 @@ const fixturePassword = 'synthetic-local-password'
 const authorization = `Basic ${Buffer.from(`${fixtureUser}:${fixturePassword}`).toString('base64')}`
 const privateMarkers = await readPrivateJobMarkers()
 const buildId = (await readFile('.next/BUILD_ID', 'utf8')).trim()
+const prerenderManifest = JSON.parse(await readFile('.next/prerender-manifest.json', 'utf8'))
+assert.ok(prerenderManifest.routes['/opengraph-image'], 'Social image is generated at build time')
+const edgeManifest = JSON.parse(await readFile('.next/server/middleware-manifest.json', 'utf8'))
+assert.ok(!Object.keys(edgeManifest.functions).some((route) => route.includes('opengraph-image')), 'Social image must not produce an oversized Edge function')
 
 async function withServer(password, check) {
   const reservation = createServer()
@@ -100,6 +104,10 @@ await withServer(fixturePassword, async (request) => {
   const socialImage = await request('/opengraph-image')
   assert.equal(socialImage.status, 200)
   assert.match(socialImage.headers.get('content-type'), /image\/png/)
-  assert.ok((await socialImage.arrayBuffer()).byteLength > 1000)
+  const socialImageBytes = Buffer.from(await socialImage.arrayBuffer())
+  assert.ok(socialImageBytes.byteLength > 1000)
+  assert.equal(socialImageBytes.subarray(0, 8).toString('hex'), '89504e470d0a1a0a')
+  assert.equal(socialImageBytes.readUInt32BE(16), 1200)
+  assert.equal(socialImageBytes.readUInt32BE(20), 630)
   console.log('PASS: configured authentication, public/dynamic routes and PDF download')
 })

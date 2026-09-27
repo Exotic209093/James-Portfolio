@@ -45,9 +45,16 @@ The migration follows the official [Next.js 16 upgrade guide](https://nextjs.org
 and [support policy](https://nextjs.org/support-policy). Next 14 is unsupported;
 Next 16 is the Active LTS line. The project selects Node.js 24.x, supported by
 [Vercel](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions);
-local validation used Node.js 24.13.1. The Open Graph image keeps its existing Edge runtime to preserve
-the documented Windows renderer workaround. Its deprecation warning remains;
-the generated endpoint was tested separately.
+local validation used Node.js 24.13.1. The first Vercel preview failed because the
+Open Graph Edge function was 1.08 MB, exceeding the plan's 1 MB limit. The image
+now uses Node.js and is generated at build time, avoiding that Edge bundle. The
+old Edge setting was a Windows renderer workaround; the installed Next 16 Node
+renderer uses `fileURLToPath` for its font and WASM files. Linux production build
+and image checks cover the replacement; Windows rendering is not yet rechecked.
+The rebuilt route is static in the prerender manifest and absent from Edge
+functions. Production checks verify its PNG signature and 1200 × 630 dimensions,
+alongside the existing authentication and private-asset regressions. The build,
+production checks and lint pass (the same four scoped lint warnings remain).
 
 ## Validation evidence
 
