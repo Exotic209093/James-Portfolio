@@ -1,3 +1,5 @@
+import 'server-only'
+
 // GENERATED FILE — do not edit by hand.
 // Produced by scripts/import-job-runs.mjs from the Claude-Skills job-routine
 // application packages. Re-run the script to refresh; see the script header

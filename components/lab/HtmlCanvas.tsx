@@ -35,7 +35,7 @@ type Particle = {
 export default function HtmlCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const sourceRef = useRef<HTMLCanvasElement | null>(null)
-  const rafRef = useRef<number>()
+  const rafRef = useRef<number | undefined>(undefined)
   const pointer = useRef({ x: W / 2, y: H / 2, active: false })
   const mode = useRef<'warp' | 'shattering' | 'reforming'>('warp')
   const particles = useRef<Particle[] | null>(null)

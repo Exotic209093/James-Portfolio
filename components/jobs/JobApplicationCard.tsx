@@ -7,8 +7,13 @@ import Card from '@/components/ui/Card'
 import type { JobApplication } from '@/lib/jobs'
 import { formatDate } from '@/lib/utils'
 
+export type JobApplicationSummary = Pick<
+  JobApplication,
+  'id' | 'title' | 'company' | 'location' | 'salary' | 'status' | 'stretch' | 'appliedDate'
+> & { match: Pick<JobApplication['match'], 'strongFor'> }
+
 interface JobApplicationCardProps {
-  application: JobApplication
+  application: JobApplicationSummary
   index?: number
 }
 

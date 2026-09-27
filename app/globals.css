@@ -106,9 +106,9 @@ html.basic-mode footer {
   border-color: #cccccc !important;
 }
 
-/* Keep the company and contribution pages readable in the text-first mode. */
-html.basic-mode [data-portfolio-section],
-html.basic-mode [data-portfolio-section] * {
+/* Every page uses the same readable palette in the text-first mode. */
+html.basic-mode body,
+html.basic-mode body * {
   color: #111111 !important;
   background-color: transparent !important;
   background-image: none !important;
@@ -116,9 +116,26 @@ html.basic-mode [data-portfolio-section] * {
   box-shadow: none !important;
 }
 
-html.basic-mode [data-portfolio-section] a,
-html.basic-mode [data-portfolio-section] a * {
+html.basic-mode body a,
+html.basic-mode body a * {
   color: #0000ee !important;
+}
+
+html.basic-mode body button[aria-pressed='true'],
+html.basic-mode body button[aria-selected='true'] {
+  background-color: #111111 !important;
+}
+
+html.basic-mode body button[aria-pressed='true'],
+html.basic-mode body button[aria-pressed='true'] *,
+html.basic-mode body button[aria-selected='true'],
+html.basic-mode body button[aria-selected='true'] * {
+  color: #ffffff !important;
+}
+
+html.basic-mode body :focus-visible {
+  outline: 2px solid #111111 !important;
+  outline-offset: 3px;
 }
 
 html.basic-mode #mobile-menu-toggle {

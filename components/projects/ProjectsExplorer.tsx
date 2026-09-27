@@ -40,6 +40,7 @@ export default function ProjectsExplorer() {
         <div className="flex flex-wrap gap-2" role="group" aria-label="Filter projects by branch">
           <button
             type="button"
+            aria-pressed={activeTrack === null}
             onClick={() => setActiveTrack(null)}
             className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
               activeTrack === null
@@ -56,6 +57,7 @@ export default function ProjectsExplorer() {
               <button
                 key={track.id}
                 type="button"
+                aria-pressed={active}
                 onClick={() => setActiveTrack(active ? null : track.id)}
                 title={track.description}
                 className="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors"

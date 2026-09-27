@@ -70,6 +70,16 @@ export const ButtonLink = ({
     lg: 'px-8 py-4 text-lg',
   }
 
+  // Files use normal browser navigation. Next's route prefetch requests a
+  // Server Component response for a PDF and produces avoidable 404 requests.
+  if (props.download !== undefined && props.download !== false) {
+    return (
+      <a href={href} className={cn(baseStyles, variants[variant], sizes[size], className)} {...props}>
+        {children}
+      </a>
+    )
+  }
+
   return (
     <Link
       href={href}
