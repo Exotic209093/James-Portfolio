@@ -1,9 +1,11 @@
 'use client'
 
-import { motion, Variants } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView, Variants } from 'framer-motion'
 import { ArrowDown, Download } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import { siteConfig } from '@/lib/constants'
+import { useMotionEnvironment } from '@/components/useMotionEnvironment'
 
 // Staggered, restrained entrance — each line eases up into place.
 const fadeUp: Variants = {
@@ -16,23 +18,27 @@ const fadeUp: Variants = {
 }
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const inView = useInView(sectionRef)
+  const { canAnimate, isPageVisible } = useMotionEnvironment()
+  const entrance = canAnimate
+    ? { variants: fadeUp, initial: false as const, animate: 'show' }
+    : { initial: false as const, animate: { opacity: 1, y: 0 }, transition: { duration: 0 } }
   const scrollToNext = () => {
-    document.getElementById('expertise')?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById('expertise')?.scrollIntoView({ behavior: canAnimate ? 'smooth' : 'auto' })
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Availability badge */}
           <motion.div
             custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
+            {...entrance}
             className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-full px-4 py-1.5 mb-6"
           >
-            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            <span className={`w-2 h-2 bg-green-400 rounded-full${canAnimate && isPageVisible && inView ? ' animate-pulse' : ''}`} />
             <span className="text-green-300 text-xs font-medium tracking-widest uppercase">
               Open to Opportunities
             </span>
@@ -40,9 +46,7 @@ export default function Hero() {
 
           <motion.h1
             custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
+            {...entrance}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4"
           >
             <span className="text-white">Hi, I&apos;m </span>
@@ -51,9 +55,7 @@ export default function Hero() {
 
           <motion.h2
             custom={2}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
+            {...entrance}
             className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-light"
           >
             {siteConfig.title}
@@ -61,9 +63,7 @@ export default function Hero() {
 
           <motion.p
             custom={3}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
+            {...entrance}
             className="text-base sm:text-lg text-purple-300 mt-2"
           >
             Based in {siteConfig.location}
@@ -71,9 +71,7 @@ export default function Hero() {
 
           <motion.p
             custom={4}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
+            {...entrance}
             className="text-lg sm:text-xl text-gray-400 mt-8 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
             Salesforce data tools · Desktop apps · Web experiences · Systems programming
@@ -81,9 +79,7 @@ export default function Hero() {
 
           <motion.div
             custom={5}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
+            {...entrance}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <ButtonLink href="/projects" variant="primary" size="lg">
@@ -98,7 +94,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll cue */}
-      <motion.button
+      {canAnimate && <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.6 }}
@@ -107,10 +103,13 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-500 hover:text-purple-400 transition-colors"
         data-basic-hide
       >
-        <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
+        <motion.div
+          animate={isPageVisible && inView ? { y: [0, 8, 0] } : { y: 0 }}
+          transition={isPageVisible && inView ? { repeat: Infinity, duration: 2 } : { duration: 0 }}
+        >
           <ArrowDown className="h-6 w-6" />
         </motion.div>
-      </motion.button>
+      </motion.button>}
     </section>
   )
 }

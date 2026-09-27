@@ -19,9 +19,19 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  :focus-visible {
+    outline: 2px solid #c4b5fd;
+    outline-offset: 4px;
   }
 
   @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
     *,
     *::before,
     *::after {
@@ -30,6 +40,23 @@
       transition-duration: 0.01ms !important;
     }
   }
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  color: #111111;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 @layer utilities {
@@ -144,4 +171,14 @@ html.basic-mode #mobile-menu-toggle {
 
 html.basic-mode #mobile-navigation {
   background: #ffffff;
+}
+
+html.basic-mode body .skip-link {
+  background-color: #ffffff !important;
+}
+
+html.basic-mode body header,
+html.basic-mode body footer,
+html.basic-mode body #mobile-navigation {
+  background-color: #ffffff !important;
 }

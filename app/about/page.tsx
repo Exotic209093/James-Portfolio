@@ -72,9 +72,26 @@ export default function AboutPage() {
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             {siteConfig.description}
           </p>
+          <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+            <ButtonLink href="/resume.pdf" variant="primary" download>
+              <Download aria-hidden="true" className="mr-2 h-5 w-5" /> Download my CV
+            </ButtonLink>
+            <ButtonLink href="/contact" variant="outline">Get in touch</ButtonLink>
+          </div>
         </motion.div>
 
+        <nav aria-label="About page sections" className="mb-12 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-purple-300">
+          {[
+            ['overview', 'Overview'],
+            ['experience', 'Experience'],
+            ['project-history', 'Projects'],
+            ['skills', 'Skills'],
+            ...(recentCertifications.length > 0 ? [['certifications', 'Certifications']] : []),
+          ].map(([id, label]) => <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center hover:text-white">{label}</a>)}
+        </nav>
+
         <motion.div
+          id="overview"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
@@ -106,98 +123,7 @@ export default function AboutPage() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Project </span>
-            <span className="gradient-text">History</span>
-          </h2>
-          <div className="space-y-6">
-            {projectHistory.map((entry) => (
-              <Card key={entry.id}>
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">{entry.title}</h3>
-                    <p className="text-gray-300 leading-relaxed">{entry.description}</p>
-                  </div>
-                  <span className="text-sm uppercase tracking-[0.2em] text-purple-400 whitespace-nowrap">
-                    {formatDate(entry.date)}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-400 leading-relaxed">{entry.role}</p>
-              </Card>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Why These </span>
-            <span className="gradient-text">Projects Matter</span>
-          </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {highlightedProjects.map((project) => (
-              <Card key={project.id} hover className="h-full">
-                <h3 className="text-xl font-semibold text-white mb-3">{project.title}</h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.slice(0, 4).map((item) => (
-                    <span
-                      key={item}
-                      className="px-2 py-1 text-xs bg-purple-900/30 text-purple-300 rounded border border-purple-800/50"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </Card>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mb-16"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Skills & </span>
-            <span className="gradient-text">Technologies</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {skills.map((skillGroup, index) => (
-              <motion.div
-                key={skillGroup.category}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45 + index * 0.1, duration: 0.5 }}
-              >
-                <Card hover>
-                  <h3 className="text-xl font-semibold text-purple-400 mb-4">{skillGroup.category}</h3>
-                  <ul className="space-y-3">
-                    {skillGroup.items.map((skill) => (
-                      <li key={skill} className="text-gray-300 flex items-center">
-                        <span className="w-2 h-2 bg-purple-500 rounded-full mr-3" />
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
+          id="experience"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
@@ -242,8 +168,103 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
+        <motion.div
+          id="project-history"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="max-w-5xl mx-auto mb-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="text-white">Project </span>
+            <span className="gradient-text">History</span>
+          </h2>
+          <div className="space-y-6">
+            {projectHistory.map((entry) => (
+              <Card key={entry.id}>
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white mb-2"><Link href={`/projects/${entry.id}`} className="hover:text-purple-300">{entry.title}</Link></h3>
+                    <p className="text-gray-300 leading-relaxed">{entry.description}</p>
+                  </div>
+                  <span className="text-sm uppercase tracking-[0.2em] text-purple-400 whitespace-nowrap">
+                    {formatDate(entry.date)}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-400 leading-relaxed">{entry.role}</p>
+              </Card>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="max-w-5xl mx-auto mb-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="text-white">Why These </span>
+            <span className="gradient-text">Projects Matter</span>
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {highlightedProjects.map((project) => (
+              <Card key={project.id} hover className="h-full">
+                <h3 className="text-xl font-semibold text-white mb-3"><Link href={`/projects/${project.id}`} className="hover:text-purple-300">{project.title}</Link></h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.slice(0, 4).map((item) => (
+                    <span
+                      key={item}
+                      className="px-2 py-1 text-xs bg-purple-900/30 text-purple-300 rounded border border-purple-800/50"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </Card>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          id="skills"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="mb-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="text-white">Skills & </span>
+            <span className="gradient-text">Technologies</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {skills.map((skillGroup, index) => (
+              <motion.div
+                key={skillGroup.category}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 + index * 0.1, duration: 0.5 }}
+              >
+                <Card hover>
+                  <h3 className="text-xl font-semibold text-purple-400 mb-4">{skillGroup.category}</h3>
+                  <ul className="space-y-3">
+                    {skillGroup.items.map((skill) => (
+                      <li key={skill} className="text-gray-300 flex items-center">
+                        <span className="w-2 h-2 bg-purple-500 rounded-full mr-3" />
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
         {recentCertifications.length > 0 && (
           <motion.div
+            id="certifications"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 0.6 }}
