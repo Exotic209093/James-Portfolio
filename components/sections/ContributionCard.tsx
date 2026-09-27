@@ -20,9 +20,9 @@ export default function ContributionCard({ item, projectName }: { item: Contribu
           <Icon className="w-3.5 h-3.5" />{status.label}
         </span>
       </div>
-      <h3 className="text-lg font-semibold text-white mb-3 break-words flex-1">
+      <h4 className="text-lg font-semibold text-white mb-3 break-words flex-1">
         <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:text-purple-300">{item.title}</a>
-      </h3>
+      </h4>
       {item.description && <p className="text-sm leading-relaxed text-gray-300">{item.description}</p>}
       <div className="mt-6 pt-4 border-t border-purple-900/30 flex flex-wrap items-center justify-between gap-3">
         <span className="text-xs text-gray-400">
