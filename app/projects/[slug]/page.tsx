@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Calendar } from 'lucide-react'
 import { getProjectBySlug, projects } from '@/lib/projects'
-import { formatDate } from '@/lib/utils'
+import { projectCaseStudies } from '@/lib/project-case-studies'
 import ProjectDetailClient from '@/components/projects/ProjectDetailClient'
 
 export async function generateStaticParams() {
@@ -36,6 +36,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (!project) {
     notFound()
   }
+  const reviewedAt = projectCaseStudies[project.id]?.reviewedAt ?? project.date
 
   return (
     <div className="pt-20 md:pt-32 pb-20">
@@ -49,11 +50,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           Back to Projects
         </Link>
 
-        {/* Date */}
+        {/* Review date is distinct from a product launch date. */}
         <div className="flex flex-wrap items-center gap-4 text-gray-400 mb-6">
           <div className="flex items-center">
-            <Calendar className="h-4 w-4 mr-2" />
-            <span className="text-sm">{formatDate(project.date)}</span>
+            <Calendar className="h-4 w-4 mr-2" aria-hidden="true" />
+            <span className="text-sm">Last reviewed <time dateTime={reviewedAt}>{new Date(`${reviewedAt}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}</time></span>
           </div>
         </div>
 

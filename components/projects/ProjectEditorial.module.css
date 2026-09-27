@@ -52,7 +52,10 @@
 }
 .actions a:focus-visible,
 .card:focus-visible,
-.nextProject:focus-visible {
+.nextProject:focus-visible,
+.sourceLinks a:focus-visible,
+.proof a:focus-visible,
+.contact a:focus-visible {
   outline: 3px solid var(--project-accent, #c4b5fd);
   outline-offset: 6px;
 }
@@ -125,6 +128,132 @@
 }
 .studioAnchor {
   scroll-margin-top: 7rem;
+}
+.caseStudy,
+.proof {
+  padding: 2rem 0 3rem;
+  scroll-margin-top: 7rem;
+}
+.caseStudy h2,
+.proof h2,
+.contact h2,
+.related > h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  margin: 0.75rem 0 1.5rem;
+}
+.decisions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+.decisions > div,
+.outcome {
+  border-top: 1px solid #ffffff20;
+  padding-top: 1.5rem;
+}
+.decisions h3,
+.outcome h3 {
+  font-size: 1.05rem;
+  color: #e2dfe8;
+  margin-bottom: 0.75rem;
+}
+.decisions p,
+.outcome p,
+.proof figcaption,
+.contact p:not(.kicker),
+.nextProject p:not(.kicker) {
+  color: #aaa7b2;
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+.outcome {
+  margin-top: 2rem;
+}
+.outcome .boundary {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--project-accent);
+}
+.sourceLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin-top: 1.5rem;
+  list-style: none;
+}
+.sourceLinks a,
+.proof figcaption a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  font-size: 0.8rem;
+  color: var(--project-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.proofImage {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  border: 1px solid #ffffff20;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #101017;
+}
+.proofScreenshot {
+  object-fit: contain;
+}
+.proof figcaption {
+  margin-top: 1rem;
+  max-width: 900px;
+}
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid #ffffff20;
+  border-bottom: 1px solid #ffffff20;
+}
+.contact h2 {
+  margin-bottom: 1rem;
+}
+.contact a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  padding: 0.9rem 1.15rem;
+  border: 1px solid var(--project-accent);
+  border-radius: 3rem;
+  color: var(--project-accent);
+  font-size: 0.8rem;
+}
+.contact a svg,
+.sourceLinks a svg,
+.proof figcaption a svg {
+  flex-shrink: 0;
+}
+.related {
+  padding-top: 3rem;
+}
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+.nextProject h3 {
+  font-size: 1.5rem;
+  letter-spacing: -0.035em;
+  margin-bottom: 0.75rem;
+}
+.nextProject p:not(.kicker) {
+  font-size: 0.85rem;
 }
 .build {
   padding: 2rem 0 4rem;
@@ -210,6 +339,9 @@
   font: 0.6rem monospace;
   letter-spacing: 0.12em;
   text-shadow: 0 1px 8px #000;
+  background: #080a0ccc;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.3rem;
 }
 :global(html.basic-mode) .cardNumber,
 :global(html.basic-mode) .cardArrow,
@@ -239,6 +371,9 @@
   justify-content: space-between;
   color: #fff;
   font-size: 0.75rem;
+  background: #080a0ccc;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.3rem;
 }
 .cardCopy {
   padding: 1.4rem 0.1rem 0;
@@ -305,7 +440,10 @@
     padding: 1.5rem 0 0;
   }
   .highlights,
-  .stack {
+  .stack,
+  .decisions,
+  .relatedGrid,
+  .contact {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }

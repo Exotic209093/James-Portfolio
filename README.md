@@ -14,7 +14,7 @@ A modern, clean portfolio website built with Next.js 16, TypeScript, and Tailwin
 
 ## 📄 Pages
 
-- **Home**: Introduction, expertise, company/community links, experience preview, featured projects, and freelance services; the ambient backdrop and scroll cue pause while the page is hidden
+- **Home**: Introduction, three deliberately selected case studies, expertise, company/community links, project history, and freelance services; the ambient backdrop and scroll cue pause while the page is hidden
 - **About**: Full bio, skills, project history, work/education, and recent certifications, with section shortcuts and a CV download near the top
 - **Projects**: Search public projects by name, description or technology, combine branch filters, and explore matching grid/timeline views. Case studies include custom interactive showcases for all 16 public projects. Each showcase uses illustrative local data; live product links remain separate.
 - **Galacia**: Company overview, product availability, and links to the public company website
@@ -84,7 +84,7 @@ Edit `lib/projects.ts` to add your projects. Each project should have:
 - Title and description
 - Tech stack
 - GitHub and live links
-- Featured flag
+- Featured flag (homepage selection is curated separately in `FeaturedProjects.tsx`)
 
 ### Add Blog Posts
 
@@ -106,10 +106,16 @@ Your blog post content here...
 
 Add your resume PDF file to the `public/` directory and name it `resume.pdf`. The download button on the About page and Hero section will automatically link to it.
 
+### Measurement
+
+Optional page-view and CV/email click measurement is prepared but disabled until an
+analytics account is configured. See [measurement setup and verification](docs/portfolio-analytics.md).
+
 ### Contact
 
 The Contact page (`app/contact/page.tsx`) uses a direct `mailto:` link rather than a form,
-so there's no API route or email service to configure. Update the email address in
+so there's no API route or email service to configure. Case-study links prefill a subject
+from a recognised public project; unknown query values fall back to generic contact. Update the email address in
 `lib/constants.ts` (`siteConfig.links.email`).
 
 ## 🎨 Customization

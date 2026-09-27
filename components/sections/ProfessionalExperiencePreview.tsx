@@ -47,7 +47,7 @@ export default function ProfessionalExperiencePreview() {
                 transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
               >
                 <Card hover className="h-full">
-                  <p className="text-sm uppercase tracking-[0.2em] text-purple-400 mb-3">{formatDate(entry.date)}</p>
+                  <p className="text-sm uppercase tracking-[0.2em] text-purple-400 mb-3">Last reviewed {formatDate(entry.date)}</p>
                   <h3 className="text-lg font-semibold text-white mb-3">{entry.title}</h3>
                   <p className="text-gray-300 text-sm leading-relaxed mb-4">{entry.description}</p>
                   <p className="text-sm text-gray-400 leading-relaxed">{entry.role}</p>

@@ -18,8 +18,8 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 interface CanvasTextureSceneProps {
-  /** Receives the live 2D source canvas once, so callers can mirror it in the DOM. */
-  onPaint?: (canvas: HTMLCanvasElement) => void
+  /** Receives the live 2D source canvas, then null when the scene is disposed. */
+  onPaint?: (canvas: HTMLCanvasElement | null) => void
 }
 
 const TEXTURE_SIZE = 512
@@ -238,9 +238,14 @@ export default function CanvasTextureScene({ onPaint }: CanvasTextureSceneProps)
       ;(particles.material as THREE.Material).dispose()
       texture.dispose()
       renderer.dispose()
+      renderer.forceContextLoss()
       if (renderer.domElement.parentNode === mount) {
         mount.removeChild(renderer.domElement)
       }
+      onPaint?.(null)
+      source.remove()
+      source.width = 0
+      source.height = 0
     }
   }, [onPaint])
 

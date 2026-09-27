@@ -1,21 +1,23 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
-import Image from 'next/image'
-import { ExternalLink, Github } from 'lucide-react'
 import ProjectCard from '@/components/projects/ProjectCard'
 import { ButtonLink } from '@/components/ui/Button'
 import { ArrowRight } from 'lucide-react'
-import { getFeaturedProjects } from '@/lib/projects'
+import { getProjectBySlug } from '@/lib/projects'
+import { projectEvidence } from '@/lib/project-evidence'
 
-const featuredProjects = getFeaturedProjects()
-  .sort((a, b) => (a.date < b.date ? 1 : -1))
-  .slice(0, 3)
+// Deliberately selected for three different kinds of work, independent of dates.
+const featuredProjects = ['wave-link', 'docify', 'galacia'].map((id) => getProjectBySlug(id)!)
+const proof: Record<string, string> = {
+  'wave-link': 'Published Chrome extension · Salesforce data workflows',
+  docify: 'Native Rust renderer · PDF, PNG and document layout',
+  galacia: 'Live product website · Independently built and deployed',
+}
 
 export default function FeaturedProjects() {
   return (
-    <section className="relative py-20 md:py-32 overflow-hidden">
+    <section id="selected-work" aria-labelledby="selected-work-title" className="relative py-20 md:py-32 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -24,13 +26,12 @@ export default function FeaturedProjects() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-white">Featured </span>
-            <span className="gradient-text">Projects</span>
+          <h2 id="selected-work-title" className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="text-white">Selected </span>
+            <span className="gradient-text">Work</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Recent projects that best reflect the kind of engineering work I
-            want to do next
+            Three builds, from Salesforce workflows to document rendering and a live website. Explore the problem, the decisions and the result.
           </p>
         </motion.div>
 
@@ -43,7 +44,8 @@ export default function FeaturedProjects() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              <ProjectCard project={project} index={index} />
+              <ProjectCard project={project} index={index} evidence={projectEvidence[project.id]} />
+              <p className="mt-4 px-1 text-sm leading-relaxed text-gray-300">{proof[project.id]}</p>
             </motion.div>
           ))}
         </div>

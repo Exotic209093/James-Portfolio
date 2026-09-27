@@ -1,0 +1,13 @@
+body { font-family: Outfit; color: #243047; font-size: 14px; line-height: 1.55; }
+main { border-top: 6px solid #7750a4; padding-top: 22px; }
+.eyebrow { font-size: 11px; font-weight: 700; color: #7750a4; margin-bottom: 18px; }
+h1 { font-size: 40px; line-height: 1.12; color: #202535; margin: 0 0 18px; }
+.intro { font-size: 17px; color: #59677c; margin-bottom: 22px; }
+.notice { background: #f0eaf7; border-left: 3px solid #7750a4; padding: 15px 18px; margin-bottom: 25px; font-size: 13px; }
+h2 { font-size: 15px; color: #7750a4; margin: 25px 0 10px; }
+p { margin: 0 0 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { background: #263348; color: #ffffff; font-weight: 700; text-align: left; }
+th, td { padding: 13px 12px; border-bottom: 1px solid #dce1e8; }
+td { color: #243047; }
+.footer { border-top: 1px solid #dce1e8; margin-top: 30px; padding-top: 14px; font-size: 11px; color: #59677c; }

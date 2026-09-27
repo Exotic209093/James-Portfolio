@@ -11,15 +11,22 @@ export default function LabPlayground() {
 
   // The scene hands us its live 2D source canvas; we drop the *same* node into
   // the DOM so the raw painted surface sits next to the 3D object using it.
-  const handlePaint = useCallback((canvas: HTMLCanvasElement) => {
+  const handlePaint = useCallback((canvas: HTMLCanvasElement | null) => {
     const holder = mirrorRef.current
     if (!holder) return
-    holder.innerHTML = ''
-    canvas.style.width = '100%'
-    canvas.style.height = '100%'
-    canvas.style.display = 'block'
-    holder.appendChild(canvas)
-    setMounted(true)
+    // This holder has no React-managed children. Keep the loading message in
+    // its own sibling so canvas updates never remove nodes owned by React.
+    if (canvas) {
+      canvas.style.width = '100%'
+      canvas.style.height = '100%'
+      canvas.style.display = 'block'
+      canvas.setAttribute('role', 'img')
+      canvas.setAttribute('aria-label', 'Live 2D source texture used by the 3D canvas')
+      holder.replaceChildren(canvas)
+    } else {
+      holder.replaceChildren()
+    }
+    setMounted(Boolean(canvas))
   }, [])
 
   return (
@@ -53,12 +60,10 @@ export default function LabPlayground() {
           <p className="mb-3 text-xs font-medium uppercase tracking-widest text-purple-400">
             Source 2D canvas
           </p>
-          <div
-            ref={mirrorRef}
-            className="aspect-square w-full overflow-hidden rounded-lg border border-purple-900/40 bg-black"
-          >
+          <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-purple-900/40 bg-black">
+            <div ref={mirrorRef} className="absolute inset-0" />
             {!mounted && (
-              <div className="flex h-full items-center justify-center text-sm text-gray-500">
+              <div role="status" className="absolute inset-0 flex items-center justify-center text-sm text-gray-400">
                 Booting WebGL…
               </div>
             )}

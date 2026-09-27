@@ -25,7 +25,7 @@ export default function Hero() {
     ? { variants: fadeUp, initial: false as const, animate: 'show' }
     : { initial: false as const, animate: { opacity: 1, y: 0 }, transition: { duration: 0 } }
   const scrollToNext = () => {
-    document.getElementById('expertise')?.scrollIntoView({ behavior: canAnimate ? 'smooth' : 'auto' })
+    document.getElementById('selected-work')?.scrollIntoView({ behavior: canAnimate ? 'smooth' : 'auto' })
   }
 
   return (
@@ -74,7 +74,7 @@ export default function Hero() {
             {...entrance}
             className="text-lg sm:text-xl text-gray-400 mt-8 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            Salesforce data tools · Desktop apps · Web experiences · Systems programming
+            I build Salesforce tools, document automation and websites — from the first workflow to the software people use.
           </motion.p>
 
           <motion.div
@@ -82,12 +82,12 @@ export default function Hero() {
             {...entrance}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <ButtonLink href="/projects" variant="primary" size="lg">
-              View My Work
+            <ButtonLink href="#selected-work" variant="primary" size="lg">
+              Explore Selected Work
             </ButtonLink>
             <ButtonLink href="/resume.pdf" variant="outline" size="lg" download>
               <Download className="mr-2 h-5 w-5" />
-              Download Resume
+              Download CV
             </ButtonLink>
           </motion.div>
         </div>

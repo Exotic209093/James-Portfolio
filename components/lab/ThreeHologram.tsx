@@ -129,7 +129,7 @@ export default function ThreeHologram() {
     texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
 
     let cancelled = false
-    rasteriseCardInto(texCanvas, () => {
+    const cancelRasterisation = rasteriseCardInto(texCanvas, () => {
       if (cancelled) return
       texture.needsUpdate = true
       renderOnce()
@@ -253,6 +253,7 @@ export default function ThreeHologram() {
 
     return () => {
       cancelled = true
+      cancelRasterisation()
       stop()
       io.disconnect()
       resizeObserver.disconnect()
@@ -264,6 +265,9 @@ export default function ThreeHologram() {
       pMat.dispose()
       texture.dispose()
       renderer.dispose()
+      renderer.forceContextLoss()
+      texCanvas.width = 0
+      texCanvas.height = 0
       if (renderer.domElement.parentNode === container) {
         container.removeChild(renderer.domElement)
       }
@@ -302,13 +306,19 @@ function paintPlaceholder(canvas: HTMLCanvasElement) {
   g.addColorStop(1, '#05010d')
   ctx.fillStyle = g
   ctx.fillRect(0, 0, TEX_W, TEX_H)
+  ctx.fillStyle = '#f5f3ff'
+  ctx.font = 'bold 64px system-ui, sans-serif'
+  ctx.fillText('Canvas hologram', 56, 180)
+  ctx.fillStyle = '#d8b4fe'
+  ctx.font = '28px system-ui, sans-serif'
+  ctx.fillText('A painted texture with light and motion.', 56, 250)
 }
 
 /**
  * Rasterise a styled HTML card into the given canvas via SVG foreignObject.
- * Inline styles + system fonts + no external images keep the canvas untainted,
- * which matters doubly here: a tainted canvas can't be uploaded as a WebGL
- * texture.
+ * Some browsers restrict foreignObject pixels even with fully inline content.
+ * Check that the resulting canvas is readable before uploading it to WebGL;
+ * use the painted fallback when the browser protects those pixels.
  */
 function rasteriseCardInto(canvas: HTMLCanvasElement, onDone: () => void) {
   const html = `
@@ -341,7 +351,17 @@ function rasteriseCardInto(canvas: HTMLCanvasElement, onDone: () => void) {
   img.crossOrigin = 'anonymous'
   img.onload = () => {
     const ctx = canvas.getContext('2d')
-    if (ctx) ctx.drawImage(img, 0, 0, TEX_W, TEX_H)
+    try {
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, TEX_W, TEX_H)
+        ctx.getImageData(0, 0, 1, 1)
+      }
+    } catch {
+      // Resizing resets the origin-clean flag as well as the pixel buffer.
+      canvas.width = TEX_W
+      canvas.height = TEX_H
+      paintPlaceholder(canvas)
+    }
     URL.revokeObjectURL(url)
     onDone()
   }
@@ -350,4 +370,10 @@ function rasteriseCardInto(canvas: HTMLCanvasElement, onDone: () => void) {
     onDone()
   }
   img.src = url
+  return () => {
+    img.onload = null
+    img.onerror = null
+    img.removeAttribute('src')
+    URL.revokeObjectURL(url)
+  }
 }

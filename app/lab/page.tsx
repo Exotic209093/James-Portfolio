@@ -3,7 +3,7 @@ import AnimationLab from '@/components/lab/AnimationLab'
 
 export const metadata: Metadata = {
   title: 'Animation Lab',
-  description: 'A private playground for testing animations and interactions.',
+  description: 'An unlisted experimental playground for testing animations and interactions.',
   robots: { index: false, follow: false },
 }
 

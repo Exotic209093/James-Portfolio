@@ -47,8 +47,8 @@ export default function ProjectGitGraph({ projects, activeTrack }: ProjectGitGra
 
       {/* HEAD marker at the top of the line */}
       <div className="relative mb-6 flex justify-start md:justify-center">
-        <span className="ml-[27px] -translate-x-1/2 rounded-full border border-purple-500/40 bg-purple-500/10 px-3 py-1 font-mono text-[11px] tracking-wider text-purple-300 md:ml-0 md:translate-x-0">
-          HEAD · now
+        <span className="ml-[27px] rounded-full border border-purple-500/40 bg-purple-500/10 px-3 py-1 font-mono text-[11px] tracking-wider text-purple-300 md:ml-0 md:translate-x-0">
+          Recent reviews
         </span>
       </div>
 
@@ -67,8 +67,8 @@ export default function ProjectGitGraph({ projects, activeTrack }: ProjectGitGra
 
       {/* origin marker at the bottom */}
       <div className="relative mt-2 flex justify-start md:justify-center">
-        <span className="ml-[27px] -translate-x-1/2 rounded-full border border-gray-700/60 bg-black/40 px-3 py-1 font-mono text-[11px] tracking-wider text-gray-500 md:ml-0 md:translate-x-0">
-          init · {new Date(`${ordered[ordered.length - 1]?.date}T00:00:00`).getFullYear()}
+        <span className="ml-[27px] rounded-full border border-gray-700/60 bg-black/40 px-3 py-1 font-mono text-[11px] tracking-wider text-gray-500 md:ml-0 md:translate-x-0">
+          Earlier reviews
         </span>
       </div>
 
@@ -161,7 +161,7 @@ function TimelineNode({
             >
               {track.label}
             </span>
-            <span className="font-mono text-[11px] text-gray-500">{formatDate(project.date)}</span>
+            <span className="font-mono text-[11px] text-gray-500">Last reviewed {formatDate(project.date)}</span>
           </div>
           <h3 className="text-lg font-semibold text-white transition-colors group-hover:text-purple-300">
             {project.title}
@@ -248,7 +248,7 @@ function CommitWindow({ project, onClose }: { project: Project; onClose: () => v
               </span>
             )}
             <span className="ml-auto font-mono text-xs text-gray-500">
-              {formatDate(project.date)}
+              Last reviewed {formatDate(project.date)}
             </span>
           </div>
 

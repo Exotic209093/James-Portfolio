@@ -95,7 +95,7 @@ const allProjects: Project[] = [
     image: '/projects/art/docify.webp',
     tech: ['Rust', 'HTML / CSS', 'Node.js', 'PDF', 'DOCX'],
     featured: true,
-    date: '2026-08-23',
+    date: '2026-09-27',
     track: 'systems',
   },
   {
@@ -128,7 +128,7 @@ const allProjects: Project[] = [
     "highlights": [
       "Built a public product hub with keyboard-accessible product tabs, guides, support pages, and explicit availability information.",
       "Added an optional Three.js glacier with an SVG fallback, reduced-motion support, a pause control, and rendering that stops off-screen.",
-      "Deployed the website on Railway with custom domains, HTTPS, redirects, and automated HTTP and browser regression checks."
+      "Deployed the website on an OVH VPS with Docker, custom domains, HTTPS, redirects, and automated HTTP and browser regression checks."
     ],
     "image": '/projects/art/galacia.webp',
     "tech": [
@@ -137,7 +137,7 @@ const allProjects: Project[] = [
       "Three.js",
       "SVG",
       "Playwright",
-      "Railway"
+      "OVHcloud VPS"
     ],
     "techStack": [
       {
@@ -162,7 +162,7 @@ const allProjects: Project[] = [
         "category": "Delivery",
         "items": [
           "Docker",
-          "Railway",
+          "OVHcloud VPS",
           "Playwright",
           "HTTP Regression Tests"
         ]
@@ -171,7 +171,7 @@ const allProjects: Project[] = [
     "live": "https://galacia.app",
     "liveLabel": "Visit Galacia",
     "featured": true,
-    "date": "2026-09-10",
+    "date": "2026-09-27",
     "track": "systems"
   },
   {
@@ -180,7 +180,7 @@ const allProjects: Project[] = [
     "description": "A hospitality website for O’Callaghan’s Loft in Zakynthos, with a browsable drinks menu, venue photography, events, and visitor information.",
     "longDescription": "The Loft Zante brings a venue-focused web experience together in Next.js, React, and TypeScript. The site combines a photographic hero and gallery with events, an interactive drinks menu, opening hours, and an embedded location map. Menu sections are driven by structured data, with category buttons, prices, descriptions, and serving options. Tailwind CSS supports responsive layouts across the site.",
     "category": "Web Development · Hospitality",
-    "status": "Live website",
+    "status": "Website build · public preview unavailable",
     "role": "Built the Next.js website, reusable page sections, responsive styling, and interactive menu browser.",
     "highlights": [
       "Built a category-based menu browser backed by typed menu data, including prices, descriptions, and serving options.",
@@ -214,9 +214,8 @@ const allProjects: Project[] = [
       }
     ],
     "github": "https://github.com/Exotic209093/the-loft-zante",
-    "live": "https://the-loft-zante.vercel.app",
     "featured": true,
-    "date": "2026-09-12",
+    "date": "2026-09-27",
     "track": "systems"
   },
   {
@@ -589,7 +588,7 @@ const allProjects: Project[] = [
     "live": "https://chromewebstore.google.com/detail/wavelink/ccknhhibbedolfnbgnenomdohlmojblo",
     "liveLabel": "Chrome Web Store",
     "featured": true,
-    "date": "2026-09-09",
+    "date": "2026-09-27",
     "track": "salesforce"
   },
   {
