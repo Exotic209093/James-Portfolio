@@ -14,14 +14,19 @@ A modern, clean portfolio website built with Next.js 16, TypeScript, and Tailwin
 
 ## 📄 Pages
 
-- **Home**: Scroll-scrubbed ink hero, "what I bring together" convergence, experience preview, featured projects, and freelance services
-- **About**: Full bio, skills, project history, work/education, and recent certifications
-- **Projects**: Project listing and case studies with custom interactive showcases for all 16 public projects. Each showcase uses illustrative local data; live product links remain separate.
+- **Home**: Introduction, expertise, company/community links, experience preview, featured projects, and freelance services; the ambient backdrop and scroll cue pause while the page is hidden
+- **About**: Full bio, skills, project history, work/education, and recent certifications, with section shortcuts and a CV download near the top
+- **Projects**: Search public projects by name, description or technology, combine branch filters, and explore matching grid/timeline views. Case studies include custom interactive showcases for all 16 public projects. Each showcase uses illustrative local data; live product links remain separate.
 - **Galacia**: Company overview, product availability, and links to the public company website
 - **Open Source**: Automatically updated upstream PRs for T3 Code and Salesforce Inspector Reloaded, highlighting merged contributions and open reviews, with drafts and closed history collapsed, sync timestamps, and saved-data fallback
 - **Certifications**: Certification listing and detail pages with downloadable PDFs
 - **Blog**: Markdown-based routes retained; hidden from navigation and the sitemap until posts are available
-- **Contact**: Direct email contact page (mailto)
+- **Contact**: Direct email (mailto), a copy-address action with manual selection fallback, CV download and LinkedIn
+
+Keyboard users can skip directly to the main content. Mobile navigation supports
+Escape, closes on route changes, and uses larger touch targets. Display mode can
+be changed from the header or footer; the system reduced-motion preference is
+respected until a visitor chooses a mode, including when local storage is blocked.
 
 ## 🛠️ Tech Stack
 

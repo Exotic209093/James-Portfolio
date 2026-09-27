@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useMotionEnvironment } from '@/components/useMotionEnvironment'
 
 /**
  * One persistent ambient backdrop for the whole site. Sits fixed behind
@@ -10,6 +11,10 @@ import { motion } from 'framer-motion'
  * through; the opaque hero videos cover it during their pinned scroll.
  */
 export default function PageBackground() {
+  const { mode, canAnimate, isPageVisible } = useMotionEnvironment()
+  const animate = canAnimate && isPageVisible
+  if (mode === 'basic') return null
+
   return (
     <div
       aria-hidden
@@ -22,18 +27,18 @@ export default function PageBackground() {
       {/* Slowly drifting ink-purple blobs */}
       <motion.div
         className="absolute top-[10%] -left-[10%] w-[55vw] h-[55vw] rounded-full bg-purple-700/10 blur-3xl"
-        animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
-        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
+        animate={animate ? { x: [0, 60, 0], y: [0, 40, 0] } : { x: 0, y: 0 }}
+        transition={animate ? { duration: 26, repeat: Infinity, ease: 'easeInOut' } : { duration: 0 }}
       />
       <motion.div
         className="absolute top-[45%] -right-[15%] w-[50vw] h-[50vw] rounded-full bg-fuchsia-700/10 blur-3xl"
-        animate={{ x: [0, -50, 0], y: [0, -40, 0] }}
-        transition={{ duration: 32, repeat: Infinity, ease: 'easeInOut' }}
+        animate={animate ? { x: [0, -50, 0], y: [0, -40, 0] } : { x: 0, y: 0 }}
+        transition={animate ? { duration: 32, repeat: Infinity, ease: 'easeInOut' } : { duration: 0 }}
       />
       <motion.div
         className="absolute bottom-[5%] left-[30%] w-[45vw] h-[45vw] rounded-full bg-indigo-700/10 blur-3xl"
-        animate={{ x: [0, 70, 0], y: [0, -30, 0] }}
-        transition={{ duration: 38, repeat: Infinity, ease: 'easeInOut' }}
+        animate={animate ? { x: [0, 70, 0], y: [0, -30, 0] } : { x: 0, y: 0 }}
+        transition={animate ? { duration: 38, repeat: Infinity, ease: 'easeInOut' } : { duration: 0 }}
       />
 
       {/* Faint grain so the gradients don't band */}

@@ -3,16 +3,18 @@
 import { motion } from 'framer-motion'
 import Card from '@/components/ui/Card'
 import { skills, siteConfig } from '@/lib/constants'
+import { useMotionEnvironment } from '@/components/useMotionEnvironment'
 
 export default function Expertise() {
+  const { canAnimate } = useMotionEnvironment()
   return (
     <section id="expertise" className="relative py-20 md:py-32 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: canAnimate ? 0.6 : 0, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-3xl mx-auto text-center mb-14"
         >
           <p className="text-xs tracking-[0.3em] text-purple-400 uppercase mb-3">What I do</p>
@@ -27,12 +29,12 @@ export default function Expertise() {
           {skills.map((group, i) => (
             <motion.div
               key={group.category}
-              initial={{ opacity: 0, y: 24 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: canAnimate ? 0.5 : 0, delay: canAnimate ? i * 0.1 : 0, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Card hover className="h-full">
+              <Card hover={canAnimate} className="h-full">
                 <h3 className="text-lg font-semibold text-white mb-4">{group.category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {group.items.map((item) => (

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Home } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 
@@ -15,10 +14,12 @@ export default function NotFound() {
         <p className="text-gray-400 mb-8 max-w-md mx-auto">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
-        <ButtonLink href="/" variant="primary" size="lg">
-          <Home className="mr-2 h-5 w-5" />
-          Go Home
-        </ButtonLink>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <ButtonLink href="/projects" variant="primary" size="lg">Explore my projects</ButtonLink>
+          <ButtonLink href="/" variant="outline" size="lg">
+            <Home aria-hidden="true" className="mr-2 h-5 w-5" /> Go home
+          </ButtonLink>
+        </div>
       </div>
     </div>
   )

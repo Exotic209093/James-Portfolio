@@ -104,11 +104,11 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var m=localStorage.getItem('site-mode');if(m==='basic')document.documentElement.classList.add('basic-mode');}catch(e){}`,
+            __html: `(()=>{let m;try{m=localStorage.getItem('site-mode')}catch{}const basic=m==='basic'||(m!=='exciting'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);document.documentElement.classList.toggle('basic-mode',basic)})()`,
           }}
         />
         <script
@@ -117,11 +117,12 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <a href="#main-content" className="skip-link">Skip to content</a>
         <ModeProvider>
           <PageBackground />
           <div className="flex min-h-screen flex-col">
             <Header />
-            <main className="flex-1">{children}</main>
+            <main id="main-content" tabIndex={-1} className="flex-1">{children}</main>
             <Footer />
           </div>
         </ModeProvider>
