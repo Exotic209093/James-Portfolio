@@ -6,6 +6,7 @@ import ContributionCard from '@/components/sections/ContributionCard'
 import PageIntro from '@/components/ui/PageIntro'
 import { contributionProjects, contributionSearchUrl, type Contribution } from '@/lib/contributions'
 import { formatDate } from '@/lib/utils'
+import PageTransition from '@/components/PageTransition'
 
 export const metadata: Metadata = {
   title: 'Open Source',
@@ -63,6 +64,7 @@ export default async function OpenSourcePage() {
   const openCount = contributions.filter((item) => item.status === 'open').length
 
   return (
+    <PageTransition>
     <div data-portfolio-section className="pt-20 md:pt-32 pb-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <PageIntro
@@ -131,5 +133,6 @@ export default async function OpenSourcePage() {
         </div>
       </div>
     </div>
+    </PageTransition>
   )
 }

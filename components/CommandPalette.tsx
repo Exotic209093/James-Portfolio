@@ -4,6 +4,7 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState, useSyncExtern
 import { useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
 import { useMode, type Mode } from '@/components/ModeProvider'
+import { NAV_FORWARD } from '@/components/PageTransition'
 import { siteConfig, sitePages } from '@/lib/constants'
 import styles from './CommandPalette.module.css'
 
@@ -193,7 +194,7 @@ export default function CommandPalette({ projects }: { projects: PaletteProject[
     } else if (item.href && item.external) {
       window.open(item.href, '_blank', 'noopener,noreferrer')
     } else if (item.href) {
-      router.push(item.href)
+      router.push(item.href, item.href.startsWith('/projects/') ? { transitionTypes: NAV_FORWARD } : undefined)
     }
   }
 

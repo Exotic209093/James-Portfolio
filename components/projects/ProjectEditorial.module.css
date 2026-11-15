@@ -13,7 +13,7 @@
   text-transform: uppercase;
 }
 .kicker span {
-  color: #777580;
+  color: var(--muted);
   margin-left: 1rem;
 }
 .intro h1 {

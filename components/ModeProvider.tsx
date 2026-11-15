@@ -1,7 +1,6 @@
 'use client'
 
 import { createContext, useContext, useEffect, useRef, useState, ReactNode } from 'react'
-import { MotionConfig } from 'framer-motion'
 
 /**
  * - exciting: full motion
@@ -98,11 +97,7 @@ export default function ModeProvider({ children }: { children: ReactNode }) {
     setModeState(next)
   }
 
-  const reducedMotion = mode === 'calm' || mode === 'basic' ? 'always' : 'user'
-
-  return (
-    <Ctx.Provider value={{ mode, setMode, systemMode }}>
-      <MotionConfig reducedMotion={reducedMotion}>{children}</MotionConfig>
-    </Ctx.Provider>
-  )
+  // framer-motion reads this setting through components/MotionPreferences.tsx,
+  // only on the pages that use it.
+  return <Ctx.Provider value={{ mode, setMode, systemMode }}>{children}</Ctx.Provider>
 }

@@ -5,6 +5,7 @@ import { Award } from 'lucide-react'
 import Card from '@/components/ui/Card'
 import type { Certification } from '@/lib/certifications'
 import { formatDate } from '@/lib/utils'
+import { NAV_FORWARD } from '@/components/PageTransition'
 
 interface CertificationCardProps {
   certification: Certification
@@ -16,7 +17,7 @@ export default function CertificationCard({ certification }: CertificationCardPr
     <div className="reveal h-full">
       <Card hover className="relative h-full flex flex-col group cursor-pointer">
         <Link
-          href={`/certifications/${certification.id}`}
+          href={`/certifications/${certification.id}`} transitionTypes={NAV_FORWARD}
           aria-label={`View details for ${certification.title}`}
           className="absolute inset-0 z-10"
         />

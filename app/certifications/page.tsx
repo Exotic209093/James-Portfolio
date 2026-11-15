@@ -3,11 +3,13 @@
 import CertificationCard from '@/components/sections/CertificationCard'
 import PageIntro from '@/components/ui/PageIntro'
 import { getCertifications } from '@/lib/certifications'
+import PageTransition from '@/components/PageTransition'
 
 const certifications = getCertifications()
 
 export default function CertificationsPage() {
   return (
+    <PageTransition>
     <div className="pt-20 md:pt-32 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <PageIntro
@@ -39,5 +41,6 @@ export default function CertificationsPage() {
         )}
       </div>
     </div>
+    </PageTransition>
   )
 }

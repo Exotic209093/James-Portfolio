@@ -175,14 +175,14 @@ export default function ProjectsExplorer() {
             </button>
           </div>
         ) : view === 'graph' ? (
-          <div key="graph" className="reveal rounded-xl border border-purple-900/30 bg-black/20 p-3 sm:p-5">
+          <div key="graph" className="rounded-xl border border-purple-900/30 bg-black/20 p-3 sm:p-5">
             <ProjectGitGraph projects={visible} activeTrack={activeTrack} />
             <p className="mt-4 px-3 text-center text-xs text-gray-400">
               {hasFilters ? 'Matching projects' : 'All projects'}, newest first and colour-coded by discipline. Select a node to open its details.
             </p>
           </div>
         ) : (
-          <div key="grid" className="reveal grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
+          <div key="grid" className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
             {visible.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}

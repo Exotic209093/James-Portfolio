@@ -1,14 +1,27 @@
 import { ArrowDown, Download } from 'lucide-react'
 import { siteConfig } from '@/lib/constants'
 import { WRAP } from './layout'
+import HeroName from './HeroName'
+import type { LatestActivity } from '@/lib/github-activity'
 import s from './Home.module.css'
+
+const formatDay = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'Europe/London' })
 
 /**
  * The name arrives as source code and renders into display type, the way
  * Docify turns markup into a page. The finished frame is the server HTML;
  * the render pass is CSS only and plays once per visit.
  */
-export default function RenderHero({ projectCount, branchCount }: { projectCount: number; branchCount: number }) {
+export default function RenderHero({
+  projectCount,
+  branchCount,
+  activity,
+}: {
+  projectCount: number
+  branchCount: number
+  activity: LatestActivity | null
+}) {
   const [firstName, ...rest] = siteConfig.name.split(' ')
   return (
     <section className={s.render} aria-labelledby="hero-name">
@@ -17,7 +30,7 @@ export default function RenderHero({ projectCount, branchCount }: { projectCount
           <span className={s.nowrap}>{siteConfig.title}</span> · <span className={s.nowrap}>London</span> ·{' '}
           <span className={s.nowrap}>Open to opportunities</span>
         </p>
-        <h1 id="hero-name" className={s.renderBox}>
+        <HeroName>
           <span className={s.renderOut}>
             <span>{firstName}</span> <span>{rest.join(' ')}</span>
           </span>
@@ -27,7 +40,7 @@ export default function RenderHero({ projectCount, branchCount }: { projectCount
             <span className={s.tag}>&lt;/h1&gt;</span>
           </span>
           <span className={s.renderScan} aria-hidden="true" />
-        </h1>
+        </HeroName>
         <p className={`${s.renderSub} ${s.after}`}>
           I build <strong>Salesforce tools</strong>, <strong>document automation</strong> and the software people
           use every day, from the first workflow to the finished product.
@@ -49,7 +62,16 @@ export default function RenderHero({ projectCount, branchCount }: { projectCount
           <span>
             <b>{branchCount}</b> branches
           </span>
-          <span className="hidden md:inline">
+          {activity && (
+            <span>
+              Latest:{' '}
+              <a href={activity.url} target="_blank" rel="noopener noreferrer" className={s.activityLink}>
+                {activity.action} <b>{activity.repository}</b>
+              </a>{' '}
+              · <time dateTime={activity.at}>{formatDay(activity.at)}</time>
+            </span>
+          )}
+          <span className="hidden lg:inline">
             Press <b>⌘K</b> or <b>Ctrl K</b> to search
           </span>
         </p>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import ProjectsExplorer from '@/components/projects/ProjectsExplorer'
 import PageIntro from '@/components/ui/PageIntro'
+import PageTransition from '@/components/PageTransition'
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
+    <PageTransition>
     <div className="pt-20 md:pt-32 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <PageIntro
@@ -22,5 +24,6 @@ export default function ProjectsPage() {
         <ProjectsExplorer />
       </div>
     </div>
+    </PageTransition>
   )
 }

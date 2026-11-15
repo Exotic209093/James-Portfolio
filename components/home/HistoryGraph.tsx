@@ -1,10 +1,12 @@
 'use client'
 
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useMemo, useRef, useState, type CSSProperties, type PointerEvent } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { WRAP } from './layout'
 import s from './Home.module.css'
+import { NAV_FORWARD } from '@/components/PageTransition'
 
 export interface HistoryRow {
   id: string
@@ -14,6 +16,7 @@ export interface HistoryRow {
   trackLabel: string
   date: string
   tech: string[]
+  image: string
 }
 
 export interface HistoryTrack {
@@ -68,7 +71,37 @@ export default function HistoryGraph({ rows, tracks }: { rows: HistoryRow[]; tra
 
   const matches = (row: HistoryRow) =>
     (!trackFilter || row.track === trackFilter) && (techFilter === null || TECH_FILTERS[techFilter].test(row.tech))
+  const filtering = trackFilter !== null || techFilter !== null
   const shown = rows.filter(matches).length
+
+  // Hover previews: a floating card of the project's artwork follows the
+  // pointer. Fine pointers only; images mount on the first hover.
+  const graphRef = useRef<HTMLDivElement>(null)
+  const previewRef = useRef<HTMLDivElement>(null)
+  const [previewId, setPreviewId] = useState<string | null>(null)
+  const [previewReady, setPreviewReady] = useState(false)
+
+  const placePreview = (clientX: number, clientY: number) => {
+    const graph = graphRef.current
+    const preview = previewRef.current
+    if (!graph || !preview) return
+    const box = graph.getBoundingClientRect()
+    const x = clientX - box.left
+    // Flip to the pointer's left when the card would run past the graph's edge.
+    const left = x + 28 + preview.offsetWidth > box.width ? x - 28 - preview.offsetWidth : x + 28
+    preview.style.transform = `translate3d(${left}px, ${clientY - box.top}px, 0) translateY(-50%)`
+  }
+
+  const showPreview = (event: PointerEvent<HTMLAnchorElement>, id: string) => {
+    if (event.pointerType !== 'mouse' || !window.matchMedia('(hover: hover) and (min-width: 1024px)').matches) return
+    setPreviewReady(true)
+    setPreviewId(id)
+    placePreview(event.clientX, event.clientY)
+  }
+
+  const movePreview = (event: PointerEvent<HTMLDivElement>) => {
+    if (previewId) placePreview(event.clientX, event.clientY)
+  }
   const activeNames = [
     trackFilter ? tracks.find((track) => track.id === trackFilter)?.label : null,
     techFilter !== null ? TECH_FILTERS[techFilter].name : null,
@@ -133,7 +166,28 @@ export default function HistoryGraph({ rows, tracks }: { rows: HistoryRow[]; tra
           </p>
         </div>
 
-        <div className={s.graph} style={{ height: total }}>
+        <div
+          ref={graphRef}
+          className={s.graph}
+          style={{ height: total }}
+          onPointerMove={movePreview}
+          onPointerLeave={() => setPreviewId(null)}
+        >
+          {previewReady && (
+            <div ref={previewRef} className={s.preview} data-shown={previewId !== null} aria-hidden="true">
+              {rows.map((row) => (
+                <Image
+                  key={row.id}
+                  src={row.image}
+                  alt=""
+                  fill
+                  sizes="300px"
+                  className={s.previewImage}
+                  data-active={row.id === previewId}
+                />
+              ))}
+            </div>
+          )}
           <svg width="100" height={total} viewBox={`0 0 100 ${total}`} aria-hidden="true" focusable="false">
             {tracks.map((track) => (
               <line key={track.id} className={s.laneLine} x1={laneX[track.id]} y1="0" x2={laneX[track.id]} y2={total} />
@@ -145,8 +199,8 @@ export default function HistoryGraph({ rows, tracks }: { rows: HistoryRow[]; tra
               return (
                 <path
                   key={row.id}
-                  className={`${s.conn}${matches(row) ? '' : ` ${s.dim}`}`}
-                  style={{ stroke: laneColor(row.track) }}
+                  className={`${s.conn}${matches(row) ? (filtering ? ` ${s.bright}` : '') : ` ${s.dim}`}`}
+                  style={{ stroke: laneColor(row.track), color: laneColor(row.track) }}
                   d={`M${SPINE} ${y - 26} C ${SPINE} ${y - 8}, ${x} ${y - 16}, ${x} ${y}`}
                 />
               )
@@ -157,9 +211,10 @@ export default function HistoryGraph({ rows, tracks }: { rows: HistoryRow[]; tra
             {rows.map((row) => (
               <li key={row.id}>
                 <Link
-                  href={`/projects/${row.id}`}
+                  href={`/projects/${row.id}`} transitionTypes={NAV_FORWARD}
                   className={`${s.row}${matches(row) ? '' : ` ${s.rowDim}`}`}
                   style={{ '--lane': laneColor(row.track) } as CSSProperties}
+                  onPointerEnter={(event) => showPreview(event, row.id)}
                 >
                   <span className={s.node} style={{ left: laneX[row.track] }} aria-hidden="true" />
                   <span className={s.rowMain}>

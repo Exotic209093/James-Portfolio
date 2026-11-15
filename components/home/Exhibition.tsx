@@ -1,11 +1,20 @@
 'use client'
 
-import { ViewTransition, useEffect, useRef, useState, type CSSProperties, type FocusEvent } from 'react'
+import {
+  ViewTransition,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type FocusEvent,
+  type PointerEvent,
+} from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { WRAP } from './layout'
 import s from './Home.module.css'
+import { NAV_FORWARD } from '@/components/PageTransition'
 
 export interface ExhibitRoom {
   id: string
@@ -17,6 +26,8 @@ export interface ExhibitRoom {
   tech: string[]
   proof: string
   image: string
+  /** A real screenshot or generated output, kept apart from the concept art. */
+  evidence?: { image: string; alt: string; label: string }
 }
 
 function prefersStill() {
@@ -36,7 +47,28 @@ export default function Exhibition({ rooms }: { rooms: ExhibitRoom[] }) {
   const stageRef = useRef<HTMLDivElement>(null)
   const scrollerRef = useRef<HTMLDivElement>(null)
   const [current, setCurrent] = useState(0)
+  const [evidenceShown, setEvidenceShown] = useState<Record<string, boolean>>({})
   const count = rooms.length
+
+  // The stage light follows a fine pointer; it rests at its default spot otherwise.
+  const lightFrame = useRef(0)
+  const moveLight = (event: PointerEvent<HTMLDivElement>) => {
+    const stage = stageRef.current
+    if (!stage || event.pointerType !== 'mouse' || prefersStill()) return
+    const { clientX, clientY } = event
+    cancelAnimationFrame(lightFrame.current)
+    lightFrame.current = requestAnimationFrame(() => {
+      const box = stage.getBoundingClientRect()
+      stage.style.setProperty('--mx', `${((clientX - box.left) / box.width) * 100}%`)
+      stage.style.setProperty('--my', `${((clientY - box.top) / box.height) * 100}%`)
+    })
+  }
+  const restLight = () => {
+    cancelAnimationFrame(lightFrame.current)
+    stageRef.current?.style.removeProperty('--mx')
+    stageRef.current?.style.removeProperty('--my')
+  }
+  useEffect(() => () => cancelAnimationFrame(lightFrame.current), [])
 
   const isPinned = () => stageRef.current !== null && getComputedStyle(stageRef.current).position === 'sticky'
 
@@ -107,6 +139,8 @@ export default function Exhibition({ rooms }: { rooms: ExhibitRoom[] }) {
         <div
           ref={stageRef}
           className={s.stage}
+          onPointerMove={moveLight}
+          onPointerLeave={restLight}
           style={
             {
               '--room-accent': rooms[current]?.accent,
@@ -125,11 +159,46 @@ export default function Exhibition({ rooms }: { rooms: ExhibitRoom[] }) {
                   style={{ '--a': room.accent } as CSSProperties}
                 >
                   <div className={`${WRAP} ${s.roomInner}`}>
-                    <ViewTransition name={`art-${room.id}`} share="morph" default="none">
-                      <Link href={`/projects/${room.id}`} className={s.roomArt} tabIndex={-1} aria-hidden="true">
-                        <Image src={room.image} alt="" fill sizes="(max-width: 760px) 92vw, 620px" />
-                      </Link>
-                    </ViewTransition>
+                    <div className={s.roomMedia}>
+                      <ViewTransition name={`art-${room.id}`} share="morph" default="none">
+                        <Link
+                          href={`/projects/${room.id}`}
+                          transitionTypes={NAV_FORWARD}
+                          className={s.roomArt}
+                          tabIndex={-1}
+                          aria-hidden="true"
+                          data-view={room.evidence && evidenceShown[room.id] ? 'evidence' : 'art'}
+                        >
+                          <Image src={room.image} alt="" fill sizes="(max-width: 760px) 92vw, 620px" className={s.artImage} />
+                          {room.evidence && (
+                            <Image
+                              src={room.evidence.image}
+                              alt=""
+                              fill
+                              sizes="(max-width: 760px) 92vw, 620px"
+                              className={s.evidenceImage}
+                            />
+                          )}
+                        </Link>
+                      </ViewTransition>
+                      {room.evidence && (
+                        <div className={s.mediaToggle} role="group" aria-label={`${room.title} image`}>
+                          {(['art', 'evidence'] as const).map((view) => {
+                            const active = (evidenceShown[room.id] ? 'evidence' : 'art') === view
+                            return (
+                              <button
+                                key={view}
+                                type="button"
+                                aria-pressed={active}
+                                onClick={() => setEvidenceShown((shown) => ({ ...shown, [room.id]: view === 'evidence' }))}
+                              >
+                                {view === 'art' ? 'Artwork' : room.evidence?.label}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </div>
                     <div className={s.roomCopy}>
                       <p className={`label ${s.roomLabel}`}>
                         {room.trackLabel} · {room.label}
@@ -144,7 +213,7 @@ export default function Exhibition({ rooms }: { rooms: ExhibitRoom[] }) {
                           <li key={tech}>{tech}</li>
                         ))}
                       </ul>
-                      <Link href={`/projects/${room.id}`} className={`${s.pill} ${s.pillAccent}`}>
+                      <Link href={`/projects/${room.id}`} transitionTypes={NAV_FORWARD} className={`${s.pill} ${s.pillAccent}`}>
                         Read the case study
                         <ArrowUpRight size={16} aria-hidden="true" />
                       </Link>

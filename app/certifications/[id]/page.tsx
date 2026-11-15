@@ -6,6 +6,7 @@ import Card from '@/components/ui/Card'
 import { ButtonLink } from '@/components/ui/Button'
 import { certifications, getCertificationById } from '@/lib/certifications'
 import { formatDate } from '@/lib/utils'
+import PageTransition, { NAV_BACK } from '@/components/PageTransition'
 
 export async function generateStaticParams() {
   return certifications.map((certification) => ({
@@ -35,13 +36,15 @@ export default async function CertificationDetailPage({ params }: { params: Prom
   }
 
   return (
+    <PageTransition>
     <div className="pt-20 md:pt-32 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
         <Link
           href="/certifications"
-          className="inline-flex items-center text-gray-400 hover:text-purple-400 transition-colors mb-8"
+          transitionTypes={NAV_BACK}
+          className="mb-8 inline-flex min-h-11 items-center text-muted transition-colors hover:text-paper"
         >
-          <ArrowLeft className="h-4 w-4 mr-2" />
+          <ArrowLeft className="h-4 w-4 mr-2" aria-hidden="true" />
           Back to Certifications
         </Link>
 
@@ -160,5 +163,6 @@ export default async function CertificationDetailPage({ params }: { params: Prom
         </div>
       </div>
     </div>
+    </PageTransition>
   )
 }

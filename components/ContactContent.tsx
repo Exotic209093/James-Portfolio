@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { Mail, MapPin, Copy, Check, Download, ArrowUpRight } from 'lucide-react'
 import Card from '@/components/ui/Card'
@@ -47,12 +46,9 @@ export default function ContactContent({ projectTitle }: { projectTitle?: string
             <div className="reveal">
               <Card hover>
                 <div className="flex items-center gap-3 mb-3">
-                  <motion.div
-                    className="shrink-0 p-3 bg-purple-900/30 rounded-lg"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
+                  <div className="shrink-0 rounded-lg bg-purple-900/30 p-3 transition-transform duration-300 hover:rotate-3 hover:scale-110">
                     <Mail className="h-5 w-5 text-purple-400" />
-                  </motion.div>
+                  </div>
                   <h2 className="text-white font-semibold">Email</h2>
                 </div>
                 <a href={emailLink} className="block break-all text-gray-400 hover:text-purple-400 transition-colors">
@@ -64,12 +60,9 @@ export default function ContactContent({ projectTitle }: { projectTitle?: string
             <div className="reveal">
               <Card hover>
                 <div className="flex items-start space-x-4">
-                  <motion.div
-                    className="shrink-0 p-3 bg-purple-900/30 rounded-lg"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
+                  <div className="shrink-0 rounded-lg bg-purple-900/30 p-3 transition-transform duration-300 hover:rotate-3 hover:scale-110">
                     <MapPin className="h-5 w-5 text-purple-400" />
-                  </motion.div>
+                  </div>
                   <div>
                     <h2 className="text-white font-semibold mb-1">Location</h2>
                     <p className="text-gray-400">{siteConfig.location} · open to remote</p>

@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import MotionPreferences from '@/components/MotionPreferences'
 import { Send, Search, Filter, Target } from 'lucide-react'
 import JobApplicationCard from '@/components/jobs/JobApplicationCard'
 import ApplicantProfileCard from '@/components/jobs/ApplicantProfileCard'
@@ -25,6 +26,7 @@ export default function JobsDashboard({ applications, latestRun, stats, profile 
   ]
 
   return (
+    <MotionPreferences>
     <div className="pt-20 md:pt-32 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -166,5 +168,6 @@ export default function JobsDashboard({ applications, latestRun, stats, profile 
         )}
       </div>
     </div>
+    </MotionPreferences>
   )
 }

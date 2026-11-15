@@ -117,13 +117,18 @@ function Navigation({ pathname }: { pathname: string }) {
             <button
               type="button"
               onClick={(event) => openCommandPalette(event.currentTarget)}
-              aria-label={shortcut ? `Search the site (${shortcut})` : 'Search the site'}
+              aria-keyshortcuts="Control+K Meta+K"
               aria-haspopup="dialog"
               className="inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-line px-3 text-sm text-muted transition-colors hover:border-paper/40 hover:text-paper"
             >
               <Search className="h-4 w-4" aria-hidden="true" />
-              <span className="hidden sm:inline">Search</span>
-              {shortcut && <kbd className="hidden font-mono text-xs text-muted xl:inline">{shortcut}</kbd>}
+              {/* The visible label is the accessible name; phones keep it for screen readers only. */}
+              <span className="sr-only sm:not-sr-only">Search</span>
+              {shortcut && (
+                <kbd className="hidden font-mono text-xs text-muted xl:inline" aria-hidden="true">
+                  {shortcut}
+                </kbd>
+              )}
             </button>
             <div className="hidden items-center xl:flex">
               <a

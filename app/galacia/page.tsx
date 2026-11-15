@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight, Files, FileText, Route, MessagesSquare } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
+import PageTransition from '@/components/PageTransition'
 
 export const metadata: Metadata = {
   title: 'Galacia',
@@ -19,6 +20,7 @@ const products = [
 
 export default function GalaciaPage() {
   return (
+    <PageTransition>
     <div data-portfolio-section className="pt-28 md:pt-36 pb-24">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <section className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-16">
@@ -38,7 +40,7 @@ export default function GalaciaPage() {
             </div>
           </div>
           <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-teal-200/20 bg-[#071b21]">
-            <Image src="/projects/galacia.svg" alt="Galacia glacier illustration and product family" fill priority sizes="(max-width: 1024px) 100vw, 550px" className="object-contain" />
+            <Image src="/projects/galacia.svg" alt="Galacia glacier illustration and product family" fill preload sizes="(max-width: 1024px) 100vw, 550px" className="object-contain" />
           </div>
         </section>
 
@@ -85,5 +87,6 @@ export default function GalaciaPage() {
         </section>
       </div>
     </div>
+    </PageTransition>
   )
 }

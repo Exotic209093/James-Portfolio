@@ -264,6 +264,18 @@
   font-weight: 500;
 }
 
+.activityLink {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s;
+}
+
+.activityLink:hover {
+  text-decoration-color: var(--house);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   :global(html:not(.calm-motion):not(.hero-seen)) .renderBox {
     animation: render-pass 1.5s var(--ease) 0.2s both;
@@ -273,8 +285,21 @@
     animation: scan-fade 1.5s linear 0.2s both;
   }
 
+  /* Rises alongside the render pass rather than after it, so the intro text
+   * (the page's largest paint) arrives quickly. */
   :global(html:not(.calm-motion):not(.hero-seen)) .after {
-    animation: rise 0.7s var(--ease) 1.05s both;
+    animation: rise 0.6s var(--ease) 0.12s both;
+  }
+}
+
+/* Replay on hover or tap (components/home/HeroName.tsx). */
+@media (prefers-reduced-motion: no-preference) {
+  :global(html:not(.calm-motion)) .renderBox.replay {
+    animation: render-pass 1.15s var(--ease) both;
+  }
+
+  :global(html:not(.calm-motion)) .renderBox.replay .renderScan {
+    animation: scan-fade 1.15s linear both;
   }
 }
 
@@ -324,8 +349,9 @@
 .stage {
   position: relative;
   background:
-    radial-gradient(55% 75% at 28% 52%, color-mix(in oklab, var(--room-accent) 20%, transparent), transparent 72%),
+    radial-gradient(55% 75% at var(--mx) var(--my), color-mix(in oklab, var(--room-accent) 20%, transparent), transparent 72%),
     var(--ink-deep);
+  transition: --mx 0.6s var(--ease), --my 0.6s var(--ease);
 }
 
 /* Without scroll-driven animation the rooms are a sideways, snapping scroller. */
@@ -371,8 +397,70 @@
   background: var(--ink-raised);
 }
 
-.roomArt img {
+.roomMedia {
+  position: relative;
+  min-width: 0;
+}
+
+.artImage,
+.evidenceImage {
+  transition: opacity 0.35s var(--ease);
+}
+
+.artImage {
   object-fit: cover;
+}
+
+/* Real screenshots keep their whole frame. */
+.evidenceImage {
+  background: var(--ink-deep);
+  object-fit: contain;
+  opacity: 0;
+}
+
+.roomArt[data-view='evidence'] .artImage {
+  opacity: 0;
+}
+
+.roomArt[data-view='evidence'] .evidenceImage {
+  opacity: 1;
+}
+
+.mediaToggle {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid color-mix(in oklab, var(--paper) 14%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ink-deep) 72%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.mediaToggle button {
+  min-height: 38px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 500 12px/1 var(--font-mono);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.mediaToggle button:hover {
+  color: var(--paper);
+}
+
+.mediaToggle button[aria-pressed='true'] {
+  background: var(--paper);
+  color: var(--ink);
 }
 
 .roomCopy {
@@ -509,7 +597,7 @@
       padding-block: 96px 112px;
     }
 
-    :global(html:not(.calm-motion)) .roomArt img {
+    :global(html:not(.calm-motion)) .roomArt .artImage {
       animation: drift linear both;
       animation-timeline: --exhibit;
       animation-range: contain 0% contain 100%;
@@ -805,6 +893,46 @@
 
 .dim {
   opacity: 0.12;
+}
+
+/* With a filter on, the matching branches draw brighter and thicker. */
+.bright {
+  opacity: 1;
+  stroke-width: 2.6;
+  filter: drop-shadow(0 0 4px color-mix(in oklab, currentColor 40%, transparent));
+}
+
+/* Hover preview: the project's artwork floats beside the pointer. */
+.preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 300px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-raised);
+  box-shadow: 0 24px 60px color-mix(in oklab, var(--ink-deep) 85%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  will-change: transform;
+}
+
+.preview[data-shown='true'] {
+  opacity: 1;
+}
+
+.previewImage {
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.previewImage[data-active='true'] {
+  opacity: 1;
 }
 
 .row {

@@ -2,10 +2,12 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import MotionPreferences from '@/components/MotionPreferences'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ExternalLink, Github, X } from 'lucide-react'
 import { trackById, type Project } from '@/lib/projects'
+import { NAV_FORWARD } from '@/components/PageTransition'
 
 function formatDate(date: string) {
   const d = new Date(`${date}T00:00:00`)
@@ -33,6 +35,7 @@ export default function ProjectGitGraph({ projects, activeTrack }: ProjectGitGra
   const openProject = ordered.find((p) => p.id === openId) ?? null
 
   return (
+    <MotionPreferences>
     <div className="relative py-2">
       {/* ---- the single main line ---- */}
       <div className="pointer-events-none absolute inset-y-0 left-[27px] w-[2px] -translate-x-1/2 overflow-hidden rounded-full bg-gradient-to-b from-purple-500/0 via-purple-500/40 to-purple-500/0 md:left-1/2">
@@ -78,6 +81,7 @@ export default function ProjectGitGraph({ projects, activeTrack }: ProjectGitGra
         )}
       </AnimatePresence>
     </div>
+    </MotionPreferences>
   )
 }
 
@@ -299,7 +303,7 @@ function CommitWindow({ project, onClose }: { project: Project; onClose: () => v
 
           <div className="flex flex-wrap gap-3">
             <Link
-              href={`/projects/${project.id}`}
+              href={`/projects/${project.id}`} transitionTypes={NAV_FORWARD}
               className="inline-flex min-h-11 items-center rounded-full bg-house px-5 text-sm font-medium text-ink transition-colors hover:bg-purple-300"
             >
               Full case study
