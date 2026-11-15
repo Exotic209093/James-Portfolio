@@ -160,15 +160,33 @@ try {
     })
     await screenshot(`${label}-home-hero`)
 
-    await check(`${label}: exhibition rooms line up with the header`, async () => {
-      const pinned = await evaluate(`getComputedStyle(document.querySelector('#work [class*="stage"]')).position === 'sticky'`)
-      assert.ok(pinned, 'the exhibition should pin when motion is allowed')
+    await check(`${label}: each work scene pins, opens fully and lines up with the header`, async () => {
       const logoLeft = await evaluate(`document.querySelector('header a[href="/"]').getBoundingClientRect().left`)
-      for (const room of [0, 1, 2, 3]) {
-        await scrollTo(`(() => { const r = document.querySelector('#work [class*="runway"]'); return r.getBoundingClientRect().top + scrollY + (r.offsetHeight - innerHeight) * ${room} / 3 })()`)
-        const artLeft = await evaluate(`document.querySelector('#work [data-room="${room}"] [class*="roomArt"]').getBoundingClientRect().left`)
-        assert.ok(Math.abs(artLeft - logoLeft) <= 3, `room ${room}: art at ${artLeft.toFixed(1)}px, header at ${logoLeft.toFixed(1)}px`)
-        await screenshot(`${label}-home-room${room}`)
+      const scenes = await evaluate(`document.querySelectorAll('#work [data-scene]').length`)
+      assert.ok(scenes >= 1, 'no scenes rendered')
+      for (let scene = 0; scene < scenes; scene++) {
+        const el = `document.querySelector('#work [data-scene="${scene}"]')`
+        assert.ok(await evaluate(`getComputedStyle(${el}.querySelector('[class*="stage"]')).position === 'sticky'`), `scene ${scene} should pin`)
+        // Opening: the frame is still a card part-way in.
+        await scrollTo(`${el}.getBoundingClientRect().top + scrollY - innerHeight * 0.4`)
+        await screenshot(`${label}-scene${scene}-opening`)
+        // Hold: frame fully open, name and details fully shown.
+        await scrollTo(`${el}.getBoundingClientRect().top + scrollY + (${el}.offsetHeight - innerHeight) * 0.62`)
+        const state = await evaluate(`(() => {
+          const scene = ${el}
+          const pick = (part) => scene.querySelector('[class*="' + part + '"]')
+          return {
+            frame: getComputedStyle(pick('media')).clipPath,
+            title: getComputedStyle(pick('title')).clipPath,
+            details: getComputedStyle(pick('details')).opacity,
+            copyLeft: pick('title').getBoundingClientRect().left,
+          }
+        })()`)
+        assert.match(state.frame, /^inset\(0(px|%)?( round 0(px)?)?\)$|^none$/, `scene ${scene} frame is ${state.frame}`)
+        assert.match(state.title, /^inset\(-10% 0(px|%)?( -10%( 0(px|%)?)?)?\)$|^none$/, `scene ${scene} title is ${state.title}`)
+        assert.equal(state.details, '1', `scene ${scene} details opacity`)
+        assert.ok(Math.abs(state.copyLeft - logoLeft) <= 3, `scene ${scene}: copy at ${state.copyLeft.toFixed(1)}px, header at ${logoLeft.toFixed(1)}px`)
+        await screenshot(`${label}-scene${scene}-hold`)
       }
     })
 
@@ -212,18 +230,35 @@ try {
     assert.ok(!(await evaluate(`Boolean(document.querySelector('[role="dialog"][aria-modal="true"]'))`)), 'palette did not close')
   })
 
-  await check('desktop: a showcase room switches between artwork and its real screenshot', async () => {
-    await scrollTo(`(() => { const r = document.querySelector('#work [class*="runway"]'); return r.getBoundingClientRect().top + scrollY })()`)
-    const view = () => evaluate(`document.querySelector('#work [data-room="0"] [data-view]').dataset.view`)
+  await check('desktop: a work scene switches between artwork and its real screenshot', async () => {
+    const el = `document.querySelector('#work [data-scene="0"]')`
+    await scrollTo(`${el}.getBoundingClientRect().top + scrollY + (${el}.offsetHeight - innerHeight) * 0.62`)
+    const view = () => evaluate(`${el}.querySelector('[data-view]').dataset.view`)
     assert.equal(await view(), 'art')
-    await evaluate(`[...document.querySelectorAll('#work [data-room="0"] [aria-pressed]')].find((b) => b.getAttribute('aria-pressed') === 'false').click(); true`)
-    await delay(500)
+    await evaluate(`[...${el}.querySelectorAll('[aria-pressed]')].find((b) => b.getAttribute('aria-pressed') === 'false').click(); true`)
+    await delay(600)
     assert.equal(await view(), 'evidence')
-    await screenshot('desktop-room0-screenshot')
+    await screenshot('desktop-scene0-screenshot')
+  })
+
+  await open('/projects', viewports.desktop)
+  await check('desktop: the project index filters with a branch chip and restores', async () => {
+    const rows = () => evaluate(`document.querySelectorAll('#project-results li').length`)
+    const all = await rows()
+    assert.ok(all > 1, 'index should list projects')
+    await evaluate(`document.querySelector('[aria-label="Filter by branch"] button:nth-child(2)').click(); true`)
+    await delay(900)
+    const filtered = await rows()
+    assert.ok(filtered > 0 && filtered < all, `branch filter kept ${filtered} of ${all}`)
+    await screenshot('desktop-index-filtered')
+    await evaluate(`document.querySelector('[aria-label="Filter by branch"] button:nth-child(1)').click(); true`)
+    await delay(900)
+    assert.equal(await rows(), all)
+    assert.deepEqual(consoleErrors, [])
   })
 
   await open('/', viewports.desktop, { reducedMotion: true })
-  await check('reduced motion: calm motion is on and the exhibition does not pin', async () => {
+  await check('reduced motion: calm motion is on and the work scenes do not pin', async () => {
     assert.ok(await evaluate(`document.documentElement.classList.contains('calm-motion')`))
     assert.ok(await evaluate(`getComputedStyle(document.querySelector('#work [class*="stage"]')).position !== 'sticky'`))
     await scrollTo(`document.getElementById('work').getBoundingClientRect().top + scrollY`)

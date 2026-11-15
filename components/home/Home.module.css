@@ -22,6 +22,45 @@
   letter-spacing: -0.025em;
 }
 
+/* Section headings wipe up from a baseline as they scroll into view. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html:not(.calm-motion)) .secHead h2 {
+      animation: heading-in linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 90%;
+    }
+
+    :global(html:not(.calm-motion)) .secHead :global(.label) {
+      animation: label-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+@keyframes heading-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+    translate: 0 0.45em;
+  }
+  to {
+    clip-path: inset(-0.2em -0.2em -0.3em -0.2em);
+    translate: 0 0;
+  }
+}
+
+@keyframes label-in {
+  from {
+    opacity: 0;
+    letter-spacing: 0.32em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.12em;
+  }
+}
+
 .secHead p:not(:global(.label)) {
   color: var(--muted);
   font-size: 1.08rem;
@@ -334,420 +373,9 @@
   }
 }
 
-/* ---------- 2. Exhibition ---------- */
-.exhibit {
-  --n: 4;
-  background: var(--ink-deep);
-  border-block: 1px solid var(--line);
-  scroll-margin-top: 0;
-}
-
-.exhibitHead {
-  padding-block: clamp(72px, 9vw, 112px) 24px;
-}
-
-.stage {
-  position: relative;
-  background:
-    radial-gradient(55% 75% at var(--mx) var(--my), color-mix(in oklab, var(--room-accent) 20%, transparent), transparent 72%),
-    var(--ink-deep);
-  transition: --mx 0.6s var(--ease), --my 0.6s var(--ease);
-}
-
-/* Without scroll-driven animation the rooms are a sideways, snapping scroller. */
-.scroller {
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-
-.scroller::-webkit-scrollbar {
-  display: none;
-}
-
-.track {
-  display: flex;
-  width: calc(var(--n) * 100%);
-}
-
-.room {
-  display: grid;
-  flex: none;
-  align-content: center;
-  width: calc(100% / var(--n));
-  padding-block: 40px 56px;
-  scroll-snap-align: start;
-}
-
-/* Width and side padding come from the container classes in the markup. */
-.roomInner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  gap: clamp(24px, 5vw, 72px);
-  align-items: center;
-}
-
-.roomArt {
-  position: relative;
-  display: block;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border-radius: var(--radius);
-  background: var(--ink-raised);
-}
-
-.roomMedia {
-  position: relative;
-  min-width: 0;
-}
-
-.artImage,
-.evidenceImage {
-  transition: opacity 0.35s var(--ease);
-}
-
-.artImage {
-  object-fit: cover;
-}
-
-/* Real screenshots keep their whole frame. */
-.evidenceImage {
-  background: var(--ink-deep);
-  object-fit: contain;
-  opacity: 0;
-}
-
-.roomArt[data-view='evidence'] .artImage {
-  opacity: 0;
-}
-
-.roomArt[data-view='evidence'] .evidenceImage {
-  opacity: 1;
-}
-
-.mediaToggle {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 2;
-  display: flex;
-  gap: 2px;
-  padding: 3px;
-  border: 1px solid color-mix(in oklab, var(--paper) 14%, transparent);
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--ink-deep) 72%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.mediaToggle button {
-  min-height: 38px;
-  padding: 0 12px;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--muted);
-  font: 500 12px/1 var(--font-mono);
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.mediaToggle button:hover {
-  color: var(--paper);
-}
-
-.mediaToggle button[aria-pressed='true'] {
-  background: var(--paper);
-  color: var(--ink);
-}
-
-.roomCopy {
-  display: grid;
-  gap: 14px;
-  justify-items: start;
-  min-width: 0;
-}
-
-.roomLabel {
-  color: var(--a);
-}
-
-.roomTitle {
-  font-size: clamp(2.1rem, 4.6vw, 3.7rem);
-  font-stretch: 125%;
-  font-weight: 640;
-  letter-spacing: -0.035em;
-  line-height: 1;
-}
-
-.roomDesc {
-  max-width: 44ch;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.roomProof {
-  color: var(--paper);
-  font: 400 13px/1.5 var(--font-mono);
-}
-
-.exhibitBar {
-  display: grid;
-  gap: 12px;
-  padding-bottom: 32px;
-}
-
-.exhibitNames {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.exhibitNames button {
-  min-height: 44px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--paper);
-  font: 500 12px/1 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  cursor: pointer;
-  opacity: 0.45;
-  transition: opacity 0.2s;
-}
-
-.exhibitNames button:hover,
-.exhibitNames button[aria-current='true'] {
-  opacity: 1;
-}
-
-.exhibitRail {
-  height: 2px;
-  overflow: hidden;
-  border-radius: 2px;
-  background: var(--line);
-}
-
-.exhibitRail span {
-  display: block;
-  height: 100%;
-  background: var(--room-accent);
-  transform: scaleX(var(--rail, 0.25));
-  transform-origin: left;
-  transition: transform 0.4s var(--ease);
-}
-
-.exhibitNav {
-  display: flex;
-  gap: 10px;
-}
-
-@media (max-width: 760px) {
-  .roomInner {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .exhibitNames button {
-    font-size: 10.5px;
-    letter-spacing: 0.04em;
-  }
-}
-
-/* Pinned exhibition: the page holds still while the rooms pan past. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) and (min-height: 560px) {
-    :global(html:not(.calm-motion)) .runway {
-      height: calc(var(--n) * 100svh);
-      view-timeline-name: --exhibit;
-      /* Ignore the page's scroll-padding so the pan starts exactly as the stage pins. */
-      view-timeline-inset: 0;
-    }
-
-    :global(html:not(.calm-motion)) .stage {
-      position: sticky;
-      top: 0;
-      height: 100svh;
-      overflow: clip;
-      animation: room-accent linear both;
-      animation-timeline: --exhibit;
-      animation-range: contain 0% contain 100%;
-    }
-
-    /* clip, not hidden: focusing a link must not scroll the panned track. */
-    :global(html:not(.calm-motion)) .scroller {
-      height: 100%;
-      overflow: clip;
-      scroll-snap-type: none;
-    }
-
-    :global(html:not(.calm-motion)) .track {
-      height: 100%;
-      animation: pan linear both;
-      animation-timeline: --exhibit;
-      animation-range: contain 0% contain 100%;
-    }
-
-    :global(html:not(.calm-motion)) .room {
-      height: 100%;
-      padding-block: 96px 112px;
-    }
-
-    :global(html:not(.calm-motion)) .roomArt .artImage {
-      animation: drift linear both;
-      animation-timeline: --exhibit;
-      animation-range: contain 0% contain 100%;
-    }
-
-    :global(html:not(.calm-motion)) .exhibitBar {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 24px;
-      padding-bottom: 0;
-    }
-
-    :global(html:not(.calm-motion)) .exhibitNav {
-      display: none;
-    }
-
-    :global(html:not(.calm-motion)) .exhibitRail span {
-      transform: scaleX(0);
-      transition: none;
-      animation: grow-x linear both;
-      animation-timeline: --exhibit;
-      animation-range: contain 0% contain 100%;
-    }
-
-    :global(html:not(.calm-motion)) .exhibitNames button {
-      transition: none;
-    }
-
-    :global(html:not(.calm-motion)) .exhibitNames button:nth-child(1) {
-      animation: name-0 linear both;
-      animation-timeline: --exhibit;
-      animation-range: contain 0% contain 100%;
-    }
-
-    :global(html:not(.calm-motion)) .exhibitNames button:nth-child(2) {
-      animation: name-1 linear both;
-      animation-timeline: --exhibit;
-      animation-range: contain 0% contain 100%;
-    }
-
-    :global(html:not(.calm-motion)) .exhibitNames button:nth-child(3) {
-      animation: name-2 linear both;
-      animation-timeline: --exhibit;
-      animation-range: contain 0% contain 100%;
-    }
-
-    :global(html:not(.calm-motion)) .exhibitNames button:nth-child(4) {
-      animation: name-3 linear both;
-      animation-timeline: --exhibit;
-      animation-range: contain 0% contain 100%;
-    }
-  }
-
-  @media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (max-width: 760px) {
-    :global(html:not(.calm-motion)) .room {
-      padding-block: 84px 96px;
-    }
-
-    :global(html:not(.calm-motion)) .roomDesc {
-      display: -webkit-box;
-      overflow: hidden;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-    }
-
-    :global(html:not(.calm-motion)) .roomCopy .chips,
-    :global(html:not(.calm-motion)) .roomProof {
-      display: none;
-    }
-  }
-}
-
-/* Text only: the rooms read top to bottom like the rest of the page. */
-:global(html.basic-mode) .scroller {
-  overflow: visible;
-}
-
-:global(html.basic-mode) .track {
-  flex-direction: column;
-  width: 100%;
-}
-
-:global(html.basic-mode) .room {
-  width: 100%;
-}
-
-:global(html.basic-mode) .exhibitBar,
+/* Text only: no scan line over the rendered name. */
 :global(html.basic-mode) .renderScan {
   display: none;
-}
-
-/* Four rooms: centres at 0%, 33.3%, 66.7% and 100% of the runway. */
-@keyframes room-accent {
-  0% {
-    --room-accent: var(--a0);
-  }
-  33.33% {
-    --room-accent: var(--a1);
-  }
-  66.67% {
-    --room-accent: var(--a2);
-  }
-  100% {
-    --room-accent: var(--a3);
-  }
-}
-
-@keyframes pan {
-  to {
-    transform: translateX(calc(-100% * (var(--n) - 1) / var(--n)));
-  }
-}
-
-@keyframes drift {
-  from {
-    transform: translateX(5%) scale(1.14);
-  }
-  to {
-    transform: translateX(-5%) scale(1.14);
-  }
-}
-
-@keyframes grow-x {
-  to {
-    transform: scaleX(1);
-  }
-}
-
-@keyframes name-0 {
-  0% { opacity: 1; }
-  16.67% { opacity: 0.45; }
-  100% { opacity: 0.45; }
-}
-
-@keyframes name-1 {
-  0%, 16.67% { opacity: 0.45; }
-  33.33% { opacity: 1; }
-  50%, 100% { opacity: 0.45; }
-}
-
-@keyframes name-2 {
-  0%, 50% { opacity: 0.45; }
-  66.67% { opacity: 1; }
-  83.33%, 100% { opacity: 0.45; }
-}
-
-@keyframes name-3 {
-  0%, 83.33% { opacity: 0.45; }
-  100% { opacity: 1; }
 }
 
 /* ---------- 3. History ---------- */

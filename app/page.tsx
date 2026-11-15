@@ -1,5 +1,5 @@
 import RenderHero from '@/components/home/RenderHero'
-import Exhibition, { type ExhibitRoom } from '@/components/home/Exhibition'
+import Scenes, { type SceneProject } from '@/components/home/Scenes'
 import HistoryGraph, { type HistoryRow, type HistoryTrack } from '@/components/home/HistoryGraph'
 import Merge from '@/components/home/Merge'
 import PageTransition from '@/components/PageTransition'
@@ -23,7 +23,7 @@ const exhibition: { id: string; proof: string; evidenceLabel?: string }[] = [
   { id: 'galacia', proof: 'Live product website · Independently built and deployed', evidenceLabel: 'Live site' },
 ]
 
-const rooms: ExhibitRoom[] = exhibition.map(({ id, proof, evidenceLabel }) => {
+const scenes: SceneProject[] = exhibition.map(({ id, proof, evidenceLabel }) => {
   const evidence = projectEvidence[id]
   const project = getProjectBySlug(id)
   if (!project) throw new Error(`Missing exhibition project: ${id}`)
@@ -72,7 +72,7 @@ export default async function Home() {
     <PageTransition>
       <div className={s.branch} aria-hidden="true" />
       <RenderHero projectCount={projects.length} branchCount={projectTracks.length} activity={activity} />
-      <Exhibition rooms={rooms} />
+      <Scenes projects={scenes} />
       <HistoryGraph rows={historyRows} tracks={historyTracks} />
       <CompanyAndCommunity contributions={contributions} />
       <Merge />
