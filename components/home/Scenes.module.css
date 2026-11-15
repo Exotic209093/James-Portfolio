@@ -1,0 +1,487 @@
+/* ============================================
+ * Selected work: one full-screen scene per project.
+ *
+ * Base styles are the finished frame (full-bleed artwork, copy over a scrim),
+ * which is what calm motion, reduced motion and browsers without scroll-driven
+ * animation get. The pinned choreography is layered on below.
+ * ============================================ */
+
+.work {
+  position: relative;
+  background: var(--ink-deep);
+  border-block: 1px solid var(--line);
+}
+
+.head {
+  padding-block: clamp(72px, 9vw, 112px) clamp(40px, 6vw, 72px);
+}
+
+.scene {
+  position: relative;
+  scroll-margin-top: 0;
+}
+
+.stage {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: min(100svh, 880px);
+  overflow: clip;
+  isolation: isolate;
+}
+
+/* ---------- media ---------- */
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: var(--ink-raised);
+}
+
+.art,
+.evidence {
+  transition: opacity 0.4s var(--ease);
+}
+
+.art {
+  object-fit: cover;
+}
+
+/* Real screenshots keep their whole frame on a dark ground. */
+.evidence {
+  padding: clamp(72px, 10vh, 112px) clamp(16px, 6vw, 96px) clamp(320px, 50vh, 460px);
+  background: var(--ink-deep);
+  object-fit: contain;
+  opacity: 0;
+}
+
+.frame[data-view='evidence'] .art {
+  opacity: 0;
+}
+
+.frame[data-view='evidence'] .evidence {
+  opacity: 1;
+}
+
+/* Legibility for the copy, plus a light in the project's accent that follows the pointer. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(45% 55% at var(--mx) var(--my), color-mix(in oklab, var(--a) 16%, transparent), transparent 70%),
+    linear-gradient(to top, rgba(8, 9, 12, 0.94) 0%, rgba(8, 9, 12, 0.72) 32%, rgba(8, 9, 12, 0.2) 62%, rgba(8, 9, 12, 0.35) 100%);
+  transition: --mx 0.7s var(--ease), --my 0.7s var(--ease);
+}
+
+/* ---------- copy ---------- */
+.copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 18px;
+  padding-block: 128px clamp(56px, 9vh, 96px);
+}
+
+.index {
+  color: color-mix(in oklab, var(--paper) 78%, transparent);
+  font: 500 13px/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-shadow: 0 1px 14px rgba(8, 9, 12, 0.9);
+}
+
+.index span {
+  color: var(--a);
+}
+
+.title {
+  max-width: 100%;
+  color: var(--paper);
+  font-size: clamp(3rem, 10.5vw, 10rem);
+  font-stretch: 125%;
+  font-weight: 640;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+  text-shadow: 0 2px 40px rgba(8, 9, 12, 0.45);
+}
+
+.details {
+  display: grid;
+  gap: 14px;
+  max-width: 54ch;
+  justify-items: start;
+}
+
+.kicker {
+  color: var(--a);
+}
+
+.description {
+  color: color-mix(in oklab, var(--paper) 82%, transparent);
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.6;
+}
+
+.proof {
+  color: var(--paper);
+  font: 400 13px/1.5 var(--font-mono);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  min-height: 46px;
+  padding: 0 1.3em;
+  border-radius: 999px;
+  background: var(--a);
+  color: var(--ink);
+  font: 600 15px/1 var(--font-sans);
+  text-decoration: none;
+  transition: transform 0.2s var(--ease), background-color 0.2s;
+}
+
+.cta svg {
+  transition: transform 0.25s var(--ease);
+}
+
+.cta:hover {
+  background: color-mix(in oklab, var(--a) 80%, var(--paper));
+}
+
+.cta:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.cta:active {
+  transform: scale(0.98);
+}
+
+.toggle {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid color-mix(in oklab, var(--paper) 16%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ink-deep) 70%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.toggle button {
+  min-height: 38px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 500 12px/1 var(--font-mono);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.toggle button:hover {
+  color: var(--paper);
+}
+
+.toggle button[aria-pressed='true'] {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* ---------- index rail and progress ---------- */
+/* Sits in the dark band at the bottom right, clear of the artwork and the name. */
+.rail {
+  position: absolute;
+  right: max(16px, calc((100vw - 1280px) / 2 + 32px));
+  bottom: clamp(56px, 9vh, 96px);
+  z-index: 2;
+  display: none;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rail a {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  color: var(--paper);
+  font: 500 12px/1.4 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: 0 1px 14px rgba(8, 9, 12, 0.8);
+  opacity: 0.45;
+  transition: opacity 0.2s;
+}
+
+.rail a span {
+  color: var(--muted);
+}
+
+.rail a:hover,
+.rail [data-current='true'] a {
+  opacity: 1;
+}
+
+.rail [data-current='true'] a span {
+  color: var(--a);
+}
+
+@media (min-width: 1100px) {
+  .rail {
+    display: grid;
+  }
+}
+
+.progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: 2px;
+  background: color-mix(in oklab, var(--paper) 8%, transparent);
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--a);
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (max-width: 640px) {
+  .copy {
+    gap: 14px;
+    padding-bottom: 40px;
+  }
+
+  .description {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+  }
+}
+
+/* ============================================
+ * Pinned choreography.
+ * Each scene is a 260svh runway; its stage sticks for the middle of it.
+ *   entry          the card opens towards the full frame
+ *   contain 0-30%  the frame finishes opening, the name wipes in
+ *   contain 28-44% the details arrive
+ *   contain 44-100% hold
+ *   exit           the scene recedes and dims as the next one opens
+ * ============================================ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-height: 560px) {
+    :global(html:not(.calm-motion)) .scene {
+      height: 260svh;
+      view-timeline-name: --scene;
+      view-timeline-inset: 0;
+    }
+
+    :global(html:not(.calm-motion)) .stage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      min-height: 0;
+    }
+
+    :global(html:not(.calm-motion)) .media {
+      animation:
+        frame-open linear both,
+        frame-recede linear both;
+      animation-timeline: --scene, --scene;
+      animation-range:
+        entry 25% contain 30%,
+        exit 0% exit 100%;
+    }
+
+    :global(html:not(.calm-motion)) .art {
+      animation: art-settle linear both;
+      animation-timeline: --scene;
+      animation-range: entry 25% exit 100%;
+    }
+
+    :global(html:not(.calm-motion)) .scrim {
+      animation: fade-in linear both;
+      animation-timeline: --scene;
+      animation-range: entry 70% contain 26%;
+    }
+
+    :global(html:not(.calm-motion)) .copy {
+      animation: copy-leave linear both;
+      animation-timeline: --scene;
+      animation-range: exit 0% exit 40%;
+    }
+
+    :global(html:not(.calm-motion)) .index {
+      animation: rise-in linear both;
+      animation-timeline: --scene;
+      animation-range: contain 10% contain 24%;
+    }
+
+    :global(html:not(.calm-motion)) .title {
+      animation: title-wipe linear both;
+      animation-timeline: --scene;
+      animation-range: contain 12% contain 34%;
+    }
+
+    :global(html:not(.calm-motion)) .details {
+      animation: rise-in linear both;
+      animation-timeline: --scene;
+      animation-range: contain 28% contain 44%;
+    }
+
+    :global(html:not(.calm-motion)) .rail {
+      animation: fade-in linear both;
+      animation-timeline: --scene;
+      animation-range: contain 4% contain 18%;
+    }
+
+    :global(html:not(.calm-motion)) .progress span {
+      animation: grow-x linear both;
+      animation-timeline: --scene;
+      animation-range: contain 0% contain 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (max-width: 760px) {
+    :global(html:not(.calm-motion)) .media {
+      animation-name: frame-open-narrow, frame-recede;
+    }
+  }
+}
+
+/* The card starts inset with rounded corners and opens to the full frame. */
+@keyframes frame-open {
+  from {
+    clip-path: inset(16% 20% 18% 20% round 28px);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 0px);
+  }
+}
+
+@keyframes frame-open-narrow {
+  from {
+    clip-path: inset(14% 6% 34% 6% round 20px);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 0px);
+  }
+}
+
+/* As it leaves, the scene steps back and darkens. */
+@keyframes frame-recede {
+  from {
+    scale: 1;
+    filter: brightness(1);
+  }
+  to {
+    scale: 0.9;
+    filter: brightness(0.35);
+  }
+}
+
+/* Counter-zoom while the frame opens, then a slow push for the rest of the scene. */
+@keyframes art-settle {
+  0% {
+    scale: 1.32;
+  }
+  30% {
+    scale: 1.04;
+  }
+  100% {
+    scale: 1.12;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Left to right, like the hero's render pass. */
+@keyframes title-wipe {
+  from {
+    clip-path: inset(-10% 100% -10% 0);
+    translate: -4vw 0;
+  }
+  to {
+    clip-path: inset(-10% 0 -10% 0);
+    translate: 0 0;
+  }
+}
+
+@keyframes copy-leave {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    translate: 0 -48px;
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Text only: no media, plain stacked content. */
+:global(html.basic-mode) .media,
+:global(html.basic-mode) .rail,
+:global(html.basic-mode) .progress {
+  display: none;
+}
+
+:global(html.basic-mode) .stage {
+  min-height: 0;
+}
+
+:global(html.basic-mode) .copy {
+  padding-block: 32px;
+}

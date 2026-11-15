@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar } from 'lucide-react'
 import { getProjectBySlug, projects } from '@/lib/projects'
 import { projectCaseStudies } from '@/lib/project-case-studies'
 import ProjectDetailClient from '@/components/projects/ProjectDetailClient'
+import PageTransition, { NAV_BACK } from '@/components/PageTransition'
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
@@ -39,15 +40,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const reviewedAt = projectCaseStudies[project.id]?.reviewedAt ?? project.date
 
   return (
+    <PageTransition>
     <div className="pt-20 md:pt-32 pb-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        {/* Back Button */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <Link
           href="/projects"
-          className="inline-flex items-center text-gray-400 hover:text-purple-400 transition-colors mb-8"
+          transitionTypes={NAV_BACK}
+          className="mb-8 inline-flex min-h-11 items-center text-muted transition-colors hover:text-paper"
         >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Projects
+          <ArrowLeft className="h-4 w-4 mr-2" aria-hidden="true" />
+          Back to all work
         </Link>
 
         {/* Review date is distinct from a product launch date. */}
@@ -61,5 +63,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <ProjectDetailClient project={project} />
       </div>
     </div>
+    </PageTransition>
   )
 }

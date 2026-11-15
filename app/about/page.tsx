@@ -1,25 +1,39 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import type { CSSProperties } from 'react'
 import { ArrowRight, Download } from 'lucide-react'
-import Card from '@/components/ui/Card'
+import PageIntro from '@/components/ui/PageIntro'
 import { ButtonLink } from '@/components/ui/Button'
 import CertificationCard from '@/components/sections/CertificationCard'
 import { skills, siteConfig } from '@/lib/constants'
 import { getProjectHistory } from '@/lib/projects'
 import { getRecentCertifications, certifications } from '@/lib/certifications'
 import { formatDate } from '@/lib/utils'
+import s from './About.module.css'
+import PageTransition, { NAV_FORWARD } from '@/components/PageTransition'
 
 const recentCertifications = getRecentCertifications(3)
-
 const projectHistory = getProjectHistory()
-const highlightedProjects = projectHistory.slice(0, 3)
 
-const workExperience = [
+type Lane = 'work' | 'learning'
+
+const lanes: Record<Lane, { label: string; color: string }> = {
+  work: { label: 'Work', color: 'var(--lane-salesforce)' },
+  learning: { label: 'Learning', color: 'var(--lane-ai)' },
+}
+
+// Newest first. Work and learning share one branch, each on its own lane colour.
+const timeline: {
+  lane: Lane
+  title: string
+  organisation: string
+  period: string
+  points?: string[]
+  summary?: string
+}[] = [
   {
+    lane: 'work',
     title: 'Solutions Engineer',
-    company: 'Apex Infinity Solutions',
+    organisation: 'Apex Infinity Solutions',
     period: '2026 to present',
     points: [
       'Deliver client-facing Salesforce implementations from solution design through Apex and Lightning Web Component development, configuration, and release.',
@@ -28,8 +42,9 @@ const workExperience = [
     ],
   },
   {
+    lane: 'work',
     title: 'Junior Software Developer',
-    company: 'Apex Infinity Solutions',
+    organisation: 'Apex Infinity Solutions',
     period: '2024 to 2026',
     points: [
       'Owned Salesforce configuration and development across data models, record types, page layouts, and Experience Cloud access controls.',
@@ -37,278 +52,198 @@ const workExperience = [
       'Implemented Salesforce integrations and GitHub Actions pipelines with automated testing and security checks.',
     ],
   },
-]
-
-const education = [
   {
-    title: 'Extended Diploma in Engineering',
-    organisation: 'Waterfront UTC, Kent',
-    period: 'Completed May 2023',
-    summary: 'Focused on mechanical, electrical, and software engineering with practical project work.',
-  },
-  {
+    lane: 'learning',
     title: 'Self-directed software learning',
     organisation: 'Independent study',
-    period: 'Ongoing since 2023',
+    period: 'Since 2023',
     summary:
-      'Learning through projects across TypeScript, Python, Apex, and C++ — including WaveLink for Salesforce data work, Flux Terminal for AI coding sessions, File Insights for local metadata editing, and browser games built with Three.js and Canvas.',
+      'Learning through projects across TypeScript, Python, Apex, and C++, including WaveLink for Salesforce data work, Flux Terminal for AI coding sessions, File Insights for local metadata editing, and browser games built with Three.js and Canvas.',
   },
+  {
+    lane: 'learning',
+    title: 'Extended Diploma in Engineering',
+    organisation: 'Waterfront UTC, Kent',
+    period: 'May 2023',
+    summary: 'Focused on mechanical, electrical, and software engineering with practical project work.',
+  },
+]
+
+const sections = [
+  ['overview', 'Overview'],
+  ['experience', 'Experience'],
+  ['projects', 'Projects'],
+  ['skills', 'Skills'],
+  ...(recentCertifications.length > 0 ? [['certifications', 'Certifications']] : []),
 ]
 
 export default function AboutPage() {
   return (
-    <div className="pt-20 md:pt-32 pb-20">
+    <PageTransition>
+    <div className="pb-20 pt-20 md:pt-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-white">About </span>
-            <span className="gradient-text">Me</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            {siteConfig.description}
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+        <PageIntro label={`${siteConfig.title} · London`} title="About" lede={siteConfig.description}>
+          <ButtonLink href="/resume.pdf" variant="primary" download>
+            <Download aria-hidden="true" className="mr-2 h-5 w-5" /> Download my CV
+          </ButtonLink>
+          <ButtonLink href="/contact" variant="outline">Get in touch</ButtonLink>
+        </PageIntro>
+
+        <nav aria-label="About page sections" className={s.subnav}>
+          {sections.map(([id, label]) => (
+            <a key={id} href={`#${id}`}>
+              {label}
+            </a>
+          ))}
+        </nav>
+
+        <section id="overview" className={`${s.section} ${s.overview}`} aria-labelledby="overview-title">
+          <div className={s.head}>
+            <p className="label">Overview</p>
+            <h2 id="overview-title">What I do</h2>
+          </div>
+          <div className={s.prose}>
+            <p>
+              I am a <strong>Solutions Engineer at Apex Infinity Solutions</strong>, a Salesforce and technology
+              consultancy. I deliver client-facing implementations, integrations, and document automation, following a
+              Junior Software Developer role with the same team. Alongside that work, I build independent products and
+              explore rendering, developer tools, and systems programming.
+            </p>
+            <p>
+              I am building <strong>Galacia</strong>, my independent software brand, starting with Galacia Vault for
+              Salesforce file storage. Its public website is live, while Vault remains in development and Docs, Track,
+              and Connect are planned concepts. I also build <strong>Docify</strong>, a native Rust document renderer, and
+              work on <strong>Infinity Docs</strong>, a Salesforce document-generation platform.
+            </p>
+            <p>
+              My other work includes WaveLink, a Salesforce data workspace; Flux Terminal, an Electron app for exploring
+              AI coding sessions; and File Insights, a Python tool for editing local file metadata. I also build web
+              experiences such as The Loft Zante and Infinite Idea, and explore rendering and simulation through ExoCraft
+              and a Canvas tower-defense game.
+            </p>
+          </div>
+        </section>
+
+        <section id="experience" className={s.section} aria-labelledby="experience-title">
+          <div className={s.head}>
+            <p className="label">Experience</p>
+            <h2 id="experience-title">Work and learning, on one branch.</h2>
+          </div>
+          <div className={s.legend} aria-hidden="true">
+            {(Object.keys(lanes) as Lane[]).map((lane) => (
+              <span key={lane} style={{ '--lane': lanes[lane].color } as CSSProperties}>
+                <i />
+                {lanes[lane].label}
+              </span>
+            ))}
+          </div>
+          <ol className={s.timeline}>
+            {timeline.map((entry) => (
+              <li
+                key={`${entry.organisation}-${entry.title}`}
+                className={s.item}
+                style={{ '--lane': lanes[entry.lane].color } as CSSProperties}
+              >
+                <p className={s.period}>{entry.period}</p>
+                <span className={s.node} aria-hidden="true" />
+                <div className={s.body}>
+                  <h3>{entry.title}</h3>
+                  <p className={s.org}>{entry.organisation}</p>
+                  {entry.points && (
+                    <ul className={s.points}>
+                      {entry.points.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {entry.summary && <p className={s.summary}>{entry.summary}</p>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section id="projects" className={s.section} aria-labelledby="projects-title">
+          <div className={s.head}>
+            <p className="label">Projects</p>
+            <h2 id="projects-title">What I built, and my part in it.</h2>
+          </div>
+          <ul className={s.projects}>
+            {projectHistory.map((project) => (
+              <li key={project.id}>
+                <Link href={`/projects/${project.id}`} transitionTypes={NAV_FORWARD} className={s.projectRow}>
+                  <span className={s.projectTitle}>{project.title}</span>
+                  <span className={s.projectRole}>{project.role ?? project.description}</span>
+                  <span className={s.projectDate}>{formatDate(project.date)}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="skills" className={`${s.section} reveal`} aria-labelledby="skills-title">
+          <div className={s.head}>
+            <p className="label">Skills</p>
+            <h2 id="skills-title">Tools I reach for.</h2>
+          </div>
+          <div className={s.skills}>
+            {skills.map((group) => (
+              <div key={group.category}>
+                <h3 className="label">{group.category}</h3>
+                <p>
+                  {group.items.map((item, index) => (
+                    <span key={item}>
+                      <span className={s.skill}>{item}</span>
+                      {index < group.items.length - 1 && (
+                        <>
+                          {' '}
+                          <span className={s.sep} aria-hidden="true">
+                            ·
+                          </span>{' '}
+                        </>
+                      )}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {recentCertifications.length > 0 && (
+          <section id="certifications" className={s.section} aria-labelledby="certifications-title">
+            <div className={s.head}>
+              <p className="label">Certifications</p>
+              <h2 id="certifications-title">Recent, and verifiable.</h2>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {recentCertifications.map((certification) => (
+                <CertificationCard key={certification.id} certification={certification} />
+              ))}
+            </div>
+            {certifications.length > recentCertifications.length && (
+              <Link
+                href="/certifications"
+                className="mt-8 inline-flex min-h-11 items-center gap-2 text-house transition-colors hover:text-paper"
+              >
+                View all certifications
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            )}
+          </section>
+        )}
+
+        <div className={`${s.closing} reveal`}>
+          <p>Want the full picture? Download the CV or get in touch.</p>
+          <div className={s.actions}>
             <ButtonLink href="/resume.pdf" variant="primary" download>
               <Download aria-hidden="true" className="mr-2 h-5 w-5" /> Download my CV
             </ButtonLink>
             <ButtonLink href="/contact" variant="outline">Get in touch</ButtonLink>
           </div>
-        </motion.div>
-
-        <nav aria-label="About page sections" className="mb-12 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-purple-300">
-          {[
-            ['overview', 'Overview'],
-            ['experience', 'Experience'],
-            ['project-history', 'Projects'],
-            ['skills', 'Skills'],
-            ...(recentCertifications.length > 0 ? [['certifications', 'Certifications']] : []),
-          ].map(([id, label]) => <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center hover:text-white">{label}</a>)}
-        </nav>
-
-        <motion.div
-          id="overview"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          className="max-w-4xl mx-auto mb-16"
-        >
-          <Card>
-            <div className="prose prose-invert max-w-none">
-              <h2 className="text-2xl font-semibold text-white mb-4">What I do</h2>
-              <p className="text-gray-300 mb-4 leading-relaxed">
-                I am a Solutions Engineer at Apex Infinity Solutions, a Salesforce and technology
-                consultancy. I deliver client-facing implementations, integrations, and document
-                automation, following a Junior Software Developer role with the same team. Alongside
-                that work, I build independent products and explore rendering, developer tools, and
-                systems programming.
-              </p>
-              <p className="text-gray-300 leading-relaxed">
-                I am building Galacia, my independent software brand, starting with Galacia Vault for
-                Salesforce file storage. Its public website is live, while Vault remains in development
-                and Docs, Track, and Connect are planned concepts. I also build Docify, a native Rust
-                document renderer, and work on Infinity Docs, a Salesforce document-generation platform.
-                My other work includes WaveLink,
-                a Salesforce data workspace; Flux Terminal, an Electron
-                app for exploring AI coding sessions; and File Insights, a Python tool for editing local
-                file metadata. I also build web experiences such as The Loft Zante and Infinite Idea,
-                and explore rendering and simulation through ExoCraft and a Canvas tower-defense game.
-              </p>
-            </div>
-          </Card>
-        </motion.div>
-
-        <motion.div
-          id="experience"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Work & </span>
-            <span className="gradient-text">Education</span>
-          </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="space-y-6">
-              {workExperience.map((role) => (
-                <Card key={`${role.company}-${role.title}`}>
-                  <div className="flex flex-col gap-2 mb-4">
-                    <h3 className="text-xl font-semibold text-white">{role.title}</h3>
-                    <p className="text-purple-400">{role.company}</p>
-                    <span className="text-sm text-gray-400">{role.period}</span>
-                  </div>
-                  <ul className="text-gray-300 space-y-2 text-sm">
-                    {role.points.map((point) => (
-                      <li key={point} className="flex items-start">
-                        <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 mt-1.5 shrink-0" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              ))}
-            </div>
-            <div className="space-y-6">
-              {education.map((item) => (
-                <Card key={`${item.organisation}-${item.title}`}>
-                  <div className="flex flex-col gap-2 mb-4">
-                    <h3 className="text-xl font-semibold text-white">{item.title}</h3>
-                    <p className="text-purple-400">{item.organisation}</p>
-                    <span className="text-sm text-gray-400">{item.period}</span>
-                  </div>
-                  <p className="text-gray-300 text-sm leading-relaxed">{item.summary}</p>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          id="project-history"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Project </span>
-            <span className="gradient-text">History</span>
-          </h2>
-          <div className="space-y-6">
-            {projectHistory.map((entry) => (
-              <Card key={entry.id}>
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-white mb-2"><Link href={`/projects/${entry.id}`} className="hover:text-purple-300">{entry.title}</Link></h3>
-                    <p className="text-gray-300 leading-relaxed">{entry.description}</p>
-                  </div>
-                  <span className="text-sm uppercase tracking-[0.2em] text-purple-400 md:min-w-40">
-                    Last reviewed {formatDate(entry.date)}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-400 leading-relaxed">{entry.role}</p>
-              </Card>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Why These </span>
-            <span className="gradient-text">Projects Matter</span>
-          </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {highlightedProjects.map((project) => (
-              <Card key={project.id} hover className="h-full">
-                <h3 className="text-xl font-semibold text-white mb-3"><Link href={`/projects/${project.id}`} className="hover:text-purple-300">{project.title}</Link></h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.slice(0, 4).map((item) => (
-                    <span
-                      key={item}
-                      className="px-2 py-1 text-xs bg-purple-900/30 text-purple-300 rounded border border-purple-800/50"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </Card>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          id="skills"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mb-16"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className="text-white">Skills & </span>
-            <span className="gradient-text">Technologies</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {skills.map((skillGroup, index) => (
-              <motion.div
-                key={skillGroup.category}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45 + index * 0.1, duration: 0.5 }}
-              >
-                <Card hover>
-                  <h3 className="text-xl font-semibold text-purple-400 mb-4">{skillGroup.category}</h3>
-                  <ul className="space-y-3">
-                    {skillGroup.items.map((skill) => (
-                      <li key={skill} className="text-gray-300 flex items-center">
-                        <span className="w-2 h-2 bg-purple-500 rounded-full mr-3" />
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {recentCertifications.length > 0 && (
-          <motion.div
-            id="certifications"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.6 }}
-            className="max-w-5xl mx-auto mb-16"
-          >
-            <h2 className="text-3xl font-bold text-center mb-12">
-              <span className="text-white">Recent </span>
-              <span className="gradient-text">Certifications</span>
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recentCertifications.map((certification, index) => (
-                <CertificationCard
-                  key={certification.id}
-                  certification={certification}
-                  index={index}
-                />
-              ))}
-            </div>
-            {certifications.length > recentCertifications.length && (
-              <div className="text-center mt-8">
-                <Link
-                  href="/certifications"
-                  className="inline-flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors"
-                >
-                  View all certifications
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            )}
-          </motion.div>
-        )}
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="text-center"
-        >
-          <ButtonLink href="/resume.pdf" variant="primary" size="lg" download>
-            <Download className="mr-2 h-5 w-5" />
-            Download My Resume
-          </ButtonLink>
-        </motion.div>
+        </div>
       </div>
     </div>
+    </PageTransition>
   )
 }

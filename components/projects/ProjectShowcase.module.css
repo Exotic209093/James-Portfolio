@@ -17,7 +17,7 @@
 }
 .eyebrow {
   display: block;
-  font: 600 0.7rem/1.8 monospace;
+  font: 600 0.7rem/1.8 var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--studio-accent, #5eead4);
@@ -110,7 +110,7 @@
 .label {
   display: block;
   color: #94a3b8;
-  font: 0.65rem/1.6 monospace;
+  font: 0.65rem/1.6 var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 1rem;
@@ -118,7 +118,7 @@
 .panel pre {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  font: 0.8rem/1.9 monospace;
+  font: 0.8rem/1.9 var(--font-mono);
   color: #a7f3d0;
   margin: 1rem 0;
 }
@@ -130,7 +130,7 @@
   border: 1px solid #39545e;
   border-radius: 0.4rem;
   color: #99f6e4;
-  font: 0.7rem/1.6 monospace;
+  font: 0.7rem/1.6 var(--font-mono);
 }
 .caption {
   margin-top: 1.25rem;
@@ -276,7 +276,7 @@
   border: 1px solid #334155;
   background: #050911;
   border-radius: 0.75rem;
-  font-family: monospace;
+  font-family: var(--font-mono);
 }
 .terminalBar {
   display: flex;
@@ -319,7 +319,7 @@
 }
 .slider span {
   color: #94a3b8;
-  font-family: monospace;
+  font-family: var(--font-mono);
 }
 .storage,
 .driver {
@@ -353,7 +353,7 @@
   justify-items: center;
   gap: 1rem;
   text-align: center;
-  font: 0.65rem/1.5 monospace;
+  font: 0.65rem/1.5 var(--font-mono);
   color: #fbbf24;
 }
 .memory {

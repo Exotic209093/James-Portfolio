@@ -1,9 +1,6 @@
-'use client'
-
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Github, Linkedin, Twitter, Mail, Chrome } from 'lucide-react'
-import { siteConfig, socialLinks } from '@/lib/constants'
+import { siteConfig, sitePages, socialLinks } from '@/lib/constants'
 import ModeToggle from '@/components/ui/ModeToggle'
 
 const iconMap = {
@@ -16,105 +13,59 @@ const iconMap = {
 
 export default function Footer() {
   return (
-    <motion.footer
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="border-t border-purple-900/20 bg-black/50 backdrop-blur-sm"
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h3 className="text-xl font-bold gradient-text mb-4">
-              {siteConfig.name}
-            </h3>
-            <p className="text-gray-400 text-sm">
-              {siteConfig.description}
+    <footer className="relative z-[2] border-t border-line bg-ink-deep">
+      <div className="container mx-auto px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="max-w-md">
+            <p className="text-xl font-semibold tracking-tight text-paper font-wide">{siteConfig.name}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              {siteConfig.title} in London. Salesforce tools, document automation and software people use.
             </p>
-          </motion.div>
+          </div>
 
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <h4 className="text-sm font-semibold text-gray-300 mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {[
-                { href: '/about', label: 'About' },
-                { href: '/projects', label: 'Projects' },
-                { href: '/galacia', label: 'Galacia' },
-                { href: '/open-source', label: 'Open Source' },
-                { href: '/contact', label: 'Contact' },
-              ].map((link, index) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 + index * 0.05 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="text-gray-400 hover:text-purple-400 text-sm transition-colors"
-                  >
-                    {link.label}
+          <nav aria-label="Footer">
+            <p className="label mb-4">Pages</p>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-1 sm:max-w-xs">
+              {sitePages.filter((page) => page.href !== '/').map((page) => (
+                <li key={page.href}>
+                  <Link href={page.href} className="inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-paper">
+                    {page.name}
                   </Link>
-                </motion.li>
+                </li>
               ))}
             </ul>
-          </motion.div>
+          </nav>
 
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h4 className="text-sm font-semibold text-gray-300 mb-4">Connect</h4>
-            <div className="flex space-x-4">
-              {socialLinks.map((social, index) => {
+          <div>
+            <p className="label mb-4">Connect</p>
+            <ul className="flex flex-wrap gap-1">
+              {socialLinks.map((social) => {
                 const Icon = iconMap[social.icon as keyof typeof iconMap]
                 return (
-                  <motion.a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 + index * 0.1, type: 'spring', stiffness: 200 }}
-                    whileHover={{ scale: 1.2, y: -3 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="text-gray-400 hover:text-purple-400 transition-colors"
-                    aria-label={social.name}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </motion.a>
+                  <li key={social.name}>
+                    <a
+                      href={social.href}
+                      target={social.icon === 'mail' ? undefined : '_blank'}
+                      rel={social.icon === 'mail' ? undefined : 'noopener noreferrer'}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-paper/40 hover:text-paper"
+                      aria-label={social.name}
+                    >
+                      <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                    </a>
+                  </li>
                 )
               })}
-            </div>
-          </motion.div>
+            </ul>
+          </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-purple-900/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-center">
-          <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+        <div className="mt-12 flex flex-col gap-5 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted">
+            © {new Date().getFullYear()} {siteConfig.name}
           </p>
           <ModeToggle />
         </div>
       </div>
-    </motion.footer>
+    </footer>
   )
 }

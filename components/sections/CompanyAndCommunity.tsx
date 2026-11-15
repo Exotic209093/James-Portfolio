@@ -1,26 +1,53 @@
 import Link from 'next/link'
-import { ArrowRight, Mountain, GitPullRequest } from 'lucide-react'
+import type { CSSProperties } from 'react'
+import { ArrowRight } from 'lucide-react'
 import { contributionProjects } from '@/lib/contributions'
+import { WRAP } from '@/components/home/layout'
+import s from '@/components/home/Home.module.css'
 
-export default function CompanyAndCommunity() {
+export interface ContributionSummary {
+  merged: number
+  open: number
+  /** True when the counts come from the live GitHub feed rather than the saved snapshot. */
+  live: boolean
+}
+
+export default function CompanyAndCommunity({ contributions }: { contributions: ContributionSummary }) {
   return (
-    <section data-portfolio-section aria-labelledby="company-community-title" className="py-16 md:py-24">
-      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <p className="text-xs tracking-[0.3em] text-purple-300 uppercase mb-3">Company & community</p>
-        <h2 id="company-community-title" className="text-3xl md:text-4xl font-bold text-white mb-8">Building my own. Contributing to yours.</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <Link href="/galacia" className="group rounded-2xl border border-teal-200/20 bg-gradient-to-br from-teal-950/40 to-black p-7 sm:p-9 hover:border-teal-200/50 transition-colors flex flex-col">
-            <Mountain className="w-8 h-8 text-teal-200 mb-7" />
-            <h3 className="text-3xl font-semibold text-white mb-4">Galacia</h3>
-            <p className="text-gray-300 leading-relaxed mb-7 flex-1">My independent software brand, starting with Galacia Vault for Salesforce file storage. Explore the company and the products taking shape.</p>
-            <span className="inline-flex items-center gap-2 text-teal-200 text-sm">Meet Galacia <ArrowRight className="w-4 h-4" /></span>
+    <section data-portfolio-section className={s.company} aria-labelledby="company-community-title">
+      <div className={WRAP}>
+        <div className={s.secHead}>
+          <p className="label">Company and community</p>
+          <h2 id="company-community-title">Building my own. Contributing to yours.</h2>
+        </div>
+        <div className={s.panels}>
+          <Link href="/galacia" className={`${s.panel} reveal`} style={{ '--a': '#79e5d2' } as CSSProperties}>
+            <p className={`label ${s.panelLabel}`}>Independent software</p>
+            <h3>Galacia</h3>
+            <p>
+              My independent software brand, starting with Galacia Vault for Salesforce file storage. Explore the company
+              and the products taking shape.
+            </p>
+            <span className={s.panelLink}>
+              Meet Galacia <ArrowRight size={16} aria-hidden="true" />
+            </span>
           </Link>
-          <Link href="/open-source" className="group rounded-2xl border border-purple-400/20 bg-gradient-to-br from-purple-950/40 to-black p-7 sm:p-9 hover:border-purple-400/50 transition-colors flex flex-col">
-            <GitPullRequest className="w-8 h-8 text-purple-300 mb-7" />
-            <h3 className="text-3xl font-semibold text-white mb-4">Open source</h3>
-            <p className="text-gray-300 leading-relaxed mb-5 flex-1">Focused fixes, upstream reviews, and improvements to the tools I use. Follow my contributions from the problem to the pull request.</p>
-            <p className="text-xs text-gray-400 mb-7">{contributionProjects.map((project) => project.name).join(' · ')}</p>
-            <span className="inline-flex items-center gap-2 text-purple-300 text-sm">Explore contributions <ArrowRight className="w-4 h-4" /></span>
+          <Link href="/open-source" className={`${s.panel} reveal`}>
+            <p className={`label ${s.panelLabel}`}>Open source</p>
+            <h3>Upstream fixes</h3>
+            <div className={s.figure}>
+              <b>{contributions.merged}</b>
+              <span>
+                merged pull requests
+                <br />
+                {contributions.open > 0 ? `${contributions.open} open · ` : ''}
+                {contributions.live ? 'live from GitHub' : 'from the saved feed'}
+              </span>
+            </div>
+            <p>Focused fixes and reviews in {contributionProjects.map((project) => project.name).join(' and ')}.</p>
+            <span className={s.panelLink}>
+              Explore contributions <ArrowRight size={16} aria-hidden="true" />
+            </span>
           </Link>
         </div>
       </div>

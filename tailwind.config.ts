@@ -1,5 +1,21 @@
 import type { Config } from 'tailwindcss'
 
+// The house colour is a quiet lavender (#b8a7f2). The purple and primary scales
+// are remapped onto it so existing utility classes inherit the calmer palette.
+const lavender = {
+  50: '#f5f3fd',
+  100: '#ebe7fb',
+  200: '#d9d1f7',
+  300: '#c8bcf5',
+  400: '#b8a7f2',
+  500: '#9d8ae0',
+  600: '#8270c4',
+  700: '#6a5aa3',
+  800: '#4a4070',
+  900: '#2e2a45',
+  950: '#1c1a2a',
+}
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -7,58 +23,36 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    // One content width everywhere: the container stops growing at 1280px so
+    // the header, homepage sections and inner pages share the same left edge.
+    container: {
+      screens: { sm: '640px', md: '768px', lg: '1024px', xl: '1280px' },
+    },
     extend: {
       colors: {
-        background: '#000000',
-        foreground: '#ffffff',
-        primary: {
-          50: '#f3e8ff',
-          100: '#e9d5ff',
-          200: '#d8b4fe',
-          300: '#c084fc',
-          400: '#a855f7',
-          500: '#9333ea',
-          600: '#7e22ce',
-          700: '#6b21a8',
-          800: '#581c87',
-          900: '#4c1d95',
-          950: '#2e1065',
+        background: '#0d0e12',
+        foreground: '#eceaf3',
+        ink: {
+          DEFAULT: '#0d0e12',
+          raised: '#15171d',
+          deep: '#08090c',
         },
+        paper: '#eceaf3',
+        muted: '#a6a4b5',
+        line: '#2a2d38',
+        house: '#b8a7f2',
+        primary: lavender,
         purple: {
-          dark: '#1a0a2e',
-          deep: '#16213e',
-          accent: '#6b21a8',
-          light: '#9333ea',
+          ...lavender,
+          dark: '#15171d',
+          deep: '#08090c',
+          accent: '#6a5aa3',
+          light: '#b8a7f2',
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-mono)', 'monospace'],
-      },
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'gradient': 'gradient 8s ease infinite',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        gradient: {
-          '0%, 100%': {
-            'background-size': '200% 200%',
-            'background-position': 'left center',
-          },
-          '50%': {
-            'background-size': '200% 200%',
-            'background-position': 'right center',
-          },
-        },
+        sans: ['var(--font-sans)'],
+        mono: ['var(--font-mono)'],
       },
     },
   },

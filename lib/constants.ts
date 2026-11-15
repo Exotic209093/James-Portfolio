@@ -15,12 +15,22 @@ export const siteConfig = {
   },
 }
 
+// Four destinations keep the full navigation on one line from 1024px.
+// Galacia and Certifications stay reachable from Work, About, the footer and
+// the command palette.
 export const navigation = [
-  { name: 'Home', href: '/' },
+  { name: 'Work', href: '/projects' },
   { name: 'About', href: '/about' },
-  { name: 'Projects', href: '/projects' },
+  { name: 'Open source', href: '/open-source' },
+  { name: 'Contact', href: '/contact' },
+]
+
+export const sitePages = [
+  { name: 'Home', href: '/' },
+  { name: 'Work', href: '/projects' },
+  { name: 'About', href: '/about' },
   { name: 'Galacia', href: '/galacia' },
-  { name: 'Open Source', href: '/open-source' },
+  { name: 'Open source', href: '/open-source' },
   { name: 'Certifications', href: '/certifications' },
   { name: 'Contact', href: '/contact' },
 ]

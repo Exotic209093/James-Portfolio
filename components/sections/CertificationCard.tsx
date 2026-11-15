@@ -1,35 +1,23 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { Award } from 'lucide-react'
 import Card from '@/components/ui/Card'
 import type { Certification } from '@/lib/certifications'
 import { formatDate } from '@/lib/utils'
+import { NAV_FORWARD } from '@/components/PageTransition'
 
 interface CertificationCardProps {
   certification: Certification
   index?: number
 }
 
-export default function CertificationCard({ certification, index = 0 }: CertificationCardProps) {
+export default function CertificationCard({ certification }: CertificationCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{
-        delay: index * 0.08,
-        duration: 0.5,
-        type: 'spring',
-        stiffness: 100,
-      }}
-      whileHover={{ y: -6 }}
-      className="h-full"
-    >
+    <div className="reveal h-full">
       <Card hover className="relative h-full flex flex-col group cursor-pointer">
         <Link
-          href={`/certifications/${certification.id}`}
+          href={`/certifications/${certification.id}`} transitionTypes={NAV_FORWARD}
           aria-label={`View details for ${certification.title}`}
           className="absolute inset-0 z-10"
         />
@@ -67,6 +55,6 @@ export default function CertificationCard({ certification, index = 0 }: Certific
           </div>
         )}
       </Card>
-    </motion.div>
+    </div>
   )
 }

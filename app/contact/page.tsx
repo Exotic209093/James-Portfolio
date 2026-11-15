@@ -1,4 +1,5 @@
 import ContactContent from '@/components/ContactContent'
+import PageTransition from '@/components/PageTransition'
 import { getProjectBySlug } from '@/lib/projects'
 
 export default async function ContactPage({ searchParams }: {
@@ -6,5 +7,9 @@ export default async function ContactPage({ searchParams }: {
 }) {
   const { project } = await searchParams
   const selected = typeof project === 'string' ? getProjectBySlug(project) : undefined
-  return <ContactContent projectTitle={selected?.title} />
+  return (
+    <PageTransition>
+      <ContactContent projectTitle={selected?.title} />
+    </PageTransition>
+  )
 }

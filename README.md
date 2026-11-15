@@ -65,6 +65,12 @@ rendered per authenticated request with private/no-store responses; job pages
 are not prerendered. The production check also verifies that distinctive private
 values are absent from public static assets. Do not place deployment credentials in Git.
 
+`npm run test:visual` (also after building) drives headless Chrome or Edge at
+desktop, laptop and phone sizes. It checks for horizontal overflow, console
+errors, the pinned exhibition's alignment, the phone menu, the command palette
+and calm motion, and saves screenshots to `.visual/` for review. Set
+`CHROME_PATH` if the browser is not in a standard location.
+
 The [27 September 2026 review](docs/website-readiness-2026-09-27.md) records the
 framework migration, browser checks and remaining validation limits.
 

@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { CSSProperties } from 'react'
+import { ViewTransition, type CSSProperties } from 'react'
 import { ArrowDown, ArrowUpRight, Github } from 'lucide-react'
 import { projects, type Project } from '@/lib/projects'
 import { getProjectArt } from '@/lib/project-art'
@@ -9,6 +9,7 @@ import { getRelatedProjects, projectCaseStudies } from '@/lib/project-case-studi
 import { projectEvidence } from '@/lib/project-evidence'
 import ProjectShowcase from './ProjectShowcase'
 import styles from './ProjectEditorial.module.css'
+import { NAV_FORWARD } from '@/components/PageTransition'
 
 export default function ProjectDetailClient({ project }: { project: Project }) {
   const art = getProjectArt(project.id)
@@ -48,21 +49,25 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           )}
         </div>
       </header>
-      <figure className={styles.hero}>
-        <Image
-          src={project.image}
-          alt={`${project.title} editorial concept artwork`}
-          fill
-          priority
-          sizes="(max-width: 1200px) 100vw, 1152px"
-          className={styles.cover}
-        />
-        <div className={styles.imageShade} />
-        <span className={styles.heroStatus}>{project.status}</span>
-        <figcaption>
-          Concept artwork <span> / {art.label}</span>
-        </figcaption>
-      </figure>
+      {/* Pairs with the homepage exhibition so the cover morphs into place. */}
+      <ViewTransition name={`art-${project.id}`} share="morph" default="none">
+        <figure className={styles.hero}>
+          <Image
+            src={project.image}
+            alt={`${project.title} editorial concept artwork`}
+            fill
+            preload
+            fetchPriority="high"
+            sizes="(max-width: 1200px) 100vw, 1152px"
+            className={styles.cover}
+          />
+          <div className={styles.imageShade} />
+          <span className={styles.heroStatus}>{project.status}</span>
+          <figcaption>
+            Concept artwork <span> / {art.label}</span>
+          </figcaption>
+        </figure>
+      </ViewTransition>
       <section className={styles.overview} aria-labelledby="overview-heading">
         <div>
           <p className={styles.kicker}>01 / The project</p>
@@ -163,7 +168,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           <h2 id="related-heading">Related work.</h2>
           <div className={styles.relatedGrid}>
             {related.map((item) => (
-              <Link key={item.id} href={`/projects/${item.id}`} className={styles.nextProject}>
+              <Link key={item.id} href={`/projects/${item.id}`} transitionTypes={NAV_FORWARD} className={styles.nextProject}>
                 <div>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>

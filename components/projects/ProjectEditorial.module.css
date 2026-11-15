@@ -8,12 +8,12 @@
 }
 .kicker {
   color: var(--project-accent, #c4b5fd);
-  font: 500 0.68rem/1.8 monospace;
+  font: 500 0.68rem/1.8 var(--font-mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 .kicker span {
-  color: #777580;
+  color: var(--muted);
   margin-left: 1rem;
 }
 .intro h1 {
@@ -94,7 +94,7 @@
   bottom: 1.25rem;
   left: 1.5rem;
   color: #e1e0e7;
-  font: 0.6rem/1.6 monospace;
+  font: 0.6rem/1.6 var(--font-mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -268,7 +268,7 @@
   padding-top: 1.25rem;
 }
 .highlights span {
-  font: 0.7rem monospace;
+  font: 0.7rem var(--font-mono);
   color: var(--project-accent);
 }
 .highlights p {
@@ -290,7 +290,7 @@
 }
 .stack p {
   color: #817d8a;
-  font: 0.7rem/1.9 monospace;
+  font: 0.7rem/1.9 var(--font-mono);
 }
 .nextProject {
   display: flex;
@@ -336,7 +336,7 @@
   left: 1.2rem;
   color: #fff;
   text-transform: uppercase;
-  font: 0.6rem monospace;
+  font: 0.6rem var(--font-mono);
   letter-spacing: 0.12em;
   text-shadow: 0 1px 8px #000;
   background: #080a0ccc;
@@ -398,7 +398,7 @@
   margin-top: 1rem;
 }
 .cardTech span {
-  font: 0.65rem/1.5 monospace;
+  font: 0.65rem/1.5 var(--font-mono);
   color: #c1bdcb;
   padding: 0.35rem 0.55rem;
   background: #ffffff06;

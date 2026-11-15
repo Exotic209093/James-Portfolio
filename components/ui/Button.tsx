@@ -2,39 +2,38 @@ import Link from 'next/link'
 import { ButtonHTMLAttributes, forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
+type Variant = 'primary' | 'secondary' | 'outline' | 'ghost'
+type Size = 'sm' | 'md' | 'lg'
+
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
+  variant?: Variant
+  size?: Size
   asChild?: boolean
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', children, ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:pointer-events-none'
-    
-    const variants = {
-      primary: 'bg-gradient-to-r from-purple-600 to-purple-700 text-white hover:from-purple-500 hover:to-purple-600 shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70',
-      secondary: 'bg-purple-900/30 text-purple-300 border border-purple-700/50 hover:bg-purple-900/50 hover:border-purple-600',
-      outline: 'border-2 border-purple-600 text-purple-400 hover:bg-purple-600/10',
-      ghost: 'text-gray-300 hover:text-purple-400 hover:bg-purple-900/20',
-    }
-    
-    const sizes = {
-      sm: 'px-4 py-2 text-sm',
-      md: 'px-6 py-3 text-base',
-      lg: 'px-8 py-4 text-lg',
-    }
+// Every interactive control is a full pill. One solid house colour, no glow.
+const baseStyles =
+  'inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full font-medium transition-[transform,background-color,border-color,color] duration-200 active:translate-y-px active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-house disabled:pointer-events-none disabled:opacity-50'
 
-    return (
-      <button
-        ref={ref}
-        className={cn(baseStyles, variants[variant], sizes[size], className)}
-        {...props}
-      >
-        {children}
-      </button>
-    )
-  }
+const variants: Record<Variant, string> = {
+  primary: 'bg-house text-ink hover:bg-purple-300',
+  secondary: 'border border-line bg-ink-raised text-paper hover:border-paper/40',
+  outline: 'border border-line text-paper hover:border-paper/50',
+  ghost: 'text-muted hover:text-paper',
+}
+
+const sizes: Record<Size, string> = {
+  sm: 'px-4 text-sm',
+  md: 'px-5 text-[15px]',
+  lg: 'px-6 text-base',
+}
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant = 'primary', size = 'md', children, ...props }, ref) => (
+    <button ref={ref} className={cn(baseStyles, variants[variant], sizes[size], className)} {...props}>
+      {children}
+    </button>
+  )
 )
 
 Button.displayName = 'Button'
@@ -51,41 +50,24 @@ export const ButtonLink = ({
 }: {
   href: string
   className?: string
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
+  variant?: Variant
+  size?: Size
   children: React.ReactNode
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
-  const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-black'
-  
-  const variants = {
-    primary: 'bg-gradient-to-r from-purple-600 to-purple-700 text-white hover:from-purple-500 hover:to-purple-600 shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70',
-    secondary: 'bg-purple-900/30 text-purple-300 border border-purple-700/50 hover:bg-purple-900/50 hover:border-purple-600',
-    outline: 'border-2 border-purple-600 text-purple-400 hover:bg-purple-600/10',
-    ghost: 'text-gray-300 hover:text-purple-400 hover:bg-purple-900/20',
-  }
-  
-  const sizes = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
-  }
+  const classes = cn(baseStyles, variants[variant], sizes[size], className)
 
   // Files use normal browser navigation. Next's route prefetch requests a
   // Server Component response for a PDF and produces avoidable 404 requests.
   if (props.download !== undefined && props.download !== false) {
     return (
-      <a href={href} className={cn(baseStyles, variants[variant], sizes[size], className)} {...props}>
+      <a href={href} className={classes} {...props}>
         {children}
       </a>
     )
   }
 
   return (
-    <Link
-      href={href}
-      className={cn(baseStyles, variants[variant], sizes[size], className)}
-      {...props}
-    >
+    <Link href={href} className={classes} {...props}>
       {children}
     </Link>
   )

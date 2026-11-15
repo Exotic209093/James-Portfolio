@@ -1,9 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { Mail, MapPin, Copy, Check, Download, ArrowUpRight } from 'lucide-react'
 import Card from '@/components/ui/Card'
+import PageIntro from '@/components/ui/PageIntro'
 import Button, { ButtonLink } from '@/components/ui/Button'
 import { siteConfig } from '@/lib/constants'
 
@@ -33,66 +33,43 @@ export default function ContactContent({ projectTitle }: { projectTitle?: string
 
   return (
     <div className="pt-20 md:pt-32 pb-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-white">Get In </span>
-            <span className="gradient-text">Touch</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Have a freelance project, role, or idea in mind? The best way to reach me is directly by email.
-          </p>
-        </motion.div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <PageIntro
+          label="Contact"
+          title="Get in touch"
+          lede="Have a freelance project, role, or idea in mind? The best way to reach me is directly by email."
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Info */}
           <div className="lg:col-span-1 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+            <div className="reveal">
               <Card hover>
                 <div className="flex items-center gap-3 mb-3">
-                  <motion.div
-                    className="shrink-0 p-3 bg-purple-900/30 rounded-lg"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
+                  <div className="shrink-0 rounded-lg bg-purple-900/30 p-3 transition-transform duration-300 hover:rotate-3 hover:scale-110">
                     <Mail className="h-5 w-5 text-purple-400" />
-                  </motion.div>
+                  </div>
                   <h2 className="text-white font-semibold">Email</h2>
                 </div>
                 <a href={emailLink} className="block break-all text-gray-400 hover:text-purple-400 transition-colors">
                   {emailAddress}
                 </a>
               </Card>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
+            <div className="reveal">
               <Card hover>
                 <div className="flex items-start space-x-4">
-                  <motion.div
-                    className="shrink-0 p-3 bg-purple-900/30 rounded-lg"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
+                  <div className="shrink-0 rounded-lg bg-purple-900/30 p-3 transition-transform duration-300 hover:rotate-3 hover:scale-110">
                     <MapPin className="h-5 w-5 text-purple-400" />
-                  </motion.div>
+                  </div>
                   <div>
                     <h2 className="text-white font-semibold mb-1">Location</h2>
                     <p className="text-gray-400">{siteConfig.location} · open to remote</p>
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </div>
             <Card>
               <h2 className="text-white font-semibold mb-3">Looking for my background?</h2>
               <div className="flex flex-col items-start gap-4">
@@ -107,12 +84,7 @@ export default function ContactContent({ projectTitle }: { projectTitle?: string
           </div>
 
           {/* Mailto CTA */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-2"
-          >
+          <div className="reveal lg:col-span-2">
             <Card>
               <div className="flex flex-col items-center justify-center py-12 text-center gap-6">
                 <h2 className="text-2xl font-semibold text-white">{projectTitle ? `Inspired by ${projectTitle}?` : 'Send me an email'}</h2>
@@ -138,7 +110,7 @@ export default function ContactContent({ projectTitle }: { projectTitle?: string
                 </p>
               </div>
             </Card>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>
