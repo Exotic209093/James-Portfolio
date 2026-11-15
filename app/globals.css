@@ -120,9 +120,9 @@
     font-stretch: 125%;
   }
 
-  /* Retired: gradient headings now render in the solid house colour. */
+  /* Retired: two-tone gradient headings now read as one solid heading. */
   .gradient-text {
-    color: var(--house);
+    color: inherit;
   }
 
   .gradient-border {

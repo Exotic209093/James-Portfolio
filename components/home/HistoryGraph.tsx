@@ -3,6 +3,7 @@
 import { useMemo, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { WRAP } from './layout'
 import s from './Home.module.css'
 
 export interface HistoryRow {
@@ -76,7 +77,7 @@ export default function HistoryGraph({ rows, tracks }: { rows: HistoryRow[]; tra
 
   return (
     <section id="history" className={s.history} aria-labelledby="history-title">
-      <div className={s.wrap}>
+      <div className={WRAP}>
         <div className={s.secHead}>
           <p className="label">History</p>
           <h2 id="history-title">Every project, on its branch.</h2>
@@ -88,38 +89,42 @@ export default function HistoryGraph({ rows, tracks }: { rows: HistoryRow[]; tra
 
         <div className={s.graphTools}>
           <div className={s.filters} role="group" aria-label="Filter by branch">
-            <span className={`label ${s.filterLabel}`} aria-hidden="true">Branch</span>
-            <button type="button" className={s.chip} aria-pressed={trackFilter === null} onClick={() => setTrackFilter(null)}>
-              All <span className={s.count}>{rows.length}</span>
-            </button>
-            {tracks.map((track) => (
-              <button
-                key={track.id}
-                type="button"
-                className={s.chip}
-                aria-pressed={trackFilter === track.id}
-                onClick={() => setTrackFilter(trackFilter === track.id ? null : track.id)}
-                style={{ '--lane': laneColor(track.id) } as CSSProperties}
-              >
-                <span className={s.swatch} aria-hidden="true" />
-                {track.label}
-                <span className={s.count}>{rows.filter((row) => row.track === track.id).length}</span>
+            <span className="label" aria-hidden="true">Branch</span>
+            <div className={s.chipRow}>
+              <button type="button" className={s.chip} aria-pressed={trackFilter === null} onClick={() => setTrackFilter(null)}>
+                All <span className={s.count}>{rows.length}</span>
               </button>
-            ))}
+              {tracks.map((track) => (
+                <button
+                  key={track.id}
+                  type="button"
+                  className={s.chip}
+                  aria-pressed={trackFilter === track.id}
+                  onClick={() => setTrackFilter(trackFilter === track.id ? null : track.id)}
+                  style={{ '--lane': laneColor(track.id) } as CSSProperties}
+                >
+                  <span className={s.swatch} aria-hidden="true" />
+                  {track.label}
+                  <span className={s.count}>{rows.filter((row) => row.track === track.id).length}</span>
+                </button>
+              ))}
+            </div>
           </div>
           <div className={s.filters} role="group" aria-label="Filter by technology">
-            <span className={`label ${s.filterLabel}`} aria-hidden="true">Technology</span>
-            {techOptions.map((option) => (
-              <button
-                key={option.name}
-                type="button"
-                className={s.chip}
-                aria-pressed={techFilter === option.index}
-                onClick={() => setTechFilter(techFilter === option.index ? null : option.index)}
-              >
-                {option.name} <span className={s.count}>{option.count}</span>
-              </button>
-            ))}
+            <span className="label" aria-hidden="true">Technology</span>
+            <div className={s.chipRow}>
+              {techOptions.map((option) => (
+                <button
+                  key={option.name}
+                  type="button"
+                  className={s.chip}
+                  aria-pressed={techFilter === option.index}
+                  onClick={() => setTechFilter(techFilter === option.index ? null : option.index)}
+                >
+                  {option.name} <span className={s.count}>{option.count}</span>
+                </button>
+              ))}
+            </div>
           </div>
           <p className={s.status} role="status" aria-live="polite">
             {activeNames.length

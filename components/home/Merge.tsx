@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import { Download, Mail } from 'lucide-react'
 import { siteConfig } from '@/lib/constants'
+import { WRAP } from './layout'
 import s from './Home.module.css'
 
 /** The branch ends here: one clear next step for an employer, one line for clients. */
 export default function Merge() {
   return (
     <section id="merge" className={s.merge} aria-labelledby="merge-title">
-      <div className={`${s.wrap} ${s.mergeInner}`}>
+      <div className={`${WRAP} ${s.mergeInner}`}>
         <p className={`label ${s.mergeNode}`}>Ready to merge</p>
         <h2 id="merge-title" className={s.mergeTitle}>
           Hiring a Solutions Engineer?

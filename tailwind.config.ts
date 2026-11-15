@@ -23,6 +23,11 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    // One content width everywhere: the container stops growing at 1280px so
+    // the header, homepage sections and inner pages share the same left edge.
+    container: {
+      screens: { sm: '640px', md: '768px', lg: '1024px', xl: '1280px' },
+    },
     extend: {
       colors: {
         background: '#0d0e12',

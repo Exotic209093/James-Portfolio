@@ -1,5 +1,6 @@
 import { ArrowDown, Download } from 'lucide-react'
 import { siteConfig } from '@/lib/constants'
+import { WRAP } from './layout'
 import s from './Home.module.css'
 
 /**
@@ -8,14 +9,18 @@ import s from './Home.module.css'
  * the render pass is CSS only and plays once per visit.
  */
 export default function RenderHero({ projectCount, branchCount }: { projectCount: number; branchCount: number }) {
+  const [firstName, ...rest] = siteConfig.name.split(' ')
   return (
     <section className={s.render} aria-labelledby="hero-name">
-      <div className={`${s.wrap} ${s.renderInner}`}>
+      <div className={`${WRAP} ${s.renderInner}`}>
         <p className={`label ${s.after}`}>
-          {siteConfig.title} · London · Open to opportunities
+          <span className={s.nowrap}>{siteConfig.title}</span> · <span className={s.nowrap}>London</span> ·{' '}
+          <span className={s.nowrap}>Open to opportunities</span>
         </p>
         <h1 id="hero-name" className={s.renderBox}>
-          <span className={s.renderOut}>{siteConfig.name}</span>
+          <span className={s.renderOut}>
+            <span>{firstName}</span> <span>{rest.join(' ')}</span>
+          </span>
           <span className={s.renderSrc} aria-hidden="true">
             <span className={s.tag}>&lt;h1&gt;</span>
             {siteConfig.name}

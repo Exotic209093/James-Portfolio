@@ -166,9 +166,9 @@ function Navigation({ pathname }: { pathname: string }) {
         <div
           ref={mobileRef}
           id="mobile-navigation"
-          className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-line bg-ink/95 backdrop-blur-md md:max-h-[calc(100dvh-5rem)] lg:hidden"
+          className="absolute inset-x-0 top-full h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-line bg-ink md:h-[calc(100dvh-5rem)] lg:hidden"
         >
-          <div className="container mx-auto px-4 py-3 sm:px-6">
+          <div className="container mx-auto px-4 py-4 sm:px-6">
             {navigation.map((item) => {
               const isActive = isCurrent(pathname, item.href)
               return (

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowRight, Download } from 'lucide-react'
 import Card from '@/components/ui/Card'
+import PageIntro from '@/components/ui/PageIntro'
 import { ButtonLink } from '@/components/ui/Button'
 import CertificationCard from '@/components/sections/CertificationCard'
 import { skills, siteConfig } from '@/lib/constants'
@@ -58,33 +59,24 @@ export default function AboutPage() {
   return (
     <div className="pt-20 md:pt-32 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="reveal text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-white">About </span>
-            <span className="gradient-text">Me</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            {siteConfig.description}
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
-            <ButtonLink href="/resume.pdf" variant="primary" download>
-              <Download aria-hidden="true" className="mr-2 h-5 w-5" /> Download my CV
-            </ButtonLink>
-            <ButtonLink href="/contact" variant="outline">Get in touch</ButtonLink>
-          </div>
-        </div>
+        <PageIntro label={`${siteConfig.title} · London`} title="About" lede={siteConfig.description}>
+          <ButtonLink href="/resume.pdf" variant="primary" download>
+            <Download aria-hidden="true" className="mr-2 h-5 w-5" /> Download my CV
+          </ButtonLink>
+          <ButtonLink href="/contact" variant="outline">Get in touch</ButtonLink>
+        </PageIntro>
 
-        <nav aria-label="About page sections" className="mb-12 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-purple-300">
+        <nav aria-label="About page sections" className="mb-12 flex flex-wrap gap-x-6 gap-y-2 border-y border-line py-1 text-sm text-muted">
           {[
             ['overview', 'Overview'],
             ['experience', 'Experience'],
             ['project-history', 'Projects'],
             ['skills', 'Skills'],
             ...(recentCertifications.length > 0 ? [['certifications', 'Certifications']] : []),
-          ].map(([id, label]) => <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center hover:text-white">{label}</a>)}
+          ].map(([id, label]) => <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center transition-colors hover:text-paper">{label}</a>)}
         </nav>
 
-        <div id="overview" className="reveal max-w-4xl mx-auto mb-16">
+        <div id="overview" className="reveal max-w-4xl mb-16">
           <Card>
             <div className="prose prose-invert max-w-none">
               <h2 className="text-2xl font-semibold text-white mb-4">What I do</h2>
@@ -110,8 +102,8 @@ export default function AboutPage() {
           </Card>
         </div>
 
-        <div id="experience" className="reveal max-w-5xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold text-center mb-12">
+        <div id="experience" className="reveal max-w-5xl mb-16">
+          <h2 className="mb-8 text-3xl font-semibold tracking-tight">
             <span className="text-white">Work & </span>
             <span className="gradient-text">Education</span>
           </h2>
@@ -150,8 +142,8 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div id="project-history" className="reveal max-w-5xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold text-center mb-12">
+        <div id="project-history" className="reveal max-w-5xl mb-16">
+          <h2 className="mb-8 text-3xl font-semibold tracking-tight">
             <span className="text-white">Project </span>
             <span className="gradient-text">History</span>
           </h2>
@@ -173,8 +165,8 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="reveal max-w-5xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold text-center mb-12">
+        <div className="reveal max-w-5xl mb-16">
+          <h2 className="mb-8 text-3xl font-semibold tracking-tight">
             <span className="text-white">Why These </span>
             <span className="gradient-text">Projects Matter</span>
           </h2>
@@ -199,7 +191,7 @@ export default function AboutPage() {
         </div>
 
         <div id="skills" className="reveal mb-16">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="mb-8 text-3xl font-semibold tracking-tight">
             <span className="text-white">Skills & </span>
             <span className="gradient-text">Technologies</span>
           </h2>
@@ -223,8 +215,8 @@ export default function AboutPage() {
         </div>
 
         {recentCertifications.length > 0 && (
-          <div id="certifications" className="reveal max-w-5xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold text-center mb-12">
+          <div id="certifications" className="reveal max-w-5xl mb-16">
+            <h2 className="mb-8 text-3xl font-semibold tracking-tight">
               <span className="text-white">Recent </span>
               <span className="gradient-text">Certifications</span>
             </h2>
@@ -238,7 +230,7 @@ export default function AboutPage() {
               ))}
             </div>
             {certifications.length > recentCertifications.length && (
-              <div className="text-center mt-8">
+              <div className="mt-8">
                 <Link
                   href="/certifications"
                   className="inline-flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors"
@@ -251,7 +243,7 @@ export default function AboutPage() {
           </div>
         )}
 
-        <div className="reveal text-center">
+        <div className="reveal">
           <ButtonLink href="/resume.pdf" variant="primary" size="lg" download>
             <Download className="mr-2 h-5 w-5" />
             Download My Resume

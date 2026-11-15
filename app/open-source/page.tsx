@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { unstable_noStore as noStore } from 'next/cache'
 import { getContributionFeeds } from '@/lib/contribution-feed'
 import ContributionCard from '@/components/sections/ContributionCard'
+import PageIntro from '@/components/ui/PageIntro'
 import { contributionProjects, contributionSearchUrl, type Contribution } from '@/lib/contributions'
 import { formatDate } from '@/lib/utils'
 
@@ -62,19 +63,15 @@ export default async function OpenSourcePage() {
   const openCount = contributions.filter((item) => item.status === 'open').length
 
   return (
-    <div data-portfolio-section className="pt-28 md:pt-36 pb-24">
-      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mb-12">
-          <p className="text-sm uppercase tracking-[0.25em] text-purple-300 mb-4">Working with the community</p>
-          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white mb-6">Open source.<br /><span className="gradient-text">Shared progress.</span></h1>
-          <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
-            I contribute fixes to tools I use: tracing the problem, making a focused change,
-            and working through upstream review. Explore my merged contributions and
-            open pull requests in T3 Code and Salesforce Inspector Reloaded.
-          </p>
-        </div>
+    <div data-portfolio-section className="pt-20 md:pt-32 pb-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <PageIntro
+          label="Working with the community"
+          title={<>Open source.<br />Shared progress.</>}
+          lede="I contribute fixes to tools I use: tracing the problem, making a focused change, and working through upstream review. Explore my merged contributions and open pull requests in T3 Code and Salesforce Inspector Reloaded."
+        />
 
-        <dl className="grid grid-cols-3 divide-x divide-purple-900/40 rounded-2xl border border-purple-800/30 bg-black/30 py-6 mb-8">
+        <dl className="mb-8 grid max-w-4xl grid-cols-3 divide-x divide-line rounded-xl border border-line bg-ink-raised py-6">
           {[
             [String(mergedCount), 'Merged in this feed'],
             [String(openCount), 'Open for review'],

@@ -13,7 +13,7 @@ const iconMap = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line bg-ink-deep">
+    <footer className="relative z-[2] border-t border-line bg-ink-deep">
       <div className="container mx-auto px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)]">
           <div className="max-w-md">

@@ -6,19 +6,8 @@
  * for reduced motion, and calm motion is off.
  * ============================================ */
 
-.wrap {
-  max-width: 1184px;
-  margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-}
-
-@media (min-width: 700px) {
-  .wrap {
-    padding-left: max(32px, env(safe-area-inset-left, 0px));
-    padding-right: max(32px, env(safe-area-inset-right, 0px));
-  }
-}
+/* Content width comes from Tailwind's `container` (see components/home/layout.ts),
+ * so every section shares the header's left edge. */
 
 .secHead {
   display: grid;
@@ -113,13 +102,15 @@
   display: none;
 }
 
+/* Only where the page has a margin wide enough to hold it, so the line never
+ * crosses text or artwork. The footer sits above it. */
 @supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) and (min-width: 700px) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1360px) {
     :global(html:not(.calm-motion)) .branch {
       position: fixed;
       top: 0;
       bottom: 0;
-      left: max(calc(10px + env(safe-area-inset-left, 0px)), calc(50vw - 600px));
+      left: calc((100vw - 1280px) / 2 + 6px);
       z-index: 1;
       display: block;
       width: 2px;
@@ -159,6 +150,37 @@
   display: grid;
   gap: 26px;
   justify-items: start;
+  width: 100%;
+}
+
+.renderOut > span {
+  display: inline;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+/* Phones: the name sets on two lines so it can be large. */
+@media (max-width: 559px) {
+  .render {
+    --render-size: clamp(2.75rem, 15.5vw, 5rem);
+    min-height: min(92svh, 760px);
+    padding-block: 104px 56px;
+  }
+
+  .render .renderOut {
+    white-space: normal;
+    line-height: 0.96;
+  }
+
+  .render .renderOut > span {
+    display: block;
+  }
+
+  .render .renderSrc {
+    font-size: calc(var(--render-size) * 0.32);
+  }
 }
 
 .renderBox {
@@ -329,19 +351,15 @@
   align-content: center;
   width: calc(100% / var(--n));
   padding-block: 40px 56px;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
   scroll-snap-align: start;
 }
 
+/* Width and side padding come from the container classes in the markup. */
 .roomInner {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
   gap: clamp(24px, 5vw, 72px);
   align-items: center;
-  width: 100%;
-  max-width: 1120px;
-  margin: 0 auto;
 }
 
 .roomArt {
@@ -390,9 +408,7 @@
 .exhibitBar {
   display: grid;
   gap: 12px;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 max(16px, env(safe-area-inset-right, 0px)) 32px max(16px, env(safe-area-inset-left, 0px));
+  padding-bottom: 32px;
 }
 
 .exhibitNames {
@@ -460,6 +476,8 @@
     :global(html:not(.calm-motion)) .runway {
       height: calc(var(--n) * 100svh);
       view-timeline-name: --exhibit;
+      /* Ignore the page's scroll-padding so the pan starts exactly as the stage pins. */
+      view-timeline-inset: 0;
     }
 
     :global(html:not(.calm-motion)) .stage {
@@ -650,13 +668,41 @@
 }
 
 .filters {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.filterLabel {
+  width: 100%;
+}
+
+.chipRow {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.filterLabel {
-  width: 100%;
+/* Phones: each filter row scrolls sideways instead of stacking five rows deep. */
+@media (max-width: 640px) {
+  .chipRow {
+    flex-wrap: nowrap;
+    margin-inline: -16px;
+    padding-inline: 16px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 24px), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 24px), transparent);
+  }
+
+  .chipRow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chipRow .chip {
+    flex: none;
+  }
 }
 
 .chip {
@@ -714,10 +760,12 @@
 
 .graph {
   position: relative;
+  max-width: 920px;
   margin: 28px 0 0;
   padding: 0;
   list-style: none;
   view-timeline-name: --graph;
+  view-timeline-inset: 0;
 }
 
 .graph svg {
@@ -900,8 +948,9 @@
 .panel {
   --a: var(--house);
   position: relative;
-  display: grid;
-  align-content: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 14px;
   padding: clamp(24px, 4vw, 40px);
   overflow: hidden;
@@ -932,7 +981,7 @@
   line-height: 1.6;
 }
 
-.panelLabel {
+.panel .panelLabel {
   color: var(--a);
 }
 
@@ -960,7 +1009,8 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: auto;
+  padding-top: 8px;
   color: var(--a);
   font: 500 14px/1 var(--font-sans);
 }

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { CSSProperties } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { contributionProjects } from '@/lib/contributions'
+import { WRAP } from '@/components/home/layout'
 import s from '@/components/home/Home.module.css'
 
 export interface ContributionSummary {
@@ -14,7 +15,7 @@ export interface ContributionSummary {
 export default function CompanyAndCommunity({ contributions }: { contributions: ContributionSummary }) {
   return (
     <section data-portfolio-section className={s.company} aria-labelledby="company-community-title">
-      <div className={s.wrap}>
+      <div className={WRAP}>
         <div className={s.secHead}>
           <p className="label">Company and community</p>
           <h2 id="company-community-title">Building my own. Contributing to yours.</h2>
@@ -33,13 +34,13 @@ export default function CompanyAndCommunity({ contributions }: { contributions: 
           </Link>
           <Link href="/open-source" className={`${s.panel} reveal`}>
             <p className={`label ${s.panelLabel}`}>Open source</p>
-            <h3>Upstream pull requests</h3>
+            <h3>Upstream fixes</h3>
             <div className={s.figure}>
               <b>{contributions.merged}</b>
               <span>
-                merged
-                {contributions.open > 0 ? `, ${contributions.open} open` : ''}
+                merged pull requests
                 <br />
+                {contributions.open > 0 ? `${contributions.open} open · ` : ''}
                 {contributions.live ? 'live from GitHub' : 'from the saved feed'}
               </span>
             </div>

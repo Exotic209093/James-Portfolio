@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { Mail, MapPin, Copy, Check, Download, ArrowUpRight } from 'lucide-react'
 import Card from '@/components/ui/Card'
+import PageIntro from '@/components/ui/PageIntro'
 import Button, { ButtonLink } from '@/components/ui/Button'
 import { siteConfig } from '@/lib/constants'
 
@@ -33,16 +34,12 @@ export default function ContactContent({ projectTitle }: { projectTitle?: string
 
   return (
     <div className="pt-20 md:pt-32 pb-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <div className="reveal text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-white">Get In </span>
-            <span className="gradient-text">Touch</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Have a freelance project, role, or idea in mind? The best way to reach me is directly by email.
-          </p>
-        </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <PageIntro
+          label="Contact"
+          title="Get in touch"
+          lede="Have a freelance project, role, or idea in mind? The best way to reach me is directly by email."
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Info */}

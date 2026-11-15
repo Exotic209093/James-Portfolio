@@ -4,6 +4,7 @@ import { ViewTransition, useEffect, useRef, useState, type CSSProperties, type F
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
+import { WRAP } from './layout'
 import s from './Home.module.css'
 
 export interface ExhibitRoom {
@@ -91,7 +92,7 @@ export default function Exhibition({ rooms }: { rooms: ExhibitRoom[] }) {
       aria-labelledby="work-title"
       style={{ '--n': String(count), ...accents } as CSSProperties}
     >
-      <div className={`${s.wrap} ${s.exhibitHead}`}>
+      <div className={`${WRAP} ${s.exhibitHead}`}>
         <div className={s.secHead}>
           <p className="label">Selected work</p>
           <h2 id="work-title">Four builds. Four kinds of problem.</h2>
@@ -123,7 +124,7 @@ export default function Exhibition({ rooms }: { rooms: ExhibitRoom[] }) {
                   aria-labelledby={`room-${room.id}`}
                   style={{ '--a': room.accent } as CSSProperties}
                 >
-                  <div className={s.roomInner}>
+                  <div className={`${WRAP} ${s.roomInner}`}>
                     <ViewTransition name={`art-${room.id}`} share="morph" default="none">
                       <Link href={`/projects/${room.id}`} className={s.roomArt} tabIndex={-1} aria-hidden="true">
                         <Image src={room.image} alt="" fill sizes="(max-width: 760px) 92vw, 620px" />
@@ -154,7 +155,7 @@ export default function Exhibition({ rooms }: { rooms: ExhibitRoom[] }) {
             </div>
           </div>
 
-          <div className={s.exhibitBar}>
+          <div className={`${WRAP} ${s.exhibitBar}`}>
             <div className={s.exhibitNames}>
               {rooms.map((room, index) => (
                 <button
