@@ -3,12 +3,17 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, Github, Linkedin } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Menu, X, Github, Linkedin, Search } from 'lucide-react'
 import { navigation, siteConfig } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import { useMode } from '@/components/ModeProvider'
 import ModeToggle from '@/components/ui/ModeToggle'
+import { openCommandPalette, useShortcutLabel } from '@/components/CommandPalette'
+
+const DESKTOP_QUERY = '(min-width: 1024px)'
+
+function isCurrent(pathname: string, href: string) {
+  return pathname === href || (href !== '/' && pathname.startsWith(`${href}/`))
+}
 
 function Navigation({ pathname }: { pathname: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -16,8 +21,7 @@ function Navigation({ pathname }: { pathname: string }) {
   const toggleRef = useRef<HTMLButtonElement>(null)
   const desktopRef = useRef<HTMLDivElement>(null)
   const mobileRef = useRef<HTMLDivElement>(null)
-  const { mode } = useMode()
-  const basic = mode === 'basic'
+  const shortcut = useShortcutLabel()
 
   const focusDesktopLink = useCallback((href: string | null) => {
     const links = Array.from(desktopRef.current?.querySelectorAll<HTMLAnchorElement>('a') ?? [])
@@ -28,7 +32,7 @@ function Navigation({ pathname }: { pathname: string }) {
   }, [])
 
   useEffect(() => {
-    const media = window.matchMedia('(min-width: 1280px)')
+    const media = window.matchMedia(DESKTOP_QUERY)
     const handleDesktopChange = (event: MediaQueryListEvent) => {
       if (!event.matches) return
       // Do not strand keyboard focus inside links that just became hidden.
@@ -62,7 +66,7 @@ function Navigation({ pathname }: { pathname: string }) {
         // change event fires. Keep the original blur target for that ordering.
         if (
           !event.relatedTarget &&
-          window.matchMedia('(min-width: 1280px)').matches &&
+          window.matchMedia(DESKTOP_QUERY).matches &&
           (mobileRef.current?.contains(event.target) || event.target === toggleRef.current)
         ) {
           focusDesktopLink(event.target.getAttribute('href'))
@@ -78,42 +82,55 @@ function Navigation({ pathname }: { pathname: string }) {
       }}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-2 h-16 md:h-20">
-          <motion.div whileHover={basic ? undefined : { scale: 1.05 }} whileTap={basic ? undefined : { scale: 0.95 }}>
-            <Link
-              href="/"
-              className="text-xl md:text-2xl font-bold gradient-text hover:opacity-80 transition-opacity"
-            >
-              {siteConfig.name}
-            </Link>
-          </motion.div>
+        <div className="flex h-16 items-center justify-between gap-3 md:h-20">
+          <Link
+            href="/"
+            aria-current={pathname === '/' ? 'page' : undefined}
+            className="inline-flex min-h-11 min-w-0 items-center truncate text-base font-semibold tracking-tight text-paper transition-opacity font-wide hover:opacity-80 sm:text-lg md:text-xl"
+          >
+            {siteConfig.name}
+          </Link>
 
-          <div ref={desktopRef} className="hidden xl:flex items-center space-x-5">
+          <div ref={desktopRef} className="hidden items-center gap-1 lg:flex">
             {navigation.map((item) => {
-              const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(`${item.href}/`))
+              const isActive = isCurrent(pathname, item.href)
               return (
                 <Link
                   key={item.name}
                   href={item.href}
                   aria-current={isActive ? 'page' : undefined}
                   className={cn(
-                    'inline-flex min-h-11 items-center text-sm font-medium transition-colors relative',
-                    isActive ? 'text-purple-400' : 'text-gray-300 hover:text-purple-400'
+                    'relative inline-flex min-h-11 items-center rounded-full px-4 text-[15px] transition-colors',
+                    isActive ? 'text-paper' : 'text-muted hover:text-paper'
                   )}
                 >
                   {item.name}
                   {isActive && (
-                    <span className="absolute bottom-1 left-0 right-0 h-0.5 bg-purple-500" />
+                    <span aria-hidden="true" className="absolute bottom-1.5 left-4 right-4 h-px bg-house" />
                   )}
                 </Link>
               )
             })}
-            <div className="flex items-center pl-2 border-l border-gray-700/40">
+          </div>
+
+          <div className="flex shrink-0 items-center gap-1.5">
+            <button
+              type="button"
+              onClick={(event) => openCommandPalette(event.currentTarget)}
+              aria-label={shortcut ? `Search the site (${shortcut})` : 'Search the site'}
+              aria-haspopup="dialog"
+              className="inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-line px-3 text-sm text-muted transition-colors hover:border-paper/40 hover:text-paper"
+            >
+              <Search className="h-4 w-4" aria-hidden="true" />
+              <span className="hidden sm:inline">Search</span>
+              {shortcut && <kbd className="hidden font-mono text-xs text-muted xl:inline">{shortcut}</kbd>}
+            </button>
+            <div className="hidden items-center xl:flex">
               <a
                 href={siteConfig.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-11 w-11 items-center justify-center text-gray-400 hover:text-purple-400 transition-colors"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full text-muted transition-colors hover:text-paper"
                 aria-label="GitHub"
               >
                 <Github className="h-5 w-5" aria-hidden="true" />
@@ -122,48 +139,38 @@ function Navigation({ pathname }: { pathname: string }) {
                 href={siteConfig.links.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-11 w-11 items-center justify-center text-gray-400 hover:text-purple-400 transition-colors"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full text-muted transition-colors hover:text-paper"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-5 w-5" aria-hidden="true" />
               </a>
             </div>
-          </div>
-
-          <div className="flex shrink-0 items-center gap-1">
             <ModeToggle compact />
             <button
               ref={toggleRef}
               id="mobile-menu-toggle"
               type="button"
               onClick={() => setIsMobileMenuOpen((open) => !open)}
-              className="xl:hidden inline-flex h-11 w-11 items-center justify-center rounded-md text-gray-300 hover:text-purple-400 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-muted transition-colors hover:text-paper lg:hidden"
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation"
             >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Menu className="h-6 w-6" aria-hidden="true" />
-              )}
+              {isMobileMenuOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
       </div>
 
       {isMobileMenuOpen && (
-        <motion.div
+        <div
           ref={mobileRef}
-          initial={basic ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: basic ? 0 : 0.15 }}
           id="mobile-navigation"
-          className="xl:hidden max-h-[calc(100dvh-4rem)] md:max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain bg-black/95 backdrop-blur-md border-t border-purple-900/20"
+          className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-line bg-ink/95 backdrop-blur-md md:max-h-[calc(100dvh-5rem)] lg:hidden"
         >
-          <div className="container mx-auto px-4 py-2 sm:px-6 lg:px-8">
+          <div className="container mx-auto px-4 py-3 sm:px-6">
             {navigation.map((item) => {
-              const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(`${item.href}/`))
+              const isActive = isCurrent(pathname, item.href)
               return (
                 <Link
                   key={item.name}
@@ -174,8 +181,8 @@ function Navigation({ pathname }: { pathname: string }) {
                   }}
                   aria-current={isActive ? 'page' : undefined}
                   className={cn(
-                    'flex min-h-11 items-center rounded-md px-2 text-base font-medium transition-colors',
-                    isActive ? 'text-purple-400' : 'text-gray-300 hover:text-purple-400'
+                    'flex min-h-12 items-center border-b border-line/60 px-1 text-2xl font-medium font-wide transition-colors last:border-b-0',
+                    isActive ? 'text-house' : 'text-paper hover:text-house'
                   )}
                 >
                   {item.name}
@@ -183,7 +190,7 @@ function Navigation({ pathname }: { pathname: string }) {
               )
             })}
           </div>
-        </motion.div>
+        </div>
       )}
     </nav>
   )
@@ -191,27 +198,31 @@ function Navigation({ pathname }: { pathname: string }) {
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const sentinelRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
+  // A sentinel at the top of the document replaces a scroll listener.
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20)
-    const frame = window.requestAnimationFrame(handleScroll)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => {
-      window.cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', handleScroll)
-    }
+    const sentinel = sentinelRef.current
+    if (!sentinel) return
+    const observer = new IntersectionObserver(([entry]) => setIsScrolled(!entry.isIntersecting))
+    observer.observe(sentinel)
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <header
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-colors duration-300',
-        isScrolled ? 'bg-black/80 backdrop-blur-md border-b border-purple-900/20' : 'bg-transparent'
-      )}
-    >
-      {/* A route change resets the disclosure, including back/forward navigation. */}
-      <Navigation key={pathname} pathname={pathname} />
-    </header>
+    <>
+      <div ref={sentinelRef} aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-5 w-px" />
+      <header
+        style={{ viewTransitionName: 'site-header' }}
+        className={cn(
+          'fixed left-0 right-0 top-0 z-50 border-b transition-colors duration-300',
+          isScrolled ? 'border-line bg-ink/80 backdrop-blur-md' : 'border-transparent bg-transparent'
+        )}
+      >
+        {/* A route change resets the disclosure, including back/forward navigation. */}
+        <Navigation key={pathname} pathname={pathname} />
+      </header>
+    </>
   )
 }

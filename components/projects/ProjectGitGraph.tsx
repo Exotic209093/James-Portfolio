@@ -110,8 +110,8 @@ function TimelineNode({
         className="absolute left-[27px] top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full border-2 md:left-1/2 md:top-1/2 md:-translate-y-1/2"
         style={{
           borderColor: track.color,
-          background: '#0a0a0a',
-          boxShadow: `0 0 0 4px ${track.color}1f, 0 0 14px ${track.color}66`,
+          background: 'var(--ink)',
+          boxShadow: `0 0 0 4px ${track.color}1f`,
         }}
         aria-hidden="true"
       />
@@ -132,19 +132,15 @@ function TimelineNode({
       />
 
       {/* the project card that "comes off" the line */}
-      <motion.div
-        initial={{ opacity: 0, x: onLeft ? -24 : 24 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.45 }}
-        className={`py-4 pl-16 pr-2 md:py-6 ${
+      <div
+        className={`reveal py-4 pl-16 pr-2 md:py-6 ${
           onLeft ? 'md:col-start-1 md:pl-2 md:pr-12 md:text-right' : 'md:col-start-2 md:pl-12 md:pr-2'
         }`}
       >
         <button
           type="button"
           onClick={onOpen}
-          className="group w-full rounded-xl border border-purple-900/30 bg-gradient-to-br from-purple-900/15 to-black/40 p-4 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-600/50 hover:shadow-lg hover:shadow-purple-500/10 focus:outline-none focus-visible:border-purple-500"
+          className="group w-full rounded-xl border border-line bg-ink-raised p-4 text-left transition-colors duration-300 hover:border-paper/30"
           style={{ borderLeftColor: `${track.color}66`, borderLeftWidth: 3 }}
           aria-label={`Open details for ${project.title}`}
         >
@@ -168,7 +164,7 @@ function TimelineNode({
           </h3>
           <p className="mt-1 line-clamp-2 text-sm text-gray-400">{project.description}</p>
         </button>
-      </motion.div>
+      </div>
     </div>
   )
 }
@@ -208,7 +204,7 @@ function CommitWindow({ project, onClose }: { project: Project; onClose: () => v
         exit={{ opacity: 0, y: 24, scale: 0.97 }}
         transition={{ type: 'spring', stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative my-auto w-full max-w-2xl overflow-hidden rounded-2xl border border-purple-800/40 bg-gradient-to-br from-[#15101f] to-black shadow-2xl shadow-purple-950/40"
+        className="relative my-auto w-full max-w-2xl overflow-hidden rounded-2xl border border-line bg-ink-raised shadow-2xl shadow-black/50"
       >
         {/* window chrome — reads like an editor/terminal title bar */}
         <div className="flex items-center justify-between border-b border-purple-900/30 bg-black/40 px-4 py-2.5">
@@ -304,7 +300,7 @@ function CommitWindow({ project, onClose }: { project: Project; onClose: () => v
           <div className="flex flex-wrap gap-3">
             <Link
               href={`/projects/${project.id}`}
-              className="inline-flex items-center rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 px-4 py-2 text-sm font-medium text-white transition-all hover:from-purple-500 hover:to-purple-600"
+              className="inline-flex min-h-11 items-center rounded-full bg-house px-5 text-sm font-medium text-ink transition-colors hover:bg-purple-300"
             >
               Full case study
             </Link>

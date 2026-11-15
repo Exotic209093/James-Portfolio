@@ -1,0 +1,1019 @@
+/* ============================================
+ * Main Branch: the homepage as one continuous branch.
+ * Render -> Exhibition -> History -> Company and community -> Merge.
+ * Every motion moment has a finished frame in the server HTML. Scroll-driven
+ * motion only runs where the browser supports it, the visitor has not asked
+ * for reduced motion, and calm motion is off.
+ * ============================================ */
+
+.wrap {
+  max-width: 1184px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+@media (min-width: 700px) {
+  .wrap {
+    padding-left: max(32px, env(safe-area-inset-left, 0px));
+    padding-right: max(32px, env(safe-area-inset-right, 0px));
+  }
+}
+
+.secHead {
+  display: grid;
+  gap: 14px;
+  max-width: 68ch;
+}
+
+.secHead h2 {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+
+.secHead p:not(:global(.label)) {
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  min-height: 44px;
+  padding: 0 1.25em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--paper);
+  font: 500 15px/1 var(--font-sans);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease), border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.pill:hover {
+  border-color: color-mix(in oklab, var(--paper) 45%, transparent);
+}
+
+.pill:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.pill:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pillSolid {
+  border-color: transparent;
+  background: var(--house);
+  color: var(--ink);
+}
+
+.pillSolid:hover {
+  border-color: transparent;
+  background: color-mix(in oklab, var(--house) 82%, var(--paper));
+}
+
+.pillAccent {
+  border-color: color-mix(in oklab, var(--a, var(--house)) 55%, transparent);
+  color: var(--a, var(--house));
+}
+
+.pillAccent:hover {
+  border-color: var(--a, var(--house));
+  background: color-mix(in oklab, var(--a, var(--house)) 12%, transparent);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font: 500 12px/1 var(--font-mono);
+}
+
+/* ---------- branch progress line ---------- */
+.branch {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 700px) {
+    :global(html:not(.calm-motion)) .branch {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: max(calc(10px + env(safe-area-inset-left, 0px)), calc(50vw - 600px));
+      z-index: 1;
+      display: block;
+      width: 2px;
+      background: color-mix(in oklab, var(--line) 70%, transparent);
+      pointer-events: none;
+    }
+
+    :global(html:not(.calm-motion)) .branch::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--house);
+      transform: scaleY(0);
+      transform-origin: top;
+      animation: grow-y linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes grow-y {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ---------- 1. Render ---------- */
+.render {
+  --render-size: clamp(2rem, 8.2vw, 7rem);
+  display: grid;
+  align-content: center;
+  min-height: min(100svh, 920px);
+  padding-block: 120px 72px;
+}
+
+.renderInner {
+  display: grid;
+  gap: 26px;
+  justify-items: start;
+}
+
+.renderBox {
+  position: relative;
+  display: grid;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  padding-block: 0.06em 0.12em;
+  overflow: hidden;
+}
+
+.renderBox > * {
+  grid-area: 1 / 1;
+}
+
+.renderOut {
+  font: 640 var(--render-size) / 1 var(--font-sans);
+  font-stretch: 125%;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+  clip-path: inset(-20% calc(100% - var(--p)) -20% 0);
+}
+
+.renderSrc {
+  color: var(--muted);
+  font: 400 calc(var(--render-size) * 0.43) / 1 var(--font-mono);
+  white-space: nowrap;
+  clip-path: inset(-20% 0 -20% var(--p));
+}
+
+.tag {
+  color: var(--house);
+}
+
+.renderScan {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--p);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--house);
+  box-shadow: 0 0 22px 1px color-mix(in oklab, var(--house) 45%, transparent);
+  opacity: 0;
+}
+
+.renderSub {
+  max-width: 44ch;
+  color: var(--muted);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.55;
+}
+
+.renderSub strong {
+  color: var(--paper);
+  font-weight: 500;
+}
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.renderMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin-top: clamp(24px, 6vh, 64px);
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  width: 100%;
+  color: var(--muted);
+  font: 400 13px/1.5 var(--font-mono);
+}
+
+.renderMeta b {
+  color: var(--paper);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :global(html:not(.calm-motion):not(.hero-seen)) .renderBox {
+    animation: render-pass 1.5s var(--ease) 0.2s both;
+  }
+
+  :global(html:not(.calm-motion):not(.hero-seen)) .renderScan {
+    animation: scan-fade 1.5s linear 0.2s both;
+  }
+
+  :global(html:not(.calm-motion):not(.hero-seen)) .after {
+    animation: rise 0.7s var(--ease) 1.05s both;
+  }
+}
+
+@keyframes render-pass {
+  from {
+    --p: 0%;
+  }
+  to {
+    --p: 100%;
+  }
+}
+
+@keyframes scan-fade {
+  0% {
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* ---------- 2. Exhibition ---------- */
+.exhibit {
+  --n: 4;
+  background: var(--ink-deep);
+  border-block: 1px solid var(--line);
+  scroll-margin-top: 0;
+}
+
+.exhibitHead {
+  padding-block: clamp(72px, 9vw, 112px) 24px;
+}
+
+.stage {
+  position: relative;
+  background:
+    radial-gradient(55% 75% at 28% 52%, color-mix(in oklab, var(--room-accent) 20%, transparent), transparent 72%),
+    var(--ink-deep);
+}
+
+/* Without scroll-driven animation the rooms are a sideways, snapping scroller. */
+.scroller {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.track {
+  display: flex;
+  width: calc(var(--n) * 100%);
+}
+
+.room {
+  display: grid;
+  flex: none;
+  align-content: center;
+  width: calc(100% / var(--n));
+  padding-block: 40px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  scroll-snap-align: start;
+}
+
+.roomInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: center;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.roomArt {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--ink-raised);
+}
+
+.roomArt img {
+  object-fit: cover;
+}
+
+.roomCopy {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  min-width: 0;
+}
+
+.roomLabel {
+  color: var(--a);
+}
+
+.roomTitle {
+  font-size: clamp(2.1rem, 4.6vw, 3.7rem);
+  font-stretch: 125%;
+  font-weight: 640;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.roomDesc {
+  max-width: 44ch;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.roomProof {
+  color: var(--paper);
+  font: 400 13px/1.5 var(--font-mono);
+}
+
+.exhibitBar {
+  display: grid;
+  gap: 12px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 max(16px, env(safe-area-inset-right, 0px)) 32px max(16px, env(safe-area-inset-left, 0px));
+}
+
+.exhibitNames {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.exhibitNames button {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--paper);
+  font: 500 12px/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.2s;
+}
+
+.exhibitNames button:hover,
+.exhibitNames button[aria-current='true'] {
+  opacity: 1;
+}
+
+.exhibitRail {
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.exhibitRail span {
+  display: block;
+  height: 100%;
+  background: var(--room-accent);
+  transform: scaleX(var(--rail, 0.25));
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+
+.exhibitNav {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 760px) {
+  .roomInner {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .exhibitNames button {
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+  }
+}
+
+/* Pinned exhibition: the page holds still while the rooms pan past. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-height: 560px) {
+    :global(html:not(.calm-motion)) .runway {
+      height: calc(var(--n) * 100svh);
+      view-timeline-name: --exhibit;
+    }
+
+    :global(html:not(.calm-motion)) .stage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      overflow: clip;
+      animation: room-accent linear both;
+      animation-timeline: --exhibit;
+      animation-range: contain 0% contain 100%;
+    }
+
+    /* clip, not hidden: focusing a link must not scroll the panned track. */
+    :global(html:not(.calm-motion)) .scroller {
+      height: 100%;
+      overflow: clip;
+      scroll-snap-type: none;
+    }
+
+    :global(html:not(.calm-motion)) .track {
+      height: 100%;
+      animation: pan linear both;
+      animation-timeline: --exhibit;
+      animation-range: contain 0% contain 100%;
+    }
+
+    :global(html:not(.calm-motion)) .room {
+      height: 100%;
+      padding-block: 96px 112px;
+    }
+
+    :global(html:not(.calm-motion)) .roomArt img {
+      animation: drift linear both;
+      animation-timeline: --exhibit;
+      animation-range: contain 0% contain 100%;
+    }
+
+    :global(html:not(.calm-motion)) .exhibitBar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 24px;
+      padding-bottom: 0;
+    }
+
+    :global(html:not(.calm-motion)) .exhibitNav {
+      display: none;
+    }
+
+    :global(html:not(.calm-motion)) .exhibitRail span {
+      transform: scaleX(0);
+      transition: none;
+      animation: grow-x linear both;
+      animation-timeline: --exhibit;
+      animation-range: contain 0% contain 100%;
+    }
+
+    :global(html:not(.calm-motion)) .exhibitNames button {
+      transition: none;
+    }
+
+    :global(html:not(.calm-motion)) .exhibitNames button:nth-child(1) {
+      animation: name-0 linear both;
+      animation-timeline: --exhibit;
+      animation-range: contain 0% contain 100%;
+    }
+
+    :global(html:not(.calm-motion)) .exhibitNames button:nth-child(2) {
+      animation: name-1 linear both;
+      animation-timeline: --exhibit;
+      animation-range: contain 0% contain 100%;
+    }
+
+    :global(html:not(.calm-motion)) .exhibitNames button:nth-child(3) {
+      animation: name-2 linear both;
+      animation-timeline: --exhibit;
+      animation-range: contain 0% contain 100%;
+    }
+
+    :global(html:not(.calm-motion)) .exhibitNames button:nth-child(4) {
+      animation: name-3 linear both;
+      animation-timeline: --exhibit;
+      animation-range: contain 0% contain 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (max-width: 760px) {
+    :global(html:not(.calm-motion)) .room {
+      padding-block: 84px 96px;
+    }
+
+    :global(html:not(.calm-motion)) .roomDesc {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+    }
+
+    :global(html:not(.calm-motion)) .roomCopy .chips,
+    :global(html:not(.calm-motion)) .roomProof {
+      display: none;
+    }
+  }
+}
+
+/* Text only: the rooms read top to bottom like the rest of the page. */
+:global(html.basic-mode) .scroller {
+  overflow: visible;
+}
+
+:global(html.basic-mode) .track {
+  flex-direction: column;
+  width: 100%;
+}
+
+:global(html.basic-mode) .room {
+  width: 100%;
+}
+
+:global(html.basic-mode) .exhibitBar,
+:global(html.basic-mode) .renderScan {
+  display: none;
+}
+
+/* Four rooms: centres at 0%, 33.3%, 66.7% and 100% of the runway. */
+@keyframes room-accent {
+  0% {
+    --room-accent: var(--a0);
+  }
+  33.33% {
+    --room-accent: var(--a1);
+  }
+  66.67% {
+    --room-accent: var(--a2);
+  }
+  100% {
+    --room-accent: var(--a3);
+  }
+}
+
+@keyframes pan {
+  to {
+    transform: translateX(calc(-100% * (var(--n) - 1) / var(--n)));
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(5%) scale(1.14);
+  }
+  to {
+    transform: translateX(-5%) scale(1.14);
+  }
+}
+
+@keyframes grow-x {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes name-0 {
+  0% { opacity: 1; }
+  16.67% { opacity: 0.45; }
+  100% { opacity: 0.45; }
+}
+
+@keyframes name-1 {
+  0%, 16.67% { opacity: 0.45; }
+  33.33% { opacity: 1; }
+  50%, 100% { opacity: 0.45; }
+}
+
+@keyframes name-2 {
+  0%, 50% { opacity: 0.45; }
+  66.67% { opacity: 1; }
+  83.33%, 100% { opacity: 0.45; }
+}
+
+@keyframes name-3 {
+  0%, 83.33% { opacity: 0.45; }
+  100% { opacity: 1; }
+}
+
+/* ---------- 3. History ---------- */
+.history {
+  padding-block: clamp(80px, 10vw, 128px);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filterLabel {
+  width: 100%;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 500 14px/1 var(--font-sans);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background-color 0.2s, transform 0.15s var(--ease);
+}
+
+.chip:hover {
+  border-color: color-mix(in oklab, var(--paper) 40%, transparent);
+  color: var(--paper);
+}
+
+.chip:active {
+  transform: scale(0.97);
+}
+
+.chip[aria-pressed='true'] {
+  border-color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--lane);
+}
+
+.count {
+  opacity: 0.7;
+  font: 500 12px/1 var(--font-mono);
+}
+
+.graphTools {
+  display: grid;
+  gap: 18px;
+  margin-top: 40px;
+}
+
+.status {
+  color: var(--muted);
+  font: 500 13px/1.5 var(--font-mono);
+}
+
+.graph {
+  position: relative;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  view-timeline-name: --graph;
+}
+
+.graph svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.spineBase {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.spineDraw {
+  fill: none;
+  stroke: var(--house);
+  stroke-width: 2;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.laneLine {
+  stroke: var(--line);
+  stroke-dasharray: 2 5;
+  stroke-width: 1;
+}
+
+.conn {
+  fill: none;
+  opacity: 0.6;
+  stroke-width: 1.6;
+  transition: opacity 0.3s;
+}
+
+.dim {
+  opacity: 0.12;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  height: 60px;
+  padding-left: 112px;
+  padding-right: 12px;
+  border-radius: var(--radius);
+  color: var(--paper);
+  text-decoration: none;
+  transition: opacity 0.3s, background-color 0.2s;
+}
+
+.row:hover,
+.row:focus-visible {
+  background: color-mix(in oklab, var(--lane) 9%, transparent);
+}
+
+.rowDim {
+  opacity: 0.26;
+}
+
+.rowMain {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.rowTitle {
+  overflow: hidden;
+  font: 600 1.06rem/1.2 var(--font-sans);
+  font-stretch: 112%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rowMeta,
+.rowDate {
+  overflow: hidden;
+  color: var(--muted);
+  font: 400 12.5px/1.3 var(--font-mono);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rowDate {
+  font-variant-numeric: tabular-nums;
+}
+
+.node {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border: 2px solid var(--lane);
+  border-radius: 50%;
+  background: var(--lane);
+  box-shadow: 0 0 0 4px var(--ink);
+}
+
+.rowDim .node {
+  background: var(--ink);
+}
+
+.graphFoot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.graphFoot p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html:not(.calm-motion)) .spineDraw {
+      animation: draw linear both;
+      animation-timeline: --graph;
+      animation-range: cover 50vh cover calc(100% - 50vh);
+    }
+
+    :global(html:not(.calm-motion)) .node {
+      animation: node-fill linear both;
+      animation-timeline: view();
+      animation-range: cover 40% cover 50%;
+    }
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes node-fill {
+  from {
+    background: var(--ink);
+    transform: scale(0.72);
+  }
+  to {
+    background: var(--lane);
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 520px) {
+  .rowDate {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- 4. Company and community ---------- */
+.company {
+  padding-block: 0 clamp(80px, 10vw, 128px);
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.panel {
+  --a: var(--house);
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: clamp(24px, 4vw, 40px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(80% 90% at 100% 0%, color-mix(in oklab, var(--a) 10%, transparent), transparent 70%),
+    var(--ink-raised);
+  color: var(--paper);
+  text-decoration: none;
+  transition: border-color 0.25s;
+}
+
+.panel:hover {
+  border-color: color-mix(in oklab, var(--a) 55%, transparent);
+}
+
+.panel h3 {
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-stretch: 125%;
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.panel p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.panelLabel {
+  color: var(--a);
+}
+
+.figure {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.figure b {
+  color: var(--paper);
+  font: 600 clamp(2.6rem, 5vw, 3.6rem) / 1 var(--font-sans);
+  font-stretch: 125%;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.figure span {
+  color: var(--muted);
+  font: 400 13px/1.4 var(--font-mono);
+}
+
+.panelLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--a);
+  font: 500 14px/1 var(--font-sans);
+}
+
+@media (max-width: 760px) {
+  .panels {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 5. Merge ---------- */
+.merge {
+  position: relative;
+  padding-block: clamp(80px, 11vw, 140px);
+  border-top: 1px solid var(--line);
+  background:
+    radial-gradient(60% 80% at 15% 100%, color-mix(in oklab, var(--house) 12%, transparent), transparent 70%),
+    var(--ink);
+}
+
+.mergeInner {
+  display: grid;
+  gap: 24px;
+  justify-items: start;
+}
+
+.mergeTitle {
+  max-width: 16ch;
+  font-size: clamp(2.4rem, 7vw, 5.6rem);
+  font-stretch: 125%;
+  font-weight: 640;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+
+.mergeCopy {
+  max-width: 56ch;
+  color: var(--muted);
+  font-size: 1.12rem;
+  line-height: 1.6;
+}
+
+.mergeNode {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mergeNode::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--house);
+  border-radius: 50%;
+  background: var(--house);
+}

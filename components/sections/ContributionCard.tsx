@@ -13,7 +13,7 @@ export default function ContributionCard({ item, projectName }: { item: Contribu
   const status = statuses[item.status]
   const Icon = status.icon
   return (
-    <article className="rounded-xl border border-purple-800/30 bg-gradient-to-br from-purple-950/30 to-black/60 p-6 flex flex-col">
+    <article className="rounded-xl border border-line bg-ink-raised p-6 flex flex-col">
       <div className="flex items-center justify-between gap-3 mb-5">
         <span className="font-mono text-sm text-gray-400">#{item.number}</span>
         <span className={`inline-flex items-center gap-1.5 text-xs rounded-full border px-2.5 py-1 ${status.style}`}>

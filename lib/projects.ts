@@ -25,25 +25,25 @@ export const projectTracks: TrackMeta[] = [
     id: 'salesforce',
     label: 'Salesforce',
     description: 'Platform engineering, AppExchange packages, and admin tooling',
-    color: '#a855f7',
+    color: '#b8a7f2',
   },
   {
     id: 'tooling',
     label: 'Developer Tooling',
     description: 'Desktop, editor, CLI, and documentation tools',
-    color: '#38bdf8',
+    color: '#86c8e8',
   },
   {
     id: 'ai',
     label: 'AI & Automation',
     description: 'Agents on the Anthropic SDK and workflow automation',
-    color: '#34d399',
+    color: '#8fd9b4',
   },
   {
     id: 'systems',
     label: 'Systems & Interactive',
     description: 'Websites, browser games, and low-level systems work',
-    color: '#fbbf24',
+    color: '#f0c27a',
   },
 ]
 

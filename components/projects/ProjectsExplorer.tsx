@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
 import { GitBranch, LayoutGrid, Search } from 'lucide-react'
 import {
   projects as publicProjects,
@@ -176,30 +175,18 @@ export default function ProjectsExplorer() {
             </button>
           </div>
         ) : view === 'graph' ? (
-          <motion.div
-            key="graph"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="rounded-xl border border-purple-900/30 bg-black/20 p-3 sm:p-5"
-          >
+          <div key="graph" className="reveal rounded-xl border border-purple-900/30 bg-black/20 p-3 sm:p-5">
             <ProjectGitGraph projects={visible} activeTrack={activeTrack} />
             <p className="mt-4 px-3 text-center text-xs text-gray-400">
               {hasFilters ? 'Matching projects' : 'All projects'}, newest first and colour-coded by discipline. Select a node to open its details.
             </p>
-          </motion.div>
+          </div>
         ) : (
-          <motion.div
-            key="grid"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2"
-          >
+          <div key="grid" className="reveal grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
             {visible.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}
-          </motion.div>
+          </div>
         )}
       </div>
     </div>

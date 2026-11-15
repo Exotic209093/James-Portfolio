@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { ArrowRight, Download } from 'lucide-react'
 import Card from '@/components/ui/Card'
 import { ButtonLink } from '@/components/ui/Button'
@@ -59,12 +58,7 @@ export default function AboutPage() {
   return (
     <div className="pt-20 md:pt-32 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="reveal text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-white">About </span>
             <span className="gradient-text">Me</span>
@@ -78,7 +72,7 @@ export default function AboutPage() {
             </ButtonLink>
             <ButtonLink href="/contact" variant="outline">Get in touch</ButtonLink>
           </div>
-        </motion.div>
+        </div>
 
         <nav aria-label="About page sections" className="mb-12 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-purple-300">
           {[
@@ -90,13 +84,7 @@ export default function AboutPage() {
           ].map(([id, label]) => <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center hover:text-white">{label}</a>)}
         </nav>
 
-        <motion.div
-          id="overview"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          className="max-w-4xl mx-auto mb-16"
-        >
+        <div id="overview" className="reveal max-w-4xl mx-auto mb-16">
           <Card>
             <div className="prose prose-invert max-w-none">
               <h2 className="text-2xl font-semibold text-white mb-4">What I do</h2>
@@ -120,15 +108,9 @@ export default function AboutPage() {
               </p>
             </div>
           </Card>
-        </motion.div>
+        </div>
 
-        <motion.div
-          id="experience"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
+        <div id="experience" className="reveal max-w-5xl mx-auto mb-16">
           <h2 className="text-3xl font-bold text-center mb-12">
             <span className="text-white">Work & </span>
             <span className="gradient-text">Education</span>
@@ -166,15 +148,9 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          id="project-history"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
+        <div id="project-history" className="reveal max-w-5xl mx-auto mb-16">
           <h2 className="text-3xl font-bold text-center mb-12">
             <span className="text-white">Project </span>
             <span className="gradient-text">History</span>
@@ -195,14 +171,9 @@ export default function AboutPage() {
               </Card>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
+        <div className="reveal max-w-5xl mx-auto mb-16">
           <h2 className="text-3xl font-bold text-center mb-12">
             <span className="text-white">Why These </span>
             <span className="gradient-text">Projects Matter</span>
@@ -225,27 +196,16 @@ export default function AboutPage() {
               </Card>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          id="skills"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mb-16"
-        >
+        <div id="skills" className="reveal mb-16">
           <h2 className="text-3xl font-bold text-center mb-12">
             <span className="text-white">Skills & </span>
             <span className="gradient-text">Technologies</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {skills.map((skillGroup, index) => (
-              <motion.div
-                key={skillGroup.category}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45 + index * 0.1, duration: 0.5 }}
-              >
+            {skills.map((skillGroup) => (
+              <div key={skillGroup.category} className="reveal">
                 <Card hover>
                   <h3 className="text-xl font-semibold text-purple-400 mb-4">{skillGroup.category}</h3>
                   <ul className="space-y-3">
@@ -257,19 +217,13 @@ export default function AboutPage() {
                     ))}
                   </ul>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {recentCertifications.length > 0 && (
-          <motion.div
-            id="certifications"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.6 }}
-            className="max-w-5xl mx-auto mb-16"
-          >
+          <div id="certifications" className="reveal max-w-5xl mx-auto mb-16">
             <h2 className="text-3xl font-bold text-center mb-12">
               <span className="text-white">Recent </span>
               <span className="gradient-text">Certifications</span>
@@ -294,20 +248,15 @@ export default function AboutPage() {
                 </Link>
               </div>
             )}
-          </motion.div>
+          </div>
         )}
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="text-center"
-        >
+        <div className="reveal text-center">
           <ButtonLink href="/resume.pdf" variant="primary" size="lg" download>
             <Download className="mr-2 h-5 w-5" />
             Download My Resume
           </ButtonLink>
-        </motion.div>
+        </div>
       </div>
     </div>
   )

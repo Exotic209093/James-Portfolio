@@ -2,19 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Registered so scroll-driven keyframes can interpolate them smoothly. */
+@property --p {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 100%;
+}
+
+@property --room-accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #b8a7f2;
+}
+
 @layer base {
   :root {
-    --font-inter: 'Inter', system-ui, sans-serif;
-    --font-mono: 'Fira Code', 'Courier New', monospace;
+    --ink: #0d0e12;
+    --ink-raised: #15171d;
+    --ink-deep: #08090c;
+    --line: #2a2d38;
+    --paper: #eceaf3;
+    --muted: #a6a4b5;
+    --house: #b8a7f2;
+    --lane-salesforce: #b8a7f2;
+    --lane-tooling: #86c8e8;
+    --lane-ai: #8fd9b4;
+    --lane-systems: #f0c27a;
+    --font-sans: var(--font-archivo), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: var(--font-jetbrains), ui-monospace, 'Cascadia Mono', Consolas, Menlo, monospace;
+    --radius: 12px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    color-scheme: dark;
   }
 
-  * {
-    @apply border-purple-800/20;
+  *,
+  ::before,
+  ::after {
+    border-color: var(--line);
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-sans);
+    font-feature-settings: 'rlig' 1, 'calt' 1;
   }
 
   html {
@@ -22,8 +53,19 @@
     scroll-padding-top: 6rem;
   }
 
+  h1,
+  h2 {
+    font-stretch: 112%;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--house) 35%, transparent);
+    color: var(--paper);
+  }
+
   :focus-visible {
-    outline: 2px solid #c4b5fd;
+    outline: 2px solid var(--house);
     outline-offset: 4px;
   }
 
@@ -48,10 +90,10 @@
   left: 1rem;
   z-index: 100;
   transform: translateY(-200%);
-  border-radius: 0.5rem;
+  border-radius: 999px;
   padding: 0.75rem 1rem;
-  background: #ffffff;
-  color: #111111;
+  background: var(--paper);
+  color: var(--ink);
   font-weight: 600;
 }
 
@@ -59,28 +101,124 @@
   transform: translateY(0);
 }
 
+@layer components {
+  /* Mono kicker used for section labels across the site. */
+  .label {
+    font: 500 0.75rem/1.5 var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 
+  .font-wide {
+    font-stretch: 125%;
+  }
+
+  /* Retired: gradient headings now render in the solid house colour. */
   .gradient-text {
-    @apply bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 bg-clip-text text-transparent;
+    color: var(--house);
   }
 
   .gradient-border {
     @apply relative;
   }
+}
 
-  .gradient-border::before {
-    content: '';
-    @apply absolute inset-0 rounded-lg bg-gradient-to-r from-purple-500 to-purple-700 opacity-20 blur-sm;
-    z-index: -1;
+/* ============================================
+ * CALM MOTION
+ * The default when the system asks for reduced motion, and a choice for anyone.
+ * Keeps the design and shows every motion moment at its finished frame.
+ * ============================================ */
+html.calm-motion {
+  scroll-behavior: auto;
+}
+
+html.calm-motion *,
+html.calm-motion *::before,
+html.calm-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+html.calm-motion::view-transition-group(*),
+html.calm-motion::view-transition-old(*),
+html.calm-motion::view-transition-new(*) {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+/* Content is always visible in the server HTML. Supporting browsers add a
+ * scroll-linked entrance; others, and calm motion, show the finished frame. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.calm-motion) .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+/* Shared-element morph between the homepage and case studies. */
+::view-transition {
+  pointer-events: none;
+}
+
+/* The header is the fixed reference point while content changes beneath it. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-group(.morph) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+
+@keyframes via-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }
 
 /* ============================================
- * BASIC MODE — stripped, no-animation experience
+ * TEXT ONLY
+ * An opt-in, stripped, no-animation reading mode.
  * Activated when ModeProvider sets `.basic-mode` on <html>.
  * ============================================ */
 html.basic-mode {
@@ -99,10 +237,6 @@ html.basic-mode * {
 }
 
 html.basic-mode .gradient-text {
-  background: none !important;
-  -webkit-background-clip: initial !important;
-  background-clip: initial !important;
-  -webkit-text-fill-color: currentColor !important;
   color: #111111 !important;
 }
 
