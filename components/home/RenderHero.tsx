@@ -27,8 +27,8 @@ export default function RenderHero({
     <section className={s.render} aria-labelledby="hero-name">
       <div className={`${WRAP} ${s.renderInner}`}>
         <p className={`label ${s.after}`}>
-          <span className={s.nowrap}>{siteConfig.title}</span> · <span className={s.nowrap}>London</span> ·{' '}
-          <span className={s.nowrap}>Open to opportunities</span>
+          <span className={s.nowrap}>{siteConfig.title}</span> · <span className={s.nowrap}>{siteConfig.locationLabel}</span> ·{' '}
+          <span className={s.nowrap}>{siteConfig.availability}</span>
         </p>
         <HeroName>
           <span className={s.renderOut}>
@@ -42,8 +42,8 @@ export default function RenderHero({
           <span className={s.renderScan} aria-hidden="true" />
         </HeroName>
         <p className={`${s.renderSub} ${s.after}`}>
-          I build <strong>Salesforce tools</strong>, <strong>document automation</strong> and the software people
-          use every day, from the first workflow to the finished product.
+          I design, build and run <strong>multi-tenant SaaS</strong> across TypeScript, AWS and Salesforce, working{' '}
+          <strong>AI-native</strong> and keeping that speed honest with tests, security reviews and CI gates.
         </p>
         <div className={`${s.cta} ${s.after}`}>
           <a href="/resume.pdf" download className={`${s.pill} ${s.pillSolid}`}>

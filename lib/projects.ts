@@ -36,13 +36,13 @@ export const projectTracks: TrackMeta[] = [
   {
     id: 'ai',
     label: 'AI & Automation',
-    description: 'Agents on the Anthropic SDK and workflow automation',
+    description: 'LLM pipelines and agents on the Anthropic API, and workflow automation',
     color: '#8fd9b4',
   },
   {
     id: 'systems',
     label: 'Systems & Interactive',
-    description: 'Websites, browser games, and low-level systems work',
+    description: 'Company and product websites, mobile apps, browser games, and security research',
     color: '#f0c27a',
   },
 ]
@@ -99,80 +99,88 @@ const allProjects: Project[] = [
     track: 'systems',
   },
   {
-    id: 'infinity-docs',
-    title: 'Infinity Docs',
-    description: 'A Salesforce document-generation platform connecting reusable templates and record data to cloud rendering, document storage, and delivery.',
-    longDescription: 'Infinity Docs brings template authoring and document generation into Salesforce. Administrators define templates with merge fields, then start generation from records, Apex, or Flow. A cloud service handles rendering and returns generated documents for storage and delivery. My work spans the Salesforce interface, backend services, document templates, and deployment tooling. This platform is part of my professional work and its source is private.',
-    category: 'Salesforce / Document Automation',
-    status: 'Professional work / Private source',
-    role: 'Developed Salesforce document-generation workflows, template tooling, backend integration, and cloud delivery as part of my consultancy work.',
+    id: 'infinity-dox',
+    title: 'Infinity Dox',
+    description:
+      'A multi-tenant document-generation SaaS for Salesforce, designed end to end: a TypeScript orchestrator on AWS ECS Fargate with six worker pipelines, a React portal, a Salesforce managed package, and Terraform across seven AWS environments.',
+    longDescription:
+      'Infinity Dox is the core of the Infinity product suite at Apex Infinity Solutions, where I am the primary engineer. Administrators build templates in Salesforce and generate documents from records, Apex or Flow. A TypeScript pnpm monorepo runs an orchestrator on AWS ECS Fargate that hands work to six worker pipelines, including LLM draft, fix and transform workers on the Anthropic API. Around it sit a React customer portal, a Salesforce managed package with 39 objects, and Terraform across seven AWS environments. The suite also includes Infinity Platform, a shared portal and Command Center with licensing and AI routes, and Infinity Vault, a storage gateway on S3 designed so file content and keys never pass through the portal. This is professional work, and the source is private.',
+    category: 'SaaS Architecture · Salesforce + AWS',
+    status: 'Professional work · Private source',
+    role: 'Primary engineer: designed the architecture end to end, then built and operate it across TypeScript services, React, Salesforce, Terraform and AWS.',
     highlights: [
-      'Connected template authoring and Salesforce merge data to generation workflows initiated from Apex and Flow.',
-      'Worked across Apex, Lightning Web Components, TypeScript services, and AWS deployment tooling.',
-      'Built document workflows spanning rendering, generated-file storage, and delivery.',
+      'Designed a multi-tenant architecture: an ECS Fargate orchestrator, six worker pipelines including LLM draft, fix and transform, a React portal and a 39-object managed package.',
+      'Kept AI-speed delivery honest with 9 GitHub Actions workflows (zero-debt lint gate, typecheck, tests, drift checks, SHA-pinned actions), 3,600+ Apex test methods and 93% Apex coverage.',
+      'Built security in from the start: RS256 tenant JWTs bound to key IDs, HMAC-signed requests, fail-closed replay protection, SSRF guards and a hash-chained audit log. A white- and black-box pentest across 5 surfaces found 35 issues; 26 are fixed.',
     ],
-    image: '/projects/art/infinity-docs.webp',
-    tech: ['Apex', 'LWC', 'TypeScript', 'AWS', 'Docker'],
+    image: '/projects/art/infinity-dox.webp',
+    tech: ['TypeScript', 'AWS ECS Fargate', 'Terraform', 'React', 'Apex', 'LWC', 'Anthropic API'],
+    techStack: [
+      { category: 'Services', items: ['TypeScript', 'pnpm monorepo', 'Node.js', 'Bun', 'Fastify', 'SQLite'] },
+      { category: 'AWS & Infrastructure', items: ['ECS Fargate', 'Lambda', 'SQS', 'S3', 'DynamoDB', 'ECR', 'Secrets Manager', 'Terraform (7 environments)'] },
+      { category: 'Salesforce', items: ['Apex', 'Lightning Web Components', '2GP managed package', 'Flow'] },
+      { category: 'AI', items: ['Anthropic API / SDK', 'LLM draft / fix / transform workers'] },
+      { category: 'Quality & Security', items: ['GitHub Actions (OIDC)', 'Vitest', 'Playwright', 'LWC Jest', 'Apex tests', 'RS256 JWT', 'HMAC signing', 'Hash-chained audit log'] },
+    ],
     featured: true,
-    date: '2026-09-16',
+    date: '2026-11-19',
     track: 'salesforce',
   },
   {
-    "id": "galacia",
-    "title": "Galacia",
-    "description": "My independent software brand and public product website, starting with Galacia Vault for Salesforce file storage, with an interactive product explorer and a Three.js glacier.",
-    "longDescription": "Galacia brings my product work together under one brand. I built and deployed its public website with product pages, preparation guides, support information, and a roadmap that distinguishes development from planned concepts. The site uses a static build and a Node.js server, with an optional Three.js glacier layered over an SVG fallback. Galacia Vault is the first product and remains in development; Galacia Docs, Track, and Connect are planned concepts in discovery.",
-    "category": "Product Engineering · Company Website",
-    "status": "Website live · Vault in development",
-    "role": "Created the Galacia brand and product hub, built the public website and interactive experience, and organised the product work into independent repositories.",
-    "highlights": [
-      "Built a public product hub with keyboard-accessible product tabs, guides, support pages, and explicit availability information.",
-      "Added an optional Three.js glacier with an SVG fallback, reduced-motion support, a pause control, and rendering that stops off-screen.",
-      "Deployed the website on an OVH VPS with Docker, custom domains, HTTPS, redirects, and automated HTTP and browser regression checks."
+    id: 'everfrost',
+    title: 'Everfrost',
+    description:
+      'My company, building business software for Salesforce teams. I run all of it: the products, the customer platform, the public website and the infrastructure underneath.',
+    longDescription:
+      'Everfrost makes business software for teams that run on Salesforce. It was called Galacia until November 2026. Everfrost Vault is the first product, ready for onboarding with assisted installation; Everfrost Docs, document generation for Salesforce teams, is the planned next product. I build the products, give the demos and provide the support. Around them I built the public website at everfrost.app, a customer platform for accounts and product access (in beta), and the self-hosted infrastructure they run on, with HTTPS, encrypted off-host backups and a tested restore.',
+    category: 'Company · Product Engineering',
+    status: 'Website live · Vault ready for onboarding',
+    role: 'Founder and sole engineer: product direction, Salesforce engineering, website, customer platform, hosting and support.',
+    highlights: [
+      'Narrowed the lineup to Salesforce software in November 2026: Vault available now, Docs planned, and other concepts parked with their research kept.',
+      'Built and deployed everfrost.app: product, pricing, security and support pages, a free in-browser storage cost calculator, and an animated glacier cross-section that still works without JavaScript.',
+      'Run the services on a self-managed VPS with Docker, Caddy HTTPS and PostgreSQL, plus encrypted off-host backups and a restore drill that passed.',
     ],
-    "image": '/projects/art/galacia.webp',
-    "tech": [
-      "JavaScript",
-      "Node.js",
-      "Three.js",
-      "SVG",
-      "Playwright",
-      "OVHcloud VPS"
+    image: '/projects/art/everfrost.webp',
+    tech: ['Node.js', 'JavaScript', 'PostgreSQL', 'Docker', 'Caddy', 'Playwright'],
+    techStack: [
+      { category: 'Website', items: ['JavaScript', 'HTML / CSS', 'Node.js', 'Static build', 'Progressive enhancement'] },
+      { category: 'Customer platform', items: ['Node.js', 'PostgreSQL', 'Better Auth', 'Stripe'] },
+      { category: 'Operations', items: ['Docker', 'Caddy', 'OVHcloud VPS', 'Encrypted backups', 'Playwright checks'] },
     ],
-    "techStack": [
-      {
-        "category": "Website",
-        "items": [
-          "JavaScript",
-          "HTML / CSS",
-          "Node.js",
-          "Static Site Build"
-        ]
-      },
-      {
-        "category": "Experience",
-        "items": [
-          "Three.js",
-          "SVG Fallback",
-          "Keyboard Navigation",
-          "Reduced Motion"
-        ]
-      },
-      {
-        "category": "Delivery",
-        "items": [
-          "Docker",
-          "OVHcloud VPS",
-          "Playwright",
-          "HTTP Regression Tests"
-        ]
-      }
+    live: 'https://everfrost.app',
+    liveLabel: 'Visit Everfrost',
+    featured: true,
+    date: '2026-11-21',
+    track: 'systems',
+  },
+  {
+    id: 'thrift-map',
+    title: 'Thrift Map',
+    description:
+      'A Flutter app for finding UK charity shops, car boot sales and thrifting events on a map, taken from concept to a live Google Play release.',
+    longDescription:
+      'Thrift Map helps people find second-hand shopping across the UK. A map and a places feed show charity shops, boot sales and events, filtered by type and searchable by name. Users can favourite, flag and mark places as visited, get directions, and add new shops, places or events. The app is built in Flutter and Dart on a FlutterFlow scaffold, with Firebase for sign-in and data and Google Maps for location. It is live on Google Play; the iOS build is being prepared for its first App Store submission.',
+    category: 'Mobile App · Flutter',
+    status: 'Live on Google Play · iOS in preparation',
+    role: 'Took the app from concept to release: the Flutter interface, Firebase data model, map and search, and the store release.',
+    highlights: [
+      'Built map and feed views for charity shops, boot sales and events, with category filters, search and place details.',
+      'Let people contribute: add shops, places and events, and keep favourites, flags and visited places on their account.',
+      'Shipped to Google Play on Firebase Auth, Cloud Firestore, Performance Monitoring and a Cloud Function, with iOS builds running through Codemagic.',
     ],
-    "live": "https://galacia.app",
-    "liveLabel": "Visit Galacia",
-    "featured": true,
-    "date": "2026-09-27",
-    "track": "systems"
+    image: '/projects/art/thrift-map.webp',
+    tech: ['Flutter', 'Dart', 'Firebase', 'Google Maps'],
+    techStack: [
+      { category: 'App', items: ['Flutter', 'Dart', 'FlutterFlow'] },
+      { category: 'Backend', items: ['Firebase Auth', 'Cloud Firestore', 'Cloud Functions', 'Performance Monitoring'] },
+      { category: 'Maps & Release', items: ['Google Maps', 'Google Play', 'Codemagic'] },
+    ],
+    live: 'https://play.google.com/store/apps/details?id=com.mycompany.thriftmap',
+    liveLabel: 'Get it on Google Play',
+    featured: true,
+    date: '2026-10-27',
+    track: 'systems',
   },
   {
     "id": "the-loft-zante",
@@ -466,70 +474,39 @@ const allProjects: Project[] = [
       { category: 'Dashboard', items: ['React 18', 'Vite', 'Tailwind CSS', 'Recharts'] },
     ],
     github: 'https://github.com/Exotic209093/Vastify',
+    live: 'https://youtu.be/_OcVUofbFTM',
+    liveLabel: 'Watch the 3-minute demo',
     featured: true,
     date: '2026-04-26',
     track: 'ai',
   },
   {
-    "id": "galacia-vault",
-    "title": "Galacia Vault",
-    "description": "A Salesforce-native file storage platform in development, connecting record-based file workflows to customer-owned cloud storage through Apex and Lightning Web Components.",
-    "longDescription": "Galacia Vault, formerly Nebula Vault, is the first product in the Galacia collection. Its source combines an Apex provider abstraction with Lightning Web Components for file management, uploads, storage configuration, and migration workflows. Provider integrations cover AWS S3 and compatible storage, Azure Blob, Google Cloud Storage, OneDrive, SharePoint, Dropbox, Google Drive, and Box. The project also includes a transfer gateway and work on permissions, audit trails, retention, and file governance. The public website explains the product direction and evaluation preparation; public installation and release validation remain outstanding.",
-    "category": "Salesforce Platform Engineering",
-    "status": "In development · Public installation not yet available",
-    "role": "Built the Salesforce product and cloud-provider abstraction, with user and admin interfaces, a transfer gateway, and release-readiness work.",
-    "highlights": [
-      "Implemented a shared storage-provider interface across eight provider families, including S3-compatible services.",
-      "Built Apex services and Lightning Web Components for file browsing, uploads, connection setup, and migration management.",
-      "Developed file-governance workflows around permissions, audit trails, retention, and record context, with release validation tracked separately from source progress."
+    id: 'everfrost-vault',
+    title: 'Everfrost Vault',
+    description:
+      'Salesforce record files kept in an Amazon S3 bucket the customer owns. Files stay on the record in a Lightning component while their contents go to the customer’s own storage. Ready for onboarding with assisted installation.',
+    longDescription:
+      'Everfrost Vault, first called Nebula Vault and then Galacia Vault, is Everfrost’s first product. People upload, find, preview and download files in a Lightning Web Component on the Salesforce record page. File metadata and the link to the record stay in Salesforce, while the contents go to an Amazon S3 bucket in the customer’s own account and region. Seeing a record does not grant access to its files: file access is checked separately. The source includes an Apex storage-provider interface and a transfer gateway for large files. The configuration sold today is Amazon S3, installed and tested by Everfrost after a demo and a written offer.',
+    category: 'Salesforce Product Engineering',
+    status: 'Ready for onboarding · Amazon S3',
+    role: 'Built the Salesforce package, storage-provider interface, transfer gateway and admin tooling, and run the demos, installation and support.',
+    highlights: [
+      'Kept file metadata and the record link in Salesforce while file contents go to a customer-owned S3 bucket, with file access checked separately from record access.',
+      'Built Apex services and Lightning Web Components for upload, browse, preview, download and connection setup, behind a provider interface with further adapters in source.',
+      'Backed releases with 1,000+ Apex tests and 400+ LWC Jest tests, and published supported configurations, support hours and data-exit steps before selling.',
     ],
-    "image": '/projects/art/galacia-vault.webp',
-    "tech": [
-      "Apex",
-      "Salesforce",
-      "Lightning Web Components",
-      "AWS S3",
-      "Azure Blob",
-      "GCS"
+    image: '/projects/art/everfrost-vault.webp',
+    tech: ['Apex', 'Lightning Web Components', 'Salesforce', 'AWS S3', 'Node.js'],
+    techStack: [
+      { category: 'Salesforce', items: ['Apex', 'Lightning Web Components', 'SLDS', 'Platform Events', 'Named Credentials'] },
+      { category: 'Storage', items: ['Amazon S3 (sold today)', 'Provider adapter interface', 'Transfer gateway'] },
+      { category: 'Quality', items: ['Apex tests', 'sfdx-lwc-jest', 'Gateway tests'] },
     ],
-    "techStack": [
-      {
-        "category": "Salesforce",
-        "items": [
-          "Apex",
-          "Lightning Web Components",
-          "SLDS",
-          "Platform Events",
-          "Scheduled Jobs"
-        ]
-      },
-      {
-        "category": "Storage",
-        "items": [
-          "AWS S3 / S3-compatible",
-          "Azure Blob",
-          "Google Cloud Storage",
-          "OneDrive / SharePoint",
-          "Dropbox",
-          "Google Drive",
-          "Box"
-        ]
-      },
-      {
-        "category": "Architecture & Quality",
-        "items": [
-          "Provider Adapter Pattern",
-          "Transfer Gateway",
-          "Apex Tests",
-          "sfdx-lwc-jest"
-        ]
-      }
-    ],
-    "live": "https://galacia.app/galacia-vault/",
-    "liveLabel": "Explore Galacia Vault",
-    "featured": false,
-    "date": "2026-09-09",
-    "track": "salesforce"
+    live: 'https://everfrost.app/everfrost-vault/',
+    liveLabel: 'Explore Everfrost Vault',
+    featured: true,
+    date: '2026-11-22',
+    track: 'salesforce',
   },
   {
     "id": "wave-link",
@@ -761,27 +738,28 @@ const allProjects: Project[] = [
   },
   {
     id: 'exoware-kernel-driver',
-    title: 'ExoWare Kernel Driver',
+    title: 'Kernel & Vulnerability Research',
     description:
-      'Windows kernel-mode driver written in C++ for secure memory access and low-level system interaction.',
+      'Independent security research since 2023: Windows kernel-mode drivers in C and C++, and root-cause analysis of published CVEs with proof-of-concept exploits built in isolated labs.',
     longDescription:
-      'A Windows kernel driver project exploring low-level systems programming in C++. The driver implements secure memory access patterns and performance-aware operations within the kernel address space — territory that requires precise pointer management, adherence to Windows Driver Model constraints, and careful handling of system stability. Built as a standalone learning project to complement the higher-level application work in the rest of the portfolio.',
-    category: 'Systems Programming',
-    status: 'Prototype',
-    role: 'Explored kernel-mode development in C++ to understand low-level Windows system architecture and memory access patterns.',
+      'Alongside product work, I research how Windows behaves below the application layer. I write kernel-mode drivers in C and C++, working within IRQL rules, kernel memory and the I/O request model. I also study published CVEs: I trace each one to its root cause, then reproduce it with a proof of concept in an isolated lab. The research shapes how I design and test software, from tenant isolation, request signing and replay protection to the pentest I ran on the Infinity product suite. Source and lab material stay private.',
+    category: 'Security Research · Systems Programming',
+    status: 'Ongoing since 2023 · Private',
+    role: 'Independent research: kernel-mode driver development, CVE root-cause analysis and proof-of-concept exploits in isolated labs.',
     highlights: [
-      'Implemented a Windows kernel-mode driver following WDM conventions for memory access and I/O handling.',
-      'Applied C++ with strict discipline around pointer safety, IRQL constraints, and kernel-space memory management.',
-      'Demonstrated willingness to work at the systems layer — below the abstraction level of most application developers.',
+      'Write Windows kernel-mode drivers in C and C++, handling IRQL constraints, kernel memory and I/O control requests.',
+      'Analyse published CVEs to their root cause and reproduce them with proof-of-concept exploits, only in isolated lab environments.',
+      'Apply what I learn to secure design and pentesting in product work, including a 5-surface pentest with 26 of 35 findings fixed.',
     ],
     image: '/projects/art/exoware-kernel-driver.webp',
-    tech: ['C++', 'Windows Kernel', 'WDM', 'Systems Programming'],
+    tech: ['C++', 'C', 'Windows Kernel', 'WDM', 'CVE Analysis'],
     techStack: [
-      { category: 'Core', items: ['C++', 'Windows Driver Model', 'Kernel-Mode Development'] },
-      { category: 'Systems', items: ['Memory Management', 'Pointer Safety', 'IRQL Handling', 'I/O Control'] },
+      { category: 'Core', items: ['C', 'C++', 'Windows Driver Model', 'Kernel-mode development'] },
+      { category: 'Research', items: ['CVE root-cause analysis', 'Proof-of-concept exploits', 'Isolated labs'] },
+      { category: 'Applied', items: ['Secure design', 'Pentesting & remediation'] },
     ],
     featured: false,
-    date: '2026-03-12',
+    date: '2026-11-04',
     track: 'systems',
   },
 ]

@@ -1,7 +1,7 @@
 import { projects } from './projects'
 
 const publicPages = new Set([
-  '/', '/about', '/projects', '/contact', '/galacia', '/open-source', '/certifications',
+  '/', '/about', '/projects', '/contact', '/everfrost', '/open-source', '/certifications',
   ...projects.map((project) => `/projects/${project.id}`),
 ])
 

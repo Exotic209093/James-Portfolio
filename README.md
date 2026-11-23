@@ -16,8 +16,8 @@ A modern, clean portfolio website built with Next.js 16, TypeScript, and Tailwin
 
 - **Home**: Introduction, three deliberately selected case studies, expertise, company/community links, project history, and freelance services; the ambient backdrop and scroll cue pause while the page is hidden
 - **About**: Full bio, skills, project history, work/education, and recent certifications, with section shortcuts and a CV download near the top
-- **Projects**: Search public projects by name, description or technology, combine branch filters, and explore matching grid/timeline views. Case studies include custom interactive showcases for all 16 public projects. Each showcase uses illustrative local data; live product links remain separate.
-- **Galacia**: Company overview, product availability, and links to the public company website
+- **Projects**: Search public projects by name, description or technology, combine branch filters, and explore matching grid/timeline views. Case studies include custom interactive showcases for 16 of the 17 public projects (Thrift Map uses its real store screenshots instead). Each showcase uses illustrative local data; live product links remain separate.
+- **Everfrost**: My company (formerly Galacia): what I do there, product availability, and links to everfrost.app. `/galacia` and the old Galacia project URLs redirect permanently
 - **Open Source**: Automatically updated upstream PRs for T3 Code and Salesforce Inspector Reloaded, highlighting merged contributions and open reviews, with drafts and closed history collapsed, sync timestamps, and saved-data fallback
 - **Certifications**: Certification listing and detail pages with downloadable PDFs
 - **Blog**: Markdown-based routes retained; hidden from navigation and the sitemap until posts are available

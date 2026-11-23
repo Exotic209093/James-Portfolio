@@ -87,7 +87,7 @@ await withServer(fixturePassword, async (request) => {
     assert.ok([401, 404].includes(response.status), 'Internal-looking route must not expose private data')
     assert.equal(countPrivateValues(await response.text(), privateMarkers), 0, 'Internal-looking route contains no private values')
   }
-  for (const path of ['/', '/projects', '/projects/galacia-vault', '/galacia', '/contact', '/about', '/certifications']) {
+  for (const path of ['/', '/projects', '/projects/everfrost-vault', '/everfrost', '/contact', '/about', '/certifications']) {
     assert.equal((await request(path)).status, 200, path)
   }
   for (const path of ['/projects/unknown-qa-project', '/certifications/unknown-qa-certification', '/blog/unknown-qa-post']) {

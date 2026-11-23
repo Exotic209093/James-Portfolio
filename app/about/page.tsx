@@ -22,6 +22,7 @@ const lanes: Record<Lane, { label: string; color: string }> = {
 }
 
 // Newest first. Work and learning share one branch, each on its own lane colour.
+// Work history mirrors public/resume.pdf. Keep the two in step.
 const timeline: {
   lane: Lane
   title: string
@@ -32,40 +33,69 @@ const timeline: {
 }[] = [
   {
     lane: 'work',
-    title: 'Solutions Engineer',
+    title: 'Solutions Engineer: primary engineer, Infinity product suite',
     organisation: 'Apex Infinity Solutions',
     period: '2026 to present',
     points: [
-      'Deliver client-facing Salesforce implementations from solution design through Apex and Lightning Web Component development, configuration, and release.',
-      'Build document-generation tooling and integrations connecting Salesforce to external systems, including MuleSoft and QuickBooks workflows.',
-      'Develop support automation with AWS Lambda, SQS, and language-model APIs, alongside Agentforce and Experience Cloud configuration.',
+      'Designed Infinity Dox end to end: a TypeScript monorepo with an orchestrator on AWS ECS Fargate and six worker pipelines (including LLM draft, fix and transform), a React portal, a 39-object Salesforce managed package and Terraform across 7 AWS environments.',
+      'Built Infinity Platform and Vault: a shared portal and Command Center (Bun, Fastify, SQLite, React) with licensing and Anthropic SDK AI routes, and an S3 storage gateway designed so file content and keys never pass through the portal.',
+      'Kept AI-speed delivery honest: 9 GitHub Actions workflows, a zero-debt lint gate, 3,600+ Apex test methods plus Vitest, Playwright and LWC Jest suites, and 93% Apex coverage. 4,400+ commits in six months.',
+      'Built security in: RS256 tenant JWTs, HMAC-signed requests, fail-closed replay protection, SSRF guards and a hash-chained audit log. Ran a white- and black-box pentest across 5 surfaces and fixed 26 of 35 findings.',
+      'Built an LLM support-ticket triage pipeline on AWS Lambda and SQS with the Anthropic API, and deliver client projects end to end, including a QuickBooks to Salesforce financial integration in MuleSoft.',
+    ],
+  },
+  {
+    lane: 'work',
+    title: 'Founder',
+    organisation: 'Everfrost',
+    period: '2026 to present',
+    points: [
+      'Run my own company making business software for Salesforce teams. Everfrost Vault, which keeps record files in customer-owned S3 storage, is ready for onboarding; Everfrost Docs is planned.',
+      'Build the products, customer platform and website, operate the infrastructure, and give the demos and support myself.',
     ],
   },
   {
     lane: 'work',
     title: 'Junior Software Developer',
     organisation: 'Apex Infinity Solutions',
-    period: '2024 to 2026',
+    period: '2025 to 2026',
     points: [
-      'Owned Salesforce configuration and development across data models, record types, page layouts, and Experience Cloud access controls.',
-      'Built backend services with Bun, Express, PostgreSQL, and Redis, deployed through Docker and AWS ECS.',
-      'Implemented Salesforce integrations and GitHub Actions pipelines with automated testing and security checks.',
+      'Took technical ownership of a client system after my manager left: redesigned the data model and hardened portal security.',
+      'Built backend services with Bun, Express, PostgreSQL and Redis on Docker and AWS ECS, and set up GitHub Actions CI/CD with automated tests and CodeQL and Snyk scanning.',
+    ],
+  },
+  {
+    lane: 'work',
+    title: 'Contract Infrastructure & Web Services Engineer',
+    organisation: 'Private client (online gaming community, under NDA)',
+    period: '2023 to 2025',
+    points: [
+      'Built and maintained the client’s AWS server estate: provisioning, configuration, patching, backups, monitoring and uptime for game and web servers.',
+      'Developed and ran player-facing web services, including in-game stores with account linking and automated delivery of purchases to the game servers.',
     ],
   },
   {
     lane: 'learning',
-    title: 'Self-directed software learning',
-    organisation: 'Independent study',
-    period: 'Since 2023',
+    title: 'Kernel driver development & vulnerability research',
+    organisation: 'Independent security research',
+    period: '2023 to present',
     summary:
-      'Learning through projects across TypeScript, Python, Apex, and C++, including WaveLink for Salesforce data work, Flux Terminal for AI coding sessions, File Insights for local metadata editing, and browser games built with Three.js and Canvas.',
+      'I write Windows kernel-mode drivers in C and C++ and research published CVEs: root-cause analysis and proof-of-concept exploits in isolated labs. It feeds directly into my secure-design and pentesting work.',
+  },
+  {
+    lane: 'learning',
+    title: 'Meta Back-End Developer Professional Certificate',
+    organisation: 'Meta, through Coursera',
+    period: '2026',
+    summary:
+      'Python, Django, Django REST Framework, SQL, Git and REST APIs. Now working towards the Amazon Junior Software Developer and Google UX Design professional certificates.',
   },
   {
     lane: 'learning',
     title: 'Extended Diploma in Engineering',
     organisation: 'Waterfront UTC, Kent',
-    period: 'May 2023',
-    summary: 'Focused on mechanical, electrical, and software engineering with practical project work.',
+    period: '2023',
+    summary: 'Mechanical, electrical and software engineering, with practical project work.',
   },
 ]
 
@@ -82,7 +112,11 @@ export default function AboutPage() {
     <PageTransition>
     <div className="pb-20 pt-20 md:pt-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <PageIntro label={`${siteConfig.title} · London`} title="About" lede={siteConfig.description}>
+        <PageIntro
+          label={`${siteConfig.title} · ${siteConfig.locationLabel} · ${siteConfig.availability}`}
+          title="About"
+          lede={siteConfig.description}
+        >
           <ButtonLink href="/resume.pdf" variant="primary" download>
             <Download aria-hidden="true" className="mr-2 h-5 w-5" /> Download my CV
           </ButtonLink>
@@ -104,22 +138,23 @@ export default function AboutPage() {
           </div>
           <div className={s.prose}>
             <p>
-              I am a <strong>Solutions Engineer at Apex Infinity Solutions</strong>, a Salesforce and technology
-              consultancy. I deliver client-facing implementations, integrations, and document automation, following a
-              Junior Software Developer role with the same team. Alongside that work, I build independent products and
-              explore rendering, developer tools, and systems programming.
+              I am a <strong>Solutions Engineer at Apex Infinity Solutions</strong>, a small UK Salesforce and technology
+              consultancy. I joined in 2025 as a Junior Software Developer and was promoted within a year. Today I am
+              the primary engineer behind the <strong>Infinity product suite</strong>: a multi-tenant
+              document-generation SaaS with its portal, licensing and storage products. I designed it, built it and run
+              it across TypeScript services, React, Salesforce, Terraform and AWS.
             </p>
             <p>
-              I am building <strong>Galacia</strong>, my independent software brand, starting with Galacia Vault for
-              Salesforce file storage. Its public website is live, while Vault remains in development and Docs, Track,
-              and Connect are planned concepts. I also build <strong>Docify</strong>, a native Rust document renderer, and
-              work on <strong>Infinity Docs</strong>, a Salesforce document-generation platform.
+              I work <strong>AI-native</strong> by default, with Claude Code and Codex running parallel agents in
+              worktrees. I keep that speed honest with CI quality gates, a critical review of every AI change, security
+              testing and trade-offs that are written down. Before this role I spent two years running AWS
+              infrastructure and web services on contract, and I research Windows kernel drivers and published CVEs.
             </p>
             <p>
-              My other work includes WaveLink, a Salesforce data workspace; Flux Terminal, an Electron app for exploring
-              AI coding sessions; and File Insights, a Python tool for editing local file metadata. I also build web
-              experiences such as The Loft Zante and Infinite Idea, and explore rendering and simulation through ExoCraft
-              and a Canvas tower-defense game.
+              Outside work I run <strong>Everfrost</strong>, my company making business software for Salesforce
+              teams, starting with Everfrost Vault. I also build <strong>Docify</strong>, a native Rust document
+              renderer, <strong>WaveLink</strong>, a published Chrome extension for Salesforce data, and{' '}
+              <strong>Thrift Map</strong>, a Flutter app live on Google Play.
             </p>
           </div>
         </section>

@@ -65,7 +65,7 @@ export default function ContactContent({ projectTitle }: { projectTitle?: string
                   </div>
                   <div>
                     <h2 className="text-white font-semibold mb-1">Location</h2>
-                    <p className="text-gray-400">{siteConfig.location} · open to remote</p>
+                    <p className="text-gray-400">Chatham, Kent, UK · open to London hybrid and remote</p>
                   </div>
                 </div>
               </Card>

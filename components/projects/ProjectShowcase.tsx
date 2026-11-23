@@ -122,27 +122,17 @@ function DocumentDemo({ merge = false }: { merge?: boolean }) {
 
 const products = {
   Vault: [
-    'Files, closer to the work.',
-    'In development',
-    'Connect Salesforce records to customer-owned storage.',
+    'Every Salesforce file, kept in a cloud you own.',
+    'Ready for onboarding',
+    'Files stay on the record. Their contents go to an Amazon S3 bucket your organisation owns.',
   ],
   Docs: [
-    'From information to document.',
-    'Planned concept',
-    'Reusable templates and a guided document workflow.',
-  ],
-  Track: [
-    'Know what happens next.',
-    'Planned concept',
-    'Delivery progress, ownership, and next actions.',
-  ],
-  Connect: [
-    'Keep the context together.',
-    'Planned concept',
-    'Team conversations alongside the work.',
+    'Documents, checked before they leave.',
+    'Planned · Next product',
+    'Document generation for Salesforce teams. No release date or price yet.',
   ],
 }
-function GalaciaDemo() {
+function EverfrostDemo() {
   const [product, setProduct] = useState('Vault')
   const item = products[product as keyof typeof products]
   return (
@@ -156,7 +146,7 @@ function GalaciaDemo() {
         <div className={styles.glacier} aria-hidden="true" />
         <div>
           <span className={styles.tag}>{item[1]}</span>
-          <p className={styles.brandName}>Galacia {product}.</p>
+          <p className={styles.brandName}>Everfrost {product}.</p>
           <h3>{item[0]}</h3>
           <p>{item[2]}</p>
         </div>
@@ -778,15 +768,15 @@ const showcases: Record<
     prompt: 'Choose an output format.',
     demo: <DocumentDemo />,
   },
-  'infinity-docs': {
+  'infinity-dox': {
     title: 'The right words. The right record.',
     prompt: 'Try a different sample contact.',
     demo: <DocumentDemo merge />,
   },
-  galacia: {
-    title: 'Explore what is taking shape.',
-    prompt: 'Pick a product direction.',
-    demo: <GalaciaDemo />,
+  everfrost: {
+    title: 'One product now. One on the way.',
+    prompt: 'Pick a product.',
+    demo: <EverfrostDemo />,
   },
   'the-loft-zante': {
     title: 'Find your evening.',
@@ -818,7 +808,7 @@ const showcases: Record<
     prompt: 'Step through an example offload.',
     demo: <StorageDemo />,
   },
-  'galacia-vault': {
+  'everfrost-vault': {
     title: 'Your files, in context.',
     prompt: 'Explore the record-linked storage concept.',
     demo: <StorageDemo vault />,

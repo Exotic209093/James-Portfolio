@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'James Collard — self-taught solutions engineer in London, UK. Background, skills, project history, work experience, and certifications.',
+    'James Collard, Solutions Engineer in Kent, UK and open to London hybrid. Experience, skills, project history and certifications.',
   alternates: { canonical: '/about' },
 }
 
