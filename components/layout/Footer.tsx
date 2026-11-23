@@ -19,7 +19,7 @@ export default function Footer() {
           <div className="max-w-md">
             <p className="text-xl font-semibold tracking-tight text-paper font-wide">{siteConfig.name}</p>
             <p className="mt-3 text-sm leading-relaxed text-muted">
-              {siteConfig.title} in London. Salesforce tools, document automation and software people use.
+              {siteConfig.title} in Kent, open to London hybrid. Full-stack SaaS, Salesforce and AWS, built AI-native.
             </p>
           </div>
 

@@ -23,11 +23,11 @@ export const projectEvidence: Record<string, ProjectEvidence> = {
     sourceUrl: 'https://github.com/Exotic209093/WaveLink/blob/e6a396b59e6e1c1febe5ec85c4765af74c971bf7/screenshots/README.md',
     sourceLabel: 'View the screenshot provenance',
   },
-  galacia: {
-    image: '/projects/evidence/galacia-live.webp',
-    alt: 'Galacia’s live public homepage introducing Salesforce file storage and showing the development status of its products.',
-    caption: 'The public Galacia website, captured on 27 September 2026. The website is live; Vault and Hosting remain in development, while Docs, Track and Connect are planned concepts.',
-    sourceUrl: 'https://galacia.app',
+  everfrost: {
+    image: '/projects/evidence/everfrost-live.webp',
+    alt: 'Everfrost’s live homepage: “Every Salesforce file, kept in a cloud you own”, with a Book a demo button and an example Salesforce record.',
+    caption: 'The public Everfrost website, captured on 23 November 2026. Everfrost Vault is ready for onboarding; Everfrost Docs is planned.',
+    sourceUrl: 'https://everfrost.app',
     sourceLabel: 'Visit the live website',
   },
 }

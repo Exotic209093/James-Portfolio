@@ -14,8 +14,8 @@ export default function Merge() {
           Hiring a Solutions Engineer?
         </h2>
         <p className={s.mergeCopy}>
-          I am open to opportunities where Salesforce, automation and product engineering meet. I also take on
-          freelance work: Salesforce solutions, internal tools and web builds.
+          I am open to full-stack and solutions engineering roles, London hybrid or remote, where SaaS, AWS and
+          Salesforce meet. I also take on freelance work: Salesforce solutions, internal tools and web builds.
         </p>
         <div className={s.cta}>
           <a href={siteConfig.links.email} className={`${s.pill} ${s.pillSolid}`}>

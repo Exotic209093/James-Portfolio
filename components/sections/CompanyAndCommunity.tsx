@@ -21,15 +21,15 @@ export default function CompanyAndCommunity({ contributions }: { contributions: 
           <h2 id="company-community-title">Building my own. Contributing to yours.</h2>
         </div>
         <div className={s.panels}>
-          <Link href="/galacia" className={`${s.panel} reveal`} style={{ '--a': '#79e5d2' } as CSSProperties}>
-            <p className={`label ${s.panelLabel}`}>Independent software</p>
-            <h3>Galacia</h3>
+          <Link href="/everfrost" className={`${s.panel} reveal`} style={{ '--a': '#a8dfeb' } as CSSProperties}>
+            <p className={`label ${s.panelLabel}`}>My company</p>
+            <h3>Everfrost</h3>
             <p>
-              My independent software brand, starting with Galacia Vault for Salesforce file storage. Explore the company
-              and the products taking shape.
+              Business software for Salesforce teams. Everfrost Vault keeps every record file in a cloud the customer
+              owns, and it is ready for onboarding. I build it, install it and support it.
             </p>
             <span className={s.panelLink}>
-              Meet Galacia <ArrowRight size={16} aria-hidden="true" />
+              Meet Everfrost <ArrowRight size={16} aria-hidden="true" />
             </span>
           </Link>
           <Link href="/open-source" className={`${s.panel} reveal`}>

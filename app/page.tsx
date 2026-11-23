@@ -17,10 +17,10 @@ export const revalidate = 3600
 // Four different kinds of work, chosen deliberately rather than by date.
 // `evidenceLabel` names the real screenshot or output each room can switch to.
 const exhibition: { id: string; proof: string; evidenceLabel?: string }[] = [
-  { id: 'wave-link', proof: 'Published Chrome extension · Salesforce data workflows', evidenceLabel: 'Screenshot' },
+  { id: 'infinity-dox', proof: 'Primary engineer · 4,400+ commits in six months · 93% Apex coverage' },
+  { id: 'everfrost', proof: 'My company · Vault ready for onboarding', evidenceLabel: 'Live site' },
   { id: 'docify', proof: 'Native Rust renderer · PDF, PNG and SVG output', evidenceLabel: 'Real output' },
-  { id: 'flux-terminal', proof: 'Released desktop app · Electron and xterm.js' },
-  { id: 'galacia', proof: 'Live product website · Independently built and deployed', evidenceLabel: 'Live site' },
+  { id: 'wave-link', proof: 'Published Chrome extension · Salesforce data workflows', evidenceLabel: 'Screenshot' },
 ]
 
 const scenes: SceneProject[] = exhibition.map(({ id, proof, evidenceLabel }) => {

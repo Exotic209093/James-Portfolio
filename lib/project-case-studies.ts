@@ -13,8 +13,10 @@ export interface ProjectCaseStudy {
   sources: { label: string; href: string }[]
 }
 
-// Reviewed against the owning repositories on 27 September 2026. These describe
-// implementation and release boundaries, not inferred customer impact. Docify's
+// Reviewed against the owning repositories on 27 September 2026; Infinity Dox and
+// Everfrost were added on 23 November 2026. Infinity Dox figures match the public CV.
+// These describe implementation and release boundaries, not inferred customer
+// impact. Docify's
 // private README confirms only the scope already described in this portfolio;
 // private templates, output files and internal links are deliberately not copied.
 export const projectCaseStudies: Partial<Record<string, ProjectCaseStudy>> = {
@@ -36,7 +38,7 @@ export const projectCaseStudies: Partial<Record<string, ProjectCaseStudy>> = {
     boundary: 'The public roadmap still tracks write correctness, scheduling reliability and data fidelity before the 1.0 release. Screenshots below show the identified release candidate, not a claim that every screen is in the store version.',
     contactLabel: 'Discuss a Salesforce integration',
     contactPrompt: 'Tell me which Salesforce data task you need to simplify, and where the current process breaks down.',
-    relatedProjectIds: ['salesforce-spreadsheet-formatter', 'galacia-vault'],
+    relatedProjectIds: ['salesforce-spreadsheet-formatter', 'everfrost-vault'],
     sources: [
       { label: 'Source and product overview', href: 'https://github.com/Exotic209093/WaveLink' },
       { label: 'Scope decisions and release roadmap', href: 'https://github.com/Exotic209093/WaveLink/blob/main/roadmap.md' },
@@ -60,31 +62,56 @@ export const projectCaseStudies: Partial<Record<string, ProjectCaseStudy>> = {
     boundary: 'The renderer source is private and DOCX remains pre-production. No private templates or customer documents are published here; the interactive studio is an illustrative explanation, not a browser build of the renderer.',
     contactLabel: 'Discuss document automation',
     contactPrompt: 'Tell me what creates your documents today, the formats you need, and which layout or integration constraints matter.',
-    relatedProjectIds: ['infinity-docs', 'file-insights'],
+    relatedProjectIds: ['infinity-dox', 'file-insights'],
     sources: [],
   },
-  galacia: {
-    reviewedAt: '2026-09-27',
-    problem: 'Galacia needed a public home that could explain its first product and show the longer-term direction without making future products look available. I built a product hub around clear availability information, preparation guides and a consistent visual identity.',
-    role: 'I created the brand and public website, built the product explorer and optional Three.js glacier, and organised the product work into separate repositories. I also worked on the company account beta and the website deployment on the shared OVH VPS.',
+  'infinity-dox': {
+    reviewedAt: '2026-11-23',
+    problem: 'Salesforce teams generate proposals, contracts and handover packs from record data, and every customer org needs its own isolated, auditable rendering. The Infinity product suite had to be multi-tenant and secure by default, and maintainable by a very small team moving at AI speed.',
+    role: 'I am the primary engineer on the Infinity product suite. I designed the architecture end to end, and I build and operate it: TypeScript services, the React portal, the Salesforce managed package, Terraform and AWS. I work AI-native, with Claude Code and Codex running parallel agents in worktrees, and I review every AI change before it merges.',
     decisions: [
       {
-        title: 'Make the visual layer optional',
-        detail: 'The glacier begins as an SVG and adds the 3D scene only when motion and data preferences allow it. Keyboard navigation, reduced motion and the static fallback remain part of the main experience, with rendering stopped when the scene is paused or offscreen.',
+        title: 'Let the quality gates set the pace',
+        detail: 'Agents write code faster than anyone can read it, so the gate decides what merges, not the author. Nine GitHub Actions workflows enforce a zero-debt lint gate, typecheck, tests, drift checks and SHA-pinned actions. A bad day means slower merges, but the speed never turns into silent debt.',
       },
       {
-        title: 'Separate a live website from a product launch',
-        detail: 'Product pages distinguish development, prototypes and planned concepts. The account portal is a beta with account-data controls, while live payments stay disabled and customer production has separate release and infrastructure gates.',
+        title: 'Fail closed between tenants',
+        detail: 'Each tenant authenticates with RS256 JWTs bound to key IDs. Requests are HMAC-signed, replay protection fails closed and outbound calls pass SSRF guards. Sensitive actions land in a hash-chained audit log, and the storage gateway is designed so file content and keys never pass through the portal.',
+      },
+      {
+        title: 'Lock the public API, write down the debt',
+        detail: 'Once a managed package is installed, its public API is effectively permanent. I locked it with a CI guard test and moved non-v1 code out of the package. Trade-offs such as staging cost against uptime are recorded in the changelog and runbooks rather than left in people’s heads.',
       },
     ],
-    outcome: 'The public website is live at galacia.app, with product pages, guides, support information and an account beta. It runs on the shared OVH VPS. Public-page checks cover responsive layouts, keyboard interaction and progressive enhancement.',
-    boundary: 'Galacia Vault is the first product and remains in development. Docs, Track and Connect are discovery concepts; Hosting is a prototype without a public hosting service. Website availability does not establish customer product acceptance.',
-    contactLabel: 'Discuss your website',
-    contactPrompt: 'Tell me what your product needs to communicate, who it is for, and which visitor journey should work first.',
-    relatedProjectIds: ['the-loft-zante', 'galacia-vault'],
+    outcome: '4,400+ commits in six months. 3,600+ Apex test methods alongside Vitest, Playwright and LWC Jest suites, with 93% Apex coverage. Terraform manages seven AWS environments. A white- and black-box pentest across five surfaces found 35 issues, and 26 of them are fixed.',
+    boundary: 'This is professional work at Apex Infinity Solutions, so the source, customer material and internal links stay private. The figures above come from the repositories and CI as of November 2026. Nine pentest findings were still open at that point.',
+    contactLabel: 'Discuss a SaaS or Salesforce build',
+    contactPrompt: 'Tell me what you are building, who uses it, and whether security, scale or delivery speed is the constraint.',
+    relatedProjectIds: ['docify', 'everfrost-vault'],
+    sources: [],
+  },
+  everfrost: {
+    reviewedAt: '2026-11-23',
+    problem: 'Selling my own software takes more than writing it. People need a product they can evaluate, a clear way to buy it, support I can actually promise, and infrastructure I can recover. Everfrost started with a broad lineup, then in November 2026 narrowed to one market: teams that run on Salesforce.',
+    role: 'I run Everfrost on my own. I build the products, the customer platform and the website, operate the server, give the demos and answer support.',
+    decisions: [
+      {
+        title: 'Sell one product, park the rest',
+        detail: 'The original lineup had five products. I cut it to Vault, available now, and Docs, planned, and parked Track and Connect with their research kept. With fewer products, every claim on the site can be backed up.',
+      },
+      {
+        title: 'Label everything for what it is',
+        detail: 'Every product page carries its status: a planned product is called planned, and an illustration is labelled as one. The support page names the support hours and says there is no backup cover yet. Buying is a demo, then a written offer, then payment, so nothing is charged before the scope is agreed.',
+      },
+    ],
+    outcome: 'everfrost.app is live with product, pricing, security and support pages, a free storage cost calculator, and an 18-second recording of Vault on a real Salesforce record. Vault is ready for onboarding and the customer platform is in beta. The services run on a self-managed VPS with encrypted off-host backups and a restore drill that passed.',
+    boundary: 'No customer or revenue figures are claimed here. Everfrost Docs has no release date or price, and the product repositories are private. Everfrost was called Galacia until 17 November 2026.',
+    contactLabel: 'Discuss your product',
+    contactPrompt: 'Tell me what you are building, who it is for, and what has to be true before you can sell it.',
+    relatedProjectIds: ['everfrost-vault', 'wave-link'],
     sources: [
-      { label: 'Visit the public website', href: 'https://galacia.app' },
-      { label: 'Vault availability and preparation', href: 'https://galacia.app/galacia-vault/' },
+      { label: 'Visit the public website', href: 'https://everfrost.app' },
+      { label: 'Everfrost Vault: how it works, limits and pricing', href: 'https://everfrost.app/everfrost-vault/' },
     ],
   },
   'the-loft-zante': {
@@ -105,7 +132,7 @@ export const projectCaseStudies: Partial<Record<string, ProjectCaseStudy>> = {
     boundary: 'The previously linked Vercel preview was unavailable when reviewed. Source is available below; no visitor, booking or revenue impact is claimed.',
     contactLabel: 'Discuss your website',
     contactPrompt: 'Tell me about your business, who the website should help, and what visitors need to do.',
-    relatedProjectIds: ['galacia', 'bloons-tower-defense'],
+    relatedProjectIds: ['everfrost', 'bloons-tower-defense'],
     sources: [
       { label: 'Website source', href: 'https://github.com/Exotic209093/the-loft-zante' },
       { label: 'Menu implementation and sample-content label', href: 'https://github.com/Exotic209093/the-loft-zante/blob/main/components/MenuBrowser.tsx' },

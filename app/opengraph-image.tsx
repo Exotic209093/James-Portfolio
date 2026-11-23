@@ -41,7 +41,7 @@ export default async function OpenGraphImage() {
         }}
       >
         <div style={{ display: 'flex', fontFamily: 'JetBrains Mono', fontSize: 22, letterSpacing: 3, color: muted }}>
-          SOLUTIONS ENGINEER · LONDON · OPEN TO OPPORTUNITIES
+          SOLUTIONS ENGINEER · KENT, UK · OPEN TO LONDON HYBRID
         </div>
 
         <div
@@ -58,7 +58,7 @@ export default async function OpenGraphImage() {
         </div>
 
         <div style={{ display: 'flex', marginTop: 32, maxWidth: 860, fontSize: 34, lineHeight: 1.4, color: muted }}>
-          Salesforce tools, document automation and the software people use.
+          Full-stack SaaS on TypeScript, AWS and Salesforce. Built AI-native, tested properly.
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', marginTop: 'auto' }}>

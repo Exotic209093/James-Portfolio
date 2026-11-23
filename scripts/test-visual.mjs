@@ -231,7 +231,8 @@ try {
   })
 
   await check('desktop: a work scene switches between artwork and its real screenshot', async () => {
-    const el = `document.querySelector('#work [data-scene="0"]')`
+    // Not every scene has a screenshot, so use the first one that offers the switch.
+    const el = `[...document.querySelectorAll('#work [data-scene]')].find((scene) => scene.querySelector('[aria-pressed]'))`
     await scrollTo(`${el}.getBoundingClientRect().top + scrollY + (${el}.offsetHeight - innerHeight) * 0.62`)
     const view = () => evaluate(`${el}.querySelector('[data-view]').dataset.view`)
     assert.equal(await view(), 'art')
@@ -265,7 +266,7 @@ try {
     await screenshot('desktop-calm-work')
   })
 
-  for (const path of ['/projects', '/about', '/contact', '/open-source', '/projects/wave-link']) {
+  for (const path of ['/projects', '/about', '/contact', '/open-source', '/everfrost', '/projects/wave-link', '/projects/infinity-dox', '/projects/thrift-map']) {
     for (const label of ['desktop', 'phone']) {
       await open(path, viewports[label])
       await check(`${label}: ${path} has no overflow or console errors`, async () => {

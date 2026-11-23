@@ -57,13 +57,16 @@ export const metadata: Metadata = {
     'developer tooling',
     'Salesforce',
     'Apex',
-    'AppExchange',
-    'AI agents',
-    'Anthropic Agent SDK',
+    'AI-native',
+    'Anthropic API',
+    'Claude Code',
     'TypeScript',
     'Python',
     'full-stack',
     'developer',
+    'AWS',
+    'Terraform',
+    'Kent',
     'London',
     'UK',
   ],
@@ -112,7 +115,8 @@ export default function RootLayout({
     email: siteConfig.links.email.replace('mailto:', ''),
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'London',
+      addressLocality: 'Chatham',
+      addressRegion: 'Kent',
       addressCountry: 'GB',
     },
     sameAs: [
@@ -123,10 +127,17 @@ export default function RootLayout({
     knowsAbout: [
       'Salesforce',
       'Apex',
-      'AI agents',
       'TypeScript',
       'Python',
+      'AWS',
+      'Terraform',
+      'LLM pipelines',
+      'Application security',
       'Systems programming',
+    ],
+    worksFor: [
+      { '@type': 'Organization', name: 'Apex Infinity Solutions' },
+      { '@type': 'Organization', name: 'Everfrost', url: siteConfig.links.everfrost },
     ],
   }
 

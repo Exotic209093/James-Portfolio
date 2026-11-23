@@ -2,21 +2,25 @@ export const siteConfig = {
   name: 'James Collard',
   title: 'Solutions Engineer',
   description:
-    'I build software end to end, from Salesforce implementations and document automation to Galacia, my independent software brand, desktop tools, and interactive web experiences. My work combines TypeScript, Python, and systems programming with a focus on useful products and thoughtful details.',
+    'Full-stack engineer working AI-native across TypeScript, Python and AWS. Primary engineer on the Infinity product suite at Apex Infinity Solutions, and founder of Everfrost, a company building Salesforce software.',
   url: 'https://james-c.app',
   ogImage: '/og-image.jpg',
-  location: 'London, United Kingdom',
+  location: 'Chatham, Kent, United Kingdom',
+  /** Short form for labels: where I am, and where I will work. */
+  locationLabel: 'Kent, UK',
+  availability: 'Open to London hybrid',
   links: {
     twitter: 'https://twitter.com/Exotic209093',
     github: 'https://github.com/Exotic209093',
     linkedin: 'https://www.linkedin.com/in/james-collard-6b925a313/',
     email: 'mailto:jamescollard2005@gmail.com',
     chromeStore: 'https://chromewebstore.google.com/detail/wavelink-salesforce-data/ccknhhibbedolfnbgnenomdohlmojblo',
+    everfrost: 'https://everfrost.app',
   },
 }
 
 // Four destinations keep the full navigation on one line from 1024px.
-// Galacia and Certifications stay reachable from Work, About, the footer and
+// Everfrost and Certifications stay reachable from Work, About, the footer and
 // the command palette.
 export const navigation = [
   { name: 'Work', href: '/projects' },
@@ -29,24 +33,37 @@ export const sitePages = [
   { name: 'Home', href: '/' },
   { name: 'Work', href: '/projects' },
   { name: 'About', href: '/about' },
-  { name: 'Galacia', href: '/galacia' },
+  { name: 'Everfrost', href: '/everfrost' },
   { name: 'Open source', href: '/open-source' },
   { name: 'Certifications', href: '/certifications' },
   { name: 'Contact', href: '/contact' },
 ]
 
+// Mirrors the Core Skills section of public/resume.pdf. Keep the two in step.
 export const skills = [
   {
     category: 'Languages',
-    items: ['TypeScript', 'JavaScript', 'Python', 'Rust', 'C++', 'C', 'Apex (Salesforce)', 'Dart', 'C#', 'SQL'],
+    items: ['TypeScript', 'JavaScript', 'Python', 'SQL', 'Apex', 'Bash', 'C / C++', 'Rust'],
   },
   {
-    category: 'Frameworks & Runtimes',
-    items: ['Next.js', 'React', 'Node.js', 'Electron', 'Flask', 'Three.js', 'Preact', 'Vite', 'tldraw', 'Flutter', 'Bun', 'Hono'],
+    category: 'Backend & Data',
+    items: ['Node.js', 'Bun', 'Fastify', 'Hono', 'Express', 'Django / DRF', 'REST API design & versioning', 'PostgreSQL', 'SQLite', 'DynamoDB', 'Redis'],
   },
   {
-    category: 'Platforms & Tools',
-    items: ['Salesforce / Apex / LWC', 'Chrome Extensions', 'xterm.js / node-pty', 'HTML5 Canvas', 'SQLite / FTS5', 'AWS', 'Docker', 'GitHub Actions', 'Git', 'Jest', 'Vitest', 'Playwright', 'pytest'],
+    category: 'AI & LLMs',
+    items: ['Anthropic API / SDK', 'LLM pipelines', 'Classifier / executor agents', 'Draft / fix / transform workers', 'Einstein / Agentforce', 'Claude Code', 'Codex', 'Custom agent skills'],
+  },
+  {
+    category: 'Cloud & DevOps',
+    items: ['AWS EC2', 'ECS Fargate', 'Lambda', 'SQS', 'S3', 'DynamoDB', 'ECR', 'Secrets Manager', 'Terraform', 'Docker', 'Linux server administration', 'GitHub Actions (OIDC)', 'CodeBuild'],
+  },
+  {
+    category: 'Security & Quality',
+    items: ['JWT (RS256)', 'HMAC request signing', 'Audit logging', 'Pentesting & remediation', 'Windows kernel drivers', 'CVE analysis', 'Vitest', 'Playwright', 'Jest', 'Apex tests', 'CodeQL', 'Snyk'],
+  },
+  {
+    category: 'Frontend & Salesforce',
+    items: ['React', 'Vite', 'Next.js', 'Tailwind CSS', 'Flutter', 'Apex', 'Lightning Web Components', '2GP managed packages', 'Experience Cloud', 'MuleSoft'],
   },
 ]
 
